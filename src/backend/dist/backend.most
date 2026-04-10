@@ -1,0 +1,73 @@
+// Version: 1.0.0
+type ApplicationId__52996827 = ApplicationId__702901380;
+type ApplicationId__702901380 = Nat;
+type Application__678882009 =
+  {
+    appliedAt : Timestamp__1056154367;
+    email : Text;
+    id : ApplicationId__52996827;
+    interviewId : ?InterviewId__419868766;
+    message : Text;
+    name : Text;
+    phone : Text;
+    qualification : Text;
+    skills : Text
+  };
+type InterviewId__419868766 = InterviewId__480311998;
+type InterviewId__480311998 = Nat;
+type InterviewId__507521920 = InterviewId__480311998;
+type Interview__489315780 =
+  {
+    company : Text;
+    createdAt : Timestamp__902816084;
+    date : Text;
+    description : Text;
+    id : InterviewId__507521920;
+    isActive : Bool;
+    jobRole : Text;
+    location : Text;
+    time : Text
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type ShiftJobId__1067587738 = Nat;
+type ShiftJobId__174354847 = ShiftJobId__1067587738;
+type ShiftJob__786205881 =
+  {
+    company : Text;
+    createdAt : Int;
+    description : Text;
+    id : ShiftJobId__174354847;
+    isActive : Bool;
+    jobRole : Text;
+    location : Text;
+    shiftEnd : Text;
+    shiftStart : Text;
+    shiftType : Text
+  };
+type Timestamp__1056154367 = Timestamp__301639476;
+type Timestamp__301639476 = Int;
+type Timestamp__902816084 = Timestamp__301639476;
+actor {
+  stable applications :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Application__678882009]];
+      var elementIndex : Nat__490723111
+    };
+  stable interviews :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Interview__489315780]];
+      var elementIndex : Nat__490723111
+    };
+  stable nextApplicationId : {var value : Nat};
+  stable nextInterviewId : {var value : Nat};
+  stable nextShiftJobId : {var value : Nat};
+  stable shiftJobs :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ShiftJob__786205881]];
+      var elementIndex : Nat__490723111
+    }
+};

@@ -1,0 +1,73 @@
+type Timestamp = int;
+type ShiftJobId = nat;
+type ShiftJob = 
+ record {
+   company: text;
+   createdAt: int;
+   description: text;
+   id: ShiftJobId;
+   isActive: bool;
+   jobRole: text;
+   location: text;
+   shiftEnd: text;
+   shiftStart: text;
+   shiftType: text;
+ };
+type NewShiftJob = 
+ record {
+   company: text;
+   description: text;
+   jobRole: text;
+   location: text;
+   shiftEnd: text;
+   shiftStart: text;
+   shiftType: text;
+ };
+type InterviewId = nat;
+type Interview = 
+ record {
+   company: text;
+   createdAt: Timestamp;
+   date: text;
+   description: text;
+   id: InterviewId;
+   isActive: bool;
+   jobRole: text;
+   location: text;
+   time: text;
+ };
+type ApplicationInput = 
+ record {
+   email: text;
+   interviewId: opt InterviewId;
+   message: text;
+   name: text;
+   phone: text;
+   qualification: text;
+   skills: text;
+ };
+type ApplicationId = nat;
+type Application = 
+ record {
+   appliedAt: Timestamp;
+   email: text;
+   id: ApplicationId;
+   interviewId: opt InterviewId;
+   message: text;
+   name: text;
+   phone: text;
+   qualification: text;
+   skills: text;
+ };
+service : {
+  addShiftJob: (input: NewShiftJob) -> (ShiftJob);
+  getActiveInterviews: () -> (vec Interview) query;
+  getAllApplications: () -> (vec Application) query;
+  getInterview: (id: InterviewId) -> (opt Interview) query;
+  getShiftJobs: () -> (vec ShiftJob) query;
+  submitApplication: (input: ApplicationInput) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+}

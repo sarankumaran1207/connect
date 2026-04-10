@@ -1,0 +1,791 @@
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Link } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Briefcase,
+  Building2,
+  CheckCircle,
+  ClipboardList,
+  DollarSign,
+  GraduationCap,
+  MapPin,
+  Search,
+  X,
+} from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
+
+const BRANCH_OPTIONS = [
+  "Computer Science",
+  "Information Technology",
+  "Electronics",
+  "Mechanical",
+  "Civil",
+  "Electrical",
+  "Business Administration",
+  "Commerce",
+  "Arts",
+  "Other",
+];
+
+const GOVT_ID_OPTIONS = [
+  "Aadhaar Card",
+  "PAN Card",
+  "Voter ID",
+  "Driving License",
+  "Passport",
+];
+
+type InternshipFormState = {
+  fullName: string;
+  email: string;
+  phone: string;
+  branch: string;
+  address: string;
+  govtId: string;
+  githubLink: string;
+  linkedinLink: string;
+};
+
+const EMPTY_FORM: InternshipFormState = {
+  fullName: "",
+  email: "",
+  phone: "",
+  branch: "",
+  address: "",
+  govtId: "",
+  githubLink: "",
+  linkedinLink: "",
+};
+
+function InternshipApplicationForm({
+  internshipTitle,
+  onClose,
+}: {
+  internshipTitle: string;
+  onClose: () => void;
+}) {
+  const [form, setForm] = useState<InternshipFormState>(EMPTY_FORM);
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleChange(field: keyof InternshipFormState, value: string) {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSubmitted(true);
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.35 }}
+      className="border border-primary/30 rounded-xl bg-card shadow-elevated overflow-hidden"
+      data-ocid="internship-application-form"
+    >
+      {/* Form Header */}
+      <div className="bg-primary px-6 py-4 flex items-center justify-between">
+        <div>
+          <p className="text-primary-foreground/80 text-xs font-medium uppercase tracking-wider">
+            Applying for
+          </p>
+          <h3 className="font-display font-bold text-lg text-primary-foreground leading-tight">
+            {internshipTitle}
+          </h3>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="w-8 h-8 rounded-full bg-primary-foreground/15 flex items-center justify-center hover:bg-primary-foreground/25 transition-smooth text-primary-foreground"
+          aria-label="Close application form"
+          data-ocid="internship-form-close"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      </div>
+
+      {submitted ? (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="px-6 py-12 text-center space-y-3"
+          data-ocid="internship-form-success"
+        >
+          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+            <CheckCircle className="w-8 h-8 text-primary" />
+          </div>
+          <h4 className="font-display font-bold text-xl text-foreground">
+            Application Submitted!
+          </h4>
+          <p className="text-muted-foreground text-sm max-w-sm mx-auto">
+            Thank you for applying for <strong>{internshipTitle}</strong>. Our
+            team will review your details and get back to you shortly.
+          </p>
+          <Button
+            variant="outline"
+            className="border-primary text-primary hover:bg-primary/5 mt-2"
+            onClick={onClose}
+            data-ocid="internship-form-done"
+          >
+            Close
+          </Button>
+        </motion.div>
+      ) : (
+        <form onSubmit={handleSubmit} className="px-6 py-6 space-y-5">
+          {/* Step indicator row */}
+          <p className="text-xs text-muted-foreground font-medium">
+            All fields are required. Please fill in your details accurately.
+          </p>
+
+          {/* Row 1 — Full Name */}
+          <div className="space-y-1.5">
+            <Label
+              htmlFor="intern-fullName"
+              className="font-semibold text-foreground text-sm"
+            >
+              1. Full Name
+            </Label>
+            <Input
+              id="intern-fullName"
+              type="text"
+              placeholder="Enter your full name"
+              value={form.fullName}
+              onChange={(e) => handleChange("fullName", e.target.value)}
+              required
+              data-ocid="intern-input-fullname"
+              className="bg-background border-input focus:border-primary"
+            />
+          </div>
+
+          {/* Row 2 — Email + Phone (side by side on md+) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label
+                htmlFor="intern-email"
+                className="font-semibold text-foreground text-sm"
+              >
+                2. Email Address
+              </Label>
+              <Input
+                id="intern-email"
+                type="email"
+                placeholder="you@example.com"
+                value={form.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+                required
+                data-ocid="intern-input-email"
+                className="bg-background border-input focus:border-primary"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label
+                htmlFor="intern-phone"
+                className="font-semibold text-foreground text-sm"
+              >
+                3. Phone Number
+              </Label>
+              <Input
+                id="intern-phone"
+                type="number"
+                placeholder="10-digit mobile number"
+                value={form.phone}
+                onChange={(e) => handleChange("phone", e.target.value)}
+                required
+                data-ocid="intern-input-phone"
+                className="bg-background border-input focus:border-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
+            </div>
+          </div>
+
+          {/* Row 3 — Branch */}
+          <div className="space-y-1.5">
+            <Label
+              htmlFor="intern-branch"
+              className="font-semibold text-foreground text-sm"
+            >
+              4. Branch / Stream
+            </Label>
+            <Select
+              value={form.branch}
+              onValueChange={(v) => handleChange("branch", v)}
+              required
+            >
+              <SelectTrigger
+                id="intern-branch"
+                className="bg-background border-input focus:border-primary"
+                data-ocid="intern-select-branch"
+              >
+                <SelectValue placeholder="Select your branch or stream" />
+              </SelectTrigger>
+              <SelectContent>
+                {BRANCH_OPTIONS.map((opt) => (
+                  <SelectItem key={opt} value={opt}>
+                    {opt}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Row 4 — Current Address */}
+          <div className="space-y-1.5">
+            <Label
+              htmlFor="intern-address"
+              className="font-semibold text-foreground text-sm"
+            >
+              5. Current Address
+            </Label>
+            <Textarea
+              id="intern-address"
+              placeholder="House/Flat No., Street, City, State, PIN"
+              value={form.address}
+              onChange={(e) => handleChange("address", e.target.value)}
+              required
+              rows={3}
+              data-ocid="intern-input-address"
+              className="bg-background border-input focus:border-primary resize-none"
+            />
+          </div>
+
+          {/* Row 5 — Govt ID */}
+          <div className="space-y-1.5">
+            <Label
+              htmlFor="intern-govtId"
+              className="font-semibold text-foreground text-sm"
+            >
+              6. Government ID Proof
+            </Label>
+            <Select
+              value={form.govtId}
+              onValueChange={(v) => handleChange("govtId", v)}
+              required
+            >
+              <SelectTrigger
+                id="intern-govtId"
+                className="bg-background border-input focus:border-primary"
+                data-ocid="intern-select-govtid"
+              >
+                <SelectValue placeholder="Select your ID proof type" />
+              </SelectTrigger>
+              <SelectContent>
+                {GOVT_ID_OPTIONS.map((opt) => (
+                  <SelectItem key={opt} value={opt}>
+                    {opt}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Row 6 — GitHub + LinkedIn (side by side on md+) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label
+                htmlFor="intern-github"
+                className="font-semibold text-foreground text-sm"
+              >
+                7. GitHub Repository Link
+              </Label>
+              <Input
+                id="intern-github"
+                type="url"
+                placeholder="https://github.com/your-username/project"
+                value={form.githubLink}
+                onChange={(e) => handleChange("githubLink", e.target.value)}
+                required
+                data-ocid="intern-input-github"
+                className="bg-background border-input focus:border-primary"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label
+                htmlFor="intern-linkedin"
+                className="font-semibold text-foreground text-sm"
+              >
+                8. LinkedIn Profile Link
+              </Label>
+              <Input
+                id="intern-linkedin"
+                type="url"
+                placeholder="https://linkedin.com/in/your-profile"
+                value={form.linkedinLink}
+                onChange={(e) => handleChange("linkedinLink", e.target.value)}
+                required
+                data-ocid="intern-input-linkedin"
+                className="bg-background border-input focus:border-primary"
+              />
+            </div>
+          </div>
+
+          {/* Submit */}
+          <div className="flex items-center gap-3 pt-2 border-t border-border">
+            <Button
+              type="submit"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold gap-2"
+              data-ocid="intern-form-submit"
+            >
+              Submit Application
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              className="text-muted-foreground hover:text-foreground"
+              onClick={onClose}
+              data-ocid="intern-form-cancel"
+            >
+              Cancel
+            </Button>
+          </div>
+        </form>
+      )}
+    </motion.div>
+  );
+}
+
+const SERVICES = [
+  {
+    icon: DollarSign,
+    title: "Internships with Stipend",
+    badge: "Paid",
+    badgeVariant: "default" as const,
+    description:
+      "Earn while you learn. Our stipend-based internship programme connects fresh graduates with companies offering real work experience and monthly compensation.",
+    features: [
+      "Stipend range: ₹5,000 – ₹25,000/month",
+      "Duration: 3 to 12 months",
+      "Domains: IT, Marketing, Finance, HR, Operations",
+      "Certificate of completion provided",
+      "Pre-placement offer (PPO) possibility",
+    ],
+    cta: "Find Paid Internships",
+    colorBg: "bg-primary/8",
+    iconColor: "text-primary",
+    isInternship: true,
+  },
+  {
+    icon: GraduationCap,
+    title: "Internships without Stipend",
+    badge: "Skill Building",
+    badgeVariant: "secondary" as const,
+    description:
+      "Build your portfolio and resume with hands-on exposure. Perfect for recent graduates who want industry experience to land their first job.",
+    features: [
+      "Duration: 1 to 6 months",
+      "Gain industry-relevant skills",
+      "Letter of recommendation on completion",
+      "Mentorship from professionals",
+      "Resume & LinkedIn profile support",
+    ],
+    cta: "Explore Skill Internships",
+    colorBg: "bg-accent/15",
+    iconColor: "text-accent-foreground",
+    isInternship: true,
+  },
+  {
+    icon: Briefcase,
+    title: "Job Opportunities",
+    badge: "Full-time",
+    badgeVariant: "default" as const,
+    description:
+      "Curated full-time job listings for unemployed individuals. From entry-level roles to mid-management, we partner with companies actively hiring right now.",
+    features: [
+      "Entry-level and experienced roles",
+      "Salary range: ₹2L – ₹12L CTC",
+      "Verified employers only",
+      "Fast-tracked hiring process",
+      "All industries and sectors covered",
+    ],
+    cta: "Browse Job Openings",
+    colorBg: "bg-primary/8",
+    iconColor: "text-primary",
+    isInternship: false,
+    linkTo: "/apply" as const,
+  },
+  {
+    icon: MapPin,
+    title: "Walk-in Interview Drives",
+    badge: "Walk-in Only",
+    badgeVariant: "default" as const,
+    description:
+      "No online rounds, no video calls. Walk directly into our organised drives and face-to-face interviews. The most human way to get hired.",
+    features: [
+      "185+ drives every month",
+      "Multiple companies, one venue",
+      "No prior registration required",
+      "Instant feedback from interviewers",
+      "Multiple roles per drive",
+    ],
+    cta: "View Upcoming Drives",
+    colorBg: "bg-primary/8",
+    iconColor: "text-primary",
+    isInternship: false,
+    linkTo: "/interviews" as const,
+  },
+];
+
+const HOW_IT_WORKS = [
+  {
+    step: "01",
+    icon: ClipboardList,
+    title: "Register",
+    description:
+      "Fill out a simple form with your name, qualification, skills, and contact details. Takes less than 2 minutes.",
+  },
+  {
+    step: "02",
+    icon: Search,
+    title: "Browse Opportunities",
+    description:
+      "Explore internships, jobs, and upcoming walk-in interview drives tailored to your profile and interests.",
+  },
+  {
+    step: "03",
+    icon: Building2,
+    title: "Walk-in & Get Hired",
+    description:
+      "Show up at the scheduled venue, meet employers directly, and take the first step toward your new career.",
+  },
+];
+
+export function ServicesPage() {
+  // activeForm stores the title of the internship whose form is currently open, or null
+  const [activeForm, setActiveForm] = useState<string | null>(null);
+
+  function openForm(title: string) {
+    setActiveForm((prev) => (prev === title ? null : title));
+  }
+
+  function closeForm() {
+    setActiveForm(null);
+  }
+
+  return (
+    <div>
+      {/* Hero */}
+      <section
+        className="bg-card border-b border-border py-14 lg:py-20"
+        data-ocid="services-hero"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-3xl space-y-5"
+          >
+            <div className="flex items-center gap-2 text-sm text-primary font-medium">
+              <span className="w-6 h-0.5 bg-primary inline-block" />
+              Our Services
+            </div>
+            <h1 className="font-display font-bold text-4xl sm:text-5xl text-foreground leading-tight">
+              Every pathway you need to{" "}
+              <span className="text-primary">launch your career</span>
+            </h1>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Whether you're a fresh graduate or have been job-seeking for
+              months, CONNECT has a programme tailored for exactly where you
+              are.
+            </p>
+            {/* Walk-in Only Badge */}
+            <div className="inline-flex items-center gap-2 bg-primary text-primary-foreground rounded-full px-5 py-2.5 font-display font-semibold text-sm shadow-elevated">
+              <BadgeCheck className="w-4 h-4 shrink-0" />
+              Walk-in Only — No Online Interviews
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Service Cards */}
+      <section
+        className="bg-background py-16 lg:py-20"
+        data-ocid="service-cards-section"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="text-center mb-10"
+          >
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-foreground">
+              What We Offer
+            </h2>
+            <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+              Four focused programmes, each designed to meet you where you are
+              and take you where you want to go.
+            </p>
+          </motion.div>
+
+          {SERVICES.map((service, i) => {
+            const Icon = service.icon;
+            const isEven = i % 2 === 0;
+            const isFormOpen = activeForm === service.title;
+
+            return (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, x: isEven ? -24 : 24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="space-y-0"
+              >
+                <Card
+                  className={`border-border overflow-hidden ${isFormOpen ? "rounded-b-none border-b-0" : ""}`}
+                  data-ocid={`service-detail-${i}`}
+                >
+                  <CardContent className="p-0">
+                    <div className="grid grid-cols-1 lg:grid-cols-2">
+                      <div
+                        className={`${service.colorBg} p-8 lg:p-12 flex flex-col justify-center space-y-4 ${!isEven ? "lg:order-2" : ""}`}
+                      >
+                        <div className="w-14 h-14 rounded-2xl bg-background/70 flex items-center justify-center">
+                          <Icon className={`w-7 h-7 ${service.iconColor}`} />
+                        </div>
+                        <Badge
+                          variant={service.badgeVariant}
+                          className="w-fit text-xs"
+                        >
+                          {service.badge}
+                        </Badge>
+                        <h2 className="font-display font-bold text-2xl sm:text-3xl text-foreground">
+                          {service.title}
+                        </h2>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {service.description}
+                        </p>
+
+                        {service.isInternship ? (
+                          <Button
+                            className={`w-fit gap-2 font-semibold transition-smooth ${
+                              isFormOpen
+                                ? "bg-primary/15 text-primary border border-primary hover:bg-primary/20"
+                                : "bg-primary hover:bg-primary/90 text-primary-foreground"
+                            }`}
+                            onClick={() => openForm(service.title)}
+                            data-ocid={`service-cta-${i}`}
+                          >
+                            {isFormOpen ? "Close Application" : service.cta}
+                            <ArrowRight
+                              className={`w-4 h-4 transition-transform duration-200 ${isFormOpen ? "rotate-90" : ""}`}
+                            />
+                          </Button>
+                        ) : (
+                          <Link to={service.linkTo!}>
+                            <Button
+                              className="w-fit bg-primary hover:bg-primary/90 text-primary-foreground gap-2 font-semibold"
+                              data-ocid={`service-cta-${i}`}
+                            >
+                              {service.cta}
+                              <ArrowRight className="w-4 h-4" />
+                            </Button>
+                          </Link>
+                        )}
+                      </div>
+                      <div
+                        className={`p-8 lg:p-12 bg-card space-y-3 ${!isEven ? "lg:order-1" : ""}`}
+                      >
+                        <h3 className="font-display font-semibold text-lg text-foreground mb-4">
+                          What's Included
+                        </h3>
+                        {service.features.map((feat) => (
+                          <div
+                            key={feat}
+                            className="flex items-start gap-3 border-l-2 border-primary pl-3"
+                          >
+                            <span className="text-sm text-foreground">
+                              {feat}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Inline Application Form — only for internship cards */}
+                {service.isInternship && (
+                  <AnimatePresence>
+                    {isFormOpen && (
+                      <div className="border border-t-0 border-primary/30 rounded-b-xl overflow-hidden">
+                        <InternshipApplicationForm
+                          internshipTitle={service.title}
+                          onClose={closeForm}
+                        />
+                      </div>
+                    )}
+                  </AnimatePresence>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section
+        className="bg-muted/30 py-16 lg:py-20"
+        data-ocid="how-it-works-section"
+      >
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-3">
+              How It Works
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Three simple steps to go from unemployed to employed — no
+              complicated process, no waiting around.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+            {HOW_IT_WORKS.map((step, index) => {
+              const Icon = step.icon;
+              return (
+                <motion.div
+                  key={step.step}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  className="bg-card rounded-xl p-6 text-center border border-border shadow-subtle relative"
+                  data-ocid={`step-card-${index}`}
+                >
+                  {/* Step number */}
+                  <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-display font-bold text-sm mx-auto mb-4 shadow-elevated">
+                    {step.step}
+                  </div>
+                  {/* Icon */}
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-display text-lg font-bold text-foreground mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {step.description}
+                  </p>
+                  {/* Arrow between steps */}
+                  {index < HOW_IT_WORKS.length - 1 && (
+                    <ArrowRight className="hidden md:block absolute -right-3.5 top-10 w-7 h-7 text-primary z-10 bg-muted/30 rounded-full p-1" />
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Walk-in Spotlight */}
+      <section
+        className="bg-background py-14 px-4"
+        data-ocid="walkin-spotlight"
+      >
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="bg-primary rounded-2xl p-8 md:p-10 text-primary-foreground text-center shadow-elevated"
+          >
+            <div className="w-14 h-14 rounded-full bg-primary-foreground/20 flex items-center justify-center mx-auto mb-5">
+              <BadgeCheck className="w-8 h-8 text-primary-foreground" />
+            </div>
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-3">
+              Walk-in Only — No Online Interviews
+            </h2>
+            <p className="text-primary-foreground/80 max-w-xl mx-auto mb-6 leading-relaxed">
+              Every interview at CONNECT is conducted in person. We believe in
+              real connections — meet your future employer face-to-face, make a
+              lasting impression, and get hired faster.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 text-sm font-semibold">
+              {[
+                "No video calls",
+                "No written tests online",
+                "No ghosting",
+                "Direct employer access",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="flex items-center gap-1.5 bg-primary-foreground/15 rounded-full px-4 py-1.5"
+                >
+                  <CheckCircle className="w-3.5 h-3.5 shrink-0" />
+                  {item}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-muted/30 py-14" data-ocid="services-cta">
+        <div className="max-w-2xl mx-auto px-4 text-center space-y-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="font-display font-bold text-3xl text-foreground">
+              Ready to Get Started?
+            </h2>
+            <p className="text-muted-foreground mt-2">
+              Join thousands of youth who have found internships and jobs
+              through CONNECT. Your opportunity is just one walk-in away.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center mt-6">
+              <Link to="/apply">
+                <Button
+                  size="lg"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold gap-2"
+                  data-ocid="services-cta-apply"
+                >
+                  Apply Now — Free
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+              <Link to="/interviews">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary text-primary hover:bg-primary/5 font-semibold"
+                  data-ocid="services-cta-interviews"
+                >
+                  View Walk-in Drives
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+}
