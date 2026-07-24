@@ -31,6 +31,21 @@ export interface ApplicationInput {
   'skills' : string,
   'qualification' : string,
 }
+export type Error = { 'FrontendOriginsNotConfigured' : null } |
+  {
+    'MixedSsoSources' : {
+      'otherKeys' : Array<string>,
+      'ssoKeys' : Array<string>,
+    }
+  } |
+  { 'Stale' : { 'ageNs' : bigint } } |
+  { 'MalformedCandid' : null } |
+  { 'AmbiguousAttribute' : { 'field' : string, 'sources' : Array<string> } } |
+  { 'NoAttributes' : null } |
+  { 'UnknownNonce' : null } |
+  { 'UntrustedSsoSource' : { 'domain' : string } } |
+  { 'MissingField' : string } |
+  { 'FrontendOriginMismatch' : { 'got' : string, 'expected' : Array<string> } };
 export interface Interview {
   'id' : InterviewId,
   'jobRole' : string,
@@ -52,6 +67,8 @@ export interface NewShiftJob {
   'shiftType' : string,
   'location' : string,
 }
+export type Result = { 'ok' : null } |
+  { 'err' : Error };
 export interface ShiftJob {
   'id' : ShiftJobId,
   'jobRole' : string,
@@ -66,12 +83,36 @@ export interface ShiftJob {
 }
 export type ShiftJobId = bigint;
 export type Timestamp = bigint;
+export type UserId = Principal;
+export interface UserProfile {
+  'id' : UserId,
+  'createdAt' : Timestamp,
+  'fullName' : string,
+  'email' : string,
+}
+export interface UserProfileInput { 'fullName' : string, 'email' : string }
+export type UserRole = { 'admin' : null } |
+  { 'user' : null } |
+  { 'guest' : null };
 export interface _SERVICE {
+  '_initialize_access_control' : ActorMethod<[], undefined>,
+  '_internet_identity_sign_in_finish' : ActorMethod<[], Result>,
+  '_internet_identity_sign_in_start' : ActorMethod<[], Uint8Array>,
   'addShiftJob' : ActorMethod<[NewShiftJob], ShiftJob>,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'getActiveInterviews' : ActorMethod<[], Array<Interview>>,
   'getAllApplications' : ActorMethod<[], Array<Application>>,
+  'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
+  'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getInterview' : ActorMethod<[InterviewId], [] | [Interview]>,
   'getShiftJobs' : ActorMethod<[], Array<ShiftJob>>,
+  'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'isCallerAdmin' : ActorMethod<[], boolean>,
+  'saveCallerUserProfile' : ActorMethod<
+    [UserProfileInput],
+    { 'ok' : UserProfile } |
+      { 'err' : string }
+  >,
   'submitApplication' : ActorMethod<
     [ApplicationInput],
     { 'ok' : string } |

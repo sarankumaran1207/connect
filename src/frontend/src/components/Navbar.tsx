@@ -1,7 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Briefcase, GraduationCap, Menu, X } from "lucide-react";
+import {
+  Briefcase,
+  GraduationCap,
+  LogIn,
+  LogOut,
+  Menu,
+  UserPlus,
+  X,
+} from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 const NAV_LINKS = [
   { label: "Home", to: "/" },
@@ -17,6 +26,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
+  const { isLoggedIn, currentUser, logout } = useAuth();
 
   return (
     <header
@@ -62,14 +72,59 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* CTA + Hamburger */}
-          <div className="flex items-center gap-3">
-            <Link to="/apply" data-ocid="nav-cta">
-              <Button className="hidden sm:flex gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md transition-smooth">
+          {/* Auth + CTA + Hamburger */}
+          <div className="flex items-center gap-2">
+            {isLoggedIn ? (
+              <div className="hidden sm:flex items-center gap-2">
+                <span
+                  className="text-sm font-medium text-foreground px-2 truncate max-w-[120px]"
+                  title={currentUser?.fullName}
+                  data-ocid="nav-username"
+                >
+                  {currentUser?.fullName?.split(" ")[0]}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={logout}
+                  className="gap-1.5 border-border text-muted-foreground hover:text-foreground rounded-md transition-smooth"
+                  data-ocid="nav-logout-button"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  Logout
+                </Button>
+              </div>
+            ) : (
+              <div className="hidden sm:flex items-center gap-2">
+                <Link to="/login" data-ocid="nav-login-link">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="gap-1.5 text-muted-foreground hover:text-foreground rounded-md transition-smooth"
+                  >
+                    <LogIn className="w-3.5 h-3.5" />
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/signup" data-ocid="nav-signup-link">
+                  <Button
+                    size="sm"
+                    className="gap-1.5 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md transition-smooth"
+                  >
+                    <UserPlus className="w-3.5 h-3.5" />
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
+            )}
+
+            <Link to="/apply" data-ocid="nav-cta" className="hidden lg:block">
+              <Button className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md transition-smooth">
                 <Briefcase className="w-4 h-4" />
                 Apply Now
               </Button>
             </Link>
+
             <button
               type="button"
               className="md:hidden p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors duration-200"
@@ -111,12 +166,60 @@ export function Navbar() {
                 </Link>
               );
             })}
-            <Link to="/apply" onClick={() => setMobileOpen(false)}>
-              <Button className="w-full mt-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md">
-                <Briefcase className="w-4 h-4 mr-2" />
-                Apply Now
-              </Button>
-            </Link>
+
+            <div className="pt-2 border-t border-border space-y-1.5">
+              {isLoggedIn ? (
+                <div className="flex items-center justify-between px-3 py-2">
+                  <span
+                    className="text-sm font-medium text-foreground"
+                    data-ocid="nav-mobile-username"
+                  >
+                    {currentUser?.fullName}
+                  </span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      logout();
+                      setMobileOpen(false);
+                    }}
+                    className="gap-1.5 border-border text-muted-foreground rounded-md"
+                    data-ocid="nav-mobile-logout-button"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <Link to="/login" onClick={() => setMobileOpen(false)}>
+                    <Button
+                      variant="outline"
+                      className="w-full gap-2 border-border text-foreground rounded-md"
+                      data-ocid="nav-mobile-login-link"
+                    >
+                      <LogIn className="w-4 h-4" />
+                      Login
+                    </Button>
+                  </Link>
+                  <Link to="/signup" onClick={() => setMobileOpen(false)}>
+                    <Button
+                      className="w-full gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md"
+                      data-ocid="nav-mobile-signup-link"
+                    >
+                      <UserPlus className="w-4 h-4" />
+                      Sign Up
+                    </Button>
+                  </Link>
+                </>
+              )}
+              <Link to="/apply" onClick={() => setMobileOpen(false)}>
+                <Button className="w-full mt-1 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md">
+                  <Briefcase className="w-4 h-4 mr-2" />
+                  Apply Now
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       )}

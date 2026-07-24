@@ -89,17 +89,7 @@ export class ExternalBlob {
         return this;
     }
 }
-export interface Interview {
-    id: InterviewId;
-    jobRole: string;
-    date: string;
-    createdAt: Timestamp;
-    time: string;
-    description: string;
-    isActive: boolean;
-    company: string;
-    location: string;
-}
+export type ShiftJobId = bigint;
 export type Timestamp = bigint;
 export interface Application {
     id: ApplicationId;
@@ -112,6 +102,69 @@ export interface Application {
     skills: string;
     qualification: string;
 }
+export type Error_ = {
+    __kind__: "FrontendOriginsNotConfigured";
+    FrontendOriginsNotConfigured: null;
+} | {
+    __kind__: "MixedSsoSources";
+    MixedSsoSources: {
+        otherKeys: Array<string>;
+        ssoKeys: Array<string>;
+    };
+} | {
+    __kind__: "Stale";
+    Stale: {
+        ageNs: bigint;
+    };
+} | {
+    __kind__: "MalformedCandid";
+    MalformedCandid: null;
+} | {
+    __kind__: "AmbiguousAttribute";
+    AmbiguousAttribute: {
+        field: string;
+        sources: Array<string>;
+    };
+} | {
+    __kind__: "NoAttributes";
+    NoAttributes: null;
+} | {
+    __kind__: "UnknownNonce";
+    UnknownNonce: null;
+} | {
+    __kind__: "UntrustedSsoSource";
+    UntrustedSsoSource: {
+        domain: string;
+    };
+} | {
+    __kind__: "MissingField";
+    MissingField: string;
+} | {
+    __kind__: "FrontendOriginMismatch";
+    FrontendOriginMismatch: {
+        got: string;
+        expected: Array<string>;
+    };
+};
+export type UserId = Principal;
+export interface Interview {
+    id: InterviewId;
+    jobRole: string;
+    date: string;
+    createdAt: Timestamp;
+    time: string;
+    description: string;
+    isActive: boolean;
+    company: string;
+    location: string;
+}
+export type Result = {
+    __kind__: "ok";
+    ok: null;
+} | {
+    __kind__: "err";
+    err: Error_;
+};
 export type InterviewId = bigint;
 export interface ApplicationInput {
     interviewId?: InterviewId;
@@ -131,6 +184,7 @@ export interface NewShiftJob {
     shiftType: string;
     location: string;
 }
+export type ApplicationId = bigint;
 export interface ShiftJob {
     id: ShiftJobId;
     jobRole: string;
@@ -143,14 +197,42 @@ export interface ShiftJob {
     shiftType: string;
     location: string;
 }
-export type ApplicationId = bigint;
-export type ShiftJobId = bigint;
+export interface UserProfileInput {
+    fullName: string;
+    email: string;
+}
+export interface UserProfile {
+    id: UserId;
+    createdAt: Timestamp;
+    fullName: string;
+    email: string;
+}
+export enum UserRole {
+    admin = "admin",
+    user = "user",
+    guest = "guest"
+}
 export interface backendInterface {
+    _initialize_access_control(): Promise<void>;
+    _internet_identity_sign_in_finish(): Promise<Result>;
+    _internet_identity_sign_in_start(): Promise<Uint8Array>;
     addShiftJob(input: NewShiftJob): Promise<ShiftJob>;
+    assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     getActiveInterviews(): Promise<Array<Interview>>;
     getAllApplications(): Promise<Array<Application>>;
+    getCallerUserProfile(): Promise<UserProfile | null>;
+    getCallerUserRole(): Promise<UserRole>;
     getInterview(id: InterviewId): Promise<Interview | null>;
     getShiftJobs(): Promise<Array<ShiftJob>>;
+    getUserProfile(user: Principal): Promise<UserProfile | null>;
+    isCallerAdmin(): Promise<boolean>;
+    saveCallerUserProfile(profile: UserProfileInput): Promise<{
+        __kind__: "ok";
+        ok: UserProfile;
+    } | {
+        __kind__: "err";
+        err: string;
+    }>;
     submitApplication(input: ApplicationInput): Promise<{
         __kind__: "ok";
         ok: string;
@@ -159,9 +241,51 @@ export interface backendInterface {
         err: string;
     }>;
 }
-import type { Application as _Application, ApplicationId as _ApplicationId, ApplicationInput as _ApplicationInput, Interview as _Interview, InterviewId as _InterviewId, Timestamp as _Timestamp } from "./declarations/backend.did.d.ts";
+import type { Application as _Application, ApplicationId as _ApplicationId, ApplicationInput as _ApplicationInput, Error as _Error, Interview as _Interview, InterviewId as _InterviewId, Result as _Result, Timestamp as _Timestamp, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async _initialize_access_control(): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._initialize_access_control();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._initialize_access_control();
+            return result;
+        }
+    }
+    async _internet_identity_sign_in_finish(): Promise<Result> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._internet_identity_sign_in_finish();
+                return from_candid_Result_n1(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._internet_identity_sign_in_finish();
+            return from_candid_Result_n1(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async _internet_identity_sign_in_start(): Promise<Uint8Array> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._internet_identity_sign_in_start();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._internet_identity_sign_in_start();
+            return result;
+        }
+    }
     async addShiftJob(arg0: NewShiftJob): Promise<ShiftJob> {
         if (this.processError) {
             try {
@@ -173,6 +297,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.addShiftJob(arg0);
+            return result;
+        }
+    }
+    async assignCallerUserRole(arg0: Principal, arg1: UserRole): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n5(this._uploadFile, this._downloadFile, arg1));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n5(this._uploadFile, this._downloadFile, arg1));
             return result;
         }
     }
@@ -194,28 +332,56 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.getAllApplications();
-                return from_candid_vec_n1(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n7(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getAllApplications();
-            return from_candid_vec_n1(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n7(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getCallerUserProfile(): Promise<UserProfile | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCallerUserProfile();
+                return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCallerUserProfile();
+            return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getCallerUserRole(): Promise<UserRole> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCallerUserRole();
+                return from_candid_UserRole_n12(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCallerUserRole();
+            return from_candid_UserRole_n12(this._uploadFile, this._downloadFile, result);
         }
     }
     async getInterview(arg0: InterviewId): Promise<Interview | null> {
         if (this.processError) {
             try {
                 const result = await this.actor.getInterview(arg0);
-                return from_candid_opt_n5(this._uploadFile, this._downloadFile, result);
+                return from_candid_opt_n14(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getInterview(arg0);
-            return from_candid_opt_n5(this._uploadFile, this._downloadFile, result);
+            return from_candid_opt_n14(this._uploadFile, this._downloadFile, result);
         }
     }
     async getShiftJobs(): Promise<Array<ShiftJob>> {
@@ -232,6 +398,54 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getUserProfile(arg0);
+                return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getUserProfile(arg0);
+            return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async isCallerAdmin(): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.isCallerAdmin();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.isCallerAdmin();
+            return result;
+        }
+    }
+    async saveCallerUserProfile(arg0: UserProfileInput): Promise<{
+        __kind__: "ok";
+        ok: UserProfile;
+    } | {
+        __kind__: "err";
+        err: string;
+    }> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.saveCallerUserProfile(arg0);
+                return from_candid_variant_n15(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.saveCallerUserProfile(arg0);
+            return from_candid_variant_n15(this._uploadFile, this._downloadFile, result);
+        }
+    }
     async submitApplication(arg0: ApplicationInput): Promise<{
         __kind__: "ok";
         ok: string;
@@ -241,28 +455,40 @@ export class Backend implements backendInterface {
     }> {
         if (this.processError) {
             try {
-                const result = await this.actor.submitApplication(to_candid_ApplicationInput_n6(this._uploadFile, this._downloadFile, arg0));
-                return from_candid_variant_n8(this._uploadFile, this._downloadFile, result);
+                const result = await this.actor.submitApplication(to_candid_ApplicationInput_n16(this._uploadFile, this._downloadFile, arg0));
+                return from_candid_variant_n18(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.submitApplication(to_candid_ApplicationInput_n6(this._uploadFile, this._downloadFile, arg0));
-            return from_candid_variant_n8(this._uploadFile, this._downloadFile, result);
+            const result = await this.actor.submitApplication(to_candid_ApplicationInput_n16(this._uploadFile, this._downloadFile, arg0));
+            return from_candid_variant_n18(this._uploadFile, this._downloadFile, result);
         }
     }
 }
-function from_candid_Application_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Application): Application {
-    return from_candid_record_n3(_uploadFile, _downloadFile, value);
+function from_candid_Application_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Application): Application {
+    return from_candid_record_n9(_uploadFile, _downloadFile, value);
 }
-function from_candid_opt_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_InterviewId]): InterviewId | null {
+function from_candid_Error_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Error): Error_ {
+    return from_candid_variant_n4(_uploadFile, _downloadFile, value);
+}
+function from_candid_Result_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Result): Result {
+    return from_candid_variant_n2(_uploadFile, _downloadFile, value);
+}
+function from_candid_UserRole_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
+    return from_candid_variant_n13(_uploadFile, _downloadFile, value);
+}
+function from_candid_opt_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_InterviewId]): InterviewId | null {
     return value.length === 0 ? null : value[0];
 }
-function from_candid_opt_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Interview]): Interview | null {
+function from_candid_opt_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
     return value.length === 0 ? null : value[0];
 }
-function from_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_opt_n14(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Interview]): Interview | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_record_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     id: _ApplicationId;
     appliedAt: _Timestamp;
     interviewId: [] | [_InterviewId];
@@ -286,7 +512,7 @@ function from_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint
     return {
         id: value.id,
         appliedAt: value.appliedAt,
-        interviewId: record_opt_to_undefined(from_candid_opt_n4(_uploadFile, _downloadFile, value.interviewId)),
+        interviewId: record_opt_to_undefined(from_candid_opt_n10(_uploadFile, _downloadFile, value.interviewId)),
         name: value.name,
         email: value.email,
         message: value.message,
@@ -295,7 +521,35 @@ function from_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint
         qualification: value.qualification
     };
 }
-function from_candid_variant_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    admin: null;
+} | {
+    user: null;
+} | {
+    guest: null;
+}): UserRole {
+    return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
+}
+function from_candid_variant_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    ok: _UserProfile;
+} | {
+    err: string;
+}): {
+    __kind__: "ok";
+    ok: UserProfile;
+} | {
+    __kind__: "err";
+    err: string;
+} {
+    return "ok" in value ? {
+        __kind__: "ok",
+        ok: value.ok
+    } : "err" in value ? {
+        __kind__: "err",
+        err: value.err
+    } : value;
+}
+function from_candid_variant_n18(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     ok: string;
 } | {
     err: string;
@@ -314,13 +568,144 @@ function from_candid_variant_n8(_uploadFile: (file: ExternalBlob) => Promise<Uin
         err: value.err
     } : value;
 }
-function from_candid_vec_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Application>): Array<Application> {
-    return value.map((x)=>from_candid_Application_n2(_uploadFile, _downloadFile, x));
+function from_candid_variant_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    ok: null;
+} | {
+    err: _Error;
+}): {
+    __kind__: "ok";
+    ok: null;
+} | {
+    __kind__: "err";
+    err: Error_;
+} {
+    return "ok" in value ? {
+        __kind__: "ok",
+        ok: value.ok
+    } : "err" in value ? {
+        __kind__: "err",
+        err: from_candid_Error_n3(_uploadFile, _downloadFile, value.err)
+    } : value;
 }
-function to_candid_ApplicationInput_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ApplicationInput): _ApplicationInput {
-    return to_candid_record_n7(_uploadFile, _downloadFile, value);
+function from_candid_variant_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    FrontendOriginsNotConfigured: null;
+} | {
+    MixedSsoSources: {
+        otherKeys: Array<string>;
+        ssoKeys: Array<string>;
+    };
+} | {
+    Stale: {
+        ageNs: bigint;
+    };
+} | {
+    MalformedCandid: null;
+} | {
+    AmbiguousAttribute: {
+        field: string;
+        sources: Array<string>;
+    };
+} | {
+    NoAttributes: null;
+} | {
+    UnknownNonce: null;
+} | {
+    UntrustedSsoSource: {
+        domain: string;
+    };
+} | {
+    MissingField: string;
+} | {
+    FrontendOriginMismatch: {
+        got: string;
+        expected: Array<string>;
+    };
+}): {
+    __kind__: "FrontendOriginsNotConfigured";
+    FrontendOriginsNotConfigured: null;
+} | {
+    __kind__: "MixedSsoSources";
+    MixedSsoSources: {
+        otherKeys: Array<string>;
+        ssoKeys: Array<string>;
+    };
+} | {
+    __kind__: "Stale";
+    Stale: {
+        ageNs: bigint;
+    };
+} | {
+    __kind__: "MalformedCandid";
+    MalformedCandid: null;
+} | {
+    __kind__: "AmbiguousAttribute";
+    AmbiguousAttribute: {
+        field: string;
+        sources: Array<string>;
+    };
+} | {
+    __kind__: "NoAttributes";
+    NoAttributes: null;
+} | {
+    __kind__: "UnknownNonce";
+    UnknownNonce: null;
+} | {
+    __kind__: "UntrustedSsoSource";
+    UntrustedSsoSource: {
+        domain: string;
+    };
+} | {
+    __kind__: "MissingField";
+    MissingField: string;
+} | {
+    __kind__: "FrontendOriginMismatch";
+    FrontendOriginMismatch: {
+        got: string;
+        expected: Array<string>;
+    };
+} {
+    return "FrontendOriginsNotConfigured" in value ? {
+        __kind__: "FrontendOriginsNotConfigured",
+        FrontendOriginsNotConfigured: value.FrontendOriginsNotConfigured
+    } : "MixedSsoSources" in value ? {
+        __kind__: "MixedSsoSources",
+        MixedSsoSources: value.MixedSsoSources
+    } : "Stale" in value ? {
+        __kind__: "Stale",
+        Stale: value.Stale
+    } : "MalformedCandid" in value ? {
+        __kind__: "MalformedCandid",
+        MalformedCandid: value.MalformedCandid
+    } : "AmbiguousAttribute" in value ? {
+        __kind__: "AmbiguousAttribute",
+        AmbiguousAttribute: value.AmbiguousAttribute
+    } : "NoAttributes" in value ? {
+        __kind__: "NoAttributes",
+        NoAttributes: value.NoAttributes
+    } : "UnknownNonce" in value ? {
+        __kind__: "UnknownNonce",
+        UnknownNonce: value.UnknownNonce
+    } : "UntrustedSsoSource" in value ? {
+        __kind__: "UntrustedSsoSource",
+        UntrustedSsoSource: value.UntrustedSsoSource
+    } : "MissingField" in value ? {
+        __kind__: "MissingField",
+        MissingField: value.MissingField
+    } : "FrontendOriginMismatch" in value ? {
+        __kind__: "FrontendOriginMismatch",
+        FrontendOriginMismatch: value.FrontendOriginMismatch
+    } : value;
 }
-function to_candid_record_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_vec_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Application>): Array<Application> {
+    return value.map((x)=>from_candid_Application_n8(_uploadFile, _downloadFile, x));
+}
+function to_candid_ApplicationInput_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ApplicationInput): _ApplicationInput {
+    return to_candid_record_n17(_uploadFile, _downloadFile, value);
+}
+function to_candid_UserRole_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
+    return to_candid_variant_n6(_uploadFile, _downloadFile, value);
+}
+function to_candid_record_n17(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     interviewId?: InterviewId;
     name: string;
     email: string;
@@ -346,6 +731,21 @@ function to_candid_record_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8A
         skills: value.skills,
         qualification: value.qualification
     };
+}
+function to_candid_variant_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): {
+    admin: null;
+} | {
+    user: null;
+} | {
+    guest: null;
+} {
+    return value == UserRole.admin ? {
+        admin: null
+    } : value == UserRole.user ? {
+        user: null
+    } : value == UserRole.guest ? {
+        guest: null
+    } : value;
 }
 export interface CreateActorOptions {
     agent?: Agent;

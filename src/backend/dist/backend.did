@@ -1,3 +1,22 @@
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfileInput = 
+ record {
+   email: text;
+   fullName: text;
+ };
+type UserProfile = 
+ record {
+   createdAt: Timestamp;
+   email: text;
+   fullName: text;
+   id: UserId;
+ };
+type UserId = principal;
 type Timestamp = int;
 type ShiftJobId = nat;
 type ShiftJob = 
@@ -12,6 +31,11 @@ type ShiftJob =
    shiftEnd: text;
    shiftStart: text;
    shiftType: text;
+ };
+type Result = 
+ variant {
+   err: Error;
+   ok;
  };
 type NewShiftJob = 
  record {
@@ -35,6 +59,28 @@ type Interview =
    jobRole: text;
    location: text;
    time: text;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
  };
 type ApplicationInput = 
  record {
@@ -60,11 +106,24 @@ type Application =
    skills: text;
  };
 service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result);
+  _internet_identity_sign_in_start: () -> (blob);
   addShiftJob: (input: NewShiftJob) -> (ShiftJob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
   getActiveInterviews: () -> (vec Interview) query;
   getAllApplications: () -> (vec Application) query;
+  getCallerUserProfile: () -> (opt UserProfile) query;
+  getCallerUserRole: () -> (UserRole) query;
   getInterview: (id: InterviewId) -> (opt Interview) query;
   getShiftJobs: () -> (vec ShiftJob) query;
+  getUserProfile: (user: principal) -> (opt UserProfile) query;
+  isCallerAdmin: () -> (bool) query;
+  saveCallerUserProfile: (profile: UserProfileInput) ->
+   (variant {
+      err: text;
+      ok: UserProfile;
+    });
   submitApplication: (input: ApplicationInput) ->
    (variant {
       err: text;

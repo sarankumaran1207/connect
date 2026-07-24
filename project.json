@@ -1,23 +1,21 @@
 {
-  "overview": "CONNECT is a professional recruitment platform helping fresh graduates and unemployed youth find internships, jobs, and walk-in interview opportunities. The website features a clean blue and white design with service highlights, interview listings, and a candidate registration form.",
+  "overview": "CONNECT is a job and internship platform for fresh graduates and job seekers, focused on walk-in interviews. It features expanded company listings, WhatsApp integration, shift-based opportunities, and a secure user authentication system.",
   "features": [
-    "Hero section with tagline and call-to-action buttons",
-    "Services showcase: internships with/without stipend, job opportunities",
-    "Walk-in interview listings with date, time, location, and job role",
-    "Candidate application/registration form",
-    "About Us page with mission and vision",
-    "Contact page with company details",
-    "Responsive mobile-first design",
-    "Footer with social media links"
+    "Walk-in interview listings with detailed company info",
+    "Internship listings with stipend and duration details",
+    "Shift-based job opportunities",
+    "WhatsApp contact integration",
+    "Secure user authentication with Internet Identity",
+    "User profiles with email and name",
+    "Protected routes requiring login"
   ],
-  "category": "recruitment",
+  "category": "productivity",
   "tags": [
-    "recruitment",
     "jobs",
     "internships",
     "walk-in-interviews",
-    "youth-employment",
-    "fresh-graduates"
+    "career",
+    "authentication"
   ],
-  "last_updated": "2026-04-08T13:24:44.183Z"
+  "last_updated": "2026-06-20T15:54:24.803Z"
 }

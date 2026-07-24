@@ -17,18 +17,18 @@ var __privateWrapper = (obj, member, setter, getter) => ({
     return __privateGet(obj, member, getter);
   }
 });
-var _focused, _cleanup, _setup, _a, _provider, _providerCalled, _b, _online, _cleanup2, _setup2, _c, _gcTimeout, _d, _initialState, _revertState, _cache, _client, _retryer, _defaultOptions, _abortSignalConsumed, _Query_instances, isInitialPausedFetch_fn, dispatch_fn, _e, _client2, _currentQuery, _currentQueryInitialState, _currentResult, _currentResultState, _currentResultOptions, _currentThenable, _selectError, _selectFn, _selectResult, _lastQueryWithDefinedData, _staleTimeoutId, _refetchIntervalId, _currentRefetchInterval, _trackedProps, _QueryObserver_instances, executeFetch_fn, updateStaleTimeout_fn, computeRefetchInterval_fn, updateRefetchInterval_fn, updateTimers_fn, clearStaleTimeout_fn, clearRefetchInterval_fn, updateQuery_fn, notify_fn, _f, _client3, _observers, _mutationCache, _retryer2, _Mutation_instances, dispatch_fn2, _g, _mutations, _scopes, _mutationId, _h, _client4, _currentResult2, _currentMutation, _mutateOptions, _MutationObserver_instances, updateResult_fn, notify_fn2, _i, _queries, _j, _queryCache, _mutationCache2, _defaultOptions2, _queryDefaults, _mutationDefaults, _mountCount, _unsubscribeFocus, _unsubscribeOnline, _k, _rawKey, _derKey, _publicKey, _privateKey, _inner, _delegation, _options;
-function _mergeNamespaces(n, m) {
-  for (var i = 0; i < m.length; i++) {
-    const e = m[i];
+var _disableTimeVerification, _agent, _inner, _expirationTime, _rawKey, _derKey, _a2, _currentInterval, _randomizationFactor, _multiplier, _maxInterval, _startTime, _maxElapsedTime, _maxIterations, _date, _count, _rootKeyPromise, _shouldFetchRootKey, _timeDiffMsecs, _hasSyncedTime, _syncTimePromise, _shouldSyncTime, _identity, _fetch, _fetchOptions, _callOptions, _credentials, _retryTimes, _backoffStrategy, _maxIngressExpiryInMinutes, _HttpAgent_instances, maxIngressExpiryInMs_get, _queryPipeline, _updatePipeline, _subnetKeys, _verifyQuerySignatures, requestAndRetryQuery_fn, requestAndRetry_fn, _verifyQueryResponse, asyncGuard_fn, rootKeyGuard_fn, syncTimeGuard_fn, _focused, _cleanup, _setup, _b2, _provider, _providerCalled, _c, _online, _cleanup2, _setup2, _d, _gcTimeout, _e, _initialState, _revertState, _cache, _client, _retryer, _defaultOptions, _abortSignalConsumed, _Query_instances, isInitialPausedFetch_fn, dispatch_fn, _f, _client2, _currentQuery, _currentQueryInitialState, _currentResult, _currentResultState, _currentResultOptions, _currentThenable, _selectError, _selectFn, _selectResult, _lastQueryWithDefinedData, _staleTimeoutId, _refetchIntervalId, _currentRefetchInterval, _trackedProps, _QueryObserver_instances, executeFetch_fn, updateStaleTimeout_fn, computeRefetchInterval_fn, updateRefetchInterval_fn, updateTimers_fn, clearStaleTimeout_fn, clearRefetchInterval_fn, updateQuery_fn, notify_fn, _g, _client3, _observers, _mutationCache, _retryer2, _Mutation_instances, dispatch_fn2, _h, _mutations, _scopes, _mutationId, _i, _client4, _currentResult2, _currentMutation, _mutateOptions, _MutationObserver_instances, updateResult_fn, notify_fn2, _j, _queries, _k, _queryCache, _mutationCache2, _defaultOptions2, _queryDefaults, _mutationDefaults, _mountCount, _unsubscribeFocus, _unsubscribeOnline, _l, _rawKey2, _derKey2, _publicKey, _privateKey, _inner2, _delegation, _options;
+function _mergeNamespaces(n, m2) {
+  for (var i = 0; i < m2.length; i++) {
+    const e = m2[i];
     if (typeof e !== "string" && !Array.isArray(e)) {
-      for (const k in e) {
-        if (k !== "default" && !(k in n)) {
-          const d = Object.getOwnPropertyDescriptor(e, k);
-          if (d) {
-            Object.defineProperty(n, k, d.get ? d : {
+      for (const k2 in e) {
+        if (k2 !== "default" && !(k2 in n)) {
+          const d2 = Object.getOwnPropertyDescriptor(e, k2);
+          if (d2) {
+            Object.defineProperty(n, k2, d2.get ? d2 : {
               enumerable: true,
-              get: () => e[k]
+              get: () => e[k2]
             });
           }
         }
@@ -74,8 +74,8 @@ function _mergeNamespaces(n, m) {
     fetch(link.href, fetchOpts);
   }
 })();
-function getDefaultExportFromCjs(x) {
-  return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
+function getDefaultExportFromCjs(x2) {
+  return x2 && x2.__esModule && Object.prototype.hasOwnProperty.call(x2, "default") ? x2["default"] : x2;
 }
 var jsxRuntime = { exports: {} };
 var reactJsxRuntime_production = {};
@@ -114,6 +114,25 @@ reactJsxRuntime_production.jsxs = jsxProd;
   jsxRuntime.exports = reactJsxRuntime_production;
 }
 var jsxRuntimeExports = jsxRuntime.exports;
+var ReplicaRejectCode;
+(function(ReplicaRejectCode2) {
+  ReplicaRejectCode2[ReplicaRejectCode2["SysFatal"] = 1] = "SysFatal";
+  ReplicaRejectCode2[ReplicaRejectCode2["SysTransient"] = 2] = "SysTransient";
+  ReplicaRejectCode2[ReplicaRejectCode2["DestinationInvalid"] = 3] = "DestinationInvalid";
+  ReplicaRejectCode2[ReplicaRejectCode2["CanisterReject"] = 4] = "CanisterReject";
+  ReplicaRejectCode2[ReplicaRejectCode2["CanisterError"] = 5] = "CanisterError";
+})(ReplicaRejectCode || (ReplicaRejectCode = {}));
+var QueryResponseStatus;
+(function(QueryResponseStatus2) {
+  QueryResponseStatus2["Replied"] = "replied";
+  QueryResponseStatus2["Rejected"] = "rejected";
+})(QueryResponseStatus || (QueryResponseStatus = {}));
+function isV2ResponseBody(body) {
+  return body !== null && body !== void 0 && "reject_code" in body;
+}
+function isV3ResponseBody(body) {
+  return body !== null && body !== void 0 && "certificate" in body;
+}
 const alphabet = "abcdefghijklmnopqrstuvwxyz234567";
 const lookupTable = /* @__PURE__ */ Object.create(null);
 for (let i = 0; i < alphabet.length; i++) {
@@ -150,7 +169,7 @@ function base32Decode(input) {
   let skip = 0;
   let byte = 0;
   const output = new Uint8Array(input.length * 4 / 3 | 0);
-  let o = 0;
+  let o2 = 0;
   function decodeChar(char) {
     let val = lookupTable[char.toLowerCase()];
     if (val === void 0) {
@@ -160,7 +179,7 @@ function base32Decode(input) {
     byte |= val >>> skip;
     skip += 5;
     if (skip >= 8) {
-      output[o++] = byte;
+      output[o2++] = byte;
       skip -= 8;
       if (skip > 0) {
         byte = val << 5 - skip & 255;
@@ -169,10 +188,10 @@ function base32Decode(input) {
       }
     }
   }
-  for (const c of input) {
-    decodeChar(c);
+  for (const c2 of input) {
+    decodeChar(c2);
   }
-  return output.slice(0, o);
+  return output.slice(0, o2);
 }
 const lookUpTable = new Uint32Array([
   0,
@@ -443,18 +462,18 @@ function getCrc32(buf) {
 }
 const crypto$1 = typeof globalThis === "object" && "crypto" in globalThis ? globalThis.crypto : void 0;
 /*! noble-hashes - MIT License (c) 2022 Paul Miller (paulmillr.com) */
-function isBytes(a) {
-  return a instanceof Uint8Array || ArrayBuffer.isView(a) && a.constructor.name === "Uint8Array";
+function isBytes(a2) {
+  return a2 instanceof Uint8Array || ArrayBuffer.isView(a2) && a2.constructor.name === "Uint8Array";
 }
 function anumber(n) {
   if (!Number.isSafeInteger(n) || n < 0)
     throw new Error("positive integer expected, got " + n);
 }
-function abytes(b, ...lengths) {
-  if (!isBytes(b))
+function abytes(b2, ...lengths) {
+  if (!isBytes(b2))
     throw new Error("Uint8Array expected");
-  if (lengths.length > 0 && !lengths.includes(b.length))
-    throw new Error("Uint8Array expected of length " + lengths + ", got length=" + b.length);
+  if (lengths.length > 0 && !lengths.includes(b2.length))
+    throw new Error("Uint8Array expected of length " + lengths + ", got length=" + b2.length);
 }
 function aexists(instance, checkFinished = true) {
   if (instance.destroyed)
@@ -484,7 +503,7 @@ const hasHexBuiltin = /* @__PURE__ */ (() => (
   // @ts-ignore
   typeof Uint8Array.from([]).toHex === "function" && typeof Uint8Array.fromHex === "function"
 ))();
-const hexes = /* @__PURE__ */ Array.from({ length: 256 }, (_, i) => i.toString(16).padStart(2, "0"));
+const hexes = /* @__PURE__ */ Array.from({ length: 256 }, (_2, i) => i.toString(16).padStart(2, "0"));
 function bytesToHex(bytes) {
   abytes(bytes);
   if (hasHexBuiltin)
@@ -540,21 +559,21 @@ function toBytes(data) {
 function concatBytes(...arrays) {
   let sum = 0;
   for (let i = 0; i < arrays.length; i++) {
-    const a = arrays[i];
-    abytes(a);
-    sum += a.length;
+    const a2 = arrays[i];
+    abytes(a2);
+    sum += a2.length;
   }
   const res = new Uint8Array(sum);
   for (let i = 0, pad = 0; i < arrays.length; i++) {
-    const a = arrays[i];
-    res.set(a, pad);
-    pad += a.length;
+    const a2 = arrays[i];
+    res.set(a2, pad);
+    pad += a2.length;
   }
   return res;
 }
 class Hash {
 }
-function createHasher(hashCons) {
+function createHasher$1(hashCons) {
   const hashC = (msg) => hashCons().update(toBytes(msg)).digest();
   const tmp = hashCons();
   hashC.outputLen = tmp.outputLen;
@@ -578,16 +597,16 @@ function setBigUint64(view, byteOffset, value, isLE) {
   const _u32_max = BigInt(4294967295);
   const wh = Number(value >> _32n2 & _u32_max);
   const wl = Number(value & _u32_max);
-  const h = isLE ? 4 : 0;
+  const h2 = isLE ? 4 : 0;
   const l = isLE ? 0 : 4;
-  view.setUint32(byteOffset + h, wh, isLE);
+  view.setUint32(byteOffset + h2, wh, isLE);
   view.setUint32(byteOffset + l, wl, isLE);
 }
-function Chi(a, b, c) {
-  return a & b ^ ~a & c;
+function Chi(a2, b2, c2) {
+  return a2 & b2 ^ ~a2 & c2;
 }
-function Maj(a, b, c) {
-  return a & b ^ a & c ^ b & c;
+function Maj(a2, b2, c2) {
+  return a2 & b2 ^ a2 & c2 ^ b2 & c2;
 }
 class HashMD extends Hash {
   constructor(blockLen, outputLen, padOffset, isLE) {
@@ -729,17 +748,17 @@ function split(lst, le = false) {
   let Ah = new Uint32Array(len);
   let Al = new Uint32Array(len);
   for (let i = 0; i < len; i++) {
-    const { h, l } = fromBig(lst[i], le);
-    [Ah[i], Al[i]] = [h, l];
+    const { h: h2, l } = fromBig(lst[i], le);
+    [Ah[i], Al[i]] = [h2, l];
   }
   return [Ah, Al];
 }
-const shrSH = (h, _l, s) => h >>> s;
-const shrSL = (h, l, s) => h << 32 - s | l >>> s;
-const rotrSH = (h, l, s) => h >>> s | l << 32 - s;
-const rotrSL = (h, l, s) => h << 32 - s | l >>> s;
-const rotrBH = (h, l, s) => h << 64 - s | l >>> s - 32;
-const rotrBL = (h, l, s) => h >>> s - 32 | l << 64 - s;
+const shrSH = (h2, _l2, s2) => h2 >>> s2;
+const shrSL = (h2, l, s2) => h2 << 32 - s2 | l >>> s2;
+const rotrSH = (h2, l, s2) => h2 >>> s2 | l << 32 - s2;
+const rotrSL = (h2, l, s2) => h2 << 32 - s2 | l >>> s2;
+const rotrBH = (h2, l, s2) => h2 << 64 - s2 | l >>> s2 - 32;
+const rotrBL = (h2, l, s2) => h2 >>> s2 - 32 | l << 64 - s2;
 function add(Ah, Al, Bh, Bl) {
   const l = (Al >>> 0) + (Bl >>> 0);
   return { h: Ah + Bh + (l / 2 ** 32 | 0) | 0, l: l | 0 };
@@ -830,19 +849,19 @@ class SHA256 extends HashMD {
     this.H = SHA256_IV[7] | 0;
   }
   get() {
-    const { A, B, C, D, E, F, G, H } = this;
-    return [A, B, C, D, E, F, G, H];
+    const { A: A2, B: B2, C: C2, D, E: E2, F: F2, G: G2, H: H2 } = this;
+    return [A2, B2, C2, D, E2, F2, G2, H2];
   }
   // prettier-ignore
-  set(A, B, C, D, E, F, G, H) {
-    this.A = A | 0;
-    this.B = B | 0;
-    this.C = C | 0;
+  set(A2, B2, C2, D, E2, F2, G2, H2) {
+    this.A = A2 | 0;
+    this.B = B2 | 0;
+    this.C = C2 | 0;
     this.D = D | 0;
-    this.E = E | 0;
-    this.F = F | 0;
-    this.G = G | 0;
-    this.H = H | 0;
+    this.E = E2 | 0;
+    this.F = F2 | 0;
+    this.G = G2 | 0;
+    this.H = H2 | 0;
   }
   process(view, offset2) {
     for (let i = 0; i < 16; i++, offset2 += 4)
@@ -854,30 +873,30 @@ class SHA256 extends HashMD {
       const s1 = rotr(W2, 17) ^ rotr(W2, 19) ^ W2 >>> 10;
       SHA256_W[i] = s1 + SHA256_W[i - 7] + s0 + SHA256_W[i - 16] | 0;
     }
-    let { A, B, C, D, E, F, G, H } = this;
+    let { A: A2, B: B2, C: C2, D, E: E2, F: F2, G: G2, H: H2 } = this;
     for (let i = 0; i < 64; i++) {
-      const sigma1 = rotr(E, 6) ^ rotr(E, 11) ^ rotr(E, 25);
-      const T1 = H + sigma1 + Chi(E, F, G) + SHA256_K[i] + SHA256_W[i] | 0;
-      const sigma0 = rotr(A, 2) ^ rotr(A, 13) ^ rotr(A, 22);
-      const T2 = sigma0 + Maj(A, B, C) | 0;
-      H = G;
-      G = F;
-      F = E;
-      E = D + T1 | 0;
-      D = C;
-      C = B;
-      B = A;
-      A = T1 + T2 | 0;
+      const sigma1 = rotr(E2, 6) ^ rotr(E2, 11) ^ rotr(E2, 25);
+      const T1 = H2 + sigma1 + Chi(E2, F2, G2) + SHA256_K[i] + SHA256_W[i] | 0;
+      const sigma0 = rotr(A2, 2) ^ rotr(A2, 13) ^ rotr(A2, 22);
+      const T2 = sigma0 + Maj(A2, B2, C2) | 0;
+      H2 = G2;
+      G2 = F2;
+      F2 = E2;
+      E2 = D + T1 | 0;
+      D = C2;
+      C2 = B2;
+      B2 = A2;
+      A2 = T1 + T2 | 0;
     }
-    A = A + this.A | 0;
-    B = B + this.B | 0;
-    C = C + this.C | 0;
+    A2 = A2 + this.A | 0;
+    B2 = B2 + this.B | 0;
+    C2 = C2 + this.C | 0;
     D = D + this.D | 0;
-    E = E + this.E | 0;
-    F = F + this.F | 0;
-    G = G + this.G | 0;
-    H = H + this.H | 0;
-    this.set(A, B, C, D, E, F, G, H);
+    E2 = E2 + this.E | 0;
+    F2 = F2 + this.F | 0;
+    G2 = G2 + this.G | 0;
+    H2 = H2 + this.H | 0;
+    this.set(A2, B2, C2, D, E2, F2, G2, H2);
   }
   roundClean() {
     clean(SHA256_W);
@@ -1097,14 +1116,14 @@ class SHA512 extends HashMD {
     this.set(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   }
 }
-const sha256 = /* @__PURE__ */ createHasher(() => new SHA256());
-const sha224 = /* @__PURE__ */ createHasher(() => new SHA224());
-const sha512 = /* @__PURE__ */ createHasher(() => new SHA512());
+const sha256 = /* @__PURE__ */ createHasher$1(() => new SHA256());
+const sha224 = /* @__PURE__ */ createHasher$1(() => new SHA224());
+const sha512 = /* @__PURE__ */ createHasher$1(() => new SHA512());
 const JSON_KEY_PRINCIPAL = "__principal__";
 const SELF_AUTHENTICATING_SUFFIX = 2;
 const ANONYMOUS_SUFFIX = 4;
 const MANAGEMENT_CANISTER_PRINCIPAL_TEXT_STR = "aaaaa-aa";
-class Principal {
+let Principal$1 = class Principal {
   static anonymous() {
     return new this(new Uint8Array([ANONYMOUS_SUFFIX]));
   }
@@ -1227,7 +1246,7 @@ class Principal {
     const cmp = this.compareTo(other);
     return cmp == "gt" || cmp == "eq";
   }
-}
+};
 var ErrorKindEnum;
 (function(ErrorKindEnum2) {
   ErrorKindEnum2["Trust"] = "Trust";
@@ -1301,11 +1320,164 @@ class ErrorKind extends AgentError {
     return new this(code);
   }
 }
+class TrustError extends ErrorKind {
+  constructor(code) {
+    super(code, ErrorKindEnum.Trust);
+    this.name = "TrustError";
+    Object.setPrototypeOf(this, TrustError.prototype);
+  }
+}
+class ProtocolError extends ErrorKind {
+  constructor(code) {
+    super(code, ErrorKindEnum.Protocol);
+    this.name = "ProtocolError";
+    Object.setPrototypeOf(this, ProtocolError.prototype);
+  }
+}
+class RejectError extends ErrorKind {
+  constructor(code) {
+    super(code, ErrorKindEnum.Reject);
+    this.name = "RejectError";
+    Object.setPrototypeOf(this, RejectError.prototype);
+  }
+}
+class TransportError extends ErrorKind {
+  constructor(code) {
+    super(code, ErrorKindEnum.Transport);
+    this.name = "TransportError";
+    Object.setPrototypeOf(this, TransportError.prototype);
+  }
+}
+class ExternalError extends ErrorKind {
+  constructor(code) {
+    super(code, ErrorKindEnum.External);
+    this.name = "ExternalError";
+    Object.setPrototypeOf(this, ExternalError.prototype);
+  }
+}
 class InputError extends ErrorKind {
   constructor(code) {
     super(code, ErrorKindEnum.Input);
     this.name = "InputError";
     Object.setPrototypeOf(this, InputError.prototype);
+  }
+}
+class UnknownError extends ErrorKind {
+  constructor(code) {
+    super(code, ErrorKindEnum.Unknown);
+    this.name = "UnknownError";
+    Object.setPrototypeOf(this, UnknownError.prototype);
+  }
+}
+class CertificateVerificationErrorCode extends ErrorCode {
+  constructor(reason, error) {
+    super();
+    this.reason = reason;
+    this.error = error;
+    this.name = "CertificateVerificationErrorCode";
+    Object.setPrototypeOf(this, CertificateVerificationErrorCode.prototype);
+  }
+  toErrorMessage() {
+    let errorMessage = this.reason;
+    if (this.error) {
+      errorMessage += `: ${formatUnknownError(this.error)}`;
+    }
+    return `Certificate verification error: "${errorMessage}"`;
+  }
+}
+class CertificateTimeErrorCode extends ErrorCode {
+  constructor(maxAgeInMinutes, certificateTime, currentTime, timeDiffMsecs, ageType) {
+    super();
+    this.maxAgeInMinutes = maxAgeInMinutes;
+    this.certificateTime = certificateTime;
+    this.currentTime = currentTime;
+    this.timeDiffMsecs = timeDiffMsecs;
+    this.ageType = ageType;
+    this.name = "CertificateTimeErrorCode";
+    Object.setPrototypeOf(this, CertificateTimeErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Certificate is signed more than ${this.maxAgeInMinutes} minutes in the ${this.ageType}. Certificate time: ${this.certificateTime.toISOString()} Current time: ${this.currentTime.toISOString()} Clock drift: ${this.timeDiffMsecs}ms`;
+  }
+}
+class CertificateHasTooManyDelegationsErrorCode extends ErrorCode {
+  constructor() {
+    super();
+    this.name = "CertificateHasTooManyDelegationsErrorCode";
+    Object.setPrototypeOf(this, CertificateHasTooManyDelegationsErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return "Certificate has too many delegations";
+  }
+}
+class CertificateNotAuthorizedErrorCode extends ErrorCode {
+  constructor(canisterId, subnetId) {
+    super();
+    this.canisterId = canisterId;
+    this.subnetId = subnetId;
+    this.name = "CertificateNotAuthorizedErrorCode";
+    Object.setPrototypeOf(this, CertificateNotAuthorizedErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `The certificate contains a delegation that does not include the canister ${this.canisterId.toText()} in the canister_ranges field. Subnet ID: ${this.subnetId.toText()}`;
+  }
+}
+class LookupErrorCode extends ErrorCode {
+  constructor(message, lookupStatus) {
+    super();
+    this.message = message;
+    this.lookupStatus = lookupStatus;
+    this.name = "LookupErrorCode";
+    Object.setPrototypeOf(this, LookupErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `${this.message}. Lookup status: ${this.lookupStatus}`;
+  }
+}
+class MalformedLookupFoundValueErrorCode extends ErrorCode {
+  constructor(message) {
+    super();
+    this.message = message;
+    this.name = "MalformedLookupFoundValueErrorCode";
+    Object.setPrototypeOf(this, MalformedLookupFoundValueErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return this.message;
+  }
+}
+class MissingLookupValueErrorCode extends ErrorCode {
+  constructor(message) {
+    super();
+    this.message = message;
+    this.name = "MissingLookupValueErrorCode";
+    Object.setPrototypeOf(this, MissingLookupValueErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return this.message;
+  }
+}
+class DerKeyLengthMismatchErrorCode extends ErrorCode {
+  constructor(expectedLength, actualLength) {
+    super();
+    this.expectedLength = expectedLength;
+    this.actualLength = actualLength;
+    this.name = "DerKeyLengthMismatchErrorCode";
+    Object.setPrototypeOf(this, DerKeyLengthMismatchErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `BLS DER-encoded public key must be ${this.expectedLength} bytes long, but is ${this.actualLength} bytes long`;
+  }
+}
+class DerPrefixMismatchErrorCode extends ErrorCode {
+  constructor(expectedPrefix, actualPrefix) {
+    super();
+    this.expectedPrefix = expectedPrefix;
+    this.actualPrefix = actualPrefix;
+    this.name = "DerPrefixMismatchErrorCode";
+    Object.setPrototypeOf(this, DerPrefixMismatchErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `BLS DER-encoded public key is invalid. Expected the following prefix: ${bytesToHex(this.expectedPrefix)}, but got ${bytesToHex(this.actualPrefix)}`;
   }
 }
 class DerDecodeLengthMismatchErrorCode extends ErrorCode {
@@ -1342,6 +1514,157 @@ class DerEncodeErrorCode extends ErrorCode {
     return `Failed to encode DER: ${this.error}`;
   }
 }
+class CborDecodeErrorCode extends ErrorCode {
+  constructor(error, input) {
+    super();
+    this.error = error;
+    this.input = input;
+    this.name = "CborDecodeErrorCode";
+    Object.setPrototypeOf(this, CborDecodeErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Failed to decode CBOR: ${formatUnknownError(this.error)}, input: ${bytesToHex(this.input)}`;
+  }
+}
+class CborEncodeErrorCode extends ErrorCode {
+  constructor(error, value) {
+    super();
+    this.error = error;
+    this.value = value;
+    this.name = "CborEncodeErrorCode";
+    Object.setPrototypeOf(this, CborEncodeErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Failed to encode CBOR: ${formatUnknownError(this.error)}, input: ${this.value}`;
+  }
+}
+class TimeoutWaitingForResponseErrorCode extends ErrorCode {
+  constructor(message, requestId, status) {
+    super();
+    this.message = message;
+    this.requestId = requestId;
+    this.status = status;
+    this.name = "TimeoutWaitingForResponseErrorCode";
+    Object.setPrototypeOf(this, TimeoutWaitingForResponseErrorCode.prototype);
+  }
+  toErrorMessage() {
+    let errorMessage = `${this.message}
+`;
+    if (this.requestId) {
+      errorMessage += `  Request ID: ${bytesToHex(this.requestId)}
+`;
+    }
+    if (this.status) {
+      errorMessage += `  Request status: ${this.status}
+`;
+    }
+    return errorMessage;
+  }
+}
+class CertificateOutdatedErrorCode extends ErrorCode {
+  constructor(maxIngressExpiryInMinutes, requestId, retryTimes) {
+    super();
+    this.maxIngressExpiryInMinutes = maxIngressExpiryInMinutes;
+    this.requestId = requestId;
+    this.retryTimes = retryTimes;
+    this.name = "CertificateOutdatedErrorCode";
+    Object.setPrototypeOf(this, CertificateOutdatedErrorCode.prototype);
+  }
+  toErrorMessage() {
+    let errorMessage = `Certificate is stale (over ${this.maxIngressExpiryInMinutes} minutes). Is the computer's clock synchronized?
+  Request ID: ${bytesToHex(this.requestId)}
+`;
+    if (this.retryTimes !== void 0) {
+      errorMessage += `  Retried ${this.retryTimes} times.`;
+    }
+    return errorMessage;
+  }
+}
+class CertifiedRejectErrorCode extends ErrorCode {
+  constructor(requestId, rejectCode, rejectMessage, rejectErrorCode) {
+    super(true);
+    this.requestId = requestId;
+    this.rejectCode = rejectCode;
+    this.rejectMessage = rejectMessage;
+    this.rejectErrorCode = rejectErrorCode;
+    this.name = "CertifiedRejectErrorCode";
+    Object.setPrototypeOf(this, CertifiedRejectErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `The replica returned a rejection error:
+  Request ID: ${bytesToHex(this.requestId)}
+  Reject code: ${this.rejectCode}
+  Reject text: ${this.rejectMessage}
+  Error code: ${this.rejectErrorCode}
+`;
+  }
+}
+class UncertifiedRejectErrorCode extends ErrorCode {
+  constructor(requestId, rejectCode, rejectMessage, rejectErrorCode, signatures) {
+    super();
+    this.requestId = requestId;
+    this.rejectCode = rejectCode;
+    this.rejectMessage = rejectMessage;
+    this.rejectErrorCode = rejectErrorCode;
+    this.signatures = signatures;
+    this.name = "UncertifiedRejectErrorCode";
+    Object.setPrototypeOf(this, UncertifiedRejectErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `The replica returned a rejection error:
+  Request ID: ${bytesToHex(this.requestId)}
+  Reject code: ${this.rejectCode}
+  Reject text: ${this.rejectMessage}
+  Error code: ${this.rejectErrorCode}
+`;
+  }
+}
+class UncertifiedRejectUpdateErrorCode extends ErrorCode {
+  constructor(requestId, rejectCode, rejectMessage, rejectErrorCode) {
+    super();
+    this.requestId = requestId;
+    this.rejectCode = rejectCode;
+    this.rejectMessage = rejectMessage;
+    this.rejectErrorCode = rejectErrorCode;
+    this.name = "UncertifiedRejectUpdateErrorCode";
+    Object.setPrototypeOf(this, UncertifiedRejectUpdateErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `The replica returned a rejection error:
+  Request ID: ${bytesToHex(this.requestId)}
+  Reject code: ${this.rejectCode}
+  Reject text: ${this.rejectMessage}
+  Error code: ${this.rejectErrorCode}
+`;
+  }
+}
+class RequestStatusDoneNoReplyErrorCode extends ErrorCode {
+  constructor(requestId) {
+    super();
+    this.requestId = requestId;
+    this.name = "RequestStatusDoneNoReplyErrorCode";
+    Object.setPrototypeOf(this, RequestStatusDoneNoReplyErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Call was marked as done but we never saw the reply:
+  Request ID: ${bytesToHex(this.requestId)}
+`;
+  }
+}
+class MissingRootKeyErrorCode extends ErrorCode {
+  constructor(shouldFetchRootKey) {
+    super();
+    this.shouldFetchRootKey = shouldFetchRootKey;
+    this.name = "MissingRootKeyErrorCode";
+    Object.setPrototypeOf(this, MissingRootKeyErrorCode.prototype);
+  }
+  toErrorMessage() {
+    if (this.shouldFetchRootKey === void 0) {
+      return "Agent is missing root key";
+    }
+    return `Agent is missing root key and the shouldFetchRootKey value is set to ${this.shouldFetchRootKey}. The root key should only be unknown if you are in local development. Otherwise you should avoid fetching and use the default IC Root Key or the known root key of your environment.`;
+  }
+}
 class HashValueErrorCode extends ErrorCode {
   constructor(value) {
     super();
@@ -1352,6 +1675,209 @@ class HashValueErrorCode extends ErrorCode {
   toErrorMessage() {
     return `Attempt to hash a value of unsupported type: ${this.value}`;
   }
+}
+class HttpDefaultFetchErrorCode extends ErrorCode {
+  constructor(error) {
+    super();
+    this.error = error;
+    this.name = "HttpDefaultFetchErrorCode";
+    Object.setPrototypeOf(this, HttpDefaultFetchErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return this.error;
+  }
+}
+class IdentityInvalidErrorCode extends ErrorCode {
+  constructor() {
+    super();
+    this.name = "IdentityInvalidErrorCode";
+    Object.setPrototypeOf(this, IdentityInvalidErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return "This identity has expired due this application's security policy. Please refresh your authentication.";
+  }
+}
+class IngressExpiryInvalidErrorCode extends ErrorCode {
+  constructor(message, providedIngressExpiryInMinutes) {
+    super();
+    this.message = message;
+    this.providedIngressExpiryInMinutes = providedIngressExpiryInMinutes;
+    this.name = "IngressExpiryInvalidErrorCode";
+    Object.setPrototypeOf(this, IngressExpiryInvalidErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `${this.message}. Provided ingress expiry time is ${this.providedIngressExpiryInMinutes} minutes.`;
+  }
+}
+class CreateHttpAgentErrorCode extends ErrorCode {
+  constructor() {
+    super();
+    this.name = "CreateHttpAgentErrorCode";
+    Object.setPrototypeOf(this, CreateHttpAgentErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return "Failed to create agent from provided agent";
+  }
+}
+class MalformedSignatureErrorCode extends ErrorCode {
+  constructor(error) {
+    super();
+    this.error = error;
+    this.name = "MalformedSignatureErrorCode";
+    Object.setPrototypeOf(this, MalformedSignatureErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Query response contained a malformed signature: ${this.error}`;
+  }
+}
+class MissingSignatureErrorCode extends ErrorCode {
+  constructor() {
+    super();
+    this.name = "MissingSignatureErrorCode";
+    Object.setPrototypeOf(this, MissingSignatureErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return "Query response did not contain any node signatures";
+  }
+}
+class MalformedPublicKeyErrorCode extends ErrorCode {
+  constructor() {
+    super();
+    this.name = "MalformedPublicKeyErrorCode";
+    Object.setPrototypeOf(this, MalformedPublicKeyErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return "Read state response contained a malformed public key";
+  }
+}
+class QuerySignatureVerificationFailedErrorCode extends ErrorCode {
+  constructor(nodeId) {
+    super();
+    this.nodeId = nodeId;
+    this.name = "QuerySignatureVerificationFailedErrorCode";
+    Object.setPrototypeOf(this, QuerySignatureVerificationFailedErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Query signature verification failed. Node ID: ${this.nodeId}`;
+  }
+}
+class UnexpectedErrorCode extends ErrorCode {
+  constructor(error) {
+    super();
+    this.error = error;
+    this.name = "UnexpectedErrorCode";
+    Object.setPrototypeOf(this, UnexpectedErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Unexpected error: ${formatUnknownError(this.error)}`;
+  }
+}
+class HashTreeDecodeErrorCode extends ErrorCode {
+  constructor(error) {
+    super();
+    this.error = error;
+    this.name = "HashTreeDecodeErrorCode";
+    Object.setPrototypeOf(this, HashTreeDecodeErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Failed to decode certificate: ${this.error}`;
+  }
+}
+class HttpErrorCode extends ErrorCode {
+  constructor(status, statusText, headers, bodyText) {
+    super();
+    this.status = status;
+    this.statusText = statusText;
+    this.headers = headers;
+    this.bodyText = bodyText;
+    this.name = "HttpErrorCode";
+    Object.setPrototypeOf(this, HttpErrorCode.prototype);
+  }
+  toErrorMessage() {
+    let errorMessage = `HTTP request failed:
+  Status: ${this.status} (${this.statusText})
+  Headers: ${JSON.stringify(this.headers)}
+`;
+    if (this.bodyText) {
+      errorMessage += `  Body: ${this.bodyText}
+`;
+    }
+    return errorMessage;
+  }
+}
+class HttpV3ApiNotSupportedErrorCode extends ErrorCode {
+  constructor() {
+    super();
+    this.name = "HttpV3ApiNotSupportedErrorCode";
+    Object.setPrototypeOf(this, HttpV3ApiNotSupportedErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return "HTTP request failed: v3 API is not supported";
+  }
+}
+class HttpFetchErrorCode extends ErrorCode {
+  constructor(error) {
+    super();
+    this.error = error;
+    this.name = "HttpFetchErrorCode";
+    Object.setPrototypeOf(this, HttpFetchErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Failed to fetch HTTP request: ${formatUnknownError(this.error)}`;
+  }
+}
+class MissingCanisterIdErrorCode extends ErrorCode {
+  constructor(receivedCanisterId) {
+    super();
+    this.receivedCanisterId = receivedCanisterId;
+    this.name = "MissingCanisterIdErrorCode";
+    Object.setPrototypeOf(this, MissingCanisterIdErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Canister ID is required, but received ${typeof this.receivedCanisterId} instead. If you are using automatically generated declarations, this may be because your application is not setting the canister ID in process.env correctly.`;
+  }
+}
+class InvalidReadStateRequestErrorCode extends ErrorCode {
+  constructor(request2) {
+    super();
+    this.request = request2;
+    this.name = "InvalidReadStateRequestErrorCode";
+    Object.setPrototypeOf(this, InvalidReadStateRequestErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Invalid read state request: ${this.request}`;
+  }
+}
+class ExpiryJsonDeserializeErrorCode extends ErrorCode {
+  constructor(error) {
+    super();
+    this.error = error;
+    this.name = "ExpiryJsonDeserializeErrorCode";
+    Object.setPrototypeOf(this, ExpiryJsonDeserializeErrorCode.prototype);
+  }
+  toErrorMessage() {
+    return `Failed to deserialize expiry: ${this.error}`;
+  }
+}
+function formatUnknownError(error) {
+  if (error instanceof Error) {
+    return error.stack ?? error.message;
+  }
+  try {
+    return JSON.stringify(error);
+  } catch {
+    return String(error);
+  }
+}
+const UNREACHABLE_ERROR = new Error("unreachable");
+function concat(...uint8Arrays) {
+  const result = new Uint8Array(uint8Arrays.reduce((acc, curr) => acc + curr.byteLength, 0));
+  let index2 = 0;
+  for (const b2 of uint8Arrays) {
+    result.set(b2, index2);
+    index2 += b2.byteLength;
+  }
+  return result;
 }
 class PipeArrayBuffer {
   /**
@@ -1445,11 +1971,11 @@ class PipeArrayBuffer {
     if (amount <= 0 || !Number.isInteger(amount)) {
       throw new Error("Amount must be a positive integer");
     }
-    const b = new Uint8Array((this._buffer.byteLength + amount) * 1.2 | 0);
-    const v = new Uint8Array(b.buffer, 0, this._view.byteLength + amount);
-    v.set(this._view);
-    this._buffer = b;
-    this._view = v;
+    const b2 = new Uint8Array((this._buffer.byteLength + amount) * 1.2 | 0);
+    const v2 = new Uint8Array(b2.buffer, 0, this._view.byteLength + amount);
+    v2.set(this._view);
+    this._buffer = b2;
+    this._view = v2;
   }
 }
 function uint8FromBufLike$1(bufLike) {
@@ -1484,12 +2010,59 @@ function compare(u1, u2) {
 function uint8Equals$1(u1, u2) {
   return compare(u1, u2) === 0;
 }
+function uint8ToDataView(uint8) {
+  if (!(uint8 instanceof Uint8Array)) {
+    throw new Error("Input must be a Uint8Array");
+  }
+  return new DataView(uint8.buffer, uint8.byteOffset, uint8.byteLength);
+}
+function idlHash(s2) {
+  const utf8encoder = new TextEncoder();
+  const array = utf8encoder.encode(s2);
+  let h2 = 0;
+  for (const c2 of array) {
+    h2 = (h2 * 223 + c2) % 2 ** 32;
+  }
+  return h2;
+}
+function idlLabelToId(label) {
+  if (/^_\d+_$/.test(label) || /^_0x[0-9a-fA-F]+_$/.test(label)) {
+    const num = +label.slice(1, -1);
+    if (Number.isSafeInteger(num) && num >= 0 && num < 2 ** 32) {
+      return num;
+    }
+  }
+  return idlHash(label);
+}
 function ilog2(n) {
   const nBig = BigInt(n);
   if (n <= 0) {
     throw new RangeError("Input must be positive");
   }
   return nBig.toString(2).length - 1;
+}
+function iexp2(n) {
+  const nBig = BigInt(n);
+  if (n < 0) {
+    throw new RangeError("Input must be non-negative");
+  }
+  return BigInt(1) << nBig;
+}
+function eob() {
+  throw new Error("unexpected end of buffer");
+}
+function safeRead(pipe2, num) {
+  if (pipe2.byteLength < num) {
+    eob();
+  }
+  return pipe2.read(num);
+}
+function safeReadUint8(pipe2) {
+  const byte = pipe2.readUint8();
+  if (byte === void 0) {
+    eob();
+  }
+  return byte;
 }
 function lebEncode(value) {
   if (typeof value === "number") {
@@ -1512,6 +2085,2087 @@ function lebEncode(value) {
   }
   return pipe2.buffer;
 }
+function lebDecode(pipe2) {
+  let weight = BigInt(1);
+  let value = BigInt(0);
+  let byte;
+  do {
+    byte = safeReadUint8(pipe2);
+    value += BigInt(byte & 127).valueOf() * weight;
+    weight *= BigInt(128);
+  } while (byte >= 128);
+  return value;
+}
+function slebEncode(value) {
+  if (typeof value === "number") {
+    value = BigInt(value);
+  }
+  const isNeg = value < BigInt(0);
+  if (isNeg) {
+    value = -value - BigInt(1);
+  }
+  const byteLength = (value === BigInt(0) ? 0 : ilog2(value)) + 1;
+  const pipe2 = new PipeArrayBuffer(new Uint8Array(byteLength), 0);
+  while (true) {
+    const i = getLowerBytes(value);
+    value /= BigInt(128);
+    if (isNeg && value === BigInt(0) && (i & 64) !== 0 || !isNeg && value === BigInt(0) && (i & 64) === 0) {
+      pipe2.write(new Uint8Array([i]));
+      break;
+    } else {
+      pipe2.write(new Uint8Array([i | 128]));
+    }
+  }
+  function getLowerBytes(num) {
+    const bytes = num % BigInt(128);
+    if (isNeg) {
+      return Number(BigInt(128) - bytes - BigInt(1));
+    } else {
+      return Number(bytes);
+    }
+  }
+  return pipe2.buffer;
+}
+function slebDecode(pipe2) {
+  const pipeView = new Uint8Array(pipe2.buffer);
+  let len = 0;
+  for (; len < pipeView.byteLength; len++) {
+    if (pipeView[len] < 128) {
+      if ((pipeView[len] & 64) === 0) {
+        return lebDecode(pipe2);
+      }
+      break;
+    }
+  }
+  const bytes = new Uint8Array(safeRead(pipe2, len + 1));
+  let value = BigInt(0);
+  for (let i = bytes.byteLength - 1; i >= 0; i--) {
+    value = value * BigInt(128) + BigInt(128 - (bytes[i] & 127) - 1);
+  }
+  return -value - BigInt(1);
+}
+function writeUIntLE(value, byteLength) {
+  if (BigInt(value) < BigInt(0)) {
+    throw new Error("Cannot write negative values.");
+  }
+  return writeIntLE(value, byteLength);
+}
+function writeIntLE(value, byteLength) {
+  value = BigInt(value);
+  const pipe2 = new PipeArrayBuffer(new Uint8Array(Math.min(1, byteLength)), 0);
+  let i = 0;
+  let mul = BigInt(256);
+  let sub = BigInt(0);
+  let byte = Number(value % mul);
+  pipe2.write(new Uint8Array([byte]));
+  while (++i < byteLength) {
+    if (value < 0 && sub === BigInt(0) && byte !== 0) {
+      sub = BigInt(1);
+    }
+    byte = Number((value / mul - sub) % BigInt(256));
+    pipe2.write(new Uint8Array([byte]));
+    mul *= BigInt(256);
+  }
+  return pipe2.buffer;
+}
+function readUIntLE(pipe2, byteLength) {
+  if (byteLength <= 0 || !Number.isInteger(byteLength)) {
+    throw new Error("Byte length must be a positive integer");
+  }
+  let val = BigInt(safeReadUint8(pipe2));
+  let mul = BigInt(1);
+  let i = 0;
+  while (++i < byteLength) {
+    mul *= BigInt(256);
+    const byte = BigInt(safeReadUint8(pipe2));
+    val = val + mul * byte;
+  }
+  return val;
+}
+function readIntLE(pipe2, byteLength) {
+  if (byteLength <= 0 || !Number.isInteger(byteLength)) {
+    throw new Error("Byte length must be a positive integer");
+  }
+  let val = readUIntLE(pipe2, byteLength);
+  const mul = BigInt(2) ** (BigInt(8) * BigInt(byteLength - 1) + BigInt(7));
+  if (val >= mul) {
+    val -= mul * BigInt(2);
+  }
+  return val;
+}
+var IDLTypeIds;
+(function(IDLTypeIds2) {
+  IDLTypeIds2[IDLTypeIds2["Null"] = -1] = "Null";
+  IDLTypeIds2[IDLTypeIds2["Bool"] = -2] = "Bool";
+  IDLTypeIds2[IDLTypeIds2["Nat"] = -3] = "Nat";
+  IDLTypeIds2[IDLTypeIds2["Int"] = -4] = "Int";
+  IDLTypeIds2[IDLTypeIds2["Float32"] = -13] = "Float32";
+  IDLTypeIds2[IDLTypeIds2["Float64"] = -14] = "Float64";
+  IDLTypeIds2[IDLTypeIds2["Text"] = -15] = "Text";
+  IDLTypeIds2[IDLTypeIds2["Reserved"] = -16] = "Reserved";
+  IDLTypeIds2[IDLTypeIds2["Empty"] = -17] = "Empty";
+  IDLTypeIds2[IDLTypeIds2["Opt"] = -18] = "Opt";
+  IDLTypeIds2[IDLTypeIds2["Vector"] = -19] = "Vector";
+  IDLTypeIds2[IDLTypeIds2["Record"] = -20] = "Record";
+  IDLTypeIds2[IDLTypeIds2["Variant"] = -21] = "Variant";
+  IDLTypeIds2[IDLTypeIds2["Func"] = -22] = "Func";
+  IDLTypeIds2[IDLTypeIds2["Service"] = -23] = "Service";
+  IDLTypeIds2[IDLTypeIds2["Principal"] = -24] = "Principal";
+})(IDLTypeIds || (IDLTypeIds = {}));
+const magicNumber = "DIDL";
+const toReadableString_max = 400;
+function zipWith(xs, ys, f) {
+  return xs.map((x2, i) => f(x2, ys[i]));
+}
+class TypeTable {
+  constructor() {
+    this._typs = [];
+    this._idx = /* @__PURE__ */ new Map();
+    this._idxRefCount = /* @__PURE__ */ new Map();
+  }
+  has(obj) {
+    return this._idx.has(obj.name);
+  }
+  add(type, buf) {
+    const idx = this._typs.length;
+    this._idx.set(type.name, idx);
+    this._idxRefCount.set(idx, 1);
+    this._typs.push(buf);
+  }
+  merge(obj, knot) {
+    const idx = this._idx.get(obj.name);
+    const knotIdx = this._idx.get(knot);
+    if (idx === void 0) {
+      throw new Error("Missing type index for " + obj);
+    }
+    if (knotIdx === void 0) {
+      throw new Error("Missing type index for " + knot);
+    }
+    this._typs[idx] = this._typs[knotIdx];
+    const idxRefCount = this._getIdxRefCount(idx);
+    const knotRefCount = this._getIdxRefCount(knotIdx);
+    this._idxRefCount.set(idx, idxRefCount + knotRefCount);
+    this._idx.set(knot, idx);
+    this._idxRefCount.set(knotIdx, 0);
+    this._compactFromEnd();
+  }
+  _getIdxRefCount(idx) {
+    return this._idxRefCount.get(idx) || 0;
+  }
+  _compactFromEnd() {
+    while (this._typs.length > 0) {
+      const lastIndex = this._typs.length - 1;
+      if (this._getIdxRefCount(lastIndex) > 0) {
+        break;
+      }
+      this._typs.pop();
+      this._idxRefCount.delete(lastIndex);
+    }
+  }
+  encode() {
+    const len = lebEncode(this._typs.length);
+    const buf = concat(...this._typs);
+    return concat(len, buf);
+  }
+  indexOf(typeName) {
+    if (!this._idx.has(typeName)) {
+      throw new Error("Missing type index for " + typeName);
+    }
+    return slebEncode(this._idx.get(typeName) || 0);
+  }
+}
+class Visitor {
+  visitType(_t, _data) {
+    throw new Error("Not implemented");
+  }
+  visitPrimitive(t, data) {
+    return this.visitType(t, data);
+  }
+  visitEmpty(t, data) {
+    return this.visitPrimitive(t, data);
+  }
+  visitBool(t, data) {
+    return this.visitPrimitive(t, data);
+  }
+  visitNull(t, data) {
+    return this.visitPrimitive(t, data);
+  }
+  visitReserved(t, data) {
+    return this.visitPrimitive(t, data);
+  }
+  visitText(t, data) {
+    return this.visitPrimitive(t, data);
+  }
+  visitNumber(t, data) {
+    return this.visitPrimitive(t, data);
+  }
+  visitInt(t, data) {
+    return this.visitNumber(t, data);
+  }
+  visitNat(t, data) {
+    return this.visitNumber(t, data);
+  }
+  visitFloat(t, data) {
+    return this.visitPrimitive(t, data);
+  }
+  visitFixedInt(t, data) {
+    return this.visitNumber(t, data);
+  }
+  visitFixedNat(t, data) {
+    return this.visitNumber(t, data);
+  }
+  visitPrincipal(t, data) {
+    return this.visitPrimitive(t, data);
+  }
+  visitConstruct(t, data) {
+    return this.visitType(t, data);
+  }
+  visitVec(t, _ty, data) {
+    return this.visitConstruct(t, data);
+  }
+  visitOpt(t, _ty, data) {
+    return this.visitConstruct(t, data);
+  }
+  visitRecord(t, _fields, data) {
+    return this.visitConstruct(t, data);
+  }
+  visitTuple(t, components, data) {
+    const fields = components.map((ty, i) => [`_${i}_`, ty]);
+    return this.visitRecord(t, fields, data);
+  }
+  visitVariant(t, _fields, data) {
+    return this.visitConstruct(t, data);
+  }
+  visitRec(_t, ty, data) {
+    return this.visitConstruct(ty, data);
+  }
+  visitFunc(t, data) {
+    return this.visitConstruct(t, data);
+  }
+  visitService(t, data) {
+    return this.visitConstruct(t, data);
+  }
+}
+var IdlTypeName;
+(function(IdlTypeName2) {
+  IdlTypeName2["EmptyClass"] = "__IDL_EmptyClass__";
+  IdlTypeName2["UnknownClass"] = "__IDL_UnknownClass__";
+  IdlTypeName2["BoolClass"] = "__IDL_BoolClass__";
+  IdlTypeName2["NullClass"] = "__IDL_NullClass__";
+  IdlTypeName2["ReservedClass"] = "__IDL_ReservedClass__";
+  IdlTypeName2["TextClass"] = "__IDL_TextClass__";
+  IdlTypeName2["IntClass"] = "__IDL_IntClass__";
+  IdlTypeName2["NatClass"] = "__IDL_NatClass__";
+  IdlTypeName2["FloatClass"] = "__IDL_FloatClass__";
+  IdlTypeName2["FixedIntClass"] = "__IDL_FixedIntClass__";
+  IdlTypeName2["FixedNatClass"] = "__IDL_FixedNatClass__";
+  IdlTypeName2["VecClass"] = "__IDL_VecClass__";
+  IdlTypeName2["OptClass"] = "__IDL_OptClass__";
+  IdlTypeName2["RecordClass"] = "__IDL_RecordClass__";
+  IdlTypeName2["TupleClass"] = "__IDL_TupleClass__";
+  IdlTypeName2["VariantClass"] = "__IDL_VariantClass__";
+  IdlTypeName2["RecClass"] = "__IDL_RecClass__";
+  IdlTypeName2["PrincipalClass"] = "__IDL_PrincipalClass__";
+  IdlTypeName2["FuncClass"] = "__IDL_FuncClass__";
+  IdlTypeName2["ServiceClass"] = "__IDL_ServiceClass__";
+})(IdlTypeName || (IdlTypeName = {}));
+class Type {
+  /* Display type name */
+  display() {
+    return this.name;
+  }
+  valueToString(x2) {
+    return toReadableString(x2);
+  }
+  /* Implement `T` in the IDL spec, only needed for non-primitive types */
+  buildTypeTable(typeTable) {
+    if (!typeTable.has(this)) {
+      this._buildTypeTableImpl(typeTable);
+    }
+  }
+}
+class PrimitiveType extends Type {
+  checkType(t) {
+    if (this.name !== t.name) {
+      throw new Error(`type mismatch: type on the wire ${t.name}, expect type ${this.name}`);
+    }
+    return t;
+  }
+  _buildTypeTableImpl(_typeTable) {
+    return;
+  }
+}
+class ConstructType extends Type {
+  checkType(t) {
+    if (t instanceof RecClass) {
+      const ty = t.getType();
+      if (typeof ty === "undefined") {
+        throw new Error("type mismatch with uninitialized type");
+      }
+      return ty;
+    }
+    throw new Error(`type mismatch: type on the wire ${t.name}, expect type ${this.name}`);
+  }
+  encodeType(typeTable) {
+    return typeTable.indexOf(this.name);
+  }
+}
+class EmptyClass extends PrimitiveType {
+  get typeName() {
+    return IdlTypeName.EmptyClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.EmptyClass;
+  }
+  accept(v2, d2) {
+    return v2.visitEmpty(this, d2);
+  }
+  covariant(x2) {
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue() {
+    throw new Error("Empty cannot appear as a function argument");
+  }
+  valueToString() {
+    throw new Error("Empty cannot appear as a value");
+  }
+  encodeType() {
+    return slebEncode(IDLTypeIds.Empty);
+  }
+  decodeValue() {
+    throw new Error("Empty cannot appear as an output");
+  }
+  get name() {
+    return "empty";
+  }
+}
+class UnknownClass extends Type {
+  get typeName() {
+    return IdlTypeName.UnknownClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.UnknownClass;
+  }
+  checkType(_t) {
+    throw new Error("Method not implemented for unknown.");
+  }
+  accept(v2, d2) {
+    throw v2.visitType(this, d2);
+  }
+  covariant(x2) {
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue() {
+    throw new Error("Unknown cannot appear as a function argument");
+  }
+  valueToString() {
+    throw new Error("Unknown cannot appear as a value");
+  }
+  encodeType() {
+    throw new Error("Unknown cannot be serialized");
+  }
+  decodeValue(b2, t) {
+    let decodedValue = t.decodeValue(b2, t);
+    if (Object(decodedValue) !== decodedValue) {
+      decodedValue = Object(decodedValue);
+    }
+    let typeFunc;
+    if (t instanceof RecClass) {
+      typeFunc = () => t.getType();
+    } else {
+      typeFunc = () => t;
+    }
+    Object.defineProperty(decodedValue, "type", {
+      value: typeFunc,
+      writable: true,
+      enumerable: false,
+      configurable: true
+    });
+    return decodedValue;
+  }
+  _buildTypeTableImpl() {
+    throw new Error("Unknown cannot be serialized");
+  }
+  get name() {
+    return "Unknown";
+  }
+}
+class BoolClass extends PrimitiveType {
+  get typeName() {
+    return IdlTypeName.BoolClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.BoolClass;
+  }
+  accept(v2, d2) {
+    return v2.visitBool(this, d2);
+  }
+  covariant(x2) {
+    if (typeof x2 === "boolean")
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    return new Uint8Array([x2 ? 1 : 0]);
+  }
+  encodeType() {
+    return slebEncode(IDLTypeIds.Bool);
+  }
+  decodeValue(b2, t) {
+    this.checkType(t);
+    switch (safeReadUint8(b2)) {
+      case 0:
+        return false;
+      case 1:
+        return true;
+      default:
+        throw new Error("Boolean value out of range");
+    }
+  }
+  get name() {
+    return "bool";
+  }
+}
+class NullClass extends PrimitiveType {
+  get typeName() {
+    return IdlTypeName.NullClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.NullClass;
+  }
+  accept(v2, d2) {
+    return v2.visitNull(this, d2);
+  }
+  covariant(x2) {
+    if (x2 === null)
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue() {
+    return new Uint8Array(0);
+  }
+  encodeType() {
+    return slebEncode(IDLTypeIds.Null);
+  }
+  decodeValue(_b3, t) {
+    this.checkType(t);
+    return null;
+  }
+  get name() {
+    return "null";
+  }
+}
+class ReservedClass extends PrimitiveType {
+  get typeName() {
+    return IdlTypeName.ReservedClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.ReservedClass;
+  }
+  accept(v2, d2) {
+    return v2.visitReserved(this, d2);
+  }
+  covariant(_x) {
+    return true;
+  }
+  encodeValue() {
+    return new Uint8Array(0);
+  }
+  encodeType() {
+    return slebEncode(IDLTypeIds.Reserved);
+  }
+  decodeValue(b2, t) {
+    if (t.name !== this.name) {
+      t.decodeValue(b2, t);
+    }
+    return null;
+  }
+  get name() {
+    return "reserved";
+  }
+}
+class TextClass extends PrimitiveType {
+  get typeName() {
+    return IdlTypeName.TextClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.TextClass;
+  }
+  accept(v2, d2) {
+    return v2.visitText(this, d2);
+  }
+  covariant(x2) {
+    if (typeof x2 === "string")
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    const buf = new TextEncoder().encode(x2);
+    const len = lebEncode(buf.byteLength);
+    return concat(len, buf);
+  }
+  encodeType() {
+    return slebEncode(IDLTypeIds.Text);
+  }
+  decodeValue(b2, t) {
+    this.checkType(t);
+    const len = lebDecode(b2);
+    const buf = safeRead(b2, Number(len));
+    const decoder = new TextDecoder("utf8", { fatal: true });
+    return decoder.decode(buf);
+  }
+  get name() {
+    return "text";
+  }
+  valueToString(x2) {
+    return '"' + x2 + '"';
+  }
+}
+class IntClass extends PrimitiveType {
+  get typeName() {
+    return IdlTypeName.IntClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.IntClass;
+  }
+  accept(v2, d2) {
+    return v2.visitInt(this, d2);
+  }
+  covariant(x2) {
+    if (typeof x2 === "bigint" || Number.isInteger(x2))
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    return slebEncode(x2);
+  }
+  encodeType() {
+    return slebEncode(IDLTypeIds.Int);
+  }
+  decodeValue(b2, t) {
+    this.checkType(t);
+    return slebDecode(b2);
+  }
+  get name() {
+    return "int";
+  }
+  valueToString(x2) {
+    return x2.toString();
+  }
+}
+class NatClass extends PrimitiveType {
+  get typeName() {
+    return IdlTypeName.NatClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.NatClass;
+  }
+  accept(v2, d2) {
+    return v2.visitNat(this, d2);
+  }
+  covariant(x2) {
+    if (typeof x2 === "bigint" && x2 >= BigInt(0) || Number.isInteger(x2) && x2 >= 0)
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    return lebEncode(x2);
+  }
+  encodeType() {
+    return slebEncode(IDLTypeIds.Nat);
+  }
+  decodeValue(b2, t) {
+    this.checkType(t);
+    return lebDecode(b2);
+  }
+  get name() {
+    return "nat";
+  }
+  valueToString(x2) {
+    return x2.toString();
+  }
+}
+class FloatClass extends PrimitiveType {
+  get typeName() {
+    return IdlTypeName.FloatClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.FloatClass;
+  }
+  constructor(_bits) {
+    super();
+    this._bits = _bits;
+    if (_bits !== 32 && _bits !== 64) {
+      throw new Error("not a valid float type");
+    }
+  }
+  accept(v2, d2) {
+    return v2.visitFloat(this, d2);
+  }
+  covariant(x2) {
+    if (typeof x2 === "number" || x2 instanceof Number)
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    const buf = new ArrayBuffer(this._bits / 8);
+    const view = new DataView(buf);
+    if (this._bits === 32) {
+      view.setFloat32(0, x2, true);
+    } else {
+      view.setFloat64(0, x2, true);
+    }
+    return new Uint8Array(buf);
+  }
+  encodeType() {
+    const opcode = this._bits === 32 ? IDLTypeIds.Float32 : IDLTypeIds.Float64;
+    return slebEncode(opcode);
+  }
+  decodeValue(b2, t) {
+    this.checkType(t);
+    const bytes = safeRead(b2, this._bits / 8);
+    const view = uint8ToDataView(bytes);
+    if (this._bits === 32) {
+      return view.getFloat32(0, true);
+    } else {
+      return view.getFloat64(0, true);
+    }
+  }
+  get name() {
+    return "float" + this._bits;
+  }
+  valueToString(x2) {
+    return x2.toString();
+  }
+}
+class FixedIntClass extends PrimitiveType {
+  get typeName() {
+    return IdlTypeName.FixedIntClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.FixedIntClass;
+  }
+  constructor(_bits) {
+    super();
+    this._bits = _bits;
+  }
+  accept(v2, d2) {
+    return v2.visitFixedInt(this, d2);
+  }
+  covariant(x2) {
+    const min2 = iexp2(this._bits - 1) * BigInt(-1);
+    const max2 = iexp2(this._bits - 1) - BigInt(1);
+    let ok = false;
+    if (typeof x2 === "bigint") {
+      ok = x2 >= min2 && x2 <= max2;
+    } else if (Number.isInteger(x2)) {
+      const v2 = BigInt(x2);
+      ok = v2 >= min2 && v2 <= max2;
+    } else {
+      ok = false;
+    }
+    if (ok)
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    return writeIntLE(x2, this._bits / 8);
+  }
+  encodeType() {
+    const offset2 = Math.log2(this._bits) - 3;
+    return slebEncode(-9 - offset2);
+  }
+  decodeValue(b2, t) {
+    this.checkType(t);
+    const num = readIntLE(b2, this._bits / 8);
+    if (this._bits <= 32) {
+      return Number(num);
+    } else {
+      return num;
+    }
+  }
+  get name() {
+    return `int${this._bits}`;
+  }
+  valueToString(x2) {
+    return x2.toString();
+  }
+}
+class FixedNatClass extends PrimitiveType {
+  get typeName() {
+    return IdlTypeName.FixedNatClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.FixedNatClass;
+  }
+  constructor(_bits) {
+    super();
+    this._bits = _bits;
+  }
+  accept(v2, d2) {
+    return v2.visitFixedNat(this, d2);
+  }
+  covariant(x2) {
+    const max2 = iexp2(this._bits);
+    let ok = false;
+    if (typeof x2 === "bigint" && x2 >= BigInt(0)) {
+      ok = x2 < max2;
+    } else if (Number.isInteger(x2) && x2 >= 0) {
+      const v2 = BigInt(x2);
+      ok = v2 < max2;
+    } else {
+      ok = false;
+    }
+    if (ok)
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    return writeUIntLE(x2, this._bits / 8);
+  }
+  encodeType() {
+    const offset2 = Math.log2(this._bits) - 3;
+    return slebEncode(-5 - offset2);
+  }
+  decodeValue(b2, t) {
+    this.checkType(t);
+    const num = readUIntLE(b2, this._bits / 8);
+    if (this._bits <= 32) {
+      return Number(num);
+    } else {
+      return num;
+    }
+  }
+  get name() {
+    return `nat${this._bits}`;
+  }
+  valueToString(x2) {
+    return x2.toString();
+  }
+}
+class VecClass extends ConstructType {
+  get typeName() {
+    return IdlTypeName.VecClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.VecClass;
+  }
+  constructor(_type) {
+    super();
+    this._type = _type;
+    this._blobOptimization = false;
+    if (_type instanceof FixedNatClass && _type._bits === 8) {
+      this._blobOptimization = true;
+    }
+  }
+  accept(v2, d2) {
+    return v2.visitVec(this, this._type, d2);
+  }
+  covariant(x2) {
+    const bits = this._type instanceof FixedNatClass ? this._type._bits : this._type instanceof FixedIntClass ? this._type._bits : 0;
+    if (ArrayBuffer.isView(x2) && bits == x2.BYTES_PER_ELEMENT * 8 || Array.isArray(x2) && x2.every((v2, idx) => {
+      try {
+        return this._type.covariant(v2);
+      } catch (e) {
+        throw new Error(`Invalid ${this.display()} argument: 
+
+index ${idx} -> ${e.message}`);
+      }
+    }))
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    const len = lebEncode(x2.length);
+    if (this._blobOptimization) {
+      return concat(len, new Uint8Array(x2));
+    }
+    if (ArrayBuffer.isView(x2)) {
+      if (x2 instanceof Int16Array || x2 instanceof Uint16Array) {
+        const buffer = new DataView(new ArrayBuffer(x2.length * 2));
+        for (let i = 0; i < x2.length; i++) {
+          if (x2 instanceof Int16Array) {
+            buffer.setInt16(i * 2, x2[i], true);
+          } else {
+            buffer.setUint16(i * 2, x2[i], true);
+          }
+        }
+        return concat(len, new Uint8Array(buffer.buffer));
+      } else if (x2 instanceof Int32Array || x2 instanceof Uint32Array) {
+        const buffer = new DataView(new ArrayBuffer(x2.length * 4));
+        for (let i = 0; i < x2.length; i++) {
+          if (x2 instanceof Int32Array) {
+            buffer.setInt32(i * 4, x2[i], true);
+          } else {
+            buffer.setUint32(i * 4, x2[i], true);
+          }
+        }
+        return concat(len, new Uint8Array(buffer.buffer));
+      } else if (x2 instanceof BigInt64Array || x2 instanceof BigUint64Array) {
+        const buffer = new DataView(new ArrayBuffer(x2.length * 8));
+        for (let i = 0; i < x2.length; i++) {
+          if (x2 instanceof BigInt64Array) {
+            buffer.setBigInt64(i * 8, x2[i], true);
+          } else {
+            buffer.setBigUint64(i * 8, x2[i], true);
+          }
+        }
+        return concat(len, new Uint8Array(buffer.buffer));
+      } else {
+        return concat(len, new Uint8Array(x2.buffer, x2.byteOffset, x2.byteLength));
+      }
+    }
+    const buf = new PipeArrayBuffer(new Uint8Array(len.byteLength + x2.length), 0);
+    buf.write(len);
+    for (const d2 of x2) {
+      const encoded = this._type.encodeValue(d2);
+      buf.write(new Uint8Array(encoded));
+    }
+    return buf.buffer;
+  }
+  _buildTypeTableImpl(typeTable) {
+    this._type.buildTypeTable(typeTable);
+    const opCode = slebEncode(IDLTypeIds.Vector);
+    const buffer = this._type.encodeType(typeTable);
+    typeTable.add(this, concat(opCode, buffer));
+  }
+  decodeValue(b2, t) {
+    const vec = this.checkType(t);
+    if (!(vec instanceof VecClass)) {
+      throw new Error("Not a vector type");
+    }
+    const len = Number(lebDecode(b2));
+    if (this._type instanceof FixedNatClass) {
+      if (this._type._bits == 8) {
+        return new Uint8Array(b2.read(len));
+      }
+      if (this._type._bits == 16) {
+        const bytes = b2.read(len * 2);
+        const u16 = new Uint16Array(bytes.buffer, bytes.byteOffset, len);
+        return u16;
+      }
+      if (this._type._bits == 32) {
+        const bytes = b2.read(len * 4);
+        const u32 = new Uint32Array(bytes.buffer, bytes.byteOffset, len);
+        return u32;
+      }
+      if (this._type._bits == 64) {
+        return new BigUint64Array(b2.read(len * 8).buffer);
+      }
+    }
+    if (this._type instanceof FixedIntClass) {
+      if (this._type._bits == 8) {
+        return new Int8Array(b2.read(len));
+      }
+      if (this._type._bits == 16) {
+        const bytes = b2.read(len * 2);
+        const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+        const result = new Int16Array(len);
+        for (let i = 0; i < len; i++) {
+          result[i] = view.getInt16(i * 2, true);
+        }
+        return result;
+      }
+      if (this._type._bits == 32) {
+        const bytes = b2.read(len * 4);
+        const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+        const result = new Int32Array(len);
+        for (let i = 0; i < len; i++) {
+          result[i] = view.getInt32(i * 4, true);
+        }
+        return result;
+      }
+      if (this._type._bits == 64) {
+        const bytes = b2.read(len * 8);
+        const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+        const result = new BigInt64Array(len);
+        for (let i = 0; i < len; i++) {
+          result[i] = view.getBigInt64(i * 8, true);
+        }
+        return result;
+      }
+    }
+    const rets = [];
+    for (let i = 0; i < len; i++) {
+      rets.push(this._type.decodeValue(b2, vec._type));
+    }
+    return rets;
+  }
+  get name() {
+    return `vec ${this._type.name}`;
+  }
+  display() {
+    return `vec ${this._type.display()}`;
+  }
+  valueToString(x2) {
+    const elements = x2.map((e) => this._type.valueToString(e));
+    return "vec {" + elements.join("; ") + "}";
+  }
+}
+class OptClass extends ConstructType {
+  get typeName() {
+    return IdlTypeName.OptClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.OptClass;
+  }
+  constructor(_type) {
+    super();
+    this._type = _type;
+  }
+  accept(v2, d2) {
+    return v2.visitOpt(this, this._type, d2);
+  }
+  covariant(x2) {
+    try {
+      if (Array.isArray(x2) && (x2.length === 0 || x2.length === 1 && this._type.covariant(x2[0])))
+        return true;
+    } catch (e) {
+      throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)} 
+
+-> ${e.message}`);
+    }
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    if (x2.length === 0) {
+      return new Uint8Array([0]);
+    } else {
+      return concat(new Uint8Array([1]), this._type.encodeValue(x2[0]));
+    }
+  }
+  _buildTypeTableImpl(typeTable) {
+    this._type.buildTypeTable(typeTable);
+    const opCode = slebEncode(IDLTypeIds.Opt);
+    const buffer = this._type.encodeType(typeTable);
+    typeTable.add(this, concat(opCode, buffer));
+  }
+  decodeValue(b2, t) {
+    if (t instanceof NullClass) {
+      return [];
+    }
+    if (t instanceof ReservedClass) {
+      return [];
+    }
+    let wireType = t;
+    if (t instanceof RecClass) {
+      const ty = t.getType();
+      if (typeof ty === "undefined") {
+        throw new Error("type mismatch with uninitialized type");
+      } else
+        wireType = ty;
+    }
+    if (wireType instanceof OptClass) {
+      switch (safeReadUint8(b2)) {
+        case 0:
+          return [];
+        case 1: {
+          const checkpoint = b2.save();
+          try {
+            const v2 = this._type.decodeValue(b2, wireType._type);
+            return [v2];
+          } catch (e) {
+            b2.restore(checkpoint);
+            wireType._type.decodeValue(b2, wireType._type);
+            return [];
+          }
+        }
+        default:
+          throw new Error("Not an option value");
+      }
+    } else if (
+      // this check corresponds to `not (null <: <t>)` in the spec
+      this._type instanceof NullClass || this._type instanceof OptClass || this._type instanceof ReservedClass
+    ) {
+      wireType.decodeValue(b2, wireType);
+      return [];
+    } else {
+      const checkpoint = b2.save();
+      try {
+        const v2 = this._type.decodeValue(b2, t);
+        return [v2];
+      } catch (e) {
+        b2.restore(checkpoint);
+        wireType.decodeValue(b2, t);
+        return [];
+      }
+    }
+  }
+  get name() {
+    return `opt ${this._type.name}`;
+  }
+  display() {
+    return `opt ${this._type.display()}`;
+  }
+  valueToString(x2) {
+    if (x2.length === 0) {
+      return "null";
+    } else {
+      return `opt ${this._type.valueToString(x2[0])}`;
+    }
+  }
+}
+class RecordClass extends ConstructType {
+  get typeName() {
+    return IdlTypeName.RecordClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.RecordClass || instance.typeName === IdlTypeName.TupleClass;
+  }
+  constructor(fields = {}) {
+    super();
+    this._fields = Object.entries(fields).sort((a2, b2) => idlLabelToId(a2[0]) - idlLabelToId(b2[0]));
+  }
+  accept(v2, d2) {
+    return v2.visitRecord(this, this._fields, d2);
+  }
+  tryAsTuple() {
+    const res = [];
+    for (let i = 0; i < this._fields.length; i++) {
+      const [key, type] = this._fields[i];
+      if (key !== `_${i}_`) {
+        return null;
+      }
+      res.push(type);
+    }
+    return res;
+  }
+  covariant(x2) {
+    if (typeof x2 === "object" && this._fields.every(([k2, t]) => {
+      if (!x2.hasOwnProperty(k2)) {
+        throw new Error(`Record is missing key "${k2}".`);
+      }
+      try {
+        return t.covariant(x2[k2]);
+      } catch (e) {
+        throw new Error(`Invalid ${this.display()} argument: 
+
+field ${k2} -> ${e.message}`);
+      }
+    }))
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    const values = this._fields.map(([key]) => x2[key]);
+    const bufs = zipWith(this._fields, values, ([, c2], d2) => c2.encodeValue(d2));
+    return concat(...bufs);
+  }
+  _buildTypeTableImpl(T2) {
+    this._fields.forEach(([_2, value]) => value.buildTypeTable(T2));
+    const opCode = slebEncode(IDLTypeIds.Record);
+    const len = lebEncode(this._fields.length);
+    const fields = this._fields.map(([key, value]) => concat(lebEncode(idlLabelToId(key)), value.encodeType(T2)));
+    T2.add(this, concat(opCode, len, concat(...fields)));
+  }
+  decodeValue(b2, t) {
+    const record = this.checkType(t);
+    if (!(record instanceof RecordClass)) {
+      throw new Error("Not a record type");
+    }
+    const x2 = {};
+    let expectedRecordIdx = 0;
+    let actualRecordIdx = 0;
+    while (actualRecordIdx < record._fields.length) {
+      const [hash, type] = record._fields[actualRecordIdx];
+      if (expectedRecordIdx >= this._fields.length) {
+        type.decodeValue(b2, type);
+        actualRecordIdx++;
+        continue;
+      }
+      const [expectKey, expectType] = this._fields[expectedRecordIdx];
+      const expectedId = idlLabelToId(this._fields[expectedRecordIdx][0]);
+      const actualId = idlLabelToId(hash);
+      if (expectedId === actualId) {
+        x2[expectKey] = expectType.decodeValue(b2, type);
+        expectedRecordIdx++;
+        actualRecordIdx++;
+      } else if (actualId > expectedId) {
+        if (expectType instanceof OptClass || expectType instanceof ReservedClass) {
+          x2[expectKey] = [];
+          expectedRecordIdx++;
+        } else {
+          throw new Error("Cannot find required field " + expectKey);
+        }
+      } else {
+        type.decodeValue(b2, type);
+        actualRecordIdx++;
+      }
+    }
+    for (const [expectKey, expectType] of this._fields.slice(expectedRecordIdx)) {
+      if (expectType instanceof OptClass || expectType instanceof ReservedClass) {
+        x2[expectKey] = [];
+      } else {
+        throw new Error("Cannot find required field " + expectKey);
+      }
+    }
+    return x2;
+  }
+  get fieldsAsObject() {
+    const fields = {};
+    for (const [name, ty] of this._fields) {
+      fields[idlLabelToId(name)] = ty;
+    }
+    return fields;
+  }
+  get name() {
+    const fields = this._fields.map(([key, value]) => key + ":" + value.name);
+    return `record {${fields.join("; ")}}`;
+  }
+  display() {
+    const fields = this._fields.map(([key, value]) => key + ":" + value.display());
+    return `record {${fields.join("; ")}}`;
+  }
+  valueToString(x2) {
+    const values = this._fields.map(([key]) => x2[key]);
+    const fields = zipWith(this._fields, values, ([k2, c2], d2) => k2 + "=" + c2.valueToString(d2));
+    return `record {${fields.join("; ")}}`;
+  }
+}
+class TupleClass extends RecordClass {
+  get typeName() {
+    return IdlTypeName.TupleClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.TupleClass;
+  }
+  constructor(_components) {
+    const x2 = {};
+    _components.forEach((e, i) => x2["_" + i + "_"] = e);
+    super(x2);
+    this._components = _components;
+  }
+  accept(v2, d2) {
+    return v2.visitTuple(this, this._components, d2);
+  }
+  covariant(x2) {
+    if (Array.isArray(x2) && x2.length >= this._fields.length && this._components.every((t, i) => {
+      try {
+        return t.covariant(x2[i]);
+      } catch (e) {
+        throw new Error(`Invalid ${this.display()} argument: 
+
+index ${i} -> ${e.message}`);
+      }
+    }))
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    const bufs = zipWith(this._components, x2, (c2, d2) => c2.encodeValue(d2));
+    return concat(...bufs);
+  }
+  decodeValue(b2, t) {
+    const tuple = this.checkType(t);
+    if (!(tuple instanceof TupleClass)) {
+      throw new Error("not a tuple type");
+    }
+    if (tuple._components.length < this._components.length) {
+      throw new Error("tuple mismatch");
+    }
+    const res = [];
+    for (const [i, wireType] of tuple._components.entries()) {
+      if (i >= this._components.length) {
+        wireType.decodeValue(b2, wireType);
+      } else {
+        res.push(this._components[i].decodeValue(b2, wireType));
+      }
+    }
+    return res;
+  }
+  display() {
+    const fields = this._components.map((value) => value.display());
+    return `record {${fields.join("; ")}}`;
+  }
+  valueToString(values) {
+    const fields = zipWith(this._components, values, (c2, d2) => c2.valueToString(d2));
+    return `record {${fields.join("; ")}}`;
+  }
+}
+class VariantClass extends ConstructType {
+  get typeName() {
+    return IdlTypeName.VariantClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.VariantClass;
+  }
+  constructor(fields = {}) {
+    super();
+    this._fields = Object.entries(fields).sort((a2, b2) => idlLabelToId(a2[0]) - idlLabelToId(b2[0]));
+  }
+  accept(v2, d2) {
+    return v2.visitVariant(this, this._fields, d2);
+  }
+  covariant(x2) {
+    if (typeof x2 === "object" && Object.entries(x2).length === 1 && this._fields.every(([k2, v2]) => {
+      try {
+        return !x2.hasOwnProperty(k2) || v2.covariant(x2[k2]);
+      } catch (e) {
+        throw new Error(`Invalid ${this.display()} argument: 
+
+variant ${k2} -> ${e.message}`);
+      }
+    }))
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    for (let i = 0; i < this._fields.length; i++) {
+      const [name, type] = this._fields[i];
+      if (x2.hasOwnProperty(name)) {
+        const idx = lebEncode(i);
+        const buf = type.encodeValue(x2[name]);
+        return concat(idx, buf);
+      }
+    }
+    throw Error("Variant has no data: " + x2);
+  }
+  _buildTypeTableImpl(typeTable) {
+    this._fields.forEach(([, type]) => {
+      type.buildTypeTable(typeTable);
+    });
+    const opCode = slebEncode(IDLTypeIds.Variant);
+    const len = lebEncode(this._fields.length);
+    const fields = this._fields.map(([key, value]) => concat(lebEncode(idlLabelToId(key)), value.encodeType(typeTable)));
+    typeTable.add(this, concat(opCode, len, ...fields));
+  }
+  decodeValue(b2, t) {
+    const variant = this.checkType(t);
+    if (!(variant instanceof VariantClass)) {
+      throw new Error("Not a variant type");
+    }
+    const idx = Number(lebDecode(b2));
+    if (idx >= variant._fields.length) {
+      throw Error("Invalid variant index: " + idx);
+    }
+    const [wireHash, wireType] = variant._fields[idx];
+    for (const [key, expectType] of this._fields) {
+      if (idlLabelToId(wireHash) === idlLabelToId(key)) {
+        const value = expectType.decodeValue(b2, wireType);
+        return { [key]: value };
+      }
+    }
+    throw new Error("Cannot find field hash " + wireHash);
+  }
+  get name() {
+    const fields = this._fields.map(([key, type]) => key + ":" + type.name);
+    return `variant {${fields.join("; ")}}`;
+  }
+  display() {
+    const fields = this._fields.map(([key, type]) => key + (type.name === "null" ? "" : `:${type.display()}`));
+    return `variant {${fields.join("; ")}}`;
+  }
+  valueToString(x2) {
+    for (const [name, type] of this._fields) {
+      if (x2.hasOwnProperty(name)) {
+        const value = type.valueToString(x2[name]);
+        if (value === "null") {
+          return `variant {${name}}`;
+        } else {
+          return `variant {${name}=${value}}`;
+        }
+      }
+    }
+    throw new Error("Variant has no data: " + x2);
+  }
+  get alternativesAsObject() {
+    const alternatives = {};
+    for (const [name, ty] of this._fields) {
+      alternatives[idlLabelToId(name)] = ty;
+    }
+    return alternatives;
+  }
+}
+const _RecClass = class _RecClass extends ConstructType {
+  constructor() {
+    super(...arguments);
+    this._id = _RecClass._counter++;
+  }
+  get typeName() {
+    return IdlTypeName.RecClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.RecClass;
+  }
+  accept(v2, d2) {
+    if (!this._type) {
+      throw Error("Recursive type uninitialized.");
+    }
+    return v2.visitRec(this, this._type, d2);
+  }
+  fill(t) {
+    this._type = t;
+  }
+  getType() {
+    return this._type;
+  }
+  covariant(x2) {
+    if (this._type ? this._type.covariant(x2) : false)
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    if (!this._type) {
+      throw Error("Recursive type uninitialized.");
+    }
+    return this._type.encodeValue(x2);
+  }
+  _buildTypeTableImpl(typeTable) {
+    if (!this._type) {
+      throw Error("Recursive type uninitialized.");
+    }
+    typeTable.add(this, new Uint8Array([]));
+    this._type.buildTypeTable(typeTable);
+    typeTable.merge(this, this._type.name);
+  }
+  decodeValue(b2, t) {
+    if (!this._type) {
+      throw Error("Recursive type uninitialized.");
+    }
+    return this._type.decodeValue(b2, t);
+  }
+  get name() {
+    return `rec_${this._id}`;
+  }
+  display() {
+    if (!this._type) {
+      throw Error("Recursive type uninitialized.");
+    }
+    return `μ${this.name}.${this._type.name}`;
+  }
+  valueToString(x2) {
+    if (!this._type) {
+      throw Error("Recursive type uninitialized.");
+    }
+    return this._type.valueToString(x2);
+  }
+};
+_RecClass._counter = 0;
+let RecClass = _RecClass;
+function decodePrincipalId(b2) {
+  const x2 = safeReadUint8(b2);
+  if (x2 !== 1) {
+    throw new Error("Cannot decode principal");
+  }
+  const len = Number(lebDecode(b2));
+  return Principal$1.fromUint8Array(new Uint8Array(safeRead(b2, len)));
+}
+class PrincipalClass extends PrimitiveType {
+  get typeName() {
+    return IdlTypeName.PrincipalClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.PrincipalClass;
+  }
+  accept(v2, d2) {
+    return v2.visitPrincipal(this, d2);
+  }
+  covariant(x2) {
+    if (x2 && x2._isPrincipal)
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    const buf = x2.toUint8Array();
+    const len = lebEncode(buf.byteLength);
+    return concat(new Uint8Array([1]), len, buf);
+  }
+  encodeType() {
+    return slebEncode(IDLTypeIds.Principal);
+  }
+  decodeValue(b2, t) {
+    this.checkType(t);
+    return decodePrincipalId(b2);
+  }
+  get name() {
+    return "principal";
+  }
+  valueToString(x2) {
+    return `${this.name} "${x2.toText()}"`;
+  }
+}
+class FuncClass extends ConstructType {
+  get typeName() {
+    return IdlTypeName.FuncClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.FuncClass;
+  }
+  static argsToString(types, v2) {
+    if (types.length !== v2.length) {
+      throw new Error("arity mismatch");
+    }
+    return "(" + types.map((t, i) => t.valueToString(v2[i])).join(", ") + ")";
+  }
+  constructor(argTypes, retTypes, annotations = []) {
+    super();
+    this.argTypes = argTypes;
+    this.retTypes = retTypes;
+    this.annotations = annotations;
+  }
+  accept(v2, d2) {
+    return v2.visitFunc(this, d2);
+  }
+  covariant(x2) {
+    if (Array.isArray(x2) && x2.length === 2 && x2[0] && x2[0]._isPrincipal && typeof x2[1] === "string")
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue([principal, methodName]) {
+    const buf = principal.toUint8Array();
+    const len = lebEncode(buf.byteLength);
+    const canister = concat(new Uint8Array([1]), len, buf);
+    const method = new TextEncoder().encode(methodName);
+    const methodLen = lebEncode(method.byteLength);
+    return concat(new Uint8Array([1]), canister, methodLen, method);
+  }
+  _buildTypeTableImpl(T2) {
+    this.argTypes.forEach((arg) => arg.buildTypeTable(T2));
+    this.retTypes.forEach((arg) => arg.buildTypeTable(T2));
+    const opCode = slebEncode(IDLTypeIds.Func);
+    const argLen = lebEncode(this.argTypes.length);
+    const args = concat(...this.argTypes.map((arg) => arg.encodeType(T2)));
+    const retLen = lebEncode(this.retTypes.length);
+    const rets = concat(...this.retTypes.map((arg) => arg.encodeType(T2)));
+    const annLen = lebEncode(this.annotations.length);
+    const anns = concat(...this.annotations.map((a2) => this.encodeAnnotation(a2)));
+    T2.add(this, concat(opCode, argLen, args, retLen, rets, annLen, anns));
+  }
+  decodeValue(b2, t) {
+    const tt2 = t instanceof RecClass ? t.getType() ?? t : t;
+    if (!subtype(tt2, this)) {
+      throw new Error(`Cannot decode function reference at type ${this.display()} from wire type ${tt2.display()}`);
+    }
+    const x2 = safeReadUint8(b2);
+    if (x2 !== 1) {
+      throw new Error("Cannot decode function reference");
+    }
+    const canister = decodePrincipalId(b2);
+    const mLen = Number(lebDecode(b2));
+    const buf = safeRead(b2, mLen);
+    const decoder = new TextDecoder("utf8", { fatal: true });
+    const method = decoder.decode(buf);
+    return [canister, method];
+  }
+  get name() {
+    const args = this.argTypes.map((arg) => arg.name).join(", ");
+    const rets = this.retTypes.map((arg) => arg.name).join(", ");
+    const annon = " " + this.annotations.join(" ");
+    return `(${args}) -> (${rets})${annon}`;
+  }
+  valueToString([principal, str]) {
+    return `func "${principal.toText()}".${str}`;
+  }
+  display() {
+    const args = this.argTypes.map((arg) => arg.display()).join(", ");
+    const rets = this.retTypes.map((arg) => arg.display()).join(", ");
+    const annon = " " + this.annotations.join(" ");
+    return `(${args}) → (${rets})${annon}`;
+  }
+  encodeAnnotation(ann) {
+    if (ann === "query") {
+      return new Uint8Array([1]);
+    } else if (ann === "oneway") {
+      return new Uint8Array([2]);
+    } else if (ann === "composite_query") {
+      return new Uint8Array([3]);
+    } else {
+      throw new Error("Illegal function annotation");
+    }
+  }
+}
+class ServiceClass extends ConstructType {
+  get typeName() {
+    return IdlTypeName.ServiceClass;
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance.typeName === IdlTypeName.ServiceClass;
+  }
+  constructor(fields) {
+    super();
+    this._fields = Object.entries(fields).sort((a2, b2) => {
+      if (a2[0] < b2[0]) {
+        return -1;
+      }
+      if (a2[0] > b2[0]) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+  accept(v2, d2) {
+    return v2.visitService(this, d2);
+  }
+  covariant(x2) {
+    if (x2 && x2._isPrincipal)
+      return true;
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
+  }
+  encodeValue(x2) {
+    const buf = x2.toUint8Array();
+    const len = lebEncode(buf.length);
+    return concat(new Uint8Array([1]), len, buf);
+  }
+  _buildTypeTableImpl(T2) {
+    this._fields.forEach(([_2, func]) => func.buildTypeTable(T2));
+    const opCode = slebEncode(IDLTypeIds.Service);
+    const len = lebEncode(this._fields.length);
+    const meths = this._fields.map(([label, func]) => {
+      const labelBuf = new TextEncoder().encode(label);
+      const labelLen = lebEncode(labelBuf.length);
+      return concat(labelLen, labelBuf, func.encodeType(T2));
+    });
+    T2.add(this, concat(opCode, len, ...meths));
+  }
+  decodeValue(b2, t) {
+    const tt2 = t instanceof RecClass ? t.getType() ?? t : t;
+    if (!subtype(tt2, this)) {
+      throw new Error(`Cannot decode service reference at type ${this.display()} from wire type ${tt2.display()}`);
+    }
+    return decodePrincipalId(b2);
+  }
+  get name() {
+    const fields = this._fields.map(([key, value]) => key + ":" + value.name);
+    return `service {${fields.join("; ")}}`;
+  }
+  valueToString(x2) {
+    return `service "${x2.toText()}"`;
+  }
+  fieldsAsObject() {
+    const fields = {};
+    for (const [name, ty] of this._fields) {
+      fields[name] = ty;
+    }
+    return fields;
+  }
+}
+function toReadableString(x2) {
+  const str = JSON.stringify(x2, (_key, value) => typeof value === "bigint" ? `BigInt(${value})` : value);
+  return str && str.length > toReadableString_max ? str.substring(0, toReadableString_max - 3) + "..." : str;
+}
+function encode$2(argTypes, args) {
+  if (args.length < argTypes.length) {
+    throw Error("Wrong number of message arguments");
+  }
+  const typeTable = new TypeTable();
+  argTypes.forEach((t) => t.buildTypeTable(typeTable));
+  const magic = new TextEncoder().encode(magicNumber);
+  const table = typeTable.encode();
+  const len = lebEncode(args.length);
+  const typs = concat(...argTypes.map((t) => t.encodeType(typeTable)));
+  const vals = concat(...zipWith(argTypes, args, (t, x2) => {
+    try {
+      t.covariant(x2);
+    } catch (e) {
+      const err = new Error(e.message + "\n\n");
+      throw err;
+    }
+    return t.encodeValue(x2);
+  }));
+  return concat(magic, table, len, typs, vals);
+}
+function decode$2(retTypes, bytes) {
+  const b2 = new PipeArrayBuffer(bytes);
+  if (bytes.byteLength < magicNumber.length) {
+    throw new Error("Message length smaller than magic number");
+  }
+  const magicBuffer = safeRead(b2, magicNumber.length);
+  const magic = new TextDecoder().decode(magicBuffer);
+  if (magic !== magicNumber) {
+    throw new Error("Wrong magic number: " + JSON.stringify(magic));
+  }
+  function readTypeTable(pipe2) {
+    const typeTable = [];
+    const len = Number(lebDecode(pipe2));
+    for (let i = 0; i < len; i++) {
+      const ty = Number(slebDecode(pipe2));
+      switch (ty) {
+        case IDLTypeIds.Opt:
+        case IDLTypeIds.Vector: {
+          const t = Number(slebDecode(pipe2));
+          typeTable.push([ty, t]);
+          break;
+        }
+        case IDLTypeIds.Record:
+        case IDLTypeIds.Variant: {
+          const fields = [];
+          let objectLength = Number(lebDecode(pipe2));
+          let prevHash;
+          while (objectLength--) {
+            const hash = Number(lebDecode(pipe2));
+            if (hash >= Math.pow(2, 32)) {
+              throw new Error("field id out of 32-bit range");
+            }
+            if (typeof prevHash === "number" && prevHash >= hash) {
+              throw new Error("field id collision or not sorted");
+            }
+            prevHash = hash;
+            const t = Number(slebDecode(pipe2));
+            fields.push([hash, t]);
+          }
+          typeTable.push([ty, fields]);
+          break;
+        }
+        case IDLTypeIds.Func: {
+          const args = [];
+          let argLength = Number(lebDecode(pipe2));
+          while (argLength--) {
+            args.push(Number(slebDecode(pipe2)));
+          }
+          const returnValues = [];
+          let returnValuesLength = Number(lebDecode(pipe2));
+          while (returnValuesLength--) {
+            returnValues.push(Number(slebDecode(pipe2)));
+          }
+          const annotations = [];
+          let annotationLength = Number(lebDecode(pipe2));
+          while (annotationLength--) {
+            const annotation = Number(lebDecode(pipe2));
+            switch (annotation) {
+              case 1: {
+                annotations.push("query");
+                break;
+              }
+              case 2: {
+                annotations.push("oneway");
+                break;
+              }
+              case 3: {
+                annotations.push("composite_query");
+                break;
+              }
+              default:
+                throw new Error("unknown annotation");
+            }
+          }
+          typeTable.push([ty, [args, returnValues, annotations]]);
+          break;
+        }
+        case IDLTypeIds.Service: {
+          let servLength = Number(lebDecode(pipe2));
+          const methods = [];
+          while (servLength--) {
+            const nameLength = Number(lebDecode(pipe2));
+            const funcName = new TextDecoder().decode(safeRead(pipe2, nameLength));
+            const funcType = slebDecode(pipe2);
+            methods.push([funcName, funcType]);
+          }
+          typeTable.push([ty, methods]);
+          break;
+        }
+        default:
+          throw new Error("Illegal op_code: " + ty);
+      }
+    }
+    const rawList = [];
+    const length = Number(lebDecode(pipe2));
+    for (let i = 0; i < length; i++) {
+      rawList.push(Number(slebDecode(pipe2)));
+    }
+    return [typeTable, rawList];
+  }
+  const [rawTable, rawTypes] = readTypeTable(b2);
+  if (rawTypes.length < retTypes.length) {
+    throw new Error("Wrong number of return values");
+  }
+  const table = rawTable.map((_2) => Rec());
+  function getType(t) {
+    if (t < -24) {
+      throw new Error("future value not supported");
+    }
+    if (t < 0) {
+      switch (t) {
+        case -1:
+          return Null;
+        case -2:
+          return Bool;
+        case -3:
+          return Nat;
+        case -4:
+          return Int;
+        case -5:
+          return Nat8;
+        case -6:
+          return Nat16;
+        case -7:
+          return Nat32;
+        case -8:
+          return Nat64;
+        case -9:
+          return Int8;
+        case -10:
+          return Int16;
+        case -11:
+          return Int32;
+        case -12:
+          return Int64;
+        case -13:
+          return Float32;
+        case -14:
+          return Float64;
+        case -15:
+          return Text;
+        case -16:
+          return Reserved;
+        case -17:
+          return Empty;
+        case -24:
+          return Principal2;
+        default:
+          throw new Error("Illegal op_code: " + t);
+      }
+    }
+    if (t >= rawTable.length) {
+      throw new Error("type index out of range");
+    }
+    return table[t];
+  }
+  function buildType(entry) {
+    switch (entry[0]) {
+      case IDLTypeIds.Vector: {
+        const ty = getType(entry[1]);
+        return Vec(ty);
+      }
+      case IDLTypeIds.Opt: {
+        const ty = getType(entry[1]);
+        return Opt(ty);
+      }
+      case IDLTypeIds.Record: {
+        const fields = {};
+        for (const [hash, ty] of entry[1]) {
+          const name = `_${hash}_`;
+          fields[name] = getType(ty);
+        }
+        const record = Record(fields);
+        const tuple = record.tryAsTuple();
+        if (Array.isArray(tuple)) {
+          return Tuple(...tuple);
+        } else {
+          return record;
+        }
+      }
+      case IDLTypeIds.Variant: {
+        const fields = {};
+        for (const [hash, ty] of entry[1]) {
+          const name = `_${hash}_`;
+          fields[name] = getType(ty);
+        }
+        return Variant(fields);
+      }
+      case IDLTypeIds.Func: {
+        const [args, returnValues, annotations] = entry[1];
+        return Func(args.map((t) => getType(t)), returnValues.map((t) => getType(t)), annotations);
+      }
+      case IDLTypeIds.Service: {
+        const rec = {};
+        const methods = entry[1];
+        for (const [name, typeRef] of methods) {
+          let type = getType(typeRef);
+          if (type instanceof RecClass) {
+            type = type.getType();
+          }
+          if (!(type instanceof FuncClass)) {
+            throw new Error("Illegal service definition: services can only contain functions");
+          }
+          rec[name] = type;
+        }
+        return Service(rec);
+      }
+      default:
+        throw new Error("Illegal op_code: " + entry[0]);
+    }
+  }
+  rawTable.forEach((entry, i) => {
+    if (entry[0] === IDLTypeIds.Func) {
+      const t = buildType(entry);
+      table[i].fill(t);
+    }
+  });
+  rawTable.forEach((entry, i) => {
+    if (entry[0] !== IDLTypeIds.Func) {
+      const t = buildType(entry);
+      table[i].fill(t);
+    }
+  });
+  resetSubtypeCache();
+  const types = rawTypes.map((t) => getType(t));
+  try {
+    const output = retTypes.map((t, i) => {
+      return t.decodeValue(b2, types[i]);
+    });
+    for (let ind = retTypes.length; ind < types.length; ind++) {
+      types[ind].decodeValue(b2, types[ind]);
+    }
+    if (b2.byteLength > 0) {
+      throw new Error("decode: Left-over bytes");
+    }
+    return output;
+  } finally {
+    resetSubtypeCache();
+  }
+}
+const Empty = new EmptyClass();
+const Reserved = new ReservedClass();
+const Unknown = new UnknownClass();
+const Bool = new BoolClass();
+const Null = new NullClass();
+const Text = new TextClass();
+const Int = new IntClass();
+const Nat = new NatClass();
+const Float32 = new FloatClass(32);
+const Float64 = new FloatClass(64);
+const Int8 = new FixedIntClass(8);
+const Int16 = new FixedIntClass(16);
+const Int32 = new FixedIntClass(32);
+const Int64 = new FixedIntClass(64);
+const Nat8 = new FixedNatClass(8);
+const Nat16 = new FixedNatClass(16);
+const Nat32 = new FixedNatClass(32);
+const Nat64 = new FixedNatClass(64);
+const Principal2 = new PrincipalClass();
+function Tuple(...types) {
+  return new TupleClass(types);
+}
+function Vec(t) {
+  return new VecClass(t);
+}
+function Opt(t) {
+  return new OptClass(t);
+}
+function Record(t) {
+  return new RecordClass(t);
+}
+function Variant(fields) {
+  return new VariantClass(fields);
+}
+function Rec() {
+  return new RecClass();
+}
+function Func(args, ret, annotations = []) {
+  return new FuncClass(args, ret, annotations);
+}
+function Service(t) {
+  return new ServiceClass(t);
+}
+class Relations {
+  constructor(relations = /* @__PURE__ */ new Map()) {
+    this.rels = relations;
+  }
+  copy() {
+    const copy = /* @__PURE__ */ new Map();
+    for (const [key, value] of this.rels.entries()) {
+      const valCopy = new Map(value);
+      copy.set(key, valCopy);
+    }
+    return new Relations(copy);
+  }
+  /// Returns whether we know for sure that a relation holds or doesn't (`true` or `false`), or
+  /// if we don't know yet (`undefined`)
+  known(t1, t2) {
+    var _a3;
+    return (_a3 = this.rels.get(t1.name)) == null ? void 0 : _a3.get(t2.name);
+  }
+  addNegative(t1, t2) {
+    this.addNames(t1.name, t2.name, false);
+  }
+  add(t1, t2) {
+    this.addNames(t1.name, t2.name, true);
+  }
+  display() {
+    let result = "";
+    for (const [t1, v2] of this.rels) {
+      for (const [t2, known] of v2) {
+        const subty = known ? ":<" : "!<:";
+        result += `${t1} ${subty} ${t2}
+`;
+      }
+    }
+    return result;
+  }
+  addNames(t1, t2, isSubtype) {
+    const t1Map = this.rels.get(t1);
+    if (t1Map == void 0) {
+      const newMap = /* @__PURE__ */ new Map();
+      newMap.set(t2, isSubtype);
+      this.rels.set(t1, newMap);
+    } else {
+      t1Map.set(t2, isSubtype);
+    }
+  }
+}
+let subtypeCache = new Relations();
+function resetSubtypeCache() {
+  subtypeCache = new Relations();
+}
+function eqFunctionAnnotations(t1, t2) {
+  const t1Annotations = new Set(t1.annotations);
+  const t2Annotations = new Set(t2.annotations);
+  if (t1Annotations.size !== t2Annotations.size) {
+    return false;
+  }
+  for (const a2 of t1Annotations) {
+    if (!t2Annotations.has(a2))
+      return false;
+  }
+  return true;
+}
+function canBeOmmitted(t) {
+  return t instanceof OptClass || t instanceof NullClass || t instanceof ReservedClass;
+}
+function subtype(t1, t2) {
+  const relations = subtypeCache.copy();
+  const isSubtype = subtype_(relations, t1, t2);
+  if (isSubtype) {
+    subtypeCache.add(t1, t2);
+  } else {
+    subtypeCache.addNegative(t1, t2);
+  }
+  return isSubtype;
+}
+function subtype_(relations, t1, t2) {
+  if (t1.name === t2.name)
+    return true;
+  const known = relations.known(t1, t2);
+  if (known !== void 0)
+    return known;
+  relations.add(t1, t2);
+  if (t2 instanceof ReservedClass)
+    return true;
+  if (t1 instanceof EmptyClass)
+    return true;
+  if (t1 instanceof NatClass && t2 instanceof IntClass)
+    return true;
+  if (t1 instanceof VecClass && t2 instanceof VecClass)
+    return subtype_(relations, t1._type, t2._type);
+  if (t2 instanceof OptClass)
+    return true;
+  if (t1 instanceof RecordClass && t2 instanceof RecordClass) {
+    const t1Object = t1.fieldsAsObject;
+    for (const [label, ty2] of t2._fields) {
+      const ty1 = t1Object[idlLabelToId(label)];
+      if (!ty1) {
+        if (!canBeOmmitted(ty2))
+          return false;
+      } else {
+        if (!subtype_(relations, ty1, ty2))
+          return false;
+      }
+    }
+    return true;
+  }
+  if (t1 instanceof FuncClass && t2 instanceof FuncClass) {
+    if (!eqFunctionAnnotations(t1, t2))
+      return false;
+    for (let i = 0; i < t1.argTypes.length; i++) {
+      const argTy1 = t1.argTypes[i];
+      if (i < t2.argTypes.length) {
+        if (!subtype_(relations, t2.argTypes[i], argTy1))
+          return false;
+      } else {
+        if (!canBeOmmitted(argTy1))
+          return false;
+      }
+    }
+    for (let i = 0; i < t2.retTypes.length; i++) {
+      const retTy2 = t2.retTypes[i];
+      if (i < t1.retTypes.length) {
+        if (!subtype_(relations, t1.retTypes[i], retTy2))
+          return false;
+      } else {
+        if (!canBeOmmitted(retTy2))
+          return false;
+      }
+    }
+    return true;
+  }
+  if (t1 instanceof VariantClass && t2 instanceof VariantClass) {
+    const t2Object = t2.alternativesAsObject;
+    for (const [label, ty1] of t1._fields) {
+      const ty2 = t2Object[idlLabelToId(label)];
+      if (!ty2)
+        return false;
+      if (!subtype_(relations, ty1, ty2))
+        return false;
+    }
+    return true;
+  }
+  if (t1 instanceof ServiceClass && t2 instanceof ServiceClass) {
+    const t1Object = t1.fieldsAsObject();
+    for (const [name, ty2] of t2._fields) {
+      const ty1 = t1Object[name];
+      if (!ty1)
+        return false;
+      if (!subtype_(relations, ty1, ty2))
+        return false;
+    }
+    return true;
+  }
+  if (t1 instanceof RecClass) {
+    return subtype_(relations, t1.getType(), t2);
+  }
+  if (t2 instanceof RecClass) {
+    return subtype_(relations, t1, t2.getType());
+  }
+  return false;
+}
+const IDL = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  Bool,
+  BoolClass,
+  ConstructType,
+  Empty,
+  EmptyClass,
+  FixedIntClass,
+  FixedNatClass,
+  Float32,
+  Float64,
+  FloatClass,
+  Func,
+  FuncClass,
+  Int,
+  Int16,
+  Int32,
+  Int64,
+  Int8,
+  IntClass,
+  Nat,
+  Nat16,
+  Nat32,
+  Nat64,
+  Nat8,
+  NatClass,
+  Null,
+  NullClass,
+  Opt,
+  OptClass,
+  PrimitiveType,
+  Principal: Principal2,
+  PrincipalClass,
+  Rec,
+  RecClass,
+  Record,
+  RecordClass,
+  Reserved,
+  ReservedClass,
+  Service,
+  ServiceClass,
+  Text,
+  TextClass,
+  Tuple,
+  TupleClass,
+  Type,
+  Unknown,
+  UnknownClass,
+  Variant,
+  VariantClass,
+  Vec,
+  VecClass,
+  Visitor,
+  decode: decode$2,
+  encode: encode$2,
+  resetSubtypeCache,
+  subtype
+}, Symbol.toStringTag, { value: "Module" }));
 function uint8FromBufLike(bufLike) {
   if (!bufLike) {
     throw new Error("Input cannot be null or undefined");
@@ -1530,11 +4184,11 @@ function uint8FromBufLike(bufLike) {
   }
   return new Uint8Array(bufLike);
 }
-function uint8Equals(a, b) {
-  if (a.length !== b.length)
+function uint8Equals(a2, b2) {
+  if (a2.length !== b2.length)
     return false;
-  for (let i = 0; i < a.length; i++) {
-    if (a[i] !== b[i])
+  for (let i = 0; i < a2.length; i++) {
+    if (a2[i] !== b2[i])
       return false;
   }
   return true;
@@ -1564,8 +4218,8 @@ const hashString = (value) => {
   const encoded = new TextEncoder().encode(value);
   return sha256(encoded);
 };
-function requestIdOf(request) {
-  return hashOfMap(request);
+function requestIdOf(request2) {
+  return hashOfMap(request2);
 }
 function hashOfMap(map) {
   const hashed = Object.entries(map).filter(([, value]) => value !== void 0).map(([key, value]) => {
@@ -1577,12 +4231,12 @@ function hashOfMap(map) {
   const sorted = traversed.sort(([k1], [k2]) => {
     return compare(k1, k2);
   });
-  const concatenated = concatBytes(...sorted.map((x) => concatBytes(...x)));
+  const concatenated = concatBytes(...sorted.map((x2) => concatBytes(...x2)));
   const result = sha256(concatenated);
   return result;
 }
 const IC_REQUEST_DOMAIN_SEPARATOR = new TextEncoder().encode("\nic-request");
-new TextEncoder().encode("\vic-response");
+const IC_RESPONSE_DOMAIN_SEPARATOR = new TextEncoder().encode("\vic-response");
 const IC_REQUEST_AUTH_DELEGATION_DOMAIN_SEPARATOR = new TextEncoder().encode("ic-request-auth-delegation");
 class SignIdentity {
   /**
@@ -1591,7 +4245,7 @@ class SignIdentity {
    */
   getPrincipal() {
     if (!this._principal) {
-      this._principal = Principal.selfAuthenticating(new Uint8Array(this.getPublicKey().toDer()));
+      this._principal = Principal$1.selfAuthenticating(new Uint8Array(this.getPublicKey().toDer()));
     }
     return this._principal;
   }
@@ -1601,8 +4255,8 @@ class SignIdentity {
    * anything, but must be serializable to CBOR.
    * @param request - internet computer request to transform
    */
-  async transformRequest(request) {
-    const { body, ...fields } = request;
+  async transformRequest(request2) {
+    const { body, ...fields } = request2;
     const requestId = requestIdOf(body);
     return {
       ...fields,
@@ -1616,18 +4270,462 @@ class SignIdentity {
 }
 class AnonymousIdentity {
   getPrincipal() {
-    return Principal.anonymous();
+    return Principal$1.anonymous();
   }
-  async transformRequest(request) {
+  async transformRequest(request2) {
     return {
-      ...request,
-      body: { content: request.body }
+      ...request2,
+      body: { content: request2.body }
     };
   }
 }
+class w extends Error {
+  constructor(n) {
+    super(n), this.name = "DecodingError";
+  }
+}
+const m = 55799, L = Symbol("CBOR_STOP_CODE");
+var g = /* @__PURE__ */ ((t) => (t[t.False = 20] = "False", t[t.True = 21] = "True", t[t.Null = 22] = "Null", t[t.Undefined = 23] = "Undefined", t[t.Break = 31] = "Break", t))(g || {}), c = /* @__PURE__ */ ((t) => (t[t.UnsignedInteger = 0] = "UnsignedInteger", t[t.NegativeInteger = 1] = "NegativeInteger", t[t.ByteString = 2] = "ByteString", t[t.TextString = 3] = "TextString", t[t.Array = 4] = "Array", t[t.Map = 5] = "Map", t[t.Tag = 6] = "Tag", t[t.Simple = 7] = "Simple", t))(c || {});
+const z = 23, Y = 255, G = 65535, P = 4294967295, H = BigInt("0xffffffffffffffff");
+var d = /* @__PURE__ */ ((t) => (t[t.Value = 23] = "Value", t[t.OneByte = 24] = "OneByte", t[t.TwoBytes = 25] = "TwoBytes", t[t.FourBytes = 26] = "FourBytes", t[t.EightBytes = 27] = "EightBytes", t[t.Indefinite = 31] = "Indefinite", t))(d || {});
+const h = false;
+function W(t) {
+  return t == null;
+}
+function R(t, n) {
+  const e = new Uint8Array(n);
+  return e.set(t), e;
+}
+const K = new TextDecoder();
+function Z(t) {
+  return (t & 224) >> 5;
+}
+function q(t) {
+  return t & 31;
+}
+let A = new Uint8Array(), y, a = 0;
+function ut(t, n) {
+  A = t, a = 0;
+  const e = B();
+  return (n == null ? void 0 : n(e)) ?? e;
+}
+function B(t) {
+  const [n, e] = N();
+  switch (n) {
+    case c.UnsignedInteger:
+      return E(e);
+    case c.NegativeInteger:
+      return j(e);
+    case c.ByteString:
+      return $(e);
+    case c.TextString:
+      return F(e);
+    case c.Array:
+      return J(e);
+    case c.Map:
+      return b(e);
+    case c.Tag:
+      return M(e);
+    case c.Simple:
+      return Q(e);
+  }
+  throw new w(`Unsupported major type: ${n}`);
+}
+function N() {
+  const t = A.at(a);
+  if (W(t))
+    throw new w("Provided CBOR data is empty");
+  const n = Z(t), e = q(t);
+  return a++, [n, e];
+}
+function J(t, n) {
+  const e = E(t);
+  if (e === 1 / 0) {
+    const u = [];
+    let f = B();
+    for (; f !== L; )
+      u.push(f), f = B();
+    return u;
+  }
+  const i = new Array(e);
+  for (let u = 0; u < e; u++) {
+    const f = B();
+    i[u] = f;
+  }
+  return i;
+}
+function Q(t) {
+  switch (t) {
+    case g.False:
+      return false;
+    case g.True:
+      return true;
+    case g.Null:
+      return null;
+    case g.Undefined:
+      return;
+    case g.Break:
+      return L;
+  }
+  throw new w(`Unrecognized simple type: ${t.toString(2)}`);
+}
+function b(t, n) {
+  const e = E(t), i = {};
+  if (e === 1 / 0) {
+    let [u, f] = N();
+    for (; u !== c.Simple && f !== g.Break; ) {
+      const l = F(f), U = B();
+      i[l] = U, [u, f] = N();
+    }
+    return i;
+  }
+  for (let u = 0; u < e; u++) {
+    const [f, l] = N();
+    if (f !== c.TextString)
+      throw new w("Map keys must be text strings");
+    const U = F(l), D = B();
+    i[U] = D;
+  }
+  return i;
+}
+function E(t) {
+  if (t <= d.Value)
+    return t;
+  switch (y = new DataView(A.buffer, A.byteOffset + a), t) {
+    case d.OneByte:
+      return a++, y.getUint8(0);
+    case d.TwoBytes:
+      return a += 2, y.getUint16(0, h);
+    case d.FourBytes:
+      return a += 4, y.getUint32(0, h);
+    case d.EightBytes:
+      return a += 8, y.getBigUint64(0, h);
+    case d.Indefinite:
+      return 1 / 0;
+    default:
+      throw new w(`Unsupported integer info: ${t.toString(2)}`);
+  }
+}
+function j(t) {
+  const n = E(t);
+  return typeof n == "number" ? -1 - n : -1n - n;
+}
+function $(t) {
+  const n = E(t);
+  if (n > Number.MAX_SAFE_INTEGER)
+    throw new w("Byte length is too large");
+  const e = Number(n);
+  return a += e, A.slice(a - e, a);
+}
+function F(t) {
+  const n = $(t);
+  return K.decode(n);
+}
+function M(t, n) {
+  const e = E(t);
+  if (e === m)
+    return B();
+  throw new w(`Unsupported tag: ${e}.`);
+}
+class x extends Error {
+  constructor(n) {
+    super(n), this.name = "SerializationError";
+  }
+}
+const p = 2 * 1024, C = 100, v = new TextEncoder();
+function S(t) {
+  return t << 5;
+}
+let o = new Uint8Array(p), r$1 = new DataView(o.buffer), s = 0, O = [];
+function dt(t, n) {
+  s = 0;
+  const e = (n == null ? void 0 : n(t)) ?? t;
+  return it(m, e, n), o.slice(0, s);
+}
+function _(t, n) {
+  if (s > o.length - C && (o = R(o, o.length * 2), r$1 = new DataView(o.buffer)), t === false || t === true || t === null || t === void 0) {
+    et(t);
+    return;
+  }
+  if (typeof t == "number" || typeof t == "bigint") {
+    ft(t);
+    return;
+  }
+  if (typeof t == "string") {
+    X$1(t);
+    return;
+  }
+  if (t instanceof Uint8Array) {
+    V(t);
+    return;
+  }
+  if (t instanceof ArrayBuffer) {
+    V(new Uint8Array(t));
+    return;
+  }
+  if (Array.isArray(t)) {
+    tt(t, n);
+    return;
+  }
+  if (typeof t == "object") {
+    nt(t, n);
+    return;
+  }
+  throw new x(`Unsupported type: ${typeof t}`);
+}
+function tt(t, n) {
+  I(c.Array, t.length), t.forEach((e, i) => {
+    _((n == null ? void 0 : n(e, i.toString())) ?? e, n);
+  });
+}
+function nt(t, n) {
+  O = Object.entries(t), I(c.Map, O.length), O.forEach(([e, i]) => {
+    X$1(e), _((n == null ? void 0 : n(i, e)) ?? i, n);
+  });
+}
+function I(t, n) {
+  if (n <= z) {
+    r$1.setUint8(
+      s++,
+      S(t) | Number(n)
+    );
+    return;
+  }
+  if (n <= Y) {
+    r$1.setUint8(
+      s++,
+      S(t) | d.OneByte
+    ), r$1.setUint8(s, Number(n)), s += 1;
+    return;
+  }
+  if (n <= G) {
+    r$1.setUint8(
+      s++,
+      S(t) | d.TwoBytes
+    ), r$1.setUint16(s, Number(n), h), s += 2;
+    return;
+  }
+  if (n <= P) {
+    r$1.setUint8(
+      s++,
+      S(t) | d.FourBytes
+    ), r$1.setUint32(s, Number(n), h), s += 4;
+    return;
+  }
+  if (n <= H) {
+    r$1.setUint8(
+      s++,
+      S(t) | d.EightBytes
+    ), r$1.setBigUint64(s, BigInt(n), h), s += 8;
+    return;
+  }
+  throw new x(`Value too large to encode: ${n}`);
+}
+function et(t) {
+  I(c.Simple, st(t));
+}
+function st(t) {
+  if (t === false)
+    return g.False;
+  if (t === true)
+    return g.True;
+  if (t === null)
+    return g.Null;
+  if (t === void 0)
+    return g.Undefined;
+  throw new x(`Unrecognized simple value: ${t.toString()}`);
+}
+function k(t, n) {
+  I(t, n.length), s > o.length - n.length && (o = R(o, o.length + n.length), r$1 = new DataView(o.buffer)), o.set(n, s), s += n.length;
+}
+function T(t, n) {
+  I(t, n);
+}
+function ct(t) {
+  T(c.UnsignedInteger, t);
+}
+function ot(t) {
+  T(
+    c.NegativeInteger,
+    typeof t == "bigint" ? -1n - t : -1 - t
+  );
+}
+function ft(t) {
+  t >= 0 ? ct(t) : ot(t);
+}
+function X$1(t) {
+  k(c.TextString, v.encode(t));
+}
+function V(t) {
+  k(c.ByteString, t);
+}
+function it(t, n, e) {
+  I(c.Tag, t), _(n, e);
+}
+function hasCborValueMethod(value) {
+  return typeof value === "object" && value !== null && "toCborValue" in value;
+}
+function encode$1(value) {
+  try {
+    return dt(value, (value2) => {
+      if (Principal$1.isPrincipal(value2)) {
+        return value2.toUint8Array();
+      }
+      if (Expiry.isExpiry(value2)) {
+        return value2.toBigInt();
+      }
+      if (hasCborValueMethod(value2)) {
+        return value2.toCborValue();
+      }
+      return value2;
+    });
+  } catch (error) {
+    throw InputError.fromCode(new CborEncodeErrorCode(error, value));
+  }
+}
+function decode$1(input) {
+  try {
+    return ut(input);
+  } catch (error) {
+    throw InputError.fromCode(new CborDecodeErrorCode(error, input));
+  }
+}
+const randomNumber = () => {
+  if (typeof window !== "undefined" && !!window.crypto && !!window.crypto.getRandomValues) {
+    const array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    return array[0];
+  }
+  if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+    const array = new Uint32Array(1);
+    crypto.getRandomValues(array);
+    return array[0];
+  }
+  if (typeof crypto !== "undefined" && crypto.randomInt) {
+    return crypto.randomInt(0, 4294967295);
+  }
+  return Math.floor(Math.random() * 4294967295);
+};
+var Endpoint;
+(function(Endpoint2) {
+  Endpoint2["Query"] = "read";
+  Endpoint2["ReadState"] = "read_state";
+  Endpoint2["Call"] = "call";
+})(Endpoint || (Endpoint = {}));
+var SubmitRequestType;
+(function(SubmitRequestType2) {
+  SubmitRequestType2["Call"] = "call";
+})(SubmitRequestType || (SubmitRequestType = {}));
+var ReadRequestType;
+(function(ReadRequestType2) {
+  ReadRequestType2["Query"] = "query";
+  ReadRequestType2["ReadState"] = "read_state";
+})(ReadRequestType || (ReadRequestType = {}));
+function makeNonce() {
+  const buffer = new ArrayBuffer(16);
+  const view = new DataView(buffer);
+  const rand1 = randomNumber();
+  const rand2 = randomNumber();
+  const rand3 = randomNumber();
+  const rand4 = randomNumber();
+  view.setUint32(0, rand1);
+  view.setUint32(4, rand2);
+  view.setUint32(8, rand3);
+  view.setUint32(12, rand4);
+  return Object.assign(new Uint8Array(buffer), { __nonce__: void 0 });
+}
+const JSON_KEY_EXPIRY = "__expiry__";
+const SECONDS_TO_MILLISECONDS = BigInt(1e3);
+const MILLISECONDS_TO_NANOSECONDS = BigInt(1e6);
+const MINUTES_TO_SECONDS = BigInt(60);
+const EXPIRY_DELTA_THRESHOLD_MILLISECONDS = BigInt(90) * SECONDS_TO_MILLISECONDS;
+function roundMillisToSeconds(millis) {
+  return millis / SECONDS_TO_MILLISECONDS;
+}
+function roundMillisToMinutes(millis) {
+  return roundMillisToSeconds(millis) / MINUTES_TO_SECONDS;
+}
+class Expiry {
+  constructor(__expiry__) {
+    this.__expiry__ = __expiry__;
+    this._isExpiry = true;
+  }
+  /**
+   * Creates an Expiry object from a delta in milliseconds.
+   * If the delta is less than 90 seconds, the expiry is rounded down to the nearest second.
+   * Otherwise, the expiry is rounded down to the nearest minute.
+   * @param deltaInMs The milliseconds to add to the current time.
+   * @param clockDriftMs The milliseconds to add to the current time, typically the clock drift between IC network clock and the client's clock. Defaults to `0` if not provided.
+   * @returns {Expiry} The constructed Expiry object.
+   */
+  static fromDeltaInMilliseconds(deltaInMs, clockDriftMs = 0) {
+    const deltaMs = BigInt(deltaInMs);
+    const expiryMs = BigInt(Date.now()) + deltaMs + BigInt(clockDriftMs);
+    let roundedExpirySeconds;
+    if (deltaMs < EXPIRY_DELTA_THRESHOLD_MILLISECONDS) {
+      roundedExpirySeconds = roundMillisToSeconds(expiryMs);
+    } else {
+      const roundedExpiryMinutes = roundMillisToMinutes(expiryMs);
+      roundedExpirySeconds = roundedExpiryMinutes * MINUTES_TO_SECONDS;
+    }
+    return new Expiry(roundedExpirySeconds * SECONDS_TO_MILLISECONDS * MILLISECONDS_TO_NANOSECONDS);
+  }
+  toBigInt() {
+    return this.__expiry__;
+  }
+  toHash() {
+    return lebEncode(this.__expiry__);
+  }
+  toString() {
+    return this.__expiry__.toString();
+  }
+  /**
+   * Serializes to JSON
+   * @returns {JsonnableExpiry} a JSON object with a single key, {@link JSON_KEY_EXPIRY}, whose value is the expiry as a string
+   */
+  toJSON() {
+    return { [JSON_KEY_EXPIRY]: this.toString() };
+  }
+  /**
+   * Deserializes a {@link JsonnableExpiry} object from a JSON string.
+   * @param input The JSON string to deserialize.
+   * @returns {Expiry} The deserialized Expiry object.
+   */
+  static fromJSON(input) {
+    const obj = JSON.parse(input);
+    if (obj[JSON_KEY_EXPIRY]) {
+      try {
+        const expiry = BigInt(obj[JSON_KEY_EXPIRY]);
+        return new Expiry(expiry);
+      } catch (error) {
+        throw new InputError(new ExpiryJsonDeserializeErrorCode(`Not a valid BigInt: ${error}`));
+      }
+    }
+    throw new InputError(new ExpiryJsonDeserializeErrorCode(`The input does not contain the key ${JSON_KEY_EXPIRY}`));
+  }
+  static isExpiry(other) {
+    return other instanceof Expiry || typeof other === "object" && other !== null && "_isExpiry" in other && other["_isExpiry"] === true && "__expiry__" in other && typeof other["__expiry__"] === "bigint";
+  }
+}
+function makeNonceTransform(nonceFn = makeNonce) {
+  return async (request2) => {
+    const headers = request2.request.headers;
+    request2.request.headers = headers;
+    if (request2.endpoint === Endpoint.Call) {
+      request2.body.nonce = nonceFn();
+    }
+  };
+}
+function httpHeadersTransform(headers) {
+  const headerFields = [];
+  headers.forEach((value, key) => {
+    headerFields.push([key, value]);
+  });
+  return headerFields;
+}
 /*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
-const _0n$3 = /* @__PURE__ */ BigInt(0);
-const _1n$4 = /* @__PURE__ */ BigInt(1);
+const _0n$7 = /* @__PURE__ */ BigInt(0);
+const _1n$8 = /* @__PURE__ */ BigInt(1);
 function _abool2(value, title = "") {
   if (typeof value !== "boolean") {
     const prefix2 = title && `"${title}"`;
@@ -1650,7 +4748,7 @@ function _abytes2(value, length, title = "") {
 function hexToNumber(hex2) {
   if (typeof hex2 !== "string")
     throw new Error("hex string expected, got " + typeof hex2);
-  return hex2 === "" ? _0n$3 : BigInt("0x" + hex2);
+  return hex2 === "" ? _0n$7 : BigInt("0x" + hex2);
 }
 function bytesToNumberBE(bytes) {
   return hexToNumber(bytesToHex(bytes));
@@ -1686,7 +4784,7 @@ function ensureBytes(title, hex2, expectedLength) {
 function copyBytes(bytes) {
   return Uint8Array.from(bytes);
 }
-const isPosBig = (n) => typeof n === "bigint" && _0n$3 <= n;
+const isPosBig = (n) => typeof n === "bigint" && _0n$7 <= n;
 function inRange(n, min2, max2) {
   return isPosBig(n) && isPosBig(min2) && isPosBig(max2) && min2 <= n && n < max2;
 }
@@ -1696,11 +4794,17 @@ function aInRange(title, n, min2, max2) {
 }
 function bitLen(n) {
   let len;
-  for (len = 0; n > _0n$3; n >>= _1n$4, len += 1)
+  for (len = 0; n > _0n$7; n >>= _1n$8, len += 1)
     ;
   return len;
 }
-const bitMask = (n) => (_1n$4 << BigInt(n)) - _1n$4;
+function bitGet(n, pos) {
+  return n >> BigInt(pos) & _1n$8;
+}
+const bitMask = (n) => (_1n$8 << BigInt(n)) - _1n$8;
+function isHash(val) {
+  return typeof val === "function" && Number.isSafeInteger(val.outputLen);
+}
 function _validateObject(object, fields, optFields = {}) {
   if (!object || typeof object !== "object")
     throw new Error("expected valid options object");
@@ -1712,9 +4816,12 @@ function _validateObject(object, fields, optFields = {}) {
     if (current !== expectedType || val === null)
       throw new Error(`param "${fieldName}" is invalid: expected ${expectedType}, got ${current}`);
   }
-  Object.entries(fields).forEach(([k, v]) => checkField(k, v, false));
-  Object.entries(optFields).forEach(([k, v]) => checkField(k, v, true));
+  Object.entries(fields).forEach(([k2, v2]) => checkField(k2, v2, false));
+  Object.entries(optFields).forEach(([k2, v2]) => checkField(k2, v2, true));
 }
+const notImplemented = () => {
+  throw new Error("not implemented");
+};
 function memoized(fn) {
   const map = /* @__PURE__ */ new WeakMap();
   return (arg, ...args) => {
@@ -1727,141 +4834,141 @@ function memoized(fn) {
   };
 }
 /*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
-const _0n$2 = BigInt(0), _1n$3 = BigInt(1), _2n$2 = /* @__PURE__ */ BigInt(2), _3n = /* @__PURE__ */ BigInt(3);
-const _4n = /* @__PURE__ */ BigInt(4), _5n$1 = /* @__PURE__ */ BigInt(5), _7n = /* @__PURE__ */ BigInt(7);
+const _0n$6 = BigInt(0), _1n$7 = BigInt(1), _2n$6 = /* @__PURE__ */ BigInt(2), _3n$4 = /* @__PURE__ */ BigInt(3);
+const _4n$2 = /* @__PURE__ */ BigInt(4), _5n$1 = /* @__PURE__ */ BigInt(5), _7n = /* @__PURE__ */ BigInt(7);
 const _8n$2 = /* @__PURE__ */ BigInt(8), _9n = /* @__PURE__ */ BigInt(9), _16n = /* @__PURE__ */ BigInt(16);
-function mod(a, b) {
-  const result = a % b;
-  return result >= _0n$2 ? result : b + result;
+function mod(a2, b2) {
+  const result = a2 % b2;
+  return result >= _0n$6 ? result : b2 + result;
 }
-function pow2(x, power, modulo) {
-  let res = x;
-  while (power-- > _0n$2) {
+function pow2(x2, power, modulo) {
+  let res = x2;
+  while (power-- > _0n$6) {
     res *= res;
     res %= modulo;
   }
   return res;
 }
 function invert(number2, modulo) {
-  if (number2 === _0n$2)
+  if (number2 === _0n$6)
     throw new Error("invert: expected non-zero number");
-  if (modulo <= _0n$2)
+  if (modulo <= _0n$6)
     throw new Error("invert: expected positive modulus, got " + modulo);
-  let a = mod(number2, modulo);
-  let b = modulo;
-  let x = _0n$2, u = _1n$3;
-  while (a !== _0n$2) {
-    const q = b / a;
-    const r2 = b % a;
-    const m = x - u * q;
-    b = a, a = r2, x = u, u = m;
+  let a2 = mod(number2, modulo);
+  let b2 = modulo;
+  let x2 = _0n$6, u = _1n$7;
+  while (a2 !== _0n$6) {
+    const q2 = b2 / a2;
+    const r2 = b2 % a2;
+    const m2 = x2 - u * q2;
+    b2 = a2, a2 = r2, x2 = u, u = m2;
   }
-  const gcd = b;
-  if (gcd !== _1n$3)
+  const gcd = b2;
+  if (gcd !== _1n$7)
     throw new Error("invert: does not exist");
-  return mod(x, modulo);
+  return mod(x2, modulo);
 }
-function assertIsSquare(Fp2, root2, n) {
-  if (!Fp2.eql(Fp2.sqr(root2), n))
+function assertIsSquare(Fp3, root2, n) {
+  if (!Fp3.eql(Fp3.sqr(root2), n))
     throw new Error("Cannot find square root");
 }
-function sqrt3mod4(Fp2, n) {
-  const p1div4 = (Fp2.ORDER + _1n$3) / _4n;
-  const root2 = Fp2.pow(n, p1div4);
-  assertIsSquare(Fp2, root2, n);
+function sqrt3mod4(Fp3, n) {
+  const p1div4 = (Fp3.ORDER + _1n$7) / _4n$2;
+  const root2 = Fp3.pow(n, p1div4);
+  assertIsSquare(Fp3, root2, n);
   return root2;
 }
-function sqrt5mod8(Fp2, n) {
-  const p5div8 = (Fp2.ORDER - _5n$1) / _8n$2;
-  const n2 = Fp2.mul(n, _2n$2);
-  const v = Fp2.pow(n2, p5div8);
-  const nv = Fp2.mul(n, v);
-  const i = Fp2.mul(Fp2.mul(nv, _2n$2), v);
-  const root2 = Fp2.mul(nv, Fp2.sub(i, Fp2.ONE));
-  assertIsSquare(Fp2, root2, n);
+function sqrt5mod8(Fp3, n) {
+  const p5div8 = (Fp3.ORDER - _5n$1) / _8n$2;
+  const n2 = Fp3.mul(n, _2n$6);
+  const v2 = Fp3.pow(n2, p5div8);
+  const nv = Fp3.mul(n, v2);
+  const i = Fp3.mul(Fp3.mul(nv, _2n$6), v2);
+  const root2 = Fp3.mul(nv, Fp3.sub(i, Fp3.ONE));
+  assertIsSquare(Fp3, root2, n);
   return root2;
 }
-function sqrt9mod16(P) {
-  const Fp_ = Field(P);
-  const tn = tonelliShanks(P);
+function sqrt9mod16(P2) {
+  const Fp_ = Field(P2);
+  const tn = tonelliShanks(P2);
   const c1 = tn(Fp_, Fp_.neg(Fp_.ONE));
   const c2 = tn(Fp_, c1);
   const c3 = tn(Fp_, Fp_.neg(c1));
-  const c4 = (P + _7n) / _16n;
-  return (Fp2, n) => {
-    let tv1 = Fp2.pow(n, c4);
-    let tv2 = Fp2.mul(tv1, c1);
-    const tv3 = Fp2.mul(tv1, c2);
-    const tv4 = Fp2.mul(tv1, c3);
-    const e1 = Fp2.eql(Fp2.sqr(tv2), n);
-    const e2 = Fp2.eql(Fp2.sqr(tv3), n);
-    tv1 = Fp2.cmov(tv1, tv2, e1);
-    tv2 = Fp2.cmov(tv4, tv3, e2);
-    const e3 = Fp2.eql(Fp2.sqr(tv2), n);
-    const root2 = Fp2.cmov(tv1, tv2, e3);
-    assertIsSquare(Fp2, root2, n);
+  const c4 = (P2 + _7n) / _16n;
+  return (Fp3, n) => {
+    let tv1 = Fp3.pow(n, c4);
+    let tv2 = Fp3.mul(tv1, c1);
+    const tv3 = Fp3.mul(tv1, c2);
+    const tv4 = Fp3.mul(tv1, c3);
+    const e1 = Fp3.eql(Fp3.sqr(tv2), n);
+    const e2 = Fp3.eql(Fp3.sqr(tv3), n);
+    tv1 = Fp3.cmov(tv1, tv2, e1);
+    tv2 = Fp3.cmov(tv4, tv3, e2);
+    const e3 = Fp3.eql(Fp3.sqr(tv2), n);
+    const root2 = Fp3.cmov(tv1, tv2, e3);
+    assertIsSquare(Fp3, root2, n);
     return root2;
   };
 }
-function tonelliShanks(P) {
-  if (P < _3n)
+function tonelliShanks(P2) {
+  if (P2 < _3n$4)
     throw new Error("sqrt is not defined for small field");
-  let Q = P - _1n$3;
-  let S = 0;
-  while (Q % _2n$2 === _0n$2) {
-    Q /= _2n$2;
-    S++;
+  let Q2 = P2 - _1n$7;
+  let S2 = 0;
+  while (Q2 % _2n$6 === _0n$6) {
+    Q2 /= _2n$6;
+    S2++;
   }
-  let Z = _2n$2;
-  const _Fp = Field(P);
-  while (FpLegendre(_Fp, Z) === 1) {
-    if (Z++ > 1e3)
+  let Z2 = _2n$6;
+  const _Fp = Field(P2);
+  while (FpLegendre(_Fp, Z2) === 1) {
+    if (Z2++ > 1e3)
       throw new Error("Cannot find square root: probably non-prime P");
   }
-  if (S === 1)
+  if (S2 === 1)
     return sqrt3mod4;
-  let cc = _Fp.pow(Z, Q);
-  const Q1div2 = (Q + _1n$3) / _2n$2;
-  return function tonelliSlow(Fp2, n) {
-    if (Fp2.is0(n))
+  let cc = _Fp.pow(Z2, Q2);
+  const Q1div2 = (Q2 + _1n$7) / _2n$6;
+  return function tonelliSlow(Fp3, n) {
+    if (Fp3.is0(n))
       return n;
-    if (FpLegendre(Fp2, n) !== 1)
+    if (FpLegendre(Fp3, n) !== 1)
       throw new Error("Cannot find square root");
-    let M = S;
-    let c = Fp2.mul(Fp2.ONE, cc);
-    let t = Fp2.pow(n, Q);
-    let R = Fp2.pow(n, Q1div2);
-    while (!Fp2.eql(t, Fp2.ONE)) {
-      if (Fp2.is0(t))
-        return Fp2.ZERO;
+    let M2 = S2;
+    let c2 = Fp3.mul(Fp3.ONE, cc);
+    let t = Fp3.pow(n, Q2);
+    let R2 = Fp3.pow(n, Q1div2);
+    while (!Fp3.eql(t, Fp3.ONE)) {
+      if (Fp3.is0(t))
+        return Fp3.ZERO;
       let i = 1;
-      let t_tmp = Fp2.sqr(t);
-      while (!Fp2.eql(t_tmp, Fp2.ONE)) {
+      let t_tmp = Fp3.sqr(t);
+      while (!Fp3.eql(t_tmp, Fp3.ONE)) {
         i++;
-        t_tmp = Fp2.sqr(t_tmp);
-        if (i === M)
+        t_tmp = Fp3.sqr(t_tmp);
+        if (i === M2)
           throw new Error("Cannot find square root");
       }
-      const exponent = _1n$3 << BigInt(M - i - 1);
-      const b = Fp2.pow(c, exponent);
-      M = i;
-      c = Fp2.sqr(b);
-      t = Fp2.mul(t, c);
-      R = Fp2.mul(R, b);
+      const exponent = _1n$7 << BigInt(M2 - i - 1);
+      const b2 = Fp3.pow(c2, exponent);
+      M2 = i;
+      c2 = Fp3.sqr(b2);
+      t = Fp3.mul(t, c2);
+      R2 = Fp3.mul(R2, b2);
     }
-    return R;
+    return R2;
   };
 }
-function FpSqrt(P) {
-  if (P % _4n === _3n)
+function FpSqrt(P2) {
+  if (P2 % _4n$2 === _3n$4)
     return sqrt3mod4;
-  if (P % _8n$2 === _5n$1)
+  if (P2 % _8n$2 === _5n$1)
     return sqrt5mod8;
-  if (P % _16n === _9n)
-    return sqrt9mod16(P);
-  return tonelliShanks(P);
+  if (P2 % _16n === _9n)
+    return sqrt9mod16(P2);
+  return tonelliShanks(P2);
 }
-const isNegativeLE = (num, modulo) => (mod(num, modulo) & _1n$3) === _1n$3;
+const isNegativeLE = (num, modulo) => (mod(num, modulo) & _1n$7) === _1n$7;
 const FIELD_FIELDS = [
   "create",
   "isValid",
@@ -1881,7 +4988,7 @@ const FIELD_FIELDS = [
   "mulN",
   "sqrN"
 ];
-function validateField$1(field) {
+function validateField$2(field) {
   const initial = {
     ORDER: "bigint",
     MASK: "bigint",
@@ -1895,46 +5002,46 @@ function validateField$1(field) {
   _validateObject(field, opts);
   return field;
 }
-function FpPow(Fp2, num, power) {
-  if (power < _0n$2)
+function FpPow(Fp3, num, power) {
+  if (power < _0n$6)
     throw new Error("invalid exponent, negatives unsupported");
-  if (power === _0n$2)
-    return Fp2.ONE;
-  if (power === _1n$3)
+  if (power === _0n$6)
+    return Fp3.ONE;
+  if (power === _1n$7)
     return num;
-  let p = Fp2.ONE;
-  let d = num;
-  while (power > _0n$2) {
-    if (power & _1n$3)
-      p = Fp2.mul(p, d);
-    d = Fp2.sqr(d);
-    power >>= _1n$3;
+  let p2 = Fp3.ONE;
+  let d2 = num;
+  while (power > _0n$6) {
+    if (power & _1n$7)
+      p2 = Fp3.mul(p2, d2);
+    d2 = Fp3.sqr(d2);
+    power >>= _1n$7;
   }
-  return p;
+  return p2;
 }
-function FpInvertBatch(Fp2, nums, passZero = false) {
-  const inverted = new Array(nums.length).fill(passZero ? Fp2.ZERO : void 0);
+function FpInvertBatch(Fp3, nums, passZero = false) {
+  const inverted = new Array(nums.length).fill(passZero ? Fp3.ZERO : void 0);
   const multipliedAcc = nums.reduce((acc, num, i) => {
-    if (Fp2.is0(num))
+    if (Fp3.is0(num))
       return acc;
     inverted[i] = acc;
-    return Fp2.mul(acc, num);
-  }, Fp2.ONE);
-  const invertedAcc = Fp2.inv(multipliedAcc);
+    return Fp3.mul(acc, num);
+  }, Fp3.ONE);
+  const invertedAcc = Fp3.inv(multipliedAcc);
   nums.reduceRight((acc, num, i) => {
-    if (Fp2.is0(num))
+    if (Fp3.is0(num))
       return acc;
-    inverted[i] = Fp2.mul(acc, inverted[i]);
-    return Fp2.mul(acc, num);
+    inverted[i] = Fp3.mul(acc, inverted[i]);
+    return Fp3.mul(acc, num);
   }, invertedAcc);
   return inverted;
 }
-function FpLegendre(Fp2, n) {
-  const p1mod2 = (Fp2.ORDER - _1n$3) / _2n$2;
-  const powered = Fp2.pow(n, p1mod2);
-  const yes = Fp2.eql(powered, Fp2.ONE);
-  const zero = Fp2.eql(powered, Fp2.ZERO);
-  const no = Fp2.eql(powered, Fp2.neg(Fp2.ONE));
+function FpLegendre(Fp3, n) {
+  const p1mod2 = (Fp3.ORDER - _1n$7) / _2n$6;
+  const powered = Fp3.pow(n, p1mod2);
+  const yes = Fp3.eql(powered, Fp3.ONE);
+  const zero = Fp3.eql(powered, Fp3.ZERO);
+  const no = Fp3.eql(powered, Fp3.neg(Fp3.ONE));
   if (!yes && !zero && !no)
     throw new Error("invalid Legendre symbol result");
   return yes ? 1 : zero ? 0 : -1;
@@ -1947,7 +5054,7 @@ function nLength(n, nBitLength) {
   return { nBitLength: _nBitLength, nByteLength };
 }
 function Field(ORDER, bitLenOrOpts, isLE = false, opts = {}) {
-  if (ORDER <= _0n$2)
+  if (ORDER <= _0n$6)
     throw new Error("invalid field: expected ORDER > 0, got " + ORDER);
   let _nbitLength = void 0;
   let _sqrt = void 0;
@@ -1982,19 +5089,19 @@ function Field(ORDER, bitLenOrOpts, isLE = false, opts = {}) {
     BITS,
     BYTES,
     MASK: bitMask(BITS),
-    ZERO: _0n$2,
-    ONE: _1n$3,
+    ZERO: _0n$6,
+    ONE: _1n$7,
     allowedLengths,
     create: (num) => mod(num, ORDER),
     isValid: (num) => {
       if (typeof num !== "bigint")
         throw new Error("invalid field element: expected bigint, got " + typeof num);
-      return _0n$2 <= num && num < ORDER;
+      return _0n$6 <= num && num < ORDER;
     },
-    is0: (num) => num === _0n$2,
+    is0: (num) => num === _0n$6,
     // is valid and invertible
     isValidNot0: (num) => !f.is0(num) && f.isValid(num),
-    isOdd: (num) => (num & _1n$3) === _1n$3,
+    isOdd: (num) => (num & _1n$7) === _1n$7,
     neg: (num) => mod(-num, ORDER),
     eql: (lhs, rhs) => lhs === rhs,
     sqr: (num) => mod(num * num, ORDER),
@@ -2039,32 +5146,52 @@ function Field(ORDER, bitLenOrOpts, isLE = false, opts = {}) {
     invertBatch: (lst) => FpInvertBatch(f, lst),
     // We can't move this out because Fp6, Fp12 implement it
     // and it's unclear what to return in there.
-    cmov: (a, b, c) => c ? b : a
+    cmov: (a2, b2, c2) => c2 ? b2 : a2
   });
   return Object.freeze(f);
 }
+function getFieldBytesLength(fieldOrder) {
+  if (typeof fieldOrder !== "bigint")
+    throw new Error("field order must be bigint");
+  const bitLength = fieldOrder.toString(2).length;
+  return Math.ceil(bitLength / 8);
+}
+function getMinHashLength(fieldOrder) {
+  const length = getFieldBytesLength(fieldOrder);
+  return length + Math.ceil(length / 2);
+}
+function mapHashToField(key, fieldOrder, isLE = false) {
+  const len = key.length;
+  const fieldLen = getFieldBytesLength(fieldOrder);
+  const minLen = getMinHashLength(fieldOrder);
+  if (len < 16 || len < minLen || len > 1024)
+    throw new Error("expected " + minLen + "-1024 bytes of input, got " + len);
+  const num = isLE ? bytesToNumberLE(key) : bytesToNumberBE(key);
+  const reduced = mod(num, fieldOrder - _1n$7) + _1n$7;
+  return isLE ? numberToBytesLE(reduced, fieldLen) : numberToBytesBE(reduced, fieldLen);
+}
 /*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
-const _0n$1 = BigInt(0);
-const _1n$2 = BigInt(1);
+const _0n$5 = BigInt(0);
+const _1n$6 = BigInt(1);
 function negateCt(condition, item) {
   const neg = item.negate();
   return condition ? neg : item;
 }
-function normalizeZ(c, points) {
-  const invertedZs = FpInvertBatch(c.Fp, points.map((p) => p.Z));
-  return points.map((p, i) => c.fromAffine(p.toAffine(invertedZs[i])));
+function normalizeZ(c2, points) {
+  const invertedZs = FpInvertBatch(c2.Fp, points.map((p2) => p2.Z));
+  return points.map((p2, i) => c2.fromAffine(p2.toAffine(invertedZs[i])));
 }
-function validateW(W, bits) {
-  if (!Number.isSafeInteger(W) || W <= 0 || W > bits)
-    throw new Error("invalid window size, expected [1.." + bits + "], got W=" + W);
+function validateW(W2, bits) {
+  if (!Number.isSafeInteger(W2) || W2 <= 0 || W2 > bits)
+    throw new Error("invalid window size, expected [1.." + bits + "], got W=" + W2);
 }
-function calcWOpts(W, scalarBits) {
-  validateW(W, scalarBits);
-  const windows = Math.ceil(scalarBits / W) + 1;
-  const windowSize = 2 ** (W - 1);
-  const maxNumber = 2 ** W;
-  const mask2 = bitMask(W);
-  const shiftBy = BigInt(W);
+function calcWOpts(W2, scalarBits) {
+  validateW(W2, scalarBits);
+  const windows = Math.ceil(scalarBits / W2) + 1;
+  const windowSize = 2 ** (W2 - 1);
+  const maxNumber = 2 ** W2;
+  const mask2 = bitMask(W2);
+  const shiftBy = BigInt(W2);
   return { windows, windowSize, mask: mask2, maxNumber, shiftBy };
 }
 function calcOffsets(n, window2, wOpts) {
@@ -2073,7 +5200,7 @@ function calcOffsets(n, window2, wOpts) {
   let nextN = n >> shiftBy;
   if (wbits > windowSize) {
     wbits -= maxNumber;
-    nextN += _1n$2;
+    nextN += _1n$6;
   }
   const offsetStart = window2 * windowSize;
   const offset2 = offsetStart + Math.abs(wbits) - 1;
@@ -2083,29 +5210,29 @@ function calcOffsets(n, window2, wOpts) {
   const offsetF = offsetStart;
   return { nextN, offset: offset2, isZero, isNeg, isNegF, offsetF };
 }
-function validateMSMPoints(points, c) {
+function validateMSMPoints(points, c2) {
   if (!Array.isArray(points))
     throw new Error("array expected");
-  points.forEach((p, i) => {
-    if (!(p instanceof c))
+  points.forEach((p2, i) => {
+    if (!(p2 instanceof c2))
       throw new Error("invalid point at index " + i);
   });
 }
 function validateMSMScalars(scalars, field) {
   if (!Array.isArray(scalars))
     throw new Error("array of scalars expected");
-  scalars.forEach((s, i) => {
-    if (!field.isValid(s))
+  scalars.forEach((s2, i) => {
+    if (!field.isValid(s2))
       throw new Error("invalid scalar at index " + i);
   });
 }
 const pointPrecomputes = /* @__PURE__ */ new WeakMap();
 const pointWindowSizes = /* @__PURE__ */ new WeakMap();
-function getW(P) {
-  return pointWindowSizes.get(P) || 1;
+function getW(P2) {
+  return pointWindowSizes.get(P2) || 1;
 }
 function assert0(n) {
-  if (n !== _0n$1)
+  if (n !== _0n$5)
     throw new Error("invalid wNAF");
 }
 class wNAF {
@@ -2117,15 +5244,15 @@ class wNAF {
     this.bits = bits;
   }
   // non-const time multiplication ladder
-  _unsafeLadder(elm, n, p = this.ZERO) {
-    let d = elm;
-    while (n > _0n$1) {
-      if (n & _1n$2)
-        p = p.add(d);
-      d = d.double();
-      n >>= _1n$2;
+  _unsafeLadder(elm, n, p2 = this.ZERO) {
+    let d2 = elm;
+    while (n > _0n$5) {
+      if (n & _1n$6)
+        p2 = p2.add(d2);
+      d2 = d2.double();
+      n >>= _1n$6;
     }
-    return p;
+    return p2;
   }
   /**
    * Creates a wNAF precomputation window. Used for caching.
@@ -2139,19 +5266,19 @@ class wNAF {
    * @param W window size
    * @returns precomputed point tables flattened to a single array
    */
-  precomputeWindow(point, W) {
-    const { windows, windowSize } = calcWOpts(W, this.bits);
+  precomputeWindow(point, W2) {
+    const { windows, windowSize } = calcWOpts(W2, this.bits);
     const points = [];
-    let p = point;
-    let base = p;
+    let p2 = point;
+    let base = p2;
     for (let window2 = 0; window2 < windows; window2++) {
-      base = p;
+      base = p2;
       points.push(base);
       for (let i = 1; i < windowSize; i++) {
-        base = base.add(p);
+        base = base.add(p2);
         points.push(base);
       }
-      p = base.double();
+      p2 = base.double();
     }
     return points;
   }
@@ -2161,33 +5288,33 @@ class wNAF {
    * https://github.com/paulmillr/noble-secp256k1/blob/47cb1669b6e506ad66b35fe7d76132ae97465da2/index.ts#L502-L541
    * @returns real and fake (for const-time) points
    */
-  wNAF(W, precomputes, n) {
+  wNAF(W2, precomputes, n) {
     if (!this.Fn.isValid(n))
       throw new Error("invalid scalar");
-    let p = this.ZERO;
+    let p2 = this.ZERO;
     let f = this.BASE;
-    const wo = calcWOpts(W, this.bits);
+    const wo = calcWOpts(W2, this.bits);
     for (let window2 = 0; window2 < wo.windows; window2++) {
       const { nextN, offset: offset2, isZero, isNeg, isNegF, offsetF } = calcOffsets(n, window2, wo);
       n = nextN;
       if (isZero) {
         f = f.add(negateCt(isNegF, precomputes[offsetF]));
       } else {
-        p = p.add(negateCt(isNeg, precomputes[offset2]));
+        p2 = p2.add(negateCt(isNeg, precomputes[offset2]));
       }
     }
     assert0(n);
-    return { p, f };
+    return { p: p2, f };
   }
   /**
    * Implements ec unsafe (non const-time) multiplication using precomputed tables and w-ary non-adjacent form.
    * @param acc accumulator point to add result of multiplication
    * @returns point
    */
-  wNAFUnsafe(W, precomputes, n, acc = this.ZERO) {
-    const wo = calcWOpts(W, this.bits);
+  wNAFUnsafe(W2, precomputes, n, acc = this.ZERO) {
+    const wo = calcWOpts(W2, this.bits);
     for (let window2 = 0; window2 < wo.windows; window2++) {
-      if (n === _0n$1)
+      if (n === _0n$5)
         break;
       const { nextN, offset: offset2, isZero, isNeg } = calcOffsets(n, window2, wo);
       n = nextN;
@@ -2201,11 +5328,11 @@ class wNAF {
     assert0(n);
     return acc;
   }
-  getPrecomputes(W, point, transform) {
+  getPrecomputes(W2, point, transform) {
     let comp = pointPrecomputes.get(point);
     if (!comp) {
-      comp = this.precomputeWindow(point, W);
-      if (W !== 1) {
+      comp = this.precomputeWindow(point, W2);
+      if (W2 !== 1) {
         if (typeof transform === "function")
           comp = transform(comp);
         pointPrecomputes.set(point, comp);
@@ -2214,35 +5341,50 @@ class wNAF {
     return comp;
   }
   cached(point, scalar, transform) {
-    const W = getW(point);
-    return this.wNAF(W, this.getPrecomputes(W, point, transform), scalar);
+    const W2 = getW(point);
+    return this.wNAF(W2, this.getPrecomputes(W2, point, transform), scalar);
   }
   unsafe(point, scalar, transform, prev) {
-    const W = getW(point);
-    if (W === 1)
+    const W2 = getW(point);
+    if (W2 === 1)
       return this._unsafeLadder(point, scalar, prev);
-    return this.wNAFUnsafe(W, this.getPrecomputes(W, point, transform), scalar, prev);
+    return this.wNAFUnsafe(W2, this.getPrecomputes(W2, point, transform), scalar, prev);
   }
   // We calculate precomputes for elliptic curve point multiplication
   // using windowed method. This specifies window size and
   // stores precomputed values. Usually only base point would be precomputed.
-  createCache(P, W) {
-    validateW(W, this.bits);
-    pointWindowSizes.set(P, W);
-    pointPrecomputes.delete(P);
+  createCache(P2, W2) {
+    validateW(W2, this.bits);
+    pointWindowSizes.set(P2, W2);
+    pointPrecomputes.delete(P2);
   }
   hasCache(elm) {
     return getW(elm) !== 1;
   }
 }
-function pippenger(c, fieldN, points, scalars) {
-  validateMSMPoints(points, c);
+function mulEndoUnsafe(Point, point, k1, k2) {
+  let acc = point;
+  let p1 = Point.ZERO;
+  let p2 = Point.ZERO;
+  while (k1 > _0n$5 || k2 > _0n$5) {
+    if (k1 & _1n$6)
+      p1 = p1.add(acc);
+    if (k2 & _1n$6)
+      p2 = p2.add(acc);
+    acc = acc.double();
+    k1 >>= _1n$6;
+    k2 >>= _1n$6;
+  }
+  return { p1, p2 };
+}
+function pippenger(c2, fieldN, points, scalars) {
+  validateMSMPoints(points, c2);
   validateMSMScalars(scalars, fieldN);
   const plength = points.length;
   const slength = scalars.length;
   if (plength !== slength)
     throw new Error("arrays of points and scalars must have equal length");
-  const zero = c.ZERO;
+  const zero = c2.ZERO;
   const wbits = bitLen(BigInt(plength));
   let windowSize = 1;
   if (wbits > 12)
@@ -2257,19 +5399,19 @@ function pippenger(c, fieldN, points, scalars) {
   let sum = zero;
   for (let i = lastBits; i >= 0; i -= windowSize) {
     buckets.fill(zero);
-    for (let j = 0; j < slength; j++) {
-      const scalar = scalars[j];
+    for (let j2 = 0; j2 < slength; j2++) {
+      const scalar = scalars[j2];
       const wbits2 = Number(scalar >> BigInt(i) & MASK);
-      buckets[wbits2] = buckets[wbits2].add(points[j]);
+      buckets[wbits2] = buckets[wbits2].add(points[j2]);
     }
     let resI = zero;
-    for (let j = buckets.length - 1, sumI = zero; j > 0; j--) {
-      sumI = sumI.add(buckets[j]);
+    for (let j2 = buckets.length - 1, sumI = zero; j2 > 0; j2--) {
+      sumI = sumI.add(buckets[j2]);
       resI = resI.add(sumI);
     }
     sum = sum.add(resI);
     if (i !== 0)
-      for (let j = 0; j < windowSize; j++)
+      for (let j2 = 0; j2 < windowSize; j2++)
         sum = sum.double();
   }
   return sum;
@@ -2278,7 +5420,7 @@ function createField(order, field, isLE) {
   if (field) {
     if (field.ORDER !== order)
       throw new Error("Field.ORDER must match order: Fp == p, Fn == n");
-    validateField$1(field);
+    validateField$2(field);
     return field;
   } else {
     return Field(order, { isLE });
@@ -2289,47 +5431,3032 @@ function _createCurveFields(type, CURVE, curveOpts = {}, FpFnLE) {
     FpFnLE = type === "edwards";
   if (!CURVE || typeof CURVE !== "object")
     throw new Error(`expected valid ${type} CURVE object`);
-  for (const p of ["p", "n", "h"]) {
-    const val = CURVE[p];
-    if (!(typeof val === "bigint" && val > _0n$1))
-      throw new Error(`CURVE.${p} must be positive bigint`);
+  for (const p2 of ["p", "n", "h"]) {
+    const val = CURVE[p2];
+    if (!(typeof val === "bigint" && val > _0n$5))
+      throw new Error(`CURVE.${p2} must be positive bigint`);
   }
-  const Fp2 = createField(CURVE.p, curveOpts.Fp, FpFnLE);
+  const Fp3 = createField(CURVE.p, curveOpts.Fp, FpFnLE);
   const Fn = createField(CURVE.n, curveOpts.Fn, FpFnLE);
-  const _b2 = "d";
-  const params = ["Gx", "Gy", "a", _b2];
-  for (const p of params) {
-    if (!Fp2.isValid(CURVE[p]))
-      throw new Error(`CURVE.${p} must be valid field element of CURVE.Fp`);
+  const _b3 = type === "weierstrass" ? "b" : "d";
+  const params = ["Gx", "Gy", "a", _b3];
+  for (const p2 of params) {
+    if (!Fp3.isValid(CURVE[p2]))
+      throw new Error(`CURVE.${p2} must be valid field element of CURVE.Fp`);
   }
   CURVE = Object.freeze(Object.assign({}, CURVE));
-  return { CURVE, Fp: Fp2, Fn };
+  return { CURVE, Fp: Fp3, Fn };
+}
+const os2ip = bytesToNumberBE;
+function i2osp(value, length) {
+  anum(value);
+  anum(length);
+  if (value < 0 || value >= 1 << 8 * length)
+    throw new Error("invalid I2OSP input: " + value);
+  const res = Array.from({ length }).fill(0);
+  for (let i = length - 1; i >= 0; i--) {
+    res[i] = value & 255;
+    value >>>= 8;
+  }
+  return new Uint8Array(res);
+}
+function strxor(a2, b2) {
+  const arr = new Uint8Array(a2.length);
+  for (let i = 0; i < a2.length; i++) {
+    arr[i] = a2[i] ^ b2[i];
+  }
+  return arr;
+}
+function anum(item) {
+  if (!Number.isSafeInteger(item))
+    throw new Error("number expected");
+}
+function normDST(DST) {
+  if (!isBytes(DST) && typeof DST !== "string")
+    throw new Error("DST must be Uint8Array or string");
+  return typeof DST === "string" ? utf8ToBytes(DST) : DST;
+}
+function expand_message_xmd(msg, DST, lenInBytes, H2) {
+  abytes(msg);
+  anum(lenInBytes);
+  DST = normDST(DST);
+  if (DST.length > 255)
+    DST = H2(concatBytes(utf8ToBytes("H2C-OVERSIZE-DST-"), DST));
+  const { outputLen: b_in_bytes, blockLen: r_in_bytes } = H2;
+  const ell = Math.ceil(lenInBytes / b_in_bytes);
+  if (lenInBytes > 65535 || ell > 255)
+    throw new Error("expand_message_xmd: invalid lenInBytes");
+  const DST_prime = concatBytes(DST, i2osp(DST.length, 1));
+  const Z_pad = i2osp(0, r_in_bytes);
+  const l_i_b_str = i2osp(lenInBytes, 2);
+  const b2 = new Array(ell);
+  const b_0 = H2(concatBytes(Z_pad, msg, l_i_b_str, i2osp(0, 1), DST_prime));
+  b2[0] = H2(concatBytes(b_0, i2osp(1, 1), DST_prime));
+  for (let i = 1; i <= ell; i++) {
+    const args = [strxor(b_0, b2[i - 1]), i2osp(i + 1, 1), DST_prime];
+    b2[i] = H2(concatBytes(...args));
+  }
+  const pseudo_random_bytes = concatBytes(...b2);
+  return pseudo_random_bytes.slice(0, lenInBytes);
+}
+function expand_message_xof(msg, DST, lenInBytes, k2, H2) {
+  abytes(msg);
+  anum(lenInBytes);
+  DST = normDST(DST);
+  if (DST.length > 255) {
+    const dkLen = Math.ceil(2 * k2 / 8);
+    DST = H2.create({ dkLen }).update(utf8ToBytes("H2C-OVERSIZE-DST-")).update(DST).digest();
+  }
+  if (lenInBytes > 65535 || DST.length > 255)
+    throw new Error("expand_message_xof: invalid lenInBytes");
+  return H2.create({ dkLen: lenInBytes }).update(msg).update(i2osp(lenInBytes, 2)).update(DST).update(i2osp(DST.length, 1)).digest();
+}
+function hash_to_field(msg, count2, options) {
+  _validateObject(options, {
+    p: "bigint",
+    m: "number",
+    k: "number",
+    hash: "function"
+  });
+  const { p: p2, k: k2, m: m2, hash, expand, DST } = options;
+  if (!isHash(options.hash))
+    throw new Error("expected valid hash");
+  abytes(msg);
+  anum(count2);
+  const log2p = p2.toString(2).length;
+  const L2 = Math.ceil((log2p + k2) / 8);
+  const len_in_bytes = count2 * m2 * L2;
+  let prb;
+  if (expand === "xmd") {
+    prb = expand_message_xmd(msg, DST, len_in_bytes, hash);
+  } else if (expand === "xof") {
+    prb = expand_message_xof(msg, DST, len_in_bytes, k2, hash);
+  } else if (expand === "_internal_pass") {
+    prb = msg;
+  } else {
+    throw new Error('expand must be "xmd" or "xof"');
+  }
+  const u = new Array(count2);
+  for (let i = 0; i < count2; i++) {
+    const e = new Array(m2);
+    for (let j2 = 0; j2 < m2; j2++) {
+      const elm_offset = L2 * (j2 + i * m2);
+      const tv = prb.subarray(elm_offset, elm_offset + L2);
+      e[j2] = mod(os2ip(tv), p2);
+    }
+    u[i] = e;
+  }
+  return u;
+}
+function isogenyMap(field, map) {
+  const coeff = map.map((i) => Array.from(i).reverse());
+  return (x2, y2) => {
+    const [xn, xd, yn, yd] = coeff.map((val) => val.reduce((acc, i) => field.add(field.mul(acc, x2), i)));
+    const [xd_inv, yd_inv] = FpInvertBatch(field, [xd, yd], true);
+    x2 = field.mul(xn, xd_inv);
+    y2 = field.mul(y2, field.mul(yn, yd_inv));
+    return { x: x2, y: y2 };
+  };
+}
+const _DST_scalar = utf8ToBytes("HashToScalar-");
+function createHasher(Point, mapToCurve, defaults) {
+  if (typeof mapToCurve !== "function")
+    throw new Error("mapToCurve() must be defined");
+  function map(num) {
+    return Point.fromAffine(mapToCurve(num));
+  }
+  function clear(initial) {
+    const P2 = initial.clearCofactor();
+    if (P2.equals(Point.ZERO))
+      return Point.ZERO;
+    P2.assertValidity();
+    return P2;
+  }
+  return {
+    defaults,
+    hashToCurve(msg, options) {
+      const opts = Object.assign({}, defaults, options);
+      const u = hash_to_field(msg, 2, opts);
+      const u0 = map(u[0]);
+      const u1 = map(u[1]);
+      return clear(u0.add(u1));
+    },
+    encodeToCurve(msg, options) {
+      const optsDst = defaults.encodeDST ? { DST: defaults.encodeDST } : {};
+      const opts = Object.assign({}, defaults, optsDst, options);
+      const u = hash_to_field(msg, 1, opts);
+      const u0 = map(u[0]);
+      return clear(u0);
+    },
+    /** See {@link H2CHasher} */
+    mapToCurve(scalars) {
+      if (!Array.isArray(scalars))
+        throw new Error("expected array of bigints");
+      for (const i of scalars)
+        if (typeof i !== "bigint")
+          throw new Error("expected array of bigints");
+      return clear(map(scalars));
+    },
+    // hash_to_scalar can produce 0: https://www.rfc-editor.org/errata/eid8393
+    // RFC 9380, draft-irtf-cfrg-bbs-signatures-08
+    hashToScalar(msg, options) {
+      const N2 = Point.Fn.ORDER;
+      const opts = Object.assign({}, defaults, { p: N2, m: 1, DST: _DST_scalar }, options);
+      return hash_to_field(msg, 1, opts)[0][0];
+    }
+  };
 }
 /*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
+const divNearest = (num, den) => (num + (num >= 0 ? den : -den) / _2n$5) / den;
+function _splitEndoScalar(k2, basis, n) {
+  const [[a1, b1], [a2, b2]] = basis;
+  const c1 = divNearest(b2 * k2, n);
+  const c2 = divNearest(-b1 * k2, n);
+  let k1 = k2 - c1 * a1 - c2 * a2;
+  let k22 = -c1 * b1 - c2 * b2;
+  const k1neg = k1 < _0n$4;
+  const k2neg = k22 < _0n$4;
+  if (k1neg)
+    k1 = -k1;
+  if (k2neg)
+    k22 = -k22;
+  const MAX_NUM = bitMask(Math.ceil(bitLen(n) / 2)) + _1n$5;
+  if (k1 < _0n$4 || k1 >= MAX_NUM || k22 < _0n$4 || k22 >= MAX_NUM) {
+    throw new Error("splitScalar (endomorphism): failed, k=" + k2);
+  }
+  return { k1neg, k1, k2neg, k2: k22 };
+}
+const _0n$4 = BigInt(0), _1n$5 = BigInt(1), _2n$5 = BigInt(2), _3n$3 = BigInt(3), _4n$1 = BigInt(4);
+function _normFnElement(Fn, key) {
+  const { BYTES: expected } = Fn;
+  let num;
+  if (typeof key === "bigint") {
+    num = key;
+  } else {
+    let bytes = ensureBytes("private key", key);
+    try {
+      num = Fn.fromBytes(bytes);
+    } catch (error) {
+      throw new Error(`invalid private key: expected ui8a of size ${expected}, got ${typeof key}`);
+    }
+  }
+  if (!Fn.isValidNot0(num))
+    throw new Error("invalid private key: out of range [1..N-1]");
+  return num;
+}
+function weierstrassN(params, extraOpts = {}) {
+  const validated = _createCurveFields("weierstrass", params, extraOpts);
+  const { Fp: Fp3, Fn } = validated;
+  let CURVE = validated.CURVE;
+  const { h: cofactor, n: CURVE_ORDER } = CURVE;
+  _validateObject(extraOpts, {}, {
+    allowInfinityPoint: "boolean",
+    clearCofactor: "function",
+    isTorsionFree: "function",
+    fromBytes: "function",
+    toBytes: "function",
+    endo: "object",
+    wrapPrivateKey: "boolean"
+  });
+  const { endo } = extraOpts;
+  if (endo) {
+    if (!Fp3.is0(CURVE.a) || typeof endo.beta !== "bigint" || !Array.isArray(endo.basises)) {
+      throw new Error('invalid endo: expected "beta": bigint and "basises": array');
+    }
+  }
+  const lengths = getWLengths(Fp3, Fn);
+  function assertCompressionIsSupported() {
+    if (!Fp3.isOdd)
+      throw new Error("compression is not supported: Field does not have .isOdd()");
+  }
+  function pointToBytes(_c2, point, isCompressed) {
+    const { x: x2, y: y2 } = point.toAffine();
+    const bx = Fp3.toBytes(x2);
+    _abool2(isCompressed, "isCompressed");
+    if (isCompressed) {
+      assertCompressionIsSupported();
+      const hasEvenY = !Fp3.isOdd(y2);
+      return concatBytes(pprefix(hasEvenY), bx);
+    } else {
+      return concatBytes(Uint8Array.of(4), bx, Fp3.toBytes(y2));
+    }
+  }
+  function pointFromBytes(bytes) {
+    _abytes2(bytes, void 0, "Point");
+    const { publicKey: comp, publicKeyUncompressed: uncomp } = lengths;
+    const length = bytes.length;
+    const head = bytes[0];
+    const tail = bytes.subarray(1);
+    if (length === comp && (head === 2 || head === 3)) {
+      const x2 = Fp3.fromBytes(tail);
+      if (!Fp3.isValid(x2))
+        throw new Error("bad point: is not on curve, wrong x");
+      const y2 = weierstrassEquation(x2);
+      let y3;
+      try {
+        y3 = Fp3.sqrt(y2);
+      } catch (sqrtError) {
+        const err = sqrtError instanceof Error ? ": " + sqrtError.message : "";
+        throw new Error("bad point: is not on curve, sqrt error" + err);
+      }
+      assertCompressionIsSupported();
+      const isYOdd = Fp3.isOdd(y3);
+      const isHeadOdd = (head & 1) === 1;
+      if (isHeadOdd !== isYOdd)
+        y3 = Fp3.neg(y3);
+      return { x: x2, y: y3 };
+    } else if (length === uncomp && head === 4) {
+      const L2 = Fp3.BYTES;
+      const x2 = Fp3.fromBytes(tail.subarray(0, L2));
+      const y2 = Fp3.fromBytes(tail.subarray(L2, L2 * 2));
+      if (!isValidXY(x2, y2))
+        throw new Error("bad point: is not on curve");
+      return { x: x2, y: y2 };
+    } else {
+      throw new Error(`bad point: got length ${length}, expected compressed=${comp} or uncompressed=${uncomp}`);
+    }
+  }
+  const encodePoint = extraOpts.toBytes || pointToBytes;
+  const decodePoint = extraOpts.fromBytes || pointFromBytes;
+  function weierstrassEquation(x2) {
+    const x22 = Fp3.sqr(x2);
+    const x3 = Fp3.mul(x22, x2);
+    return Fp3.add(Fp3.add(x3, Fp3.mul(x2, CURVE.a)), CURVE.b);
+  }
+  function isValidXY(x2, y2) {
+    const left = Fp3.sqr(y2);
+    const right = weierstrassEquation(x2);
+    return Fp3.eql(left, right);
+  }
+  if (!isValidXY(CURVE.Gx, CURVE.Gy))
+    throw new Error("bad curve params: generator point");
+  const _4a3 = Fp3.mul(Fp3.pow(CURVE.a, _3n$3), _4n$1);
+  const _27b2 = Fp3.mul(Fp3.sqr(CURVE.b), BigInt(27));
+  if (Fp3.is0(Fp3.add(_4a3, _27b2)))
+    throw new Error("bad curve params: a or b");
+  function acoord(title, n, banZero = false) {
+    if (!Fp3.isValid(n) || banZero && Fp3.is0(n))
+      throw new Error(`bad point coordinate ${title}`);
+    return n;
+  }
+  function aprjpoint(other) {
+    if (!(other instanceof Point))
+      throw new Error("ProjectivePoint expected");
+  }
+  function splitEndoScalarN(k2) {
+    if (!endo || !endo.basises)
+      throw new Error("no endo");
+    return _splitEndoScalar(k2, endo.basises, Fn.ORDER);
+  }
+  const toAffineMemo = memoized((p2, iz) => {
+    const { X: X2, Y: Y2, Z: Z2 } = p2;
+    if (Fp3.eql(Z2, Fp3.ONE))
+      return { x: X2, y: Y2 };
+    const is0 = p2.is0();
+    if (iz == null)
+      iz = is0 ? Fp3.ONE : Fp3.inv(Z2);
+    const x2 = Fp3.mul(X2, iz);
+    const y2 = Fp3.mul(Y2, iz);
+    const zz = Fp3.mul(Z2, iz);
+    if (is0)
+      return { x: Fp3.ZERO, y: Fp3.ZERO };
+    if (!Fp3.eql(zz, Fp3.ONE))
+      throw new Error("invZ was invalid");
+    return { x: x2, y: y2 };
+  });
+  const assertValidMemo = memoized((p2) => {
+    if (p2.is0()) {
+      if (extraOpts.allowInfinityPoint && !Fp3.is0(p2.Y))
+        return;
+      throw new Error("bad point: ZERO");
+    }
+    const { x: x2, y: y2 } = p2.toAffine();
+    if (!Fp3.isValid(x2) || !Fp3.isValid(y2))
+      throw new Error("bad point: x or y not field elements");
+    if (!isValidXY(x2, y2))
+      throw new Error("bad point: equation left != right");
+    if (!p2.isTorsionFree())
+      throw new Error("bad point: not in prime-order subgroup");
+    return true;
+  });
+  function finishEndo(endoBeta, k1p, k2p, k1neg, k2neg) {
+    k2p = new Point(Fp3.mul(k2p.X, endoBeta), k2p.Y, k2p.Z);
+    k1p = negateCt(k1neg, k1p);
+    k2p = negateCt(k2neg, k2p);
+    return k1p.add(k2p);
+  }
+  class Point {
+    /** Does NOT validate if the point is valid. Use `.assertValidity()`. */
+    constructor(X2, Y2, Z2) {
+      this.X = acoord("x", X2);
+      this.Y = acoord("y", Y2, true);
+      this.Z = acoord("z", Z2);
+      Object.freeze(this);
+    }
+    static CURVE() {
+      return CURVE;
+    }
+    /** Does NOT validate if the point is valid. Use `.assertValidity()`. */
+    static fromAffine(p2) {
+      const { x: x2, y: y2 } = p2 || {};
+      if (!p2 || !Fp3.isValid(x2) || !Fp3.isValid(y2))
+        throw new Error("invalid affine point");
+      if (p2 instanceof Point)
+        throw new Error("projective point not allowed");
+      if (Fp3.is0(x2) && Fp3.is0(y2))
+        return Point.ZERO;
+      return new Point(x2, y2, Fp3.ONE);
+    }
+    static fromBytes(bytes) {
+      const P2 = Point.fromAffine(decodePoint(_abytes2(bytes, void 0, "point")));
+      P2.assertValidity();
+      return P2;
+    }
+    static fromHex(hex2) {
+      return Point.fromBytes(ensureBytes("pointHex", hex2));
+    }
+    get x() {
+      return this.toAffine().x;
+    }
+    get y() {
+      return this.toAffine().y;
+    }
+    /**
+     *
+     * @param windowSize
+     * @param isLazy true will defer table computation until the first multiplication
+     * @returns
+     */
+    precompute(windowSize = 8, isLazy = true) {
+      wnaf.createCache(this, windowSize);
+      if (!isLazy)
+        this.multiply(_3n$3);
+      return this;
+    }
+    // TODO: return `this`
+    /** A point on curve is valid if it conforms to equation. */
+    assertValidity() {
+      assertValidMemo(this);
+    }
+    hasEvenY() {
+      const { y: y2 } = this.toAffine();
+      if (!Fp3.isOdd)
+        throw new Error("Field doesn't support isOdd");
+      return !Fp3.isOdd(y2);
+    }
+    /** Compare one point to another. */
+    equals(other) {
+      aprjpoint(other);
+      const { X: X1, Y: Y1, Z: Z1 } = this;
+      const { X: X2, Y: Y2, Z: Z2 } = other;
+      const U1 = Fp3.eql(Fp3.mul(X1, Z2), Fp3.mul(X2, Z1));
+      const U2 = Fp3.eql(Fp3.mul(Y1, Z2), Fp3.mul(Y2, Z1));
+      return U1 && U2;
+    }
+    /** Flips point to one corresponding to (x, -y) in Affine coordinates. */
+    negate() {
+      return new Point(this.X, Fp3.neg(this.Y), this.Z);
+    }
+    // Renes-Costello-Batina exception-free doubling formula.
+    // There is 30% faster Jacobian formula, but it is not complete.
+    // https://eprint.iacr.org/2015/1060, algorithm 3
+    // Cost: 8M + 3S + 3*a + 2*b3 + 15add.
+    double() {
+      const { a: a2, b: b2 } = CURVE;
+      const b3 = Fp3.mul(b2, _3n$3);
+      const { X: X1, Y: Y1, Z: Z1 } = this;
+      let X3 = Fp3.ZERO, Y3 = Fp3.ZERO, Z3 = Fp3.ZERO;
+      let t0 = Fp3.mul(X1, X1);
+      let t1 = Fp3.mul(Y1, Y1);
+      let t2 = Fp3.mul(Z1, Z1);
+      let t3 = Fp3.mul(X1, Y1);
+      t3 = Fp3.add(t3, t3);
+      Z3 = Fp3.mul(X1, Z1);
+      Z3 = Fp3.add(Z3, Z3);
+      X3 = Fp3.mul(a2, Z3);
+      Y3 = Fp3.mul(b3, t2);
+      Y3 = Fp3.add(X3, Y3);
+      X3 = Fp3.sub(t1, Y3);
+      Y3 = Fp3.add(t1, Y3);
+      Y3 = Fp3.mul(X3, Y3);
+      X3 = Fp3.mul(t3, X3);
+      Z3 = Fp3.mul(b3, Z3);
+      t2 = Fp3.mul(a2, t2);
+      t3 = Fp3.sub(t0, t2);
+      t3 = Fp3.mul(a2, t3);
+      t3 = Fp3.add(t3, Z3);
+      Z3 = Fp3.add(t0, t0);
+      t0 = Fp3.add(Z3, t0);
+      t0 = Fp3.add(t0, t2);
+      t0 = Fp3.mul(t0, t3);
+      Y3 = Fp3.add(Y3, t0);
+      t2 = Fp3.mul(Y1, Z1);
+      t2 = Fp3.add(t2, t2);
+      t0 = Fp3.mul(t2, t3);
+      X3 = Fp3.sub(X3, t0);
+      Z3 = Fp3.mul(t2, t1);
+      Z3 = Fp3.add(Z3, Z3);
+      Z3 = Fp3.add(Z3, Z3);
+      return new Point(X3, Y3, Z3);
+    }
+    // Renes-Costello-Batina exception-free addition formula.
+    // There is 30% faster Jacobian formula, but it is not complete.
+    // https://eprint.iacr.org/2015/1060, algorithm 1
+    // Cost: 12M + 0S + 3*a + 3*b3 + 23add.
+    add(other) {
+      aprjpoint(other);
+      const { X: X1, Y: Y1, Z: Z1 } = this;
+      const { X: X2, Y: Y2, Z: Z2 } = other;
+      let X3 = Fp3.ZERO, Y3 = Fp3.ZERO, Z3 = Fp3.ZERO;
+      const a2 = CURVE.a;
+      const b3 = Fp3.mul(CURVE.b, _3n$3);
+      let t0 = Fp3.mul(X1, X2);
+      let t1 = Fp3.mul(Y1, Y2);
+      let t2 = Fp3.mul(Z1, Z2);
+      let t3 = Fp3.add(X1, Y1);
+      let t4 = Fp3.add(X2, Y2);
+      t3 = Fp3.mul(t3, t4);
+      t4 = Fp3.add(t0, t1);
+      t3 = Fp3.sub(t3, t4);
+      t4 = Fp3.add(X1, Z1);
+      let t5 = Fp3.add(X2, Z2);
+      t4 = Fp3.mul(t4, t5);
+      t5 = Fp3.add(t0, t2);
+      t4 = Fp3.sub(t4, t5);
+      t5 = Fp3.add(Y1, Z1);
+      X3 = Fp3.add(Y2, Z2);
+      t5 = Fp3.mul(t5, X3);
+      X3 = Fp3.add(t1, t2);
+      t5 = Fp3.sub(t5, X3);
+      Z3 = Fp3.mul(a2, t4);
+      X3 = Fp3.mul(b3, t2);
+      Z3 = Fp3.add(X3, Z3);
+      X3 = Fp3.sub(t1, Z3);
+      Z3 = Fp3.add(t1, Z3);
+      Y3 = Fp3.mul(X3, Z3);
+      t1 = Fp3.add(t0, t0);
+      t1 = Fp3.add(t1, t0);
+      t2 = Fp3.mul(a2, t2);
+      t4 = Fp3.mul(b3, t4);
+      t1 = Fp3.add(t1, t2);
+      t2 = Fp3.sub(t0, t2);
+      t2 = Fp3.mul(a2, t2);
+      t4 = Fp3.add(t4, t2);
+      t0 = Fp3.mul(t1, t4);
+      Y3 = Fp3.add(Y3, t0);
+      t0 = Fp3.mul(t5, t4);
+      X3 = Fp3.mul(t3, X3);
+      X3 = Fp3.sub(X3, t0);
+      t0 = Fp3.mul(t3, t1);
+      Z3 = Fp3.mul(t5, Z3);
+      Z3 = Fp3.add(Z3, t0);
+      return new Point(X3, Y3, Z3);
+    }
+    subtract(other) {
+      return this.add(other.negate());
+    }
+    is0() {
+      return this.equals(Point.ZERO);
+    }
+    /**
+     * Constant time multiplication.
+     * Uses wNAF method. Windowed method may be 10% faster,
+     * but takes 2x longer to generate and consumes 2x memory.
+     * Uses precomputes when available.
+     * Uses endomorphism for Koblitz curves.
+     * @param scalar by which the point would be multiplied
+     * @returns New point
+     */
+    multiply(scalar) {
+      const { endo: endo2 } = extraOpts;
+      if (!Fn.isValidNot0(scalar))
+        throw new Error("invalid scalar: out of range");
+      let point, fake;
+      const mul = (n) => wnaf.cached(this, n, (p2) => normalizeZ(Point, p2));
+      if (endo2) {
+        const { k1neg, k1, k2neg, k2 } = splitEndoScalarN(scalar);
+        const { p: k1p, f: k1f } = mul(k1);
+        const { p: k2p, f: k2f } = mul(k2);
+        fake = k1f.add(k2f);
+        point = finishEndo(endo2.beta, k1p, k2p, k1neg, k2neg);
+      } else {
+        const { p: p2, f } = mul(scalar);
+        point = p2;
+        fake = f;
+      }
+      return normalizeZ(Point, [point, fake])[0];
+    }
+    /**
+     * Non-constant-time multiplication. Uses double-and-add algorithm.
+     * It's faster, but should only be used when you don't care about
+     * an exposed secret key e.g. sig verification, which works over *public* keys.
+     */
+    multiplyUnsafe(sc) {
+      const { endo: endo2 } = extraOpts;
+      const p2 = this;
+      if (!Fn.isValid(sc))
+        throw new Error("invalid scalar: out of range");
+      if (sc === _0n$4 || p2.is0())
+        return Point.ZERO;
+      if (sc === _1n$5)
+        return p2;
+      if (wnaf.hasCache(this))
+        return this.multiply(sc);
+      if (endo2) {
+        const { k1neg, k1, k2neg, k2 } = splitEndoScalarN(sc);
+        const { p1, p2: p22 } = mulEndoUnsafe(Point, p2, k1, k2);
+        return finishEndo(endo2.beta, p1, p22, k1neg, k2neg);
+      } else {
+        return wnaf.unsafe(p2, sc);
+      }
+    }
+    multiplyAndAddUnsafe(Q2, a2, b2) {
+      const sum = this.multiplyUnsafe(a2).add(Q2.multiplyUnsafe(b2));
+      return sum.is0() ? void 0 : sum;
+    }
+    /**
+     * Converts Projective point to affine (x, y) coordinates.
+     * @param invertedZ Z^-1 (inverted zero) - optional, precomputation is useful for invertBatch
+     */
+    toAffine(invertedZ) {
+      return toAffineMemo(this, invertedZ);
+    }
+    /**
+     * Checks whether Point is free of torsion elements (is in prime subgroup).
+     * Always torsion-free for cofactor=1 curves.
+     */
+    isTorsionFree() {
+      const { isTorsionFree } = extraOpts;
+      if (cofactor === _1n$5)
+        return true;
+      if (isTorsionFree)
+        return isTorsionFree(Point, this);
+      return wnaf.unsafe(this, CURVE_ORDER).is0();
+    }
+    clearCofactor() {
+      const { clearCofactor } = extraOpts;
+      if (cofactor === _1n$5)
+        return this;
+      if (clearCofactor)
+        return clearCofactor(Point, this);
+      return this.multiplyUnsafe(cofactor);
+    }
+    isSmallOrder() {
+      return this.multiplyUnsafe(cofactor).is0();
+    }
+    toBytes(isCompressed = true) {
+      _abool2(isCompressed, "isCompressed");
+      this.assertValidity();
+      return encodePoint(Point, this, isCompressed);
+    }
+    toHex(isCompressed = true) {
+      return bytesToHex(this.toBytes(isCompressed));
+    }
+    toString() {
+      return `<Point ${this.is0() ? "ZERO" : this.toHex()}>`;
+    }
+    // TODO: remove
+    get px() {
+      return this.X;
+    }
+    get py() {
+      return this.X;
+    }
+    get pz() {
+      return this.Z;
+    }
+    toRawBytes(isCompressed = true) {
+      return this.toBytes(isCompressed);
+    }
+    _setWindowSize(windowSize) {
+      this.precompute(windowSize);
+    }
+    static normalizeZ(points) {
+      return normalizeZ(Point, points);
+    }
+    static msm(points, scalars) {
+      return pippenger(Point, Fn, points, scalars);
+    }
+    static fromPrivateKey(privateKey) {
+      return Point.BASE.multiply(_normFnElement(Fn, privateKey));
+    }
+  }
+  Point.BASE = new Point(CURVE.Gx, CURVE.Gy, Fp3.ONE);
+  Point.ZERO = new Point(Fp3.ZERO, Fp3.ONE, Fp3.ZERO);
+  Point.Fp = Fp3;
+  Point.Fn = Fn;
+  const bits = Fn.BITS;
+  const wnaf = new wNAF(Point, extraOpts.endo ? Math.ceil(bits / 2) : bits);
+  Point.BASE.precompute(8);
+  return Point;
+}
+function pprefix(hasEvenY) {
+  return Uint8Array.of(hasEvenY ? 2 : 3);
+}
+function SWUFpSqrtRatio(Fp3, Z2) {
+  const q2 = Fp3.ORDER;
+  let l = _0n$4;
+  for (let o2 = q2 - _1n$5; o2 % _2n$5 === _0n$4; o2 /= _2n$5)
+    l += _1n$5;
+  const c1 = l;
+  const _2n_pow_c1_1 = _2n$5 << c1 - _1n$5 - _1n$5;
+  const _2n_pow_c1 = _2n_pow_c1_1 * _2n$5;
+  const c2 = (q2 - _1n$5) / _2n_pow_c1;
+  const c3 = (c2 - _1n$5) / _2n$5;
+  const c4 = _2n_pow_c1 - _1n$5;
+  const c5 = _2n_pow_c1_1;
+  const c6 = Fp3.pow(Z2, c2);
+  const c7 = Fp3.pow(Z2, (c2 + _1n$5) / _2n$5);
+  let sqrtRatio = (u, v2) => {
+    let tv1 = c6;
+    let tv2 = Fp3.pow(v2, c4);
+    let tv3 = Fp3.sqr(tv2);
+    tv3 = Fp3.mul(tv3, v2);
+    let tv5 = Fp3.mul(u, tv3);
+    tv5 = Fp3.pow(tv5, c3);
+    tv5 = Fp3.mul(tv5, tv2);
+    tv2 = Fp3.mul(tv5, v2);
+    tv3 = Fp3.mul(tv5, u);
+    let tv4 = Fp3.mul(tv3, tv2);
+    tv5 = Fp3.pow(tv4, c5);
+    let isQR = Fp3.eql(tv5, Fp3.ONE);
+    tv2 = Fp3.mul(tv3, c7);
+    tv5 = Fp3.mul(tv4, tv1);
+    tv3 = Fp3.cmov(tv2, tv3, isQR);
+    tv4 = Fp3.cmov(tv5, tv4, isQR);
+    for (let i = c1; i > _1n$5; i--) {
+      let tv52 = i - _2n$5;
+      tv52 = _2n$5 << tv52 - _1n$5;
+      let tvv5 = Fp3.pow(tv4, tv52);
+      const e1 = Fp3.eql(tvv5, Fp3.ONE);
+      tv2 = Fp3.mul(tv3, tv1);
+      tv1 = Fp3.mul(tv1, tv1);
+      tvv5 = Fp3.mul(tv4, tv1);
+      tv3 = Fp3.cmov(tv2, tv3, e1);
+      tv4 = Fp3.cmov(tvv5, tv4, e1);
+    }
+    return { isValid: isQR, value: tv3 };
+  };
+  if (Fp3.ORDER % _4n$1 === _3n$3) {
+    const c12 = (Fp3.ORDER - _3n$3) / _4n$1;
+    const c22 = Fp3.sqrt(Fp3.neg(Z2));
+    sqrtRatio = (u, v2) => {
+      let tv1 = Fp3.sqr(v2);
+      const tv2 = Fp3.mul(u, v2);
+      tv1 = Fp3.mul(tv1, tv2);
+      let y1 = Fp3.pow(tv1, c12);
+      y1 = Fp3.mul(y1, tv2);
+      const y2 = Fp3.mul(y1, c22);
+      const tv3 = Fp3.mul(Fp3.sqr(y1), v2);
+      const isQR = Fp3.eql(tv3, u);
+      let y3 = Fp3.cmov(y2, y1, isQR);
+      return { isValid: isQR, value: y3 };
+    };
+  }
+  return sqrtRatio;
+}
+function mapToCurveSimpleSWU(Fp3, opts) {
+  validateField$2(Fp3);
+  const { A: A2, B: B2, Z: Z2 } = opts;
+  if (!Fp3.isValid(A2) || !Fp3.isValid(B2) || !Fp3.isValid(Z2))
+    throw new Error("mapToCurveSimpleSWU: invalid opts");
+  const sqrtRatio = SWUFpSqrtRatio(Fp3, Z2);
+  if (!Fp3.isOdd)
+    throw new Error("Field does not have .isOdd()");
+  return (u) => {
+    let tv1, tv2, tv3, tv4, tv5, tv6, x2, y2;
+    tv1 = Fp3.sqr(u);
+    tv1 = Fp3.mul(tv1, Z2);
+    tv2 = Fp3.sqr(tv1);
+    tv2 = Fp3.add(tv2, tv1);
+    tv3 = Fp3.add(tv2, Fp3.ONE);
+    tv3 = Fp3.mul(tv3, B2);
+    tv4 = Fp3.cmov(Z2, Fp3.neg(tv2), !Fp3.eql(tv2, Fp3.ZERO));
+    tv4 = Fp3.mul(tv4, A2);
+    tv2 = Fp3.sqr(tv3);
+    tv6 = Fp3.sqr(tv4);
+    tv5 = Fp3.mul(tv6, A2);
+    tv2 = Fp3.add(tv2, tv5);
+    tv2 = Fp3.mul(tv2, tv3);
+    tv6 = Fp3.mul(tv6, tv4);
+    tv5 = Fp3.mul(tv6, B2);
+    tv2 = Fp3.add(tv2, tv5);
+    x2 = Fp3.mul(tv1, tv3);
+    const { isValid, value } = sqrtRatio(tv2, tv6);
+    y2 = Fp3.mul(tv1, u);
+    y2 = Fp3.mul(y2, value);
+    x2 = Fp3.cmov(x2, tv3, isValid);
+    y2 = Fp3.cmov(y2, value, isValid);
+    const e1 = Fp3.isOdd(u) === Fp3.isOdd(y2);
+    y2 = Fp3.cmov(Fp3.neg(y2), y2, e1);
+    const tv4_inv = FpInvertBatch(Fp3, [tv4], true)[0];
+    x2 = Fp3.mul(x2, tv4_inv);
+    return { x: x2, y: y2 };
+  };
+}
+function getWLengths(Fp3, Fn) {
+  return {
+    secretKey: Fn.BYTES,
+    publicKey: 1 + Fp3.BYTES,
+    publicKeyUncompressed: 1 + 2 * Fp3.BYTES,
+    publicKeyHasPrefix: true,
+    signature: 2 * Fn.BYTES
+  };
+}
+function weierstrassPoints(c2) {
+  const { CURVE, curveOpts } = _weierstrass_legacy_opts_to_new(c2);
+  const Point = weierstrassN(CURVE, curveOpts);
+  return _weierstrass_new_output_to_legacy(c2, Point);
+}
+function _weierstrass_legacy_opts_to_new(c2) {
+  const CURVE = {
+    a: c2.a,
+    b: c2.b,
+    p: c2.Fp.ORDER,
+    n: c2.n,
+    h: c2.h,
+    Gx: c2.Gx,
+    Gy: c2.Gy
+  };
+  const Fp3 = c2.Fp;
+  let allowedLengths = c2.allowedPrivateKeyLengths ? Array.from(new Set(c2.allowedPrivateKeyLengths.map((l) => Math.ceil(l / 2)))) : void 0;
+  const Fn = Field(CURVE.n, {
+    BITS: c2.nBitLength,
+    allowedLengths,
+    modFromBytes: c2.wrapPrivateKey
+  });
+  const curveOpts = {
+    Fp: Fp3,
+    Fn,
+    allowInfinityPoint: c2.allowInfinityPoint,
+    endo: c2.endo,
+    isTorsionFree: c2.isTorsionFree,
+    clearCofactor: c2.clearCofactor,
+    fromBytes: c2.fromBytes,
+    toBytes: c2.toBytes
+  };
+  return { CURVE, curveOpts };
+}
+function _legacyHelperEquat(Fp3, a2, b2) {
+  function weierstrassEquation(x2) {
+    const x22 = Fp3.sqr(x2);
+    const x3 = Fp3.mul(x22, x2);
+    return Fp3.add(Fp3.add(x3, Fp3.mul(x2, a2)), b2);
+  }
+  return weierstrassEquation;
+}
+function _weierstrass_new_output_to_legacy(c2, Point) {
+  const { Fp: Fp3, Fn } = Point;
+  function isWithinCurveOrder(num) {
+    return inRange(num, _1n$5, Fn.ORDER);
+  }
+  const weierstrassEquation = _legacyHelperEquat(Fp3, c2.a, c2.b);
+  return Object.assign({}, {
+    CURVE: c2,
+    Point,
+    ProjectivePoint: Point,
+    normPrivateKeyToScalar: (key) => _normFnElement(Fn, key),
+    weierstrassEquation,
+    isWithinCurveOrder
+  });
+}
+/*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
+const _0n$3 = BigInt(0), _1n$4 = BigInt(1), _2n$4 = BigInt(2), _3n$2 = BigInt(3);
+function NAfDecomposition(a2) {
+  const res = [];
+  for (; a2 > _1n$4; a2 >>= _1n$4) {
+    if ((a2 & _1n$4) === _0n$3)
+      res.unshift(0);
+    else if ((a2 & _3n$2) === _3n$2) {
+      res.unshift(-1);
+      a2 += _1n$4;
+    } else
+      res.unshift(1);
+  }
+  return res;
+}
+function aNonEmpty(arr) {
+  if (!Array.isArray(arr) || arr.length === 0)
+    throw new Error("expected non-empty array");
+}
+function createBlsPairing(fields, G1, G2, params) {
+  const { Fp2: Fp22, Fp12: Fp122 } = fields;
+  const { twistType, ateLoopSize, xNegative, postPrecompute } = params;
+  let lineFunction;
+  if (twistType === "multiplicative") {
+    lineFunction = (c0, c1, c2, f, Px, Py) => Fp122.mul014(f, c0, Fp22.mul(c1, Px), Fp22.mul(c2, Py));
+  } else if (twistType === "divisive") {
+    lineFunction = (c0, c1, c2, f, Px, Py) => Fp122.mul034(f, Fp22.mul(c2, Py), Fp22.mul(c1, Px), c0);
+  } else
+    throw new Error("bls: unknown twist type");
+  const Fp2div2 = Fp22.div(Fp22.ONE, Fp22.mul(Fp22.ONE, _2n$4));
+  function pointDouble(ell, Rx, Ry, Rz) {
+    const t0 = Fp22.sqr(Ry);
+    const t1 = Fp22.sqr(Rz);
+    const t2 = Fp22.mulByB(Fp22.mul(t1, _3n$2));
+    const t3 = Fp22.mul(t2, _3n$2);
+    const t4 = Fp22.sub(Fp22.sub(Fp22.sqr(Fp22.add(Ry, Rz)), t1), t0);
+    const c0 = Fp22.sub(t2, t0);
+    const c1 = Fp22.mul(Fp22.sqr(Rx), _3n$2);
+    const c2 = Fp22.neg(t4);
+    ell.push([c0, c1, c2]);
+    Rx = Fp22.mul(Fp22.mul(Fp22.mul(Fp22.sub(t0, t3), Rx), Ry), Fp2div2);
+    Ry = Fp22.sub(Fp22.sqr(Fp22.mul(Fp22.add(t0, t3), Fp2div2)), Fp22.mul(Fp22.sqr(t2), _3n$2));
+    Rz = Fp22.mul(t0, t4);
+    return { Rx, Ry, Rz };
+  }
+  function pointAdd(ell, Rx, Ry, Rz, Qx, Qy) {
+    const t0 = Fp22.sub(Ry, Fp22.mul(Qy, Rz));
+    const t1 = Fp22.sub(Rx, Fp22.mul(Qx, Rz));
+    const c0 = Fp22.sub(Fp22.mul(t0, Qx), Fp22.mul(t1, Qy));
+    const c1 = Fp22.neg(t0);
+    const c2 = t1;
+    ell.push([c0, c1, c2]);
+    const t2 = Fp22.sqr(t1);
+    const t3 = Fp22.mul(t2, t1);
+    const t4 = Fp22.mul(t2, Rx);
+    const t5 = Fp22.add(Fp22.sub(t3, Fp22.mul(t4, _2n$4)), Fp22.mul(Fp22.sqr(t0), Rz));
+    Rx = Fp22.mul(t1, t5);
+    Ry = Fp22.sub(Fp22.mul(Fp22.sub(t4, t5), t0), Fp22.mul(t3, Ry));
+    Rz = Fp22.mul(Rz, t3);
+    return { Rx, Ry, Rz };
+  }
+  const ATE_NAF = NAfDecomposition(ateLoopSize);
+  const calcPairingPrecomputes = memoized((point) => {
+    const p2 = point;
+    const { x: x2, y: y2 } = p2.toAffine();
+    const Qx = x2, Qy = y2, negQy = Fp22.neg(y2);
+    let Rx = Qx, Ry = Qy, Rz = Fp22.ONE;
+    const ell = [];
+    for (const bit of ATE_NAF) {
+      const cur = [];
+      ({ Rx, Ry, Rz } = pointDouble(cur, Rx, Ry, Rz));
+      if (bit)
+        ({ Rx, Ry, Rz } = pointAdd(cur, Rx, Ry, Rz, Qx, bit === -1 ? negQy : Qy));
+      ell.push(cur);
+    }
+    if (postPrecompute) {
+      const last2 = ell[ell.length - 1];
+      postPrecompute(Rx, Ry, Rz, Qx, Qy, pointAdd.bind(null, last2));
+    }
+    return ell;
+  });
+  function millerLoopBatch(pairs, withFinalExponent = false) {
+    let f12 = Fp122.ONE;
+    if (pairs.length) {
+      const ellLen = pairs[0][0].length;
+      for (let i = 0; i < ellLen; i++) {
+        f12 = Fp122.sqr(f12);
+        for (const [ell, Px, Py] of pairs) {
+          for (const [c0, c1, c2] of ell[i])
+            f12 = lineFunction(c0, c1, c2, f12, Px, Py);
+        }
+      }
+    }
+    if (xNegative)
+      f12 = Fp122.conjugate(f12);
+    return withFinalExponent ? Fp122.finalExponentiate(f12) : f12;
+  }
+  function pairingBatch(pairs, withFinalExponent = true) {
+    const res = [];
+    normalizeZ(G1, pairs.map(({ g1 }) => g1));
+    normalizeZ(G2, pairs.map(({ g2 }) => g2));
+    for (const { g1, g2 } of pairs) {
+      if (g1.is0() || g2.is0())
+        throw new Error("pairing is not available for ZERO point");
+      g1.assertValidity();
+      g2.assertValidity();
+      const Qa = g1.toAffine();
+      res.push([calcPairingPrecomputes(g2), Qa.x, Qa.y]);
+    }
+    return millerLoopBatch(res, withFinalExponent);
+  }
+  function pairing(Q2, P2, withFinalExponent = true) {
+    return pairingBatch([{ g1: Q2, g2: P2 }], withFinalExponent);
+  }
+  return {
+    Fp12: Fp122,
+    // NOTE: we re-export Fp12 here because pairing results are Fp12!
+    millerLoopBatch,
+    pairing,
+    pairingBatch,
+    calcPairingPrecomputes
+  };
+}
+function createBlsSig(blsPairing, PubCurve, SigCurve, SignatureCoder, isSigG1) {
+  const { Fp12: Fp122, pairingBatch } = blsPairing;
+  function normPub(point) {
+    return point instanceof PubCurve.Point ? point : PubCurve.Point.fromHex(point);
+  }
+  function normSig(point) {
+    return point instanceof SigCurve.Point ? point : SigCurve.Point.fromHex(point);
+  }
+  function amsg(m2) {
+    if (!(m2 instanceof SigCurve.Point))
+      throw new Error(`expected valid message hashed to ${!isSigG1 ? "G2" : "G1"} curve`);
+    return m2;
+  }
+  const pair = !isSigG1 ? (a2, b2) => ({ g1: a2, g2: b2 }) : (a2, b2) => ({ g1: b2, g2: a2 });
+  return {
+    // P = pk x G
+    getPublicKey(secretKey) {
+      const sec = _normFnElement(PubCurve.Point.Fn, secretKey);
+      return PubCurve.Point.BASE.multiply(sec);
+    },
+    // S = pk x H(m)
+    sign(message, secretKey, unusedArg) {
+      if (unusedArg != null)
+        throw new Error("sign() expects 2 arguments");
+      const sec = _normFnElement(PubCurve.Point.Fn, secretKey);
+      amsg(message).assertValidity();
+      return message.multiply(sec);
+    },
+    // Checks if pairing of public key & hash is equal to pairing of generator & signature.
+    // e(P, H(m)) == e(G, S)
+    // e(S, G) == e(H(m), P)
+    verify(signature, message, publicKey, unusedArg) {
+      if (unusedArg != null)
+        throw new Error("verify() expects 3 arguments");
+      signature = normSig(signature);
+      publicKey = normPub(publicKey);
+      const P2 = publicKey.negate();
+      const G2 = PubCurve.Point.BASE;
+      const Hm = amsg(message);
+      const S2 = signature;
+      const exp = pairingBatch([pair(P2, Hm), pair(G2, S2)]);
+      return Fp122.eql(exp, Fp122.ONE);
+    },
+    // https://ethresear.ch/t/fast-verification-of-multiple-bls-signatures/5407
+    // e(G, S) = e(G, SUM(n)(Si)) = MUL(n)(e(G, Si))
+    // TODO: maybe `{message: G2Hex, publicKey: G1Hex}[]` instead?
+    verifyBatch(signature, messages, publicKeys) {
+      aNonEmpty(messages);
+      if (publicKeys.length !== messages.length)
+        throw new Error("amount of public keys and messages should be equal");
+      const sig = normSig(signature);
+      const nMessages = messages;
+      const nPublicKeys = publicKeys.map(normPub);
+      const messagePubKeyMap = /* @__PURE__ */ new Map();
+      for (let i = 0; i < nPublicKeys.length; i++) {
+        const pub = nPublicKeys[i];
+        const msg = nMessages[i];
+        let keys = messagePubKeyMap.get(msg);
+        if (keys === void 0) {
+          keys = [];
+          messagePubKeyMap.set(msg, keys);
+        }
+        keys.push(pub);
+      }
+      const paired = [];
+      const G2 = PubCurve.Point.BASE;
+      try {
+        for (const [msg, keys] of messagePubKeyMap) {
+          const groupPublicKey = keys.reduce((acc, msg2) => acc.add(msg2));
+          paired.push(pair(groupPublicKey, msg));
+        }
+        paired.push(pair(G2.negate(), sig));
+        return Fp122.eql(pairingBatch(paired), Fp122.ONE);
+      } catch {
+        return false;
+      }
+    },
+    // Adds a bunch of public key points together.
+    // pk1 + pk2 + pk3 = pkA
+    aggregatePublicKeys(publicKeys) {
+      aNonEmpty(publicKeys);
+      publicKeys = publicKeys.map((pub) => normPub(pub));
+      const agg = publicKeys.reduce((sum, p2) => sum.add(p2), PubCurve.Point.ZERO);
+      agg.assertValidity();
+      return agg;
+    },
+    // Adds a bunch of signature points together.
+    // pk1 + pk2 + pk3 = pkA
+    aggregateSignatures(signatures) {
+      aNonEmpty(signatures);
+      signatures = signatures.map((sig) => normSig(sig));
+      const agg = signatures.reduce((sum, s2) => sum.add(s2), SigCurve.Point.ZERO);
+      agg.assertValidity();
+      return agg;
+    },
+    hash(messageBytes, DST) {
+      abytes(messageBytes);
+      const opts = DST ? { DST } : void 0;
+      return SigCurve.hashToCurve(messageBytes, opts);
+    },
+    Signature: SignatureCoder
+  };
+}
+function bls(CURVE) {
+  const { Fp: Fp3, Fr, Fp2: Fp22, Fp6: Fp62, Fp12: Fp122 } = CURVE.fields;
+  const G1_ = weierstrassPoints(CURVE.G1);
+  const G1 = Object.assign(G1_, createHasher(G1_.Point, CURVE.G1.mapToCurve, {
+    ...CURVE.htfDefaults,
+    ...CURVE.G1.htfDefaults
+  }));
+  const G2_ = weierstrassPoints(CURVE.G2);
+  const G2 = Object.assign(G2_, createHasher(G2_.Point, CURVE.G2.mapToCurve, {
+    ...CURVE.htfDefaults,
+    ...CURVE.G2.htfDefaults
+  }));
+  const pairingRes = createBlsPairing(CURVE.fields, G1.Point, G2.Point, {
+    ...CURVE.params,
+    postPrecompute: CURVE.postPrecompute
+  });
+  const { millerLoopBatch, pairing, pairingBatch, calcPairingPrecomputes } = pairingRes;
+  const longSignatures = createBlsSig(pairingRes, G1, G2, CURVE.G2.Signature, false);
+  const shortSignatures = createBlsSig(pairingRes, G2, G1, CURVE.G1.ShortSignature, true);
+  const rand = CURVE.randomBytes || randomBytes;
+  const randomSecretKey = () => {
+    const length = getMinHashLength(Fr.ORDER);
+    return mapHashToField(rand(length), Fr.ORDER);
+  };
+  const utils = {
+    randomSecretKey,
+    randomPrivateKey: randomSecretKey,
+    calcPairingPrecomputes
+  };
+  const { ShortSignature } = CURVE.G1;
+  const { Signature } = CURVE.G2;
+  function normP1Hash(point, htfOpts) {
+    return point instanceof G1.Point ? point : shortSignatures.hash(ensureBytes("point", point), htfOpts == null ? void 0 : htfOpts.DST);
+  }
+  function normP2Hash(point, htfOpts) {
+    return point instanceof G2.Point ? point : longSignatures.hash(ensureBytes("point", point), htfOpts == null ? void 0 : htfOpts.DST);
+  }
+  function getPublicKey(privateKey) {
+    return longSignatures.getPublicKey(privateKey).toBytes(true);
+  }
+  function getPublicKeyForShortSignatures(privateKey) {
+    return shortSignatures.getPublicKey(privateKey).toBytes(true);
+  }
+  function sign(message, privateKey, htfOpts) {
+    const Hm = normP2Hash(message, htfOpts);
+    const S2 = longSignatures.sign(Hm, privateKey);
+    return message instanceof G2.Point ? S2 : Signature.toBytes(S2);
+  }
+  function signShortSignature(message, privateKey, htfOpts) {
+    const Hm = normP1Hash(message, htfOpts);
+    const S2 = shortSignatures.sign(Hm, privateKey);
+    return message instanceof G1.Point ? S2 : ShortSignature.toBytes(S2);
+  }
+  function verify(signature, message, publicKey, htfOpts) {
+    const Hm = normP2Hash(message, htfOpts);
+    return longSignatures.verify(signature, Hm, publicKey);
+  }
+  function verifyShortSignature(signature, message, publicKey, htfOpts) {
+    const Hm = normP1Hash(message, htfOpts);
+    return shortSignatures.verify(signature, Hm, publicKey);
+  }
+  function aggregatePublicKeys(publicKeys) {
+    const agg = longSignatures.aggregatePublicKeys(publicKeys);
+    return publicKeys[0] instanceof G1.Point ? agg : agg.toBytes(true);
+  }
+  function aggregateSignatures(signatures) {
+    const agg = longSignatures.aggregateSignatures(signatures);
+    return signatures[0] instanceof G2.Point ? agg : Signature.toBytes(agg);
+  }
+  function aggregateShortSignatures(signatures) {
+    const agg = shortSignatures.aggregateSignatures(signatures);
+    return signatures[0] instanceof G1.Point ? agg : ShortSignature.toBytes(agg);
+  }
+  function verifyBatch(signature, messages, publicKeys, htfOpts) {
+    const Hm = messages.map((m2) => normP2Hash(m2, htfOpts));
+    return longSignatures.verifyBatch(signature, Hm, publicKeys);
+  }
+  G1.Point.BASE.precompute(4);
+  return {
+    longSignatures,
+    shortSignatures,
+    millerLoopBatch,
+    pairing,
+    pairingBatch,
+    verifyBatch,
+    fields: {
+      Fr,
+      Fp: Fp3,
+      Fp2: Fp22,
+      Fp6: Fp62,
+      Fp12: Fp122
+    },
+    params: {
+      ateLoopSize: CURVE.params.ateLoopSize,
+      twistType: CURVE.params.twistType,
+      // deprecated
+      r: CURVE.params.r,
+      G1b: CURVE.G1.b,
+      G2b: CURVE.G2.b
+    },
+    utils,
+    // deprecated
+    getPublicKey,
+    getPublicKeyForShortSignatures,
+    sign,
+    signShortSignature,
+    verify,
+    verifyShortSignature,
+    aggregatePublicKeys,
+    aggregateSignatures,
+    aggregateShortSignatures,
+    G1,
+    G2,
+    Signature,
+    ShortSignature
+  };
+}
+/*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
+const _0n$2 = BigInt(0), _1n$3 = BigInt(1), _2n$3 = BigInt(2), _3n$1 = BigInt(3);
+function calcFrobeniusCoefficients(Fp3, nonResidue, modulus, degree, num = 1, divisor) {
+  const _divisor = BigInt(divisor === void 0 ? degree : divisor);
+  const towerModulus = modulus ** BigInt(degree);
+  const res = [];
+  for (let i = 0; i < num; i++) {
+    const a2 = BigInt(i + 1);
+    const powers = [];
+    for (let j2 = 0, qPower = _1n$3; j2 < degree; j2++) {
+      const power = (a2 * qPower - a2) / _divisor % towerModulus;
+      powers.push(Fp3.pow(nonResidue, power));
+      qPower *= modulus;
+    }
+    res.push(powers);
+  }
+  return res;
+}
+function psiFrobenius(Fp3, Fp22, base) {
+  const PSI_X = Fp22.pow(base, (Fp3.ORDER - _1n$3) / _3n$1);
+  const PSI_Y = Fp22.pow(base, (Fp3.ORDER - _1n$3) / _2n$3);
+  function psi(x2, y2) {
+    const x22 = Fp22.mul(Fp22.frobeniusMap(x2, 1), PSI_X);
+    const y22 = Fp22.mul(Fp22.frobeniusMap(y2, 1), PSI_Y);
+    return [x22, y22];
+  }
+  const PSI2_X = Fp22.pow(base, (Fp3.ORDER ** _2n$3 - _1n$3) / _3n$1);
+  const PSI2_Y = Fp22.pow(base, (Fp3.ORDER ** _2n$3 - _1n$3) / _2n$3);
+  if (!Fp22.eql(PSI2_Y, Fp22.neg(Fp22.ONE)))
+    throw new Error("psiFrobenius: PSI2_Y!==-1");
+  function psi2(x2, y2) {
+    return [Fp22.mul(x2, PSI2_X), Fp22.neg(y2)];
+  }
+  const mapAffine = (fn) => (c2, P2) => {
+    const affine = P2.toAffine();
+    const p2 = fn(affine.x, affine.y);
+    return c2.fromAffine({ x: p2[0], y: p2[1] });
+  };
+  const G2psi3 = mapAffine(psi);
+  const G2psi22 = mapAffine(psi2);
+  return { psi, psi2, G2psi: G2psi3, G2psi2: G2psi22, PSI_X, PSI_Y, PSI2_X, PSI2_Y };
+}
+const Fp2fromBigTuple = (Fp3, tuple) => {
+  if (tuple.length !== 2)
+    throw new Error("invalid tuple");
+  const fps = tuple.map((n) => Fp3.create(n));
+  return { c0: fps[0], c1: fps[1] };
+};
+class _Field2 {
+  constructor(Fp3, opts = {}) {
+    this.MASK = _1n$3;
+    const ORDER = Fp3.ORDER;
+    const FP2_ORDER = ORDER * ORDER;
+    this.Fp = Fp3;
+    this.ORDER = FP2_ORDER;
+    this.BITS = bitLen(FP2_ORDER);
+    this.BYTES = Math.ceil(bitLen(FP2_ORDER) / 8);
+    this.isLE = Fp3.isLE;
+    this.ZERO = { c0: Fp3.ZERO, c1: Fp3.ZERO };
+    this.ONE = { c0: Fp3.ONE, c1: Fp3.ZERO };
+    this.Fp_NONRESIDUE = Fp3.create(opts.NONRESIDUE || BigInt(-1));
+    this.Fp_div2 = Fp3.div(Fp3.ONE, _2n$3);
+    this.NONRESIDUE = Fp2fromBigTuple(Fp3, opts.FP2_NONRESIDUE);
+    this.FROBENIUS_COEFFICIENTS = calcFrobeniusCoefficients(Fp3, this.Fp_NONRESIDUE, Fp3.ORDER, 2)[0];
+    this.mulByB = opts.Fp2mulByB;
+    Object.seal(this);
+  }
+  fromBigTuple(tuple) {
+    return Fp2fromBigTuple(this.Fp, tuple);
+  }
+  create(num) {
+    return num;
+  }
+  isValid({ c0, c1 }) {
+    function isValidC(num, ORDER) {
+      return typeof num === "bigint" && _0n$2 <= num && num < ORDER;
+    }
+    return isValidC(c0, this.ORDER) && isValidC(c1, this.ORDER);
+  }
+  is0({ c0, c1 }) {
+    return this.Fp.is0(c0) && this.Fp.is0(c1);
+  }
+  isValidNot0(num) {
+    return !this.is0(num) && this.isValid(num);
+  }
+  eql({ c0, c1 }, { c0: r0, c1: r1 }) {
+    return this.Fp.eql(c0, r0) && this.Fp.eql(c1, r1);
+  }
+  neg({ c0, c1 }) {
+    return { c0: this.Fp.neg(c0), c1: this.Fp.neg(c1) };
+  }
+  pow(num, power) {
+    return FpPow(this, num, power);
+  }
+  invertBatch(nums) {
+    return FpInvertBatch(this, nums);
+  }
+  // Normalized
+  add(f1, f2) {
+    const { c0, c1 } = f1;
+    const { c0: r0, c1: r1 } = f2;
+    return {
+      c0: this.Fp.add(c0, r0),
+      c1: this.Fp.add(c1, r1)
+    };
+  }
+  sub({ c0, c1 }, { c0: r0, c1: r1 }) {
+    return {
+      c0: this.Fp.sub(c0, r0),
+      c1: this.Fp.sub(c1, r1)
+    };
+  }
+  mul({ c0, c1 }, rhs) {
+    const { Fp: Fp3 } = this;
+    if (typeof rhs === "bigint")
+      return { c0: Fp3.mul(c0, rhs), c1: Fp3.mul(c1, rhs) };
+    const { c0: r0, c1: r1 } = rhs;
+    let t1 = Fp3.mul(c0, r0);
+    let t2 = Fp3.mul(c1, r1);
+    const o0 = Fp3.sub(t1, t2);
+    const o1 = Fp3.sub(Fp3.mul(Fp3.add(c0, c1), Fp3.add(r0, r1)), Fp3.add(t1, t2));
+    return { c0: o0, c1: o1 };
+  }
+  sqr({ c0, c1 }) {
+    const { Fp: Fp3 } = this;
+    const a2 = Fp3.add(c0, c1);
+    const b2 = Fp3.sub(c0, c1);
+    const c2 = Fp3.add(c0, c0);
+    return { c0: Fp3.mul(a2, b2), c1: Fp3.mul(c2, c1) };
+  }
+  // NonNormalized stuff
+  addN(a2, b2) {
+    return this.add(a2, b2);
+  }
+  subN(a2, b2) {
+    return this.sub(a2, b2);
+  }
+  mulN(a2, b2) {
+    return this.mul(a2, b2);
+  }
+  sqrN(a2) {
+    return this.sqr(a2);
+  }
+  // Why inversion for bigint inside Fp instead of Fp2? it is even used in that context?
+  div(lhs, rhs) {
+    const { Fp: Fp3 } = this;
+    return this.mul(lhs, typeof rhs === "bigint" ? Fp3.inv(Fp3.create(rhs)) : this.inv(rhs));
+  }
+  inv({ c0: a2, c1: b2 }) {
+    const { Fp: Fp3 } = this;
+    const factor = Fp3.inv(Fp3.create(a2 * a2 + b2 * b2));
+    return { c0: Fp3.mul(factor, Fp3.create(a2)), c1: Fp3.mul(factor, Fp3.create(-b2)) };
+  }
+  sqrt(num) {
+    const { Fp: Fp3 } = this;
+    const Fp22 = this;
+    const { c0, c1 } = num;
+    if (Fp3.is0(c1)) {
+      if (FpLegendre(Fp3, c0) === 1)
+        return Fp22.create({ c0: Fp3.sqrt(c0), c1: Fp3.ZERO });
+      else
+        return Fp22.create({ c0: Fp3.ZERO, c1: Fp3.sqrt(Fp3.div(c0, this.Fp_NONRESIDUE)) });
+    }
+    const a2 = Fp3.sqrt(Fp3.sub(Fp3.sqr(c0), Fp3.mul(Fp3.sqr(c1), this.Fp_NONRESIDUE)));
+    let d2 = Fp3.mul(Fp3.add(a2, c0), this.Fp_div2);
+    const legendre = FpLegendre(Fp3, d2);
+    if (legendre === -1)
+      d2 = Fp3.sub(d2, a2);
+    const a0 = Fp3.sqrt(d2);
+    const candidateSqrt = Fp22.create({ c0: a0, c1: Fp3.div(Fp3.mul(c1, this.Fp_div2), a0) });
+    if (!Fp22.eql(Fp22.sqr(candidateSqrt), num))
+      throw new Error("Cannot find square root");
+    const x1 = candidateSqrt;
+    const x2 = Fp22.neg(x1);
+    const { re: re1, im: im1 } = Fp22.reim(x1);
+    const { re: re2, im: im2 } = Fp22.reim(x2);
+    if (im1 > im2 || im1 === im2 && re1 > re2)
+      return x1;
+    return x2;
+  }
+  // Same as sgn0_m_eq_2 in RFC 9380
+  isOdd(x2) {
+    const { re: x0, im: x1 } = this.reim(x2);
+    const sign_0 = x0 % _2n$3;
+    const zero_0 = x0 === _0n$2;
+    const sign_1 = x1 % _2n$3;
+    return BigInt(sign_0 || zero_0 && sign_1) == _1n$3;
+  }
+  // Bytes util
+  fromBytes(b2) {
+    const { Fp: Fp3 } = this;
+    if (b2.length !== this.BYTES)
+      throw new Error("fromBytes invalid length=" + b2.length);
+    return { c0: Fp3.fromBytes(b2.subarray(0, Fp3.BYTES)), c1: Fp3.fromBytes(b2.subarray(Fp3.BYTES)) };
+  }
+  toBytes({ c0, c1 }) {
+    return concatBytes(this.Fp.toBytes(c0), this.Fp.toBytes(c1));
+  }
+  cmov({ c0, c1 }, { c0: r0, c1: r1 }, c2) {
+    return {
+      c0: this.Fp.cmov(c0, r0, c2),
+      c1: this.Fp.cmov(c1, r1, c2)
+    };
+  }
+  reim({ c0, c1 }) {
+    return { re: c0, im: c1 };
+  }
+  Fp4Square(a2, b2) {
+    const Fp22 = this;
+    const a22 = Fp22.sqr(a2);
+    const b22 = Fp22.sqr(b2);
+    return {
+      first: Fp22.add(Fp22.mulByNonresidue(b22), a22),
+      // b² * Nonresidue + a²
+      second: Fp22.sub(Fp22.sub(Fp22.sqr(Fp22.add(a2, b2)), a22), b22)
+      // (a + b)² - a² - b²
+    };
+  }
+  // multiply by u + 1
+  mulByNonresidue({ c0, c1 }) {
+    return this.mul({ c0, c1 }, this.NONRESIDUE);
+  }
+  frobeniusMap({ c0, c1 }, power) {
+    return {
+      c0,
+      c1: this.Fp.mul(c1, this.FROBENIUS_COEFFICIENTS[power % 2])
+    };
+  }
+}
+class _Field6 {
+  constructor(Fp22) {
+    this.MASK = _1n$3;
+    this.Fp2 = Fp22;
+    this.ORDER = Fp22.ORDER;
+    this.BITS = 3 * Fp22.BITS;
+    this.BYTES = 3 * Fp22.BYTES;
+    this.isLE = Fp22.isLE;
+    this.ZERO = { c0: Fp22.ZERO, c1: Fp22.ZERO, c2: Fp22.ZERO };
+    this.ONE = { c0: Fp22.ONE, c1: Fp22.ZERO, c2: Fp22.ZERO };
+    const { Fp: Fp3 } = Fp22;
+    const frob = calcFrobeniusCoefficients(Fp22, Fp22.NONRESIDUE, Fp3.ORDER, 6, 2, 3);
+    this.FROBENIUS_COEFFICIENTS_1 = frob[0];
+    this.FROBENIUS_COEFFICIENTS_2 = frob[1];
+    Object.seal(this);
+  }
+  add({ c0, c1, c2 }, { c0: r0, c1: r1, c2: r2 }) {
+    const { Fp2: Fp22 } = this;
+    return {
+      c0: Fp22.add(c0, r0),
+      c1: Fp22.add(c1, r1),
+      c2: Fp22.add(c2, r2)
+    };
+  }
+  sub({ c0, c1, c2 }, { c0: r0, c1: r1, c2: r2 }) {
+    const { Fp2: Fp22 } = this;
+    return {
+      c0: Fp22.sub(c0, r0),
+      c1: Fp22.sub(c1, r1),
+      c2: Fp22.sub(c2, r2)
+    };
+  }
+  mul({ c0, c1, c2 }, rhs) {
+    const { Fp2: Fp22 } = this;
+    if (typeof rhs === "bigint") {
+      return {
+        c0: Fp22.mul(c0, rhs),
+        c1: Fp22.mul(c1, rhs),
+        c2: Fp22.mul(c2, rhs)
+      };
+    }
+    const { c0: r0, c1: r1, c2: r2 } = rhs;
+    const t0 = Fp22.mul(c0, r0);
+    const t1 = Fp22.mul(c1, r1);
+    const t2 = Fp22.mul(c2, r2);
+    return {
+      // t0 + (c1 + c2) * (r1 * r2) - (T1 + T2) * (u + 1)
+      c0: Fp22.add(t0, Fp22.mulByNonresidue(Fp22.sub(Fp22.mul(Fp22.add(c1, c2), Fp22.add(r1, r2)), Fp22.add(t1, t2)))),
+      // (c0 + c1) * (r0 + r1) - (T0 + T1) + T2 * (u + 1)
+      c1: Fp22.add(Fp22.sub(Fp22.mul(Fp22.add(c0, c1), Fp22.add(r0, r1)), Fp22.add(t0, t1)), Fp22.mulByNonresidue(t2)),
+      // T1 + (c0 + c2) * (r0 + r2) - T0 + T2
+      c2: Fp22.sub(Fp22.add(t1, Fp22.mul(Fp22.add(c0, c2), Fp22.add(r0, r2))), Fp22.add(t0, t2))
+    };
+  }
+  sqr({ c0, c1, c2 }) {
+    const { Fp2: Fp22 } = this;
+    let t0 = Fp22.sqr(c0);
+    let t1 = Fp22.mul(Fp22.mul(c0, c1), _2n$3);
+    let t3 = Fp22.mul(Fp22.mul(c1, c2), _2n$3);
+    let t4 = Fp22.sqr(c2);
+    return {
+      c0: Fp22.add(Fp22.mulByNonresidue(t3), t0),
+      // T3 * (u + 1) + T0
+      c1: Fp22.add(Fp22.mulByNonresidue(t4), t1),
+      // T4 * (u + 1) + T1
+      // T1 + (c0 - c1 + c2)² + T3 - T0 - T4
+      c2: Fp22.sub(Fp22.sub(Fp22.add(Fp22.add(t1, Fp22.sqr(Fp22.add(Fp22.sub(c0, c1), c2))), t3), t0), t4)
+    };
+  }
+  addN(a2, b2) {
+    return this.add(a2, b2);
+  }
+  subN(a2, b2) {
+    return this.sub(a2, b2);
+  }
+  mulN(a2, b2) {
+    return this.mul(a2, b2);
+  }
+  sqrN(a2) {
+    return this.sqr(a2);
+  }
+  create(num) {
+    return num;
+  }
+  isValid({ c0, c1, c2 }) {
+    const { Fp2: Fp22 } = this;
+    return Fp22.isValid(c0) && Fp22.isValid(c1) && Fp22.isValid(c2);
+  }
+  is0({ c0, c1, c2 }) {
+    const { Fp2: Fp22 } = this;
+    return Fp22.is0(c0) && Fp22.is0(c1) && Fp22.is0(c2);
+  }
+  isValidNot0(num) {
+    return !this.is0(num) && this.isValid(num);
+  }
+  neg({ c0, c1, c2 }) {
+    const { Fp2: Fp22 } = this;
+    return { c0: Fp22.neg(c0), c1: Fp22.neg(c1), c2: Fp22.neg(c2) };
+  }
+  eql({ c0, c1, c2 }, { c0: r0, c1: r1, c2: r2 }) {
+    const { Fp2: Fp22 } = this;
+    return Fp22.eql(c0, r0) && Fp22.eql(c1, r1) && Fp22.eql(c2, r2);
+  }
+  sqrt(_2) {
+    return notImplemented();
+  }
+  // Do we need division by bigint at all? Should be done via order:
+  div(lhs, rhs) {
+    const { Fp2: Fp22 } = this;
+    const { Fp: Fp3 } = Fp22;
+    return this.mul(lhs, typeof rhs === "bigint" ? Fp3.inv(Fp3.create(rhs)) : this.inv(rhs));
+  }
+  pow(num, power) {
+    return FpPow(this, num, power);
+  }
+  invertBatch(nums) {
+    return FpInvertBatch(this, nums);
+  }
+  inv({ c0, c1, c2 }) {
+    const { Fp2: Fp22 } = this;
+    let t0 = Fp22.sub(Fp22.sqr(c0), Fp22.mulByNonresidue(Fp22.mul(c2, c1)));
+    let t1 = Fp22.sub(Fp22.mulByNonresidue(Fp22.sqr(c2)), Fp22.mul(c0, c1));
+    let t2 = Fp22.sub(Fp22.sqr(c1), Fp22.mul(c0, c2));
+    let t4 = Fp22.inv(Fp22.add(Fp22.mulByNonresidue(Fp22.add(Fp22.mul(c2, t1), Fp22.mul(c1, t2))), Fp22.mul(c0, t0)));
+    return { c0: Fp22.mul(t4, t0), c1: Fp22.mul(t4, t1), c2: Fp22.mul(t4, t2) };
+  }
+  // Bytes utils
+  fromBytes(b2) {
+    const { Fp2: Fp22 } = this;
+    if (b2.length !== this.BYTES)
+      throw new Error("fromBytes invalid length=" + b2.length);
+    const B2 = Fp22.BYTES;
+    return {
+      c0: Fp22.fromBytes(b2.subarray(0, B2)),
+      c1: Fp22.fromBytes(b2.subarray(B2, B2 * 2)),
+      c2: Fp22.fromBytes(b2.subarray(2 * B2))
+    };
+  }
+  toBytes({ c0, c1, c2 }) {
+    const { Fp2: Fp22 } = this;
+    return concatBytes(Fp22.toBytes(c0), Fp22.toBytes(c1), Fp22.toBytes(c2));
+  }
+  cmov({ c0, c1, c2 }, { c0: r0, c1: r1, c2: r2 }, c3) {
+    const { Fp2: Fp22 } = this;
+    return {
+      c0: Fp22.cmov(c0, r0, c3),
+      c1: Fp22.cmov(c1, r1, c3),
+      c2: Fp22.cmov(c2, r2, c3)
+    };
+  }
+  fromBigSix(t) {
+    const { Fp2: Fp22 } = this;
+    if (!Array.isArray(t) || t.length !== 6)
+      throw new Error("invalid Fp6 usage");
+    return {
+      c0: Fp22.fromBigTuple(t.slice(0, 2)),
+      c1: Fp22.fromBigTuple(t.slice(2, 4)),
+      c2: Fp22.fromBigTuple(t.slice(4, 6))
+    };
+  }
+  frobeniusMap({ c0, c1, c2 }, power) {
+    const { Fp2: Fp22 } = this;
+    return {
+      c0: Fp22.frobeniusMap(c0, power),
+      c1: Fp22.mul(Fp22.frobeniusMap(c1, power), this.FROBENIUS_COEFFICIENTS_1[power % 6]),
+      c2: Fp22.mul(Fp22.frobeniusMap(c2, power), this.FROBENIUS_COEFFICIENTS_2[power % 6])
+    };
+  }
+  mulByFp2({ c0, c1, c2 }, rhs) {
+    const { Fp2: Fp22 } = this;
+    return {
+      c0: Fp22.mul(c0, rhs),
+      c1: Fp22.mul(c1, rhs),
+      c2: Fp22.mul(c2, rhs)
+    };
+  }
+  mulByNonresidue({ c0, c1, c2 }) {
+    const { Fp2: Fp22 } = this;
+    return { c0: Fp22.mulByNonresidue(c2), c1: c0, c2: c1 };
+  }
+  // Sparse multiplication
+  mul1({ c0, c1, c2 }, b1) {
+    const { Fp2: Fp22 } = this;
+    return {
+      c0: Fp22.mulByNonresidue(Fp22.mul(c2, b1)),
+      c1: Fp22.mul(c0, b1),
+      c2: Fp22.mul(c1, b1)
+    };
+  }
+  // Sparse multiplication
+  mul01({ c0, c1, c2 }, b0, b1) {
+    const { Fp2: Fp22 } = this;
+    let t0 = Fp22.mul(c0, b0);
+    let t1 = Fp22.mul(c1, b1);
+    return {
+      // ((c1 + c2) * b1 - T1) * (u + 1) + T0
+      c0: Fp22.add(Fp22.mulByNonresidue(Fp22.sub(Fp22.mul(Fp22.add(c1, c2), b1), t1)), t0),
+      // (b0 + b1) * (c0 + c1) - T0 - T1
+      c1: Fp22.sub(Fp22.sub(Fp22.mul(Fp22.add(b0, b1), Fp22.add(c0, c1)), t0), t1),
+      // (c0 + c2) * b0 - T0 + T1
+      c2: Fp22.add(Fp22.sub(Fp22.mul(Fp22.add(c0, c2), b0), t0), t1)
+    };
+  }
+}
+class _Field12 {
+  constructor(Fp62, opts) {
+    this.MASK = _1n$3;
+    const { Fp2: Fp22 } = Fp62;
+    const { Fp: Fp3 } = Fp22;
+    this.Fp6 = Fp62;
+    this.ORDER = Fp22.ORDER;
+    this.BITS = 2 * Fp62.BITS;
+    this.BYTES = 2 * Fp62.BYTES;
+    this.isLE = Fp62.isLE;
+    this.ZERO = { c0: Fp62.ZERO, c1: Fp62.ZERO };
+    this.ONE = { c0: Fp62.ONE, c1: Fp62.ZERO };
+    this.FROBENIUS_COEFFICIENTS = calcFrobeniusCoefficients(Fp22, Fp22.NONRESIDUE, Fp3.ORDER, 12, 1, 6)[0];
+    this.X_LEN = opts.X_LEN;
+    this.finalExponentiate = opts.Fp12finalExponentiate;
+  }
+  create(num) {
+    return num;
+  }
+  isValid({ c0, c1 }) {
+    const { Fp6: Fp62 } = this;
+    return Fp62.isValid(c0) && Fp62.isValid(c1);
+  }
+  is0({ c0, c1 }) {
+    const { Fp6: Fp62 } = this;
+    return Fp62.is0(c0) && Fp62.is0(c1);
+  }
+  isValidNot0(num) {
+    return !this.is0(num) && this.isValid(num);
+  }
+  neg({ c0, c1 }) {
+    const { Fp6: Fp62 } = this;
+    return { c0: Fp62.neg(c0), c1: Fp62.neg(c1) };
+  }
+  eql({ c0, c1 }, { c0: r0, c1: r1 }) {
+    const { Fp6: Fp62 } = this;
+    return Fp62.eql(c0, r0) && Fp62.eql(c1, r1);
+  }
+  sqrt(_2) {
+    notImplemented();
+  }
+  inv({ c0, c1 }) {
+    const { Fp6: Fp62 } = this;
+    let t = Fp62.inv(Fp62.sub(Fp62.sqr(c0), Fp62.mulByNonresidue(Fp62.sqr(c1))));
+    return { c0: Fp62.mul(c0, t), c1: Fp62.neg(Fp62.mul(c1, t)) };
+  }
+  div(lhs, rhs) {
+    const { Fp6: Fp62 } = this;
+    const { Fp2: Fp22 } = Fp62;
+    const { Fp: Fp3 } = Fp22;
+    return this.mul(lhs, typeof rhs === "bigint" ? Fp3.inv(Fp3.create(rhs)) : this.inv(rhs));
+  }
+  pow(num, power) {
+    return FpPow(this, num, power);
+  }
+  invertBatch(nums) {
+    return FpInvertBatch(this, nums);
+  }
+  // Normalized
+  add({ c0, c1 }, { c0: r0, c1: r1 }) {
+    const { Fp6: Fp62 } = this;
+    return {
+      c0: Fp62.add(c0, r0),
+      c1: Fp62.add(c1, r1)
+    };
+  }
+  sub({ c0, c1 }, { c0: r0, c1: r1 }) {
+    const { Fp6: Fp62 } = this;
+    return {
+      c0: Fp62.sub(c0, r0),
+      c1: Fp62.sub(c1, r1)
+    };
+  }
+  mul({ c0, c1 }, rhs) {
+    const { Fp6: Fp62 } = this;
+    if (typeof rhs === "bigint")
+      return { c0: Fp62.mul(c0, rhs), c1: Fp62.mul(c1, rhs) };
+    let { c0: r0, c1: r1 } = rhs;
+    let t1 = Fp62.mul(c0, r0);
+    let t2 = Fp62.mul(c1, r1);
+    return {
+      c0: Fp62.add(t1, Fp62.mulByNonresidue(t2)),
+      // T1 + T2 * v
+      // (c0 + c1) * (r0 + r1) - (T1 + T2)
+      c1: Fp62.sub(Fp62.mul(Fp62.add(c0, c1), Fp62.add(r0, r1)), Fp62.add(t1, t2))
+    };
+  }
+  sqr({ c0, c1 }) {
+    const { Fp6: Fp62 } = this;
+    let ab = Fp62.mul(c0, c1);
+    return {
+      // (c1 * v + c0) * (c0 + c1) - AB - AB * v
+      c0: Fp62.sub(Fp62.sub(Fp62.mul(Fp62.add(Fp62.mulByNonresidue(c1), c0), Fp62.add(c0, c1)), ab), Fp62.mulByNonresidue(ab)),
+      c1: Fp62.add(ab, ab)
+    };
+  }
+  // NonNormalized stuff
+  addN(a2, b2) {
+    return this.add(a2, b2);
+  }
+  subN(a2, b2) {
+    return this.sub(a2, b2);
+  }
+  mulN(a2, b2) {
+    return this.mul(a2, b2);
+  }
+  sqrN(a2) {
+    return this.sqr(a2);
+  }
+  // Bytes utils
+  fromBytes(b2) {
+    const { Fp6: Fp62 } = this;
+    if (b2.length !== this.BYTES)
+      throw new Error("fromBytes invalid length=" + b2.length);
+    return {
+      c0: Fp62.fromBytes(b2.subarray(0, Fp62.BYTES)),
+      c1: Fp62.fromBytes(b2.subarray(Fp62.BYTES))
+    };
+  }
+  toBytes({ c0, c1 }) {
+    const { Fp6: Fp62 } = this;
+    return concatBytes(Fp62.toBytes(c0), Fp62.toBytes(c1));
+  }
+  cmov({ c0, c1 }, { c0: r0, c1: r1 }, c2) {
+    const { Fp6: Fp62 } = this;
+    return {
+      c0: Fp62.cmov(c0, r0, c2),
+      c1: Fp62.cmov(c1, r1, c2)
+    };
+  }
+  // Utils
+  // toString() {
+  //   return '' + 'Fp12(' + this.c0 + this.c1 + '* w');
+  // },
+  // fromTuple(c: [Fp6, Fp6]) {
+  //   return new Fp12(...c);
+  // }
+  fromBigTwelve(t) {
+    const { Fp6: Fp62 } = this;
+    return {
+      c0: Fp62.fromBigSix(t.slice(0, 6)),
+      c1: Fp62.fromBigSix(t.slice(6, 12))
+    };
+  }
+  // Raises to q**i -th power
+  frobeniusMap(lhs, power) {
+    const { Fp6: Fp62 } = this;
+    const { Fp2: Fp22 } = Fp62;
+    const { c0, c1, c2 } = Fp62.frobeniusMap(lhs.c1, power);
+    const coeff = this.FROBENIUS_COEFFICIENTS[power % 12];
+    return {
+      c0: Fp62.frobeniusMap(lhs.c0, power),
+      c1: Fp62.create({
+        c0: Fp22.mul(c0, coeff),
+        c1: Fp22.mul(c1, coeff),
+        c2: Fp22.mul(c2, coeff)
+      })
+    };
+  }
+  mulByFp2({ c0, c1 }, rhs) {
+    const { Fp6: Fp62 } = this;
+    return {
+      c0: Fp62.mulByFp2(c0, rhs),
+      c1: Fp62.mulByFp2(c1, rhs)
+    };
+  }
+  conjugate({ c0, c1 }) {
+    return { c0, c1: this.Fp6.neg(c1) };
+  }
+  // Sparse multiplication
+  mul014({ c0, c1 }, o0, o1, o4) {
+    const { Fp6: Fp62 } = this;
+    const { Fp2: Fp22 } = Fp62;
+    let t0 = Fp62.mul01(c0, o0, o1);
+    let t1 = Fp62.mul1(c1, o4);
+    return {
+      c0: Fp62.add(Fp62.mulByNonresidue(t1), t0),
+      // T1 * v + T0
+      // (c1 + c0) * [o0, o1+o4] - T0 - T1
+      c1: Fp62.sub(Fp62.sub(Fp62.mul01(Fp62.add(c1, c0), o0, Fp22.add(o1, o4)), t0), t1)
+    };
+  }
+  mul034({ c0, c1 }, o0, o3, o4) {
+    const { Fp6: Fp62 } = this;
+    const { Fp2: Fp22 } = Fp62;
+    const a2 = Fp62.create({
+      c0: Fp22.mul(c0.c0, o0),
+      c1: Fp22.mul(c0.c1, o0),
+      c2: Fp22.mul(c0.c2, o0)
+    });
+    const b2 = Fp62.mul01(c1, o3, o4);
+    const e = Fp62.mul01(Fp62.add(c0, c1), Fp22.add(o0, o3), o4);
+    return {
+      c0: Fp62.add(Fp62.mulByNonresidue(b2), a2),
+      c1: Fp62.sub(e, Fp62.add(a2, b2))
+    };
+  }
+  // A cyclotomic group is a subgroup of Fp^n defined by
+  //   GΦₙ(p) = {α ∈ Fpⁿ : α^Φₙ(p) = 1}
+  // The result of any pairing is in a cyclotomic subgroup
+  // https://eprint.iacr.org/2009/565.pdf
+  // https://eprint.iacr.org/2010/354.pdf
+  _cyclotomicSquare({ c0, c1 }) {
+    const { Fp6: Fp62 } = this;
+    const { Fp2: Fp22 } = Fp62;
+    const { c0: c0c0, c1: c0c1, c2: c0c2 } = c0;
+    const { c0: c1c0, c1: c1c1, c2: c1c2 } = c1;
+    const { first: t3, second: t4 } = Fp22.Fp4Square(c0c0, c1c1);
+    const { first: t5, second: t6 } = Fp22.Fp4Square(c1c0, c0c2);
+    const { first: t7, second: t8 } = Fp22.Fp4Square(c0c1, c1c2);
+    const t9 = Fp22.mulByNonresidue(t8);
+    return {
+      c0: Fp62.create({
+        c0: Fp22.add(Fp22.mul(Fp22.sub(t3, c0c0), _2n$3), t3),
+        // 2 * (T3 - c0c0)  + T3
+        c1: Fp22.add(Fp22.mul(Fp22.sub(t5, c0c1), _2n$3), t5),
+        // 2 * (T5 - c0c1)  + T5
+        c2: Fp22.add(Fp22.mul(Fp22.sub(t7, c0c2), _2n$3), t7)
+      }),
+      // 2 * (T7 - c0c2)  + T7
+      c1: Fp62.create({
+        c0: Fp22.add(Fp22.mul(Fp22.add(t9, c1c0), _2n$3), t9),
+        // 2 * (T9 + c1c0) + T9
+        c1: Fp22.add(Fp22.mul(Fp22.add(t4, c1c1), _2n$3), t4),
+        // 2 * (T4 + c1c1) + T4
+        c2: Fp22.add(Fp22.mul(Fp22.add(t6, c1c2), _2n$3), t6)
+      })
+    };
+  }
+  // https://eprint.iacr.org/2009/565.pdf
+  _cyclotomicExp(num, n) {
+    let z2 = this.ONE;
+    for (let i = this.X_LEN - 1; i >= 0; i--) {
+      z2 = this._cyclotomicSquare(z2);
+      if (bitGet(n, i))
+        z2 = this.mul(z2, num);
+    }
+    return z2;
+  }
+}
+function tower12(opts) {
+  const Fp3 = Field(opts.ORDER);
+  const Fp22 = new _Field2(Fp3, opts);
+  const Fp62 = new _Field6(Fp22);
+  const Fp122 = new _Field12(Fp62, opts);
+  return { Fp: Fp3, Fp2: Fp22, Fp6: Fp62, Fp12: Fp122 };
+}
+/*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
+const _0n$1 = BigInt(0), _1n$2 = BigInt(1), _2n$2 = BigInt(2), _3n = BigInt(3), _4n = BigInt(4);
+const BLS_X = BigInt("0xd201000000010000");
+const BLS_X_LEN = bitLen(BLS_X);
+const bls12_381_CURVE_G1 = {
+  p: BigInt("0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab"),
+  n: BigInt("0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001"),
+  h: BigInt("0x396c8c005555e1568c00aaab0000aaab"),
+  a: _0n$1,
+  b: _4n,
+  Gx: BigInt("0x17f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb"),
+  Gy: BigInt("0x08b3f481e3aaa0f1a09e30ed741d8ae4fcf5e095d5d00af600db18cb2c04b3edd03cc744a2888ae40caa232946c5e7e1")
+};
+const bls12_381_Fr = Field(bls12_381_CURVE_G1.n, {
+  modFromBytes: true,
+  isLE: true
+});
+const { Fp: Fp$1, Fp2, Fp6, Fp12 } = tower12({
+  ORDER: bls12_381_CURVE_G1.p,
+  X_LEN: BLS_X_LEN,
+  // Finite extension field over irreducible polynominal.
+  // Fp(u) / (u² - β) where β = -1
+  FP2_NONRESIDUE: [_1n$2, _1n$2],
+  Fp2mulByB: ({ c0, c1 }) => {
+    const t0 = Fp$1.mul(c0, _4n);
+    const t1 = Fp$1.mul(c1, _4n);
+    return { c0: Fp$1.sub(t0, t1), c1: Fp$1.add(t0, t1) };
+  },
+  Fp12finalExponentiate: (num) => {
+    const x2 = BLS_X;
+    const t0 = Fp12.div(Fp12.frobeniusMap(num, 6), num);
+    const t1 = Fp12.mul(Fp12.frobeniusMap(t0, 2), t0);
+    const t2 = Fp12.conjugate(Fp12._cyclotomicExp(t1, x2));
+    const t3 = Fp12.mul(Fp12.conjugate(Fp12._cyclotomicSquare(t1)), t2);
+    const t4 = Fp12.conjugate(Fp12._cyclotomicExp(t3, x2));
+    const t5 = Fp12.conjugate(Fp12._cyclotomicExp(t4, x2));
+    const t6 = Fp12.mul(Fp12.conjugate(Fp12._cyclotomicExp(t5, x2)), Fp12._cyclotomicSquare(t2));
+    const t7 = Fp12.conjugate(Fp12._cyclotomicExp(t6, x2));
+    const t2_t5_pow_q2 = Fp12.frobeniusMap(Fp12.mul(t2, t5), 2);
+    const t4_t1_pow_q3 = Fp12.frobeniusMap(Fp12.mul(t4, t1), 3);
+    const t6_t1c_pow_q1 = Fp12.frobeniusMap(Fp12.mul(t6, Fp12.conjugate(t1)), 1);
+    const t7_t3c_t1 = Fp12.mul(Fp12.mul(t7, Fp12.conjugate(t3)), t1);
+    return Fp12.mul(Fp12.mul(Fp12.mul(t2_t5_pow_q2, t4_t1_pow_q3), t6_t1c_pow_q1), t7_t3c_t1);
+  }
+});
+const { G2psi, G2psi2 } = psiFrobenius(Fp$1, Fp2, Fp2.div(Fp2.ONE, Fp2.NONRESIDUE));
+const htfDefaults = Object.freeze({
+  DST: "BLS_SIG_BLS12381G2_XMD:SHA-256_SSWU_RO_NUL_",
+  encodeDST: "BLS_SIG_BLS12381G2_XMD:SHA-256_SSWU_RO_NUL_",
+  p: Fp$1.ORDER,
+  m: 2,
+  k: 128,
+  expand: "xmd",
+  hash: sha256
+});
+const bls12_381_CURVE_G2 = {
+  p: Fp2.ORDER,
+  n: bls12_381_CURVE_G1.n,
+  h: BigInt("0x5d543a95414e7f1091d50792876a202cd91de4547085abaa68a205b2e5a7ddfa628f1cb4d9e82ef21537e293a6691ae1616ec6e786f0c70cf1c38e31c7238e5"),
+  a: Fp2.ZERO,
+  b: Fp2.fromBigTuple([_4n, _4n]),
+  Gx: Fp2.fromBigTuple([
+    BigInt("0x024aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb8"),
+    BigInt("0x13e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e")
+  ]),
+  Gy: Fp2.fromBigTuple([
+    BigInt("0x0ce5d527727d6e118cc9cdc6da2e351aadfd9baa8cbdd3a76d429a695160d12c923ac9cc3baca289e193548608b82801"),
+    BigInt("0x0606c4a02ea734cc32acd2b02bc28b99cb3e287e85a763af267492ab572e99ab3f370d275cec1da1aaa9075ff05f79be")
+  ])
+};
+const COMPZERO = setMask(Fp$1.toBytes(_0n$1), { infinity: true, compressed: true });
+function parseMask(bytes) {
+  bytes = bytes.slice();
+  const mask2 = bytes[0] & 224;
+  const compressed = !!(mask2 >> 7 & 1);
+  const infinity = !!(mask2 >> 6 & 1);
+  const sort = !!(mask2 >> 5 & 1);
+  bytes[0] &= 31;
+  return { compressed, infinity, sort, value: bytes };
+}
+function setMask(bytes, mask2) {
+  if (bytes[0] & 224)
+    throw new Error("setMask: non-empty mask");
+  if (mask2.compressed)
+    bytes[0] |= 128;
+  if (mask2.infinity)
+    bytes[0] |= 64;
+  if (mask2.sort)
+    bytes[0] |= 32;
+  return bytes;
+}
+function pointG1ToBytes(_c2, point, isComp) {
+  const { BYTES: L2, ORDER: P2 } = Fp$1;
+  const is0 = point.is0();
+  const { x: x2, y: y2 } = point.toAffine();
+  if (isComp) {
+    if (is0)
+      return COMPZERO.slice();
+    const sort = Boolean(y2 * _2n$2 / P2);
+    return setMask(numberToBytesBE(x2, L2), { compressed: true, sort });
+  } else {
+    if (is0) {
+      return concatBytes(Uint8Array.of(64), new Uint8Array(2 * L2 - 1));
+    } else {
+      return concatBytes(numberToBytesBE(x2, L2), numberToBytesBE(y2, L2));
+    }
+  }
+}
+function signatureG1ToBytes(point) {
+  point.assertValidity();
+  const { BYTES: L2, ORDER: P2 } = Fp$1;
+  const { x: x2, y: y2 } = point.toAffine();
+  if (point.is0())
+    return COMPZERO.slice();
+  const sort = Boolean(y2 * _2n$2 / P2);
+  return setMask(numberToBytesBE(x2, L2), { compressed: true, sort });
+}
+function pointG1FromBytes(bytes) {
+  const { compressed, infinity, sort, value } = parseMask(bytes);
+  const { BYTES: L2, ORDER: P2 } = Fp$1;
+  if (value.length === 48 && compressed) {
+    const compressedValue = bytesToNumberBE(value);
+    const x2 = Fp$1.create(compressedValue & bitMask(Fp$1.BITS));
+    if (infinity) {
+      if (x2 !== _0n$1)
+        throw new Error("invalid G1 point: non-empty, at infinity, with compression");
+      return { x: _0n$1, y: _0n$1 };
+    }
+    const right = Fp$1.add(Fp$1.pow(x2, _3n), Fp$1.create(bls12_381_CURVE_G1.b));
+    let y2 = Fp$1.sqrt(right);
+    if (!y2)
+      throw new Error("invalid G1 point: compressed point");
+    if (y2 * _2n$2 / P2 !== BigInt(sort))
+      y2 = Fp$1.neg(y2);
+    return { x: Fp$1.create(x2), y: Fp$1.create(y2) };
+  } else if (value.length === 96 && !compressed) {
+    const x2 = bytesToNumberBE(value.subarray(0, L2));
+    const y2 = bytesToNumberBE(value.subarray(L2));
+    if (infinity) {
+      if (x2 !== _0n$1 || y2 !== _0n$1)
+        throw new Error("G1: non-empty point at infinity");
+      return bls12_381.G1.Point.ZERO.toAffine();
+    }
+    return { x: Fp$1.create(x2), y: Fp$1.create(y2) };
+  } else {
+    throw new Error("invalid G1 point: expected 48/96 bytes");
+  }
+}
+function signatureG1FromBytes(hex2) {
+  const { infinity, sort, value } = parseMask(ensureBytes("signatureHex", hex2, 48));
+  const P2 = Fp$1.ORDER;
+  const Point = bls12_381.G1.Point;
+  const compressedValue = bytesToNumberBE(value);
+  if (infinity)
+    return Point.ZERO;
+  const x2 = Fp$1.create(compressedValue & bitMask(Fp$1.BITS));
+  const right = Fp$1.add(Fp$1.pow(x2, _3n), Fp$1.create(bls12_381_CURVE_G1.b));
+  let y2 = Fp$1.sqrt(right);
+  if (!y2)
+    throw new Error("invalid G1 point: compressed");
+  const aflag = BigInt(sort);
+  if (y2 * _2n$2 / P2 !== aflag)
+    y2 = Fp$1.neg(y2);
+  const point = Point.fromAffine({ x: x2, y: y2 });
+  point.assertValidity();
+  return point;
+}
+function pointG2ToBytes(_c2, point, isComp) {
+  const { BYTES: L2, ORDER: P2 } = Fp$1;
+  const is0 = point.is0();
+  const { x: x2, y: y2 } = point.toAffine();
+  if (isComp) {
+    if (is0)
+      return concatBytes(COMPZERO, numberToBytesBE(_0n$1, L2));
+    const flag = Boolean(y2.c1 === _0n$1 ? y2.c0 * _2n$2 / P2 : y2.c1 * _2n$2 / P2);
+    return concatBytes(setMask(numberToBytesBE(x2.c1, L2), { compressed: true, sort: flag }), numberToBytesBE(x2.c0, L2));
+  } else {
+    if (is0)
+      return concatBytes(Uint8Array.of(64), new Uint8Array(4 * L2 - 1));
+    const { re: x0, im: x1 } = Fp2.reim(x2);
+    const { re: y0, im: y1 } = Fp2.reim(y2);
+    return concatBytes(numberToBytesBE(x1, L2), numberToBytesBE(x0, L2), numberToBytesBE(y1, L2), numberToBytesBE(y0, L2));
+  }
+}
+function signatureG2ToBytes(point) {
+  point.assertValidity();
+  const { BYTES: L2 } = Fp$1;
+  if (point.is0())
+    return concatBytes(COMPZERO, numberToBytesBE(_0n$1, L2));
+  const { x: x2, y: y2 } = point.toAffine();
+  const { re: x0, im: x1 } = Fp2.reim(x2);
+  const { re: y0, im: y1 } = Fp2.reim(y2);
+  const tmp = y1 > _0n$1 ? y1 * _2n$2 : y0 * _2n$2;
+  const sort = Boolean(tmp / Fp$1.ORDER & _1n$2);
+  const z2 = x0;
+  return concatBytes(setMask(numberToBytesBE(x1, L2), { sort, compressed: true }), numberToBytesBE(z2, L2));
+}
+function pointG2FromBytes(bytes) {
+  const { BYTES: L2, ORDER: P2 } = Fp$1;
+  const { compressed, infinity, sort, value } = parseMask(bytes);
+  if (!compressed && !infinity && sort || // 00100000
+  !compressed && infinity && sort || // 01100000
+  sort && infinity && compressed) {
+    throw new Error("invalid encoding flag: " + (bytes[0] & 224));
+  }
+  const slc = (b2, from, to) => bytesToNumberBE(b2.slice(from, to));
+  if (value.length === 96 && compressed) {
+    if (infinity) {
+      if (value.reduce((p2, c2) => p2 !== 0 ? c2 + 1 : c2, 0) > 0) {
+        throw new Error("invalid G2 point: compressed");
+      }
+      return { x: Fp2.ZERO, y: Fp2.ZERO };
+    }
+    const x_1 = slc(value, 0, L2);
+    const x_0 = slc(value, L2, 2 * L2);
+    const x2 = Fp2.create({ c0: Fp$1.create(x_0), c1: Fp$1.create(x_1) });
+    const right = Fp2.add(Fp2.pow(x2, _3n), bls12_381_CURVE_G2.b);
+    let y2 = Fp2.sqrt(right);
+    const Y_bit = y2.c1 === _0n$1 ? y2.c0 * _2n$2 / P2 : y2.c1 * _2n$2 / P2 ? _1n$2 : _0n$1;
+    y2 = sort && Y_bit > 0 ? y2 : Fp2.neg(y2);
+    return { x: x2, y: y2 };
+  } else if (value.length === 192 && !compressed) {
+    if (infinity) {
+      if (value.reduce((p2, c2) => p2 !== 0 ? c2 + 1 : c2, 0) > 0) {
+        throw new Error("invalid G2 point: uncompressed");
+      }
+      return { x: Fp2.ZERO, y: Fp2.ZERO };
+    }
+    const x1 = slc(value, 0 * L2, 1 * L2);
+    const x0 = slc(value, 1 * L2, 2 * L2);
+    const y1 = slc(value, 2 * L2, 3 * L2);
+    const y0 = slc(value, 3 * L2, 4 * L2);
+    return { x: Fp2.fromBigTuple([x0, x1]), y: Fp2.fromBigTuple([y0, y1]) };
+  } else {
+    throw new Error("invalid G2 point: expected 96/192 bytes");
+  }
+}
+function signatureG2FromBytes(hex2) {
+  const { ORDER: P2 } = Fp$1;
+  const { infinity, sort, value } = parseMask(ensureBytes("signatureHex", hex2));
+  const Point = bls12_381.G2.Point;
+  const half = value.length / 2;
+  if (half !== 48 && half !== 96)
+    throw new Error("invalid compressed signature length, expected 96/192 bytes");
+  const z1 = bytesToNumberBE(value.slice(0, half));
+  const z2 = bytesToNumberBE(value.slice(half));
+  if (infinity)
+    return Point.ZERO;
+  const x1 = Fp$1.create(z1 & bitMask(Fp$1.BITS));
+  const x2 = Fp$1.create(z2);
+  const x3 = Fp2.create({ c0: x2, c1: x1 });
+  const y2 = Fp2.add(Fp2.pow(x3, _3n), bls12_381_CURVE_G2.b);
+  let y3 = Fp2.sqrt(y2);
+  if (!y3)
+    throw new Error("Failed to find a square root");
+  const { re: y0, im: y1 } = Fp2.reim(y3);
+  const aflag1 = BigInt(sort);
+  const isGreater = y1 > _0n$1 && y1 * _2n$2 / P2 !== aflag1;
+  const is0 = y1 === _0n$1 && y0 * _2n$2 / P2 !== aflag1;
+  if (isGreater || is0)
+    y3 = Fp2.neg(y3);
+  const point = Point.fromAffine({ x: x3, y: y3 });
+  point.assertValidity();
+  return point;
+}
+const bls12_381 = bls({
+  // Fields
+  fields: {
+    Fp: Fp$1,
+    Fp2,
+    Fp6,
+    Fp12,
+    Fr: bls12_381_Fr
+  },
+  // G1: y² = x³ + 4
+  G1: {
+    ...bls12_381_CURVE_G1,
+    Fp: Fp$1,
+    htfDefaults: { ...htfDefaults, m: 1, DST: "BLS_SIG_BLS12381G1_XMD:SHA-256_SSWU_RO_NUL_" },
+    wrapPrivateKey: true,
+    allowInfinityPoint: true,
+    // Checks is the point resides in prime-order subgroup.
+    // point.isTorsionFree() should return true for valid points
+    // It returns false for shitty points.
+    // https://eprint.iacr.org/2021/1130.pdf
+    isTorsionFree: (c2, point) => {
+      const beta = BigInt("0x5f19672fdf76ce51ba69c6076a0f77eaddb3a93be6f89688de17d813620a00022e01fffffffefffe");
+      const phi = new c2(Fp$1.mul(point.X, beta), point.Y, point.Z);
+      const xP = point.multiplyUnsafe(BLS_X).negate();
+      const u2P = xP.multiplyUnsafe(BLS_X);
+      return u2P.equals(phi);
+    },
+    // Clear cofactor of G1
+    // https://eprint.iacr.org/2019/403
+    clearCofactor: (_c2, point) => {
+      return point.multiplyUnsafe(BLS_X).add(point);
+    },
+    mapToCurve: mapToG1,
+    fromBytes: pointG1FromBytes,
+    toBytes: pointG1ToBytes,
+    ShortSignature: {
+      fromBytes(bytes) {
+        abytes(bytes);
+        return signatureG1FromBytes(bytes);
+      },
+      fromHex(hex2) {
+        return signatureG1FromBytes(hex2);
+      },
+      toBytes(point) {
+        return signatureG1ToBytes(point);
+      },
+      toRawBytes(point) {
+        return signatureG1ToBytes(point);
+      },
+      toHex(point) {
+        return bytesToHex(signatureG1ToBytes(point));
+      }
+    }
+  },
+  G2: {
+    ...bls12_381_CURVE_G2,
+    Fp: Fp2,
+    // https://datatracker.ietf.org/doc/html/rfc9380#name-clearing-the-cofactor
+    // https://datatracker.ietf.org/doc/html/rfc9380#name-cofactor-clearing-for-bls12
+    hEff: BigInt("0xbc69f08f2ee75b3584c6a0ea91b352888e2a8e9145ad7689986ff031508ffe1329c2f178731db956d82bf015d1212b02ec0ec69d7477c1ae954cbc06689f6a359894c0adebbf6b4e8020005aaa95551"),
+    htfDefaults: { ...htfDefaults },
+    wrapPrivateKey: true,
+    allowInfinityPoint: true,
+    mapToCurve: mapToG2,
+    // Checks is the point resides in prime-order subgroup.
+    // point.isTorsionFree() should return true for valid points
+    // It returns false for shitty points.
+    // https://eprint.iacr.org/2021/1130.pdf
+    // Older version: https://eprint.iacr.org/2019/814.pdf
+    isTorsionFree: (c2, P2) => {
+      return P2.multiplyUnsafe(BLS_X).negate().equals(G2psi(c2, P2));
+    },
+    // Maps the point into the prime-order subgroup G2.
+    // clear_cofactor_bls12381_g2 from RFC 9380.
+    // https://eprint.iacr.org/2017/419.pdf
+    // prettier-ignore
+    clearCofactor: (c2, P2) => {
+      const x2 = BLS_X;
+      let t1 = P2.multiplyUnsafe(x2).negate();
+      let t2 = G2psi(c2, P2);
+      let t3 = P2.double();
+      t3 = G2psi2(c2, t3);
+      t3 = t3.subtract(t2);
+      t2 = t1.add(t2);
+      t2 = t2.multiplyUnsafe(x2).negate();
+      t3 = t3.add(t2);
+      t3 = t3.subtract(t1);
+      const Q2 = t3.subtract(P2);
+      return Q2;
+    },
+    fromBytes: pointG2FromBytes,
+    toBytes: pointG2ToBytes,
+    Signature: {
+      fromBytes(bytes) {
+        abytes(bytes);
+        return signatureG2FromBytes(bytes);
+      },
+      fromHex(hex2) {
+        return signatureG2FromBytes(hex2);
+      },
+      toBytes(point) {
+        return signatureG2ToBytes(point);
+      },
+      toRawBytes(point) {
+        return signatureG2ToBytes(point);
+      },
+      toHex(point) {
+        return bytesToHex(signatureG2ToBytes(point));
+      }
+    }
+  },
+  params: {
+    ateLoopSize: BLS_X,
+    // The BLS parameter x for BLS12-381
+    r: bls12_381_CURVE_G1.n,
+    // order; z⁴ − z² + 1; CURVE.n from other curves
+    xNegative: true,
+    twistType: "multiplicative"
+  },
+  htfDefaults
+});
+const isogenyMapG2 = isogenyMap(Fp2, [
+  // xNum
+  [
+    [
+      "0x5c759507e8e333ebb5b7a9a47d7ed8532c52d39fd3a042a88b58423c50ae15d5c2638e343d9c71c6238aaaaaaaa97d6",
+      "0x5c759507e8e333ebb5b7a9a47d7ed8532c52d39fd3a042a88b58423c50ae15d5c2638e343d9c71c6238aaaaaaaa97d6"
+    ],
+    [
+      "0x0",
+      "0x11560bf17baa99bc32126fced787c88f984f87adf7ae0c7f9a208c6b4f20a4181472aaa9cb8d555526a9ffffffffc71a"
+    ],
+    [
+      "0x11560bf17baa99bc32126fced787c88f984f87adf7ae0c7f9a208c6b4f20a4181472aaa9cb8d555526a9ffffffffc71e",
+      "0x8ab05f8bdd54cde190937e76bc3e447cc27c3d6fbd7063fcd104635a790520c0a395554e5c6aaaa9354ffffffffe38d"
+    ],
+    [
+      "0x171d6541fa38ccfaed6dea691f5fb614cb14b4e7f4e810aa22d6108f142b85757098e38d0f671c7188e2aaaaaaaa5ed1",
+      "0x0"
+    ]
+  ],
+  // xDen
+  [
+    [
+      "0x0",
+      "0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaa63"
+    ],
+    [
+      "0xc",
+      "0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaa9f"
+    ],
+    ["0x1", "0x0"]
+    // LAST 1
+  ],
+  // yNum
+  [
+    [
+      "0x1530477c7ab4113b59a4c18b076d11930f7da5d4a07f649bf54439d87d27e500fc8c25ebf8c92f6812cfc71c71c6d706",
+      "0x1530477c7ab4113b59a4c18b076d11930f7da5d4a07f649bf54439d87d27e500fc8c25ebf8c92f6812cfc71c71c6d706"
+    ],
+    [
+      "0x0",
+      "0x5c759507e8e333ebb5b7a9a47d7ed8532c52d39fd3a042a88b58423c50ae15d5c2638e343d9c71c6238aaaaaaaa97be"
+    ],
+    [
+      "0x11560bf17baa99bc32126fced787c88f984f87adf7ae0c7f9a208c6b4f20a4181472aaa9cb8d555526a9ffffffffc71c",
+      "0x8ab05f8bdd54cde190937e76bc3e447cc27c3d6fbd7063fcd104635a790520c0a395554e5c6aaaa9354ffffffffe38f"
+    ],
+    [
+      "0x124c9ad43b6cf79bfbf7043de3811ad0761b0f37a1e26286b0e977c69aa274524e79097a56dc4bd9e1b371c71c718b10",
+      "0x0"
+    ]
+  ],
+  // yDen
+  [
+    [
+      "0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffa8fb",
+      "0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffa8fb"
+    ],
+    [
+      "0x0",
+      "0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffa9d3"
+    ],
+    [
+      "0x12",
+      "0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaa99"
+    ],
+    ["0x1", "0x0"]
+    // LAST 1
+  ]
+].map((i) => i.map((pair) => Fp2.fromBigTuple(pair.map(BigInt)))));
+const isogenyMapG1 = isogenyMap(Fp$1, [
+  // xNum
+  [
+    "0x11a05f2b1e833340b809101dd99815856b303e88a2d7005ff2627b56cdb4e2c85610c2d5f2e62d6eaeac1662734649b7",
+    "0x17294ed3e943ab2f0588bab22147a81c7c17e75b2f6a8417f565e33c70d1e86b4838f2a6f318c356e834eef1b3cb83bb",
+    "0xd54005db97678ec1d1048c5d10a9a1bce032473295983e56878e501ec68e25c958c3e3d2a09729fe0179f9dac9edcb0",
+    "0x1778e7166fcc6db74e0609d307e55412d7f5e4656a8dbf25f1b33289f1b330835336e25ce3107193c5b388641d9b6861",
+    "0xe99726a3199f4436642b4b3e4118e5499db995a1257fb3f086eeb65982fac18985a286f301e77c451154ce9ac8895d9",
+    "0x1630c3250d7313ff01d1201bf7a74ab5db3cb17dd952799b9ed3ab9097e68f90a0870d2dcae73d19cd13c1c66f652983",
+    "0xd6ed6553fe44d296a3726c38ae652bfb11586264f0f8ce19008e218f9c86b2a8da25128c1052ecaddd7f225a139ed84",
+    "0x17b81e7701abdbe2e8743884d1117e53356de5ab275b4db1a682c62ef0f2753339b7c8f8c8f475af9ccb5618e3f0c88e",
+    "0x80d3cf1f9a78fc47b90b33563be990dc43b756ce79f5574a2c596c928c5d1de4fa295f296b74e956d71986a8497e317",
+    "0x169b1f8e1bcfa7c42e0c37515d138f22dd2ecb803a0c5c99676314baf4bb1b7fa3190b2edc0327797f241067be390c9e",
+    "0x10321da079ce07e272d8ec09d2565b0dfa7dccdde6787f96d50af36003b14866f69b771f8c285decca67df3f1605fb7b",
+    "0x6e08c248e260e70bd1e962381edee3d31d79d7e22c837bc23c0bf1bc24c6b68c24b1b80b64d391fa9c8ba2e8ba2d229"
+  ],
+  // xDen
+  [
+    "0x8ca8d548cff19ae18b2e62f4bd3fa6f01d5ef4ba35b48ba9c9588617fc8ac62b558d681be343df8993cf9fa40d21b1c",
+    "0x12561a5deb559c4348b4711298e536367041e8ca0cf0800c0126c2588c48bf5713daa8846cb026e9e5c8276ec82b3bff",
+    "0xb2962fe57a3225e8137e629bff2991f6f89416f5a718cd1fca64e00b11aceacd6a3d0967c94fedcfcc239ba5cb83e19",
+    "0x3425581a58ae2fec83aafef7c40eb545b08243f16b1655154cca8abc28d6fd04976d5243eecf5c4130de8938dc62cd8",
+    "0x13a8e162022914a80a6f1d5f43e7a07dffdfc759a12062bb8d6b44e833b306da9bd29ba81f35781d539d395b3532a21e",
+    "0xe7355f8e4e667b955390f7f0506c6e9395735e9ce9cad4d0a43bcef24b8982f7400d24bc4228f11c02df9a29f6304a5",
+    "0x772caacf16936190f3e0c63e0596721570f5799af53a1894e2e073062aede9cea73b3538f0de06cec2574496ee84a3a",
+    "0x14a7ac2a9d64a8b230b3f5b074cf01996e7f63c21bca68a81996e1cdf9822c580fa5b9489d11e2d311f7d99bbdcc5a5e",
+    "0xa10ecf6ada54f825e920b3dafc7a3cce07f8d1d7161366b74100da67f39883503826692abba43704776ec3a79a1d641",
+    "0x95fc13ab9e92ad4476d6e3eb3a56680f682b4ee96f7d03776df533978f31c1593174e4b4b7865002d6384d168ecdd0a",
+    "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001"
+    // LAST 1
+  ],
+  // yNum
+  [
+    "0x90d97c81ba24ee0259d1f094980dcfa11ad138e48a869522b52af6c956543d3cd0c7aee9b3ba3c2be9845719707bb33",
+    "0x134996a104ee5811d51036d776fb46831223e96c254f383d0f906343eb67ad34d6c56711962fa8bfe097e75a2e41c696",
+    "0xcc786baa966e66f4a384c86a3b49942552e2d658a31ce2c344be4b91400da7d26d521628b00523b8dfe240c72de1f6",
+    "0x1f86376e8981c217898751ad8746757d42aa7b90eeb791c09e4a3ec03251cf9de405aba9ec61deca6355c77b0e5f4cb",
+    "0x8cc03fdefe0ff135caf4fe2a21529c4195536fbe3ce50b879833fd221351adc2ee7f8dc099040a841b6daecf2e8fedb",
+    "0x16603fca40634b6a2211e11db8f0a6a074a7d0d4afadb7bd76505c3d3ad5544e203f6326c95a807299b23ab13633a5f0",
+    "0x4ab0b9bcfac1bbcb2c977d027796b3ce75bb8ca2be184cb5231413c4d634f3747a87ac2460f415ec961f8855fe9d6f2",
+    "0x987c8d5333ab86fde9926bd2ca6c674170a05bfe3bdd81ffd038da6c26c842642f64550fedfe935a15e4ca31870fb29",
+    "0x9fc4018bd96684be88c9e221e4da1bb8f3abd16679dc26c1e8b6e6a1f20cabe69d65201c78607a360370e577bdba587",
+    "0xe1bba7a1186bdb5223abde7ada14a23c42a0ca7915af6fe06985e7ed1e4d43b9b3f7055dd4eba6f2bafaaebca731c30",
+    "0x19713e47937cd1be0dfd0b8f1d43fb93cd2fcbcb6caf493fd1183e416389e61031bf3a5cce3fbafce813711ad011c132",
+    "0x18b46a908f36f6deb918c143fed2edcc523559b8aaf0c2462e6bfe7f911f643249d9cdf41b44d606ce07c8a4d0074d8e",
+    "0xb182cac101b9399d155096004f53f447aa7b12a3426b08ec02710e807b4633f06c851c1919211f20d4c04f00b971ef8",
+    "0x245a394ad1eca9b72fc00ae7be315dc757b3b080d4c158013e6632d3c40659cc6cf90ad1c232a6442d9d3f5db980133",
+    "0x5c129645e44cf1102a159f748c4a3fc5e673d81d7e86568d9ab0f5d396a7ce46ba1049b6579afb7866b1e715475224b",
+    "0x15e6be4e990f03ce4ea50b3b42df2eb5cb181d8f84965a3957add4fa95af01b2b665027efec01c7704b456be69c8b604"
+  ],
+  // yDen
+  [
+    "0x16112c4c3a9c98b252181140fad0eae9601a6de578980be6eec3232b5be72e7a07f3688ef60c206d01479253b03663c1",
+    "0x1962d75c2381201e1a0cbd6c43c348b885c84ff731c4d59ca4a10356f453e01f78a4260763529e3532f6102c2e49a03d",
+    "0x58df3306640da276faaae7d6e8eb15778c4855551ae7f310c35a5dd279cd2eca6757cd636f96f891e2538b53dbf67f2",
+    "0x16b7d288798e5395f20d23bf89edb4d1d115c5dbddbcd30e123da489e726af41727364f2c28297ada8d26d98445f5416",
+    "0xbe0e079545f43e4b00cc912f8228ddcc6d19c9f0f69bbb0542eda0fc9dec916a20b15dc0fd2ededda39142311a5001d",
+    "0x8d9e5297186db2d9fb266eaac783182b70152c65550d881c5ecd87b6f0f5a6449f38db9dfa9cce202c6477faaf9b7ac",
+    "0x166007c08a99db2fc3ba8734ace9824b5eecfdfa8d0cf8ef5dd365bc400a0051d5fa9c01a58b1fb93d1a1399126a775c",
+    "0x16a3ef08be3ea7ea03bcddfabba6ff6ee5a4375efa1f4fd7feb34fd206357132b920f5b00801dee460ee415a15812ed9",
+    "0x1866c8ed336c61231a1be54fd1d74cc4f9fb0ce4c6af5920abc5750c4bf39b4852cfe2f7bb9248836b233d9d55535d4a",
+    "0x167a55cda70a6e1cea820597d94a84903216f763e13d87bb5308592e7ea7d4fbc7385ea3d529b35e346ef48bb8913f55",
+    "0x4d2f259eea405bd48f010a01ad2911d9c6dd039bb61a6290e591b36e636a5c871a5c29f4f83060400f8b49cba8f6aa8",
+    "0xaccbb67481d033ff5852c1e48c50c477f94ff8aefce42d28c0f9a88cea7913516f968986f7ebbea9684b529e2561092",
+    "0xad6b9514c767fe3c3613144b45f1496543346d98adf02267d5ceef9a00d9b8693000763e3b90ac11e99b138573345cc",
+    "0x2660400eb2e4f3b628bdd0d53cd76f2bf565b94e72927c1cb748df27942480e420517bd8714cc80d1fadc1326ed06f7",
+    "0xe0fa1d816ddc03e6b24255e0d7819c171c40f65e273b853324efcd6356caa205ca2f570f13497804415473a1d634b8f",
+    "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001"
+    // LAST 1
+  ]
+].map((i) => i.map((j2) => BigInt(j2))));
+const G1_SWU = mapToCurveSimpleSWU(Fp$1, {
+  A: Fp$1.create(BigInt("0x144698a3b8e9433d693a02c96d4982b0ea985383ee66a8d8e8981aefd881ac98936f8da0e0f97f5cf428082d584c1d")),
+  B: Fp$1.create(BigInt("0x12e2908d11688030018b12e8753eee3b2016c1f0f24f4070a0b9c14fcef35ef55a23215a316ceaa5d1cc48e98e172be0")),
+  Z: Fp$1.create(BigInt(11))
+});
+const G2_SWU = mapToCurveSimpleSWU(Fp2, {
+  A: Fp2.create({ c0: Fp$1.create(_0n$1), c1: Fp$1.create(BigInt(240)) }),
+  // A' = 240 * I
+  B: Fp2.create({ c0: Fp$1.create(BigInt(1012)), c1: Fp$1.create(BigInt(1012)) }),
+  // B' = 1012 * (1 + I)
+  Z: Fp2.create({ c0: Fp$1.create(BigInt(-2)), c1: Fp$1.create(BigInt(-1)) })
+  // Z: -(2 + I)
+});
+function mapToG1(scalars) {
+  const { x: x2, y: y2 } = G1_SWU(Fp$1.create(scalars[0]));
+  return isogenyMapG1(x2, y2);
+}
+function mapToG2(scalars) {
+  const { x: x2, y: y2 } = G2_SWU(Fp2.fromBigTuple(scalars));
+  return isogenyMapG2(x2, y2);
+}
+function blsVerify(pk, sig, msg) {
+  const primaryKey = typeof pk === "string" ? pk : bytesToHex(pk);
+  const signature = typeof sig === "string" ? sig : bytesToHex(sig);
+  const message = typeof msg === "string" ? msg : bytesToHex(msg);
+  return bls12_381.verifyShortSignature(signature, message, primaryKey);
+}
+const MILLISECOND_TO_NANOSECONDS = BigInt(1e6);
+const decodeLeb128 = (buf) => {
+  return lebDecode(new PipeArrayBuffer(buf));
+};
+const decodeTime = (buf) => {
+  const timestampNs = decodeLeb128(buf);
+  const timestampMs = timestampNs / MILLISECOND_TO_NANOSECONDS;
+  return new Date(Number(timestampMs));
+};
+const MINUTES_TO_MSEC = 60 * 1e3;
+const HOURS_TO_MINUTES = 60;
+const DAYS_TO_HOURS = 24;
+const DAYS_TO_MINUTES = DAYS_TO_HOURS * HOURS_TO_MINUTES;
+const DEFAULT_CERTIFICATE_MAX_AGE_IN_MINUTES = 5;
+const DEFAULT_CERTIFICATE_MAX_MINUTES_IN_FUTURE = 5;
+const DEFAULT_CERTIFICATE_DELEGATION_MAX_AGE_IN_MINUTES = 30 * DAYS_TO_MINUTES;
+var NodeType;
+(function(NodeType2) {
+  NodeType2[NodeType2["Empty"] = 0] = "Empty";
+  NodeType2[NodeType2["Fork"] = 1] = "Fork";
+  NodeType2[NodeType2["Labeled"] = 2] = "Labeled";
+  NodeType2[NodeType2["Leaf"] = 3] = "Leaf";
+  NodeType2[NodeType2["Pruned"] = 4] = "Pruned";
+})(NodeType || (NodeType = {}));
+function isBufferGreaterThan(a2, b2) {
+  for (let i = 0; i < a2.length; i++) {
+    if (a2[i] > b2[i]) {
+      return true;
+    }
+  }
+  return false;
+}
+const _Certificate = class _Certificate {
+  constructor(certificate, _rootKey, _canisterId, _blsVerify, _maxAgeInMinutes = DEFAULT_CERTIFICATE_MAX_AGE_IN_MINUTES, disableTimeVerification = false, agent) {
+    __privateAdd(this, _disableTimeVerification, false);
+    __privateAdd(this, _agent);
+    this._rootKey = _rootKey;
+    this._canisterId = _canisterId;
+    this._blsVerify = _blsVerify;
+    this._maxAgeInMinutes = _maxAgeInMinutes;
+    __privateSet(this, _disableTimeVerification, disableTimeVerification);
+    this.cert = decode$1(certificate);
+    if (agent && "getTimeDiffMsecs" in agent && "hasSyncedTime" in agent && "syncTime" in agent) {
+      __privateSet(this, _agent, agent);
+    }
+  }
+  /**
+   * Create a new instance of a certificate, automatically verifying it.
+   * @param {CreateCertificateOptions} options {@link CreateCertificateOptions}
+   * @throws if the verification of the certificate fails
+   */
+  static async create(options) {
+    const cert = _Certificate.createUnverified(options);
+    await cert.verify();
+    return cert;
+  }
+  static createUnverified(options) {
+    return new _Certificate(options.certificate, options.rootKey, options.canisterId, options.blsVerify ?? blsVerify, options.maxAgeInMinutes, options.disableTimeVerification, options.agent);
+  }
+  /**
+   * Lookup a path in the certificate tree, using {@link lookup_path}.
+   * @param path The path to lookup.
+   * @returns The result of the lookup.
+   */
+  lookup_path(path) {
+    return lookup_path(path, this.cert.tree);
+  }
+  /**
+   * Lookup a subtree in the certificate tree, using {@link lookup_subtree}.
+   * @param path The path to lookup.
+   * @returns The result of the lookup.
+   */
+  lookup_subtree(path) {
+    return lookup_subtree(path, this.cert.tree);
+  }
+  async verify() {
+    var _a3, _b3;
+    const rootHash = await reconstruct(this.cert.tree);
+    const derKey = await this._checkDelegationAndGetKey(this.cert.delegation);
+    const sig = this.cert.signature;
+    const key = extractDER(derKey);
+    const msg = concatBytes(domain_sep("ic-state-root"), rootHash);
+    const lookupTime = lookupResultToBuffer(this.lookup_path(["time"]));
+    if (!lookupTime) {
+      throw ProtocolError.fromCode(new CertificateVerificationErrorCode("Certificate does not contain a time"));
+    }
+    if (!__privateGet(this, _disableTimeVerification)) {
+      const timeDiffMsecs = ((_a3 = __privateGet(this, _agent)) == null ? void 0 : _a3.getTimeDiffMsecs()) ?? 0;
+      const maxAgeInMsec = this._maxAgeInMinutes * MINUTES_TO_MSEC;
+      const now2 = /* @__PURE__ */ new Date();
+      const adjustedNow = now2.getTime() + timeDiffMsecs;
+      const earliestCertificateTime = adjustedNow - maxAgeInMsec;
+      const latestCertificateTime = adjustedNow + DEFAULT_CERTIFICATE_MAX_MINUTES_IN_FUTURE * MINUTES_TO_MSEC;
+      const certTime = decodeTime(lookupTime);
+      const isCertificateTimePast = certTime.getTime() < earliestCertificateTime;
+      const isCertificateTimeFuture = certTime.getTime() > latestCertificateTime;
+      if ((isCertificateTimePast || isCertificateTimeFuture) && __privateGet(this, _agent) && !__privateGet(this, _agent).hasSyncedTime()) {
+        await __privateGet(this, _agent).syncTime(this._canisterId);
+        return await this.verify();
+      }
+      if (isCertificateTimePast) {
+        throw TrustError.fromCode(new CertificateTimeErrorCode(this._maxAgeInMinutes, certTime, now2, timeDiffMsecs, "past"));
+      } else if (isCertificateTimeFuture) {
+        if ((_b3 = __privateGet(this, _agent)) == null ? void 0 : _b3.hasSyncedTime()) {
+          throw UnknownError.fromCode(new UnexpectedErrorCode("System time has been synced with the IC network, but certificate is still too far in the future."));
+        }
+        throw TrustError.fromCode(new CertificateTimeErrorCode(5, certTime, now2, timeDiffMsecs, "future"));
+      }
+    }
+    try {
+      const sigVer = await this._blsVerify(key, sig, msg);
+      if (!sigVer) {
+        throw TrustError.fromCode(new CertificateVerificationErrorCode("Invalid signature"));
+      }
+    } catch (err) {
+      throw TrustError.fromCode(new CertificateVerificationErrorCode("Signature verification failed", err));
+    }
+  }
+  async _checkDelegationAndGetKey(d2) {
+    if (!d2) {
+      return this._rootKey;
+    }
+    const cert = _Certificate.createUnverified({
+      certificate: d2.certificate,
+      rootKey: this._rootKey,
+      canisterId: this._canisterId,
+      blsVerify: this._blsVerify,
+      disableTimeVerification: __privateGet(this, _disableTimeVerification),
+      maxAgeInMinutes: DEFAULT_CERTIFICATE_DELEGATION_MAX_AGE_IN_MINUTES,
+      agent: __privateGet(this, _agent)
+    });
+    if (cert.cert.delegation) {
+      throw ProtocolError.fromCode(new CertificateHasTooManyDelegationsErrorCode());
+    }
+    await cert.verify();
+    const subnetIdBytes = d2.subnet_id;
+    const subnetId = Principal$1.fromUint8Array(subnetIdBytes);
+    const canisterInRange = check_canister_ranges({
+      canisterId: this._canisterId,
+      subnetId,
+      tree: cert.cert.tree
+    });
+    if (!canisterInRange) {
+      throw TrustError.fromCode(new CertificateNotAuthorizedErrorCode(this._canisterId, subnetId));
+    }
+    const publicKeyLookup = lookupResultToBuffer(cert.lookup_path(["subnet", subnetIdBytes, "public_key"]));
+    if (!publicKeyLookup) {
+      throw TrustError.fromCode(new MissingLookupValueErrorCode(`Could not find subnet key for subnet ID ${subnetId.toText()}`));
+    }
+    return publicKeyLookup;
+  }
+};
+_disableTimeVerification = new WeakMap();
+_agent = new WeakMap();
+let Certificate = _Certificate;
+const DER_PREFIX = hexToBytes("308182301d060d2b0601040182dc7c0503010201060c2b0601040182dc7c05030201036100");
+const KEY_LENGTH = 96;
+function extractDER(buf) {
+  const expectedLength = DER_PREFIX.byteLength + KEY_LENGTH;
+  if (buf.byteLength !== expectedLength) {
+    throw ProtocolError.fromCode(new DerKeyLengthMismatchErrorCode(expectedLength, buf.byteLength));
+  }
+  const prefix2 = buf.slice(0, DER_PREFIX.byteLength);
+  if (!uint8Equals(prefix2, DER_PREFIX)) {
+    throw ProtocolError.fromCode(new DerPrefixMismatchErrorCode(DER_PREFIX, prefix2));
+  }
+  return buf.slice(DER_PREFIX.byteLength);
+}
+function lookupResultToBuffer(result) {
+  if (result.status !== LookupPathStatus.Found) {
+    return void 0;
+  }
+  if (result.value instanceof Uint8Array) {
+    return result.value;
+  }
+  return void 0;
+}
+async function reconstruct(t) {
+  switch (t[0]) {
+    case NodeType.Empty:
+      return sha256(domain_sep("ic-hashtree-empty"));
+    case NodeType.Pruned:
+      return t[1];
+    case NodeType.Leaf:
+      return sha256(concatBytes(domain_sep("ic-hashtree-leaf"), t[1]));
+    case NodeType.Labeled:
+      return sha256(concatBytes(domain_sep("ic-hashtree-labeled"), t[1], await reconstruct(t[2])));
+    case NodeType.Fork:
+      return sha256(concatBytes(domain_sep("ic-hashtree-fork"), await reconstruct(t[1]), await reconstruct(t[2])));
+    default:
+      throw UNREACHABLE_ERROR;
+  }
+}
+function domain_sep(s2) {
+  const len = new Uint8Array([s2.length]);
+  const str = new TextEncoder().encode(s2);
+  return concatBytes(len, str);
+}
+function pathToLabel(path) {
+  return typeof path[0] === "string" ? utf8ToBytes(path[0]) : path[0];
+}
+var LookupPathStatus;
+(function(LookupPathStatus2) {
+  LookupPathStatus2["Unknown"] = "Unknown";
+  LookupPathStatus2["Absent"] = "Absent";
+  LookupPathStatus2["Found"] = "Found";
+  LookupPathStatus2["Error"] = "Error";
+})(LookupPathStatus || (LookupPathStatus = {}));
+var LookupSubtreeStatus;
+(function(LookupSubtreeStatus2) {
+  LookupSubtreeStatus2["Absent"] = "Absent";
+  LookupSubtreeStatus2["Unknown"] = "Unknown";
+  LookupSubtreeStatus2["Found"] = "Found";
+})(LookupSubtreeStatus || (LookupSubtreeStatus = {}));
+var LookupLabelStatus;
+(function(LookupLabelStatus2) {
+  LookupLabelStatus2["Absent"] = "Absent";
+  LookupLabelStatus2["Unknown"] = "Unknown";
+  LookupLabelStatus2["Found"] = "Found";
+  LookupLabelStatus2["Less"] = "Less";
+  LookupLabelStatus2["Greater"] = "Greater";
+})(LookupLabelStatus || (LookupLabelStatus = {}));
+function lookup_path(path, tree) {
+  if (path.length === 0) {
+    switch (tree[0]) {
+      case NodeType.Empty: {
+        return {
+          status: LookupPathStatus.Absent
+        };
+      }
+      case NodeType.Leaf: {
+        if (!tree[1]) {
+          throw UnknownError.fromCode(new HashTreeDecodeErrorCode("Invalid tree structure for leaf"));
+        }
+        if (tree[1] instanceof Uint8Array) {
+          return {
+            status: LookupPathStatus.Found,
+            value: tree[1].slice(tree[1].byteOffset, tree[1].byteLength + tree[1].byteOffset)
+          };
+        }
+        throw UNREACHABLE_ERROR;
+      }
+      case NodeType.Pruned: {
+        return {
+          status: LookupPathStatus.Unknown
+        };
+      }
+      case NodeType.Labeled:
+      case NodeType.Fork: {
+        return {
+          status: LookupPathStatus.Error
+        };
+      }
+      default: {
+        throw UNREACHABLE_ERROR;
+      }
+    }
+  }
+  const label = pathToLabel(path);
+  const lookupResult = find_label(label, tree);
+  switch (lookupResult.status) {
+    case LookupLabelStatus.Found: {
+      return lookup_path(path.slice(1), lookupResult.value);
+    }
+    case LookupLabelStatus.Absent:
+    case LookupLabelStatus.Greater:
+    case LookupLabelStatus.Less: {
+      return {
+        status: LookupPathStatus.Absent
+      };
+    }
+    case LookupLabelStatus.Unknown: {
+      return {
+        status: LookupPathStatus.Unknown
+      };
+    }
+    default: {
+      throw UNREACHABLE_ERROR;
+    }
+  }
+}
+function lookup_subtree(path, tree) {
+  if (path.length === 0) {
+    return {
+      status: LookupSubtreeStatus.Found,
+      value: tree
+    };
+  }
+  const label = pathToLabel(path);
+  const lookupResult = find_label(label, tree);
+  switch (lookupResult.status) {
+    case LookupLabelStatus.Found: {
+      return lookup_subtree(path.slice(1), lookupResult.value);
+    }
+    case LookupLabelStatus.Unknown: {
+      return {
+        status: LookupSubtreeStatus.Unknown
+      };
+    }
+    case LookupLabelStatus.Absent:
+    case LookupLabelStatus.Greater:
+    case LookupLabelStatus.Less: {
+      return {
+        status: LookupSubtreeStatus.Absent
+      };
+    }
+    default: {
+      throw UNREACHABLE_ERROR;
+    }
+  }
+}
+function flatten_forks(t) {
+  switch (t[0]) {
+    case NodeType.Empty:
+      return [];
+    case NodeType.Fork:
+      return flatten_forks(t[1]).concat(flatten_forks(t[2]));
+    default:
+      return [t];
+  }
+}
+function find_label(label, tree) {
+  switch (tree[0]) {
+    case NodeType.Labeled:
+      if (isBufferGreaterThan(label, tree[1])) {
+        return {
+          status: LookupLabelStatus.Greater
+        };
+      }
+      if (uint8Equals(label, tree[1])) {
+        return {
+          status: LookupLabelStatus.Found,
+          value: tree[2]
+        };
+      }
+      return {
+        status: LookupLabelStatus.Less
+      };
+    case NodeType.Fork: {
+      const leftLookupResult = find_label(label, tree[1]);
+      switch (leftLookupResult.status) {
+        case LookupLabelStatus.Greater: {
+          const rightLookupResult = find_label(label, tree[2]);
+          if (rightLookupResult.status === LookupLabelStatus.Less) {
+            return {
+              status: LookupLabelStatus.Absent
+            };
+          }
+          return rightLookupResult;
+        }
+        case LookupLabelStatus.Unknown: {
+          const rightLookupResult = find_label(label, tree[2]);
+          if (rightLookupResult.status === LookupLabelStatus.Less) {
+            return {
+              status: LookupLabelStatus.Unknown
+            };
+          }
+          return rightLookupResult;
+        }
+        default: {
+          return leftLookupResult;
+        }
+      }
+    }
+    case NodeType.Pruned:
+      return {
+        status: LookupLabelStatus.Unknown
+      };
+    default:
+      return {
+        status: LookupLabelStatus.Absent
+      };
+  }
+}
+function check_canister_ranges(params) {
+  const { canisterId, subnetId, tree } = params;
+  const rangeLookup = lookup_path(["subnet", subnetId.toUint8Array(), "canister_ranges"], tree);
+  if (rangeLookup.status !== LookupPathStatus.Found) {
+    throw ProtocolError.fromCode(new LookupErrorCode(`Could not find canister ranges for subnet ${subnetId.toText()}`, rangeLookup.status));
+  }
+  if (!(rangeLookup.value instanceof Uint8Array)) {
+    throw ProtocolError.fromCode(new MalformedLookupFoundValueErrorCode(`Could not find canister ranges for subnet ${subnetId.toText()}`));
+  }
+  const ranges_arr = decode$1(rangeLookup.value);
+  const ranges = ranges_arr.map((v2) => [
+    Principal$1.fromUint8Array(v2[0]),
+    Principal$1.fromUint8Array(v2[1])
+  ]);
+  const canisterInRange = ranges.some((r2) => r2[0].ltEq(canisterId) && r2[1].gtEq(canisterId));
+  return canisterInRange;
+}
+const request = async (options) => {
+  const { agent, paths, disableCertificateTimeVerification = false } = options;
+  const canisterId = Principal$1.from(options.canisterId);
+  const uniquePaths = [...new Set(paths)];
+  const status = /* @__PURE__ */ new Map();
+  const promises = uniquePaths.map((path, index2) => {
+    const encodedPath = encodePath(path, canisterId);
+    return (async () => {
+      try {
+        if (agent.rootKey === null) {
+          throw ExternalError.fromCode(new MissingRootKeyErrorCode());
+        }
+        const rootKey = agent.rootKey;
+        const response = await agent.readState(canisterId, {
+          paths: [encodedPath]
+        });
+        const certificate = await Certificate.create({
+          certificate: response.certificate,
+          rootKey,
+          canisterId,
+          disableTimeVerification: disableCertificateTimeVerification,
+          agent
+        });
+        const lookup = (cert, path3) => {
+          if (path3 === "subnet") {
+            const data2 = fetchNodeKeys(response.certificate, canisterId, rootKey);
+            return {
+              path: path3,
+              data: data2
+            };
+          } else {
+            return {
+              path: path3,
+              data: lookupResultToBuffer(cert.lookup_path(encodedPath))
+            };
+          }
+        };
+        const { path: path2, data } = lookup(certificate, uniquePaths[index2]);
+        if (!data) {
+          console.warn(`Expected to find result for path ${path2}, but instead found nothing.`);
+          if (typeof path2 === "string") {
+            status.set(path2, null);
+          } else {
+            status.set(path2.key, null);
+          }
+        } else {
+          switch (path2) {
+            case "time": {
+              status.set(path2, decodeTime(data));
+              break;
+            }
+            case "controllers": {
+              status.set(path2, decodeControllers(data));
+              break;
+            }
+            case "module_hash": {
+              status.set(path2, bytesToHex(data));
+              break;
+            }
+            case "subnet": {
+              status.set(path2, data);
+              break;
+            }
+            case "candid": {
+              status.set(path2, new TextDecoder().decode(data));
+              break;
+            }
+            default: {
+              if (typeof path2 !== "string" && "key" in path2 && "path" in path2) {
+                switch (path2.decodeStrategy) {
+                  case "raw":
+                    status.set(path2.key, data);
+                    break;
+                  case "leb128": {
+                    status.set(path2.key, decodeLeb128(data));
+                    break;
+                  }
+                  case "cbor": {
+                    status.set(path2.key, decode$1(data));
+                    break;
+                  }
+                  case "hex": {
+                    status.set(path2.key, bytesToHex(data));
+                    break;
+                  }
+                  case "utf-8": {
+                    status.set(path2.key, new TextDecoder().decode(data));
+                  }
+                }
+              }
+            }
+          }
+        }
+      } catch (error) {
+        if (error instanceof AgentError && (error.hasCode(CertificateVerificationErrorCode) || error.hasCode(CertificateTimeErrorCode))) {
+          throw error;
+        }
+        if (typeof path !== "string" && "key" in path && "path" in path) {
+          status.set(path.key, null);
+        } else {
+          status.set(path, null);
+        }
+        console.group();
+        console.warn(`Expected to find result for path ${path}, but instead found nothing.`);
+        console.warn(error);
+        console.groupEnd();
+      }
+    })();
+  });
+  await Promise.all(promises);
+  return status;
+};
+const fetchNodeKeys = (certificate, canisterId, root_key) => {
+  if (!canisterId._isPrincipal) {
+    throw InputError.fromCode(new UnexpectedErrorCode("Invalid canisterId"));
+  }
+  const cert = decode$1(certificate);
+  const tree = cert.tree;
+  let delegation = cert.delegation;
+  let subnetId;
+  if (delegation && delegation.subnet_id) {
+    subnetId = Principal$1.fromUint8Array(new Uint8Array(delegation.subnet_id));
+  } else if (!delegation && typeof root_key !== "undefined") {
+    subnetId = Principal$1.selfAuthenticating(new Uint8Array(root_key));
+    delegation = {
+      subnet_id: subnetId.toUint8Array(),
+      certificate: new Uint8Array(0)
+    };
+  } else {
+    subnetId = Principal$1.selfAuthenticating(Principal$1.fromText("tdb26-jop6k-aogll-7ltgs-eruif-6kk7m-qpktf-gdiqx-mxtrf-vb5e6-eqe").toUint8Array());
+    delegation = {
+      subnet_id: subnetId.toUint8Array(),
+      certificate: new Uint8Array(0)
+    };
+  }
+  const canisterInRange = check_canister_ranges({ canisterId, subnetId, tree });
+  if (!canisterInRange) {
+    throw TrustError.fromCode(new CertificateNotAuthorizedErrorCode(canisterId, subnetId));
+  }
+  const subnetLookupResult = lookup_subtree(["subnet", delegation.subnet_id, "node"], tree);
+  if (subnetLookupResult.status !== LookupSubtreeStatus.Found) {
+    throw ProtocolError.fromCode(new LookupErrorCode("Node not found", subnetLookupResult.status));
+  }
+  if (subnetLookupResult.value instanceof Uint8Array) {
+    throw UnknownError.fromCode(new HashTreeDecodeErrorCode("Invalid node tree"));
+  }
+  const nodeForks = flatten_forks(subnetLookupResult.value);
+  const nodeKeys = /* @__PURE__ */ new Map();
+  nodeForks.forEach((fork) => {
+    const node_id = Principal$1.from(fork[1]).toText();
+    const publicKeyLookupResult = lookup_path(["public_key"], fork[2]);
+    if (publicKeyLookupResult.status !== LookupPathStatus.Found) {
+      throw ProtocolError.fromCode(new LookupErrorCode("Public key not found", publicKeyLookupResult.status));
+    }
+    const derEncodedPublicKey = publicKeyLookupResult.value;
+    if (derEncodedPublicKey.byteLength !== 44) {
+      throw ProtocolError.fromCode(new DerKeyLengthMismatchErrorCode(44, derEncodedPublicKey.byteLength));
+    } else {
+      nodeKeys.set(node_id, derEncodedPublicKey);
+    }
+  });
+  return {
+    subnetId: Principal$1.fromUint8Array(new Uint8Array(delegation.subnet_id)).toText(),
+    nodeKeys
+  };
+};
+const encodePath = (path, canisterId) => {
+  const canisterUint8Array = canisterId.toUint8Array();
+  switch (path) {
+    case "time":
+      return [utf8ToBytes("time")];
+    case "controllers":
+      return [utf8ToBytes("canister"), canisterUint8Array, utf8ToBytes("controllers")];
+    case "module_hash":
+      return [utf8ToBytes("canister"), canisterUint8Array, utf8ToBytes("module_hash")];
+    case "subnet":
+      return [utf8ToBytes("subnet")];
+    case "candid":
+      return [
+        utf8ToBytes("canister"),
+        canisterUint8Array,
+        utf8ToBytes("metadata"),
+        utf8ToBytes("candid:service")
+      ];
+    default: {
+      if ("key" in path && "path" in path) {
+        if (typeof path["path"] === "string" || path["path"] instanceof Uint8Array) {
+          const metaPath = path.path;
+          const encoded = typeof metaPath === "string" ? utf8ToBytes(metaPath) : metaPath;
+          return [utf8ToBytes("canister"), canisterUint8Array, utf8ToBytes("metadata"), encoded];
+        } else {
+          return path["path"];
+        }
+      }
+    }
+  }
+  throw UnknownError.fromCode(new UnexpectedErrorCode(`Error while encoding your path for canister status. Please ensure that your path ${path} was formatted correctly.`));
+};
+const decodeControllers = (buf) => {
+  const controllersRaw = decode$1(buf);
+  return controllersRaw.map((buf2) => {
+    return Principal$1.fromUint8Array(buf2);
+  });
+};
+/*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
 const _0n = BigInt(0), _1n$1 = BigInt(1), _2n$1 = BigInt(2), _8n$1 = BigInt(8);
-function isEdValidXY(Fp2, CURVE, x, y) {
-  const x2 = Fp2.sqr(x);
-  const y2 = Fp2.sqr(y);
-  const left = Fp2.add(Fp2.mul(CURVE.a, x2), y2);
-  const right = Fp2.add(Fp2.ONE, Fp2.mul(CURVE.d, Fp2.mul(x2, y2)));
-  return Fp2.eql(left, right);
+function isEdValidXY(Fp3, CURVE, x2, y2) {
+  const x22 = Fp3.sqr(x2);
+  const y22 = Fp3.sqr(y2);
+  const left = Fp3.add(Fp3.mul(CURVE.a, x22), y22);
+  const right = Fp3.add(Fp3.ONE, Fp3.mul(CURVE.d, Fp3.mul(x22, y22)));
+  return Fp3.eql(left, right);
 }
 function edwards(params, extraOpts = {}) {
   const validated = _createCurveFields("edwards", params, extraOpts, extraOpts.FpFnLE);
-  const { Fp: Fp2, Fn } = validated;
+  const { Fp: Fp3, Fn } = validated;
   let CURVE = validated.CURVE;
   const { h: cofactor } = CURVE;
   _validateObject(extraOpts, {}, { uvRatio: "function" });
   const MASK = _2n$1 << BigInt(Fn.BYTES * 8) - _1n$1;
-  const modP = (n) => Fp2.create(n);
-  const uvRatio2 = extraOpts.uvRatio || ((u, v) => {
+  const modP = (n) => Fp3.create(n);
+  const uvRatio2 = extraOpts.uvRatio || ((u, v2) => {
     try {
-      return { isValid: true, value: Fp2.sqrt(Fp2.div(u, v)) };
+      return { isValid: true, value: Fp3.sqrt(Fp3.div(u, v2)) };
     } catch (e) {
       return { isValid: false, value: _0n };
     }
   });
-  if (!isEdValidXY(Fp2, CURVE, CURVE.Gx, CURVE.Gy))
+  if (!isEdValidXY(Fp3, CURVE, CURVE.Gx, CURVE.Gy))
     throw new Error("bad curve params: generator point");
   function acoord(title, n, banZero = false) {
     const min2 = banZero ? _1n$1 : _0n;
@@ -2340,84 +8467,84 @@ function edwards(params, extraOpts = {}) {
     if (!(other instanceof Point))
       throw new Error("ExtendedPoint expected");
   }
-  const toAffineMemo = memoized((p, iz) => {
-    const { X: X2, Y, Z } = p;
-    const is0 = p.is0();
+  const toAffineMemo = memoized((p2, iz) => {
+    const { X: X2, Y: Y2, Z: Z2 } = p2;
+    const is0 = p2.is0();
     if (iz == null)
-      iz = is0 ? _8n$1 : Fp2.inv(Z);
-    const x = modP(X2 * iz);
-    const y = modP(Y * iz);
-    const zz = Fp2.mul(Z, iz);
+      iz = is0 ? _8n$1 : Fp3.inv(Z2);
+    const x2 = modP(X2 * iz);
+    const y2 = modP(Y2 * iz);
+    const zz = Fp3.mul(Z2, iz);
     if (is0)
       return { x: _0n, y: _1n$1 };
     if (zz !== _1n$1)
       throw new Error("invZ was invalid");
-    return { x, y };
+    return { x: x2, y: y2 };
   });
-  const assertValidMemo = memoized((p) => {
-    const { a, d } = CURVE;
-    if (p.is0())
+  const assertValidMemo = memoized((p2) => {
+    const { a: a2, d: d2 } = CURVE;
+    if (p2.is0())
       throw new Error("bad point: ZERO");
-    const { X: X2, Y, Z, T } = p;
+    const { X: X2, Y: Y2, Z: Z2, T: T2 } = p2;
     const X22 = modP(X2 * X2);
-    const Y2 = modP(Y * Y);
-    const Z2 = modP(Z * Z);
-    const Z4 = modP(Z2 * Z2);
-    const aX2 = modP(X22 * a);
-    const left = modP(Z2 * modP(aX2 + Y2));
-    const right = modP(Z4 + modP(d * modP(X22 * Y2)));
+    const Y22 = modP(Y2 * Y2);
+    const Z22 = modP(Z2 * Z2);
+    const Z4 = modP(Z22 * Z22);
+    const aX2 = modP(X22 * a2);
+    const left = modP(Z22 * modP(aX2 + Y22));
+    const right = modP(Z4 + modP(d2 * modP(X22 * Y22)));
     if (left !== right)
       throw new Error("bad point: equation left != right (1)");
-    const XY = modP(X2 * Y);
-    const ZT = modP(Z * T);
+    const XY = modP(X2 * Y2);
+    const ZT = modP(Z2 * T2);
     if (XY !== ZT)
       throw new Error("bad point: equation left != right (2)");
     return true;
   });
   class Point {
-    constructor(X2, Y, Z, T) {
+    constructor(X2, Y2, Z2, T2) {
       this.X = acoord("x", X2);
-      this.Y = acoord("y", Y);
-      this.Z = acoord("z", Z, true);
-      this.T = acoord("t", T);
+      this.Y = acoord("y", Y2);
+      this.Z = acoord("z", Z2, true);
+      this.T = acoord("t", T2);
       Object.freeze(this);
     }
     static CURVE() {
       return CURVE;
     }
-    static fromAffine(p) {
-      if (p instanceof Point)
+    static fromAffine(p2) {
+      if (p2 instanceof Point)
         throw new Error("extended point not allowed");
-      const { x, y } = p || {};
-      acoord("x", x);
-      acoord("y", y);
-      return new Point(x, y, _1n$1, modP(x * y));
+      const { x: x2, y: y2 } = p2 || {};
+      acoord("x", x2);
+      acoord("y", y2);
+      return new Point(x2, y2, _1n$1, modP(x2 * y2));
     }
     // Uses algo from RFC8032 5.1.3.
     static fromBytes(bytes, zip215 = false) {
-      const len = Fp2.BYTES;
-      const { a, d } = CURVE;
+      const len = Fp3.BYTES;
+      const { a: a2, d: d2 } = CURVE;
       bytes = copyBytes(_abytes2(bytes, len, "point"));
       _abool2(zip215, "zip215");
       const normed = copyBytes(bytes);
       const lastByte = bytes[len - 1];
       normed[len - 1] = lastByte & -129;
-      const y = bytesToNumberLE(normed);
-      const max2 = zip215 ? MASK : Fp2.ORDER;
-      aInRange("point.y", y, _0n, max2);
-      const y2 = modP(y * y);
-      const u = modP(y2 - _1n$1);
-      const v = modP(d * y2 - a);
-      let { isValid, value: x } = uvRatio2(u, v);
+      const y2 = bytesToNumberLE(normed);
+      const max2 = zip215 ? MASK : Fp3.ORDER;
+      aInRange("point.y", y2, _0n, max2);
+      const y22 = modP(y2 * y2);
+      const u = modP(y22 - _1n$1);
+      const v2 = modP(d2 * y22 - a2);
+      let { isValid, value: x2 } = uvRatio2(u, v2);
       if (!isValid)
         throw new Error("bad point: invalid y coordinate");
-      const isXOdd = (x & _1n$1) === _1n$1;
+      const isXOdd = (x2 & _1n$1) === _1n$1;
       const isLastByteOdd = (lastByte & 128) !== 0;
-      if (!zip215 && x === _0n && isLastByteOdd)
+      if (!zip215 && x2 === _0n && isLastByteOdd)
         throw new Error("bad point: x=0 and x_0=1");
       if (isLastByteOdd !== isXOdd)
-        x = modP(-x);
-      return Point.fromAffine({ x, y });
+        x2 = modP(-x2);
+      return Point.fromAffine({ x: x2, y: y2 });
     }
     static fromHex(bytes, zip215 = false) {
       return Point.fromBytes(ensureBytes("point", bytes), zip215);
@@ -2459,21 +8586,21 @@ function edwards(params, extraOpts = {}) {
     // https://hyperelliptic.org/EFD/g1p/auto-twisted-extended.html#doubling-dbl-2008-hwcd
     // Cost: 4M + 4S + 1*a + 6add + 1*2.
     double() {
-      const { a } = CURVE;
+      const { a: a2 } = CURVE;
       const { X: X1, Y: Y1, Z: Z1 } = this;
-      const A = modP(X1 * X1);
-      const B = modP(Y1 * Y1);
-      const C = modP(_2n$1 * modP(Z1 * Z1));
-      const D = modP(a * A);
+      const A2 = modP(X1 * X1);
+      const B2 = modP(Y1 * Y1);
+      const C2 = modP(_2n$1 * modP(Z1 * Z1));
+      const D = modP(a2 * A2);
       const x1y1 = X1 + Y1;
-      const E = modP(modP(x1y1 * x1y1) - A - B);
-      const G = D + B;
-      const F = G - C;
-      const H = D - B;
-      const X3 = modP(E * F);
-      const Y3 = modP(G * H);
-      const T3 = modP(E * H);
-      const Z3 = modP(F * G);
+      const E2 = modP(modP(x1y1 * x1y1) - A2 - B2);
+      const G2 = D + B2;
+      const F2 = G2 - C2;
+      const H2 = D - B2;
+      const X3 = modP(E2 * F2);
+      const Y3 = modP(G2 * H2);
+      const T3 = modP(E2 * H2);
+      const Z3 = modP(F2 * G2);
       return new Point(X3, Y3, Z3, T3);
     }
     // Fast algo for adding 2 Extended Points.
@@ -2481,21 +8608,21 @@ function edwards(params, extraOpts = {}) {
     // Cost: 9M + 1*a + 1*d + 7add.
     add(other) {
       aextpoint(other);
-      const { a, d } = CURVE;
+      const { a: a2, d: d2 } = CURVE;
       const { X: X1, Y: Y1, Z: Z1, T: T1 } = this;
       const { X: X2, Y: Y2, Z: Z2, T: T2 } = other;
-      const A = modP(X1 * X2);
-      const B = modP(Y1 * Y2);
-      const C = modP(T1 * d * T2);
+      const A2 = modP(X1 * X2);
+      const B2 = modP(Y1 * Y2);
+      const C2 = modP(T1 * d2 * T2);
       const D = modP(Z1 * Z2);
-      const E = modP((X1 + Y1) * (X2 + Y2) - A - B);
-      const F = D - C;
-      const G = D + C;
-      const H = modP(B - a * A);
-      const X3 = modP(E * F);
-      const Y3 = modP(G * H);
-      const T3 = modP(E * H);
-      const Z3 = modP(F * G);
+      const E2 = modP((X1 + Y1) * (X2 + Y2) - A2 - B2);
+      const F2 = D - C2;
+      const G2 = D + C2;
+      const H2 = modP(B2 - a2 * A2);
+      const X3 = modP(E2 * F2);
+      const Y3 = modP(G2 * H2);
+      const T3 = modP(E2 * H2);
+      const Z3 = modP(F2 * G2);
       return new Point(X3, Y3, Z3, T3);
     }
     subtract(other) {
@@ -2505,8 +8632,8 @@ function edwards(params, extraOpts = {}) {
     multiply(scalar) {
       if (!Fn.isValidNot0(scalar))
         throw new Error("invalid scalar: expected 1 <= sc < curve.n");
-      const { p, f } = wnaf.cached(this, scalar, (p2) => normalizeZ(Point, p2));
-      return normalizeZ(Point, [p, f])[0];
+      const { p: p2, f } = wnaf.cached(this, scalar, (p3) => normalizeZ(Point, p3));
+      return normalizeZ(Point, [p2, f])[0];
     }
     // Non-constant-time multiplication. Uses double-and-add algorithm.
     // It's faster, but should only be used when you don't care about
@@ -2520,7 +8647,7 @@ function edwards(params, extraOpts = {}) {
         return Point.ZERO;
       if (this.is0() || scalar === _1n$1)
         return this;
-      return wnaf.unsafe(this, scalar, (p) => normalizeZ(Point, p), acc);
+      return wnaf.unsafe(this, scalar, (p2) => normalizeZ(Point, p2), acc);
     }
     // Checks if point is of small order.
     // If you add something to small order point, you will have "dirty"
@@ -2545,9 +8672,9 @@ function edwards(params, extraOpts = {}) {
       return this.multiplyUnsafe(cofactor);
     }
     toBytes() {
-      const { x, y } = this.toAffine();
-      const bytes = Fp2.toBytes(y);
-      bytes[bytes.length - 1] |= x & _1n$1 ? 128 : 0;
+      const { x: x2, y: y2 } = this.toAffine();
+      const bytes = Fp3.toBytes(y2);
+      bytes[bytes.length - 1] |= x2 & _1n$1 ? 128 : 0;
       return bytes;
     }
     toHex() {
@@ -2584,7 +8711,7 @@ function edwards(params, extraOpts = {}) {
   }
   Point.BASE = new Point(CURVE.Gx, CURVE.Gy, _1n$1, modP(CURVE.Gx * CURVE.Gy));
   Point.ZERO = new Point(_0n, _1n$1, _1n$1, _0n);
-  Point.Fp = Fp2;
+  Point.Fp = Fp3;
   Point.Fn = Fn;
   const wnaf = new wNAF(Point, Fn.BITS);
   Point.BASE.precompute(8);
@@ -2601,7 +8728,7 @@ function eddsa(Point, cHash, eddsaOpts = {}) {
     mapToCurve: "function"
   });
   const { prehash } = eddsaOpts;
-  const { BASE, Fp: Fp2, Fn } = Point;
+  const { BASE, Fp: Fp3, Fn } = Point;
   const randomBytes$1 = eddsaOpts.randomBytes || randomBytes;
   const adjustScalarBytes2 = eddsaOpts.adjustScalarBytes || ((bytes) => bytes);
   const domain = eddsaOpts.domain || ((data, ctx, phflag) => {
@@ -2641,12 +8768,12 @@ function eddsa(Point, cHash, eddsaOpts = {}) {
       msg = prehash(msg);
     const { prefix: prefix2, scalar, pointBytes } = getExtendedPublicKey(secretKey);
     const r2 = hashDomainToScalar(options.context, prefix2, msg);
-    const R = BASE.multiply(r2).toBytes();
-    const k = hashDomainToScalar(options.context, R, pointBytes, msg);
-    const s = Fn.create(r2 + k * scalar);
-    if (!Fn.isValid(s))
+    const R2 = BASE.multiply(r2).toBytes();
+    const k2 = hashDomainToScalar(options.context, R2, pointBytes, msg);
+    const s2 = Fn.create(r2 + k2 * scalar);
+    if (!Fn.isValid(s2))
       throw new Error("sign failed: invalid s");
-    const rs = concatBytes(R, Fn.toBytes(s));
+    const rs = concatBytes(R2, Fn.toBytes(s2));
     return _abytes2(rs, lengths.signature, "result");
   }
   const verifyOpts = { zip215: true };
@@ -2662,22 +8789,22 @@ function eddsa(Point, cHash, eddsaOpts = {}) {
       msg = prehash(msg);
     const mid = len / 2;
     const r2 = sig.subarray(0, mid);
-    const s = bytesToNumberLE(sig.subarray(mid, len));
-    let A, R, SB;
+    const s2 = bytesToNumberLE(sig.subarray(mid, len));
+    let A2, R2, SB;
     try {
-      A = Point.fromBytes(publicKey, zip215);
-      R = Point.fromBytes(r2, zip215);
-      SB = BASE.multiplyUnsafe(s);
+      A2 = Point.fromBytes(publicKey, zip215);
+      R2 = Point.fromBytes(r2, zip215);
+      SB = BASE.multiplyUnsafe(s2);
     } catch (error) {
       return false;
     }
-    if (!zip215 && A.isSmallOrder())
+    if (!zip215 && A2.isSmallOrder())
       return false;
-    const k = hashDomainToScalar(context, R.toBytes(), A.toBytes(), msg);
-    const RkA = R.add(A.multiplyUnsafe(k));
+    const k2 = hashDomainToScalar(context, R2.toBytes(), A2.toBytes(), msg);
+    const RkA = R2.add(A2.multiplyUnsafe(k2));
     return RkA.subtract(SB).clearCofactor().is0();
   }
-  const _size = Fp2.BYTES;
+  const _size = Fp3.BYTES;
   const lengths = {
     secretKey: _size,
     publicKey: _size,
@@ -2716,13 +8843,13 @@ function eddsa(Point, cHash, eddsaOpts = {}) {
      *   - `(x, y) = (sqrt(156324)*u/v, (1+u)/(1-u))`
      */
     toMontgomery(publicKey) {
-      const { y } = Point.fromBytes(publicKey);
+      const { y: y2 } = Point.fromBytes(publicKey);
       const size2 = lengths.publicKey;
       const is25519 = size2 === 32;
       if (!is25519 && size2 !== 57)
         throw new Error("only defined for 25519 and 448");
-      const u = is25519 ? Fp2.div(_1n$1 + y, _1n$1 - y) : Fp2.div(y - _1n$1, y + _1n$1);
-      return Fp2.toBytes(u);
+      const u = is25519 ? Fp3.div(_1n$1 + y2, _1n$1 - y2) : Fp3.div(y2 - _1n$1, y2 + _1n$1);
+      return Fp3.toBytes(u);
     },
     toMontgomerySecret(secretKey) {
       const size2 = lengths.secretKey;
@@ -2747,43 +8874,43 @@ function eddsa(Point, cHash, eddsaOpts = {}) {
     lengths
   });
 }
-function _eddsa_legacy_opts_to_new(c) {
+function _eddsa_legacy_opts_to_new(c2) {
   const CURVE = {
-    a: c.a,
-    d: c.d,
-    p: c.Fp.ORDER,
-    n: c.n,
-    h: c.h,
-    Gx: c.Gx,
-    Gy: c.Gy
+    a: c2.a,
+    d: c2.d,
+    p: c2.Fp.ORDER,
+    n: c2.n,
+    h: c2.h,
+    Gx: c2.Gx,
+    Gy: c2.Gy
   };
-  const Fp2 = c.Fp;
-  const Fn = Field(CURVE.n, c.nBitLength, true);
-  const curveOpts = { Fp: Fp2, Fn, uvRatio: c.uvRatio };
+  const Fp3 = c2.Fp;
+  const Fn = Field(CURVE.n, c2.nBitLength, true);
+  const curveOpts = { Fp: Fp3, Fn, uvRatio: c2.uvRatio };
   const eddsaOpts = {
-    randomBytes: c.randomBytes,
-    adjustScalarBytes: c.adjustScalarBytes,
-    domain: c.domain,
-    prehash: c.prehash,
-    mapToCurve: c.mapToCurve
+    randomBytes: c2.randomBytes,
+    adjustScalarBytes: c2.adjustScalarBytes,
+    domain: c2.domain,
+    prehash: c2.prehash,
+    mapToCurve: c2.mapToCurve
   };
-  return { CURVE, curveOpts, hash: c.hash, eddsaOpts };
+  return { CURVE, curveOpts, hash: c2.hash, eddsaOpts };
 }
-function _eddsa_new_output_to_legacy(c, eddsa2) {
+function _eddsa_new_output_to_legacy(c2, eddsa2) {
   const Point = eddsa2.Point;
   const legacy = Object.assign({}, eddsa2, {
     ExtendedPoint: Point,
-    CURVE: c,
+    CURVE: c2,
     nBitLength: Point.Fn.BITS,
     nByteLength: Point.Fn.BYTES
   });
   return legacy;
 }
-function twistedEdwards(c) {
-  const { CURVE, curveOpts, hash, eddsaOpts } = _eddsa_legacy_opts_to_new(c);
+function twistedEdwards(c2) {
+  const { CURVE, curveOpts, hash, eddsaOpts } = _eddsa_legacy_opts_to_new(c2);
   const Point = edwards(CURVE, curveOpts);
   const EDDSA = eddsa(Point, hash, eddsaOpts);
-  return _eddsa_new_output_to_legacy(c, EDDSA);
+  return _eddsa_new_output_to_legacy(c2, EDDSA);
 }
 /*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
 const _1n = BigInt(1), _2n = BigInt(2);
@@ -2799,21 +8926,21 @@ const ed25519_CURVE = /* @__PURE__ */ (() => ({
   Gx: BigInt("0x216936d3cd6e53fec0a4e231fdd6dc5c692cc7609525a7b2c9562d608f25d51a"),
   Gy: BigInt("0x6666666666666666666666666666666666666666666666666666666666666658")
 }))();
-function ed25519_pow_2_252_3(x) {
+function ed25519_pow_2_252_3(x2) {
   const _10n = BigInt(10), _20n = BigInt(20), _40n = BigInt(40), _80n = BigInt(80);
-  const P = ed25519_CURVE_p;
-  const x2 = x * x % P;
-  const b2 = x2 * x % P;
-  const b4 = pow2(b2, _2n, P) * b2 % P;
-  const b5 = pow2(b4, _1n, P) * x % P;
-  const b10 = pow2(b5, _5n, P) * b5 % P;
-  const b20 = pow2(b10, _10n, P) * b10 % P;
-  const b40 = pow2(b20, _20n, P) * b20 % P;
-  const b80 = pow2(b40, _40n, P) * b40 % P;
-  const b160 = pow2(b80, _80n, P) * b80 % P;
-  const b240 = pow2(b160, _80n, P) * b80 % P;
-  const b250 = pow2(b240, _10n, P) * b10 % P;
-  const pow_p_5_8 = pow2(b250, _2n, P) * x % P;
+  const P2 = ed25519_CURVE_p;
+  const x22 = x2 * x2 % P2;
+  const b2 = x22 * x2 % P2;
+  const b4 = pow2(b2, _2n, P2) * b2 % P2;
+  const b5 = pow2(b4, _1n, P2) * x2 % P2;
+  const b10 = pow2(b5, _5n, P2) * b5 % P2;
+  const b20 = pow2(b10, _10n, P2) * b10 % P2;
+  const b40 = pow2(b20, _20n, P2) * b20 % P2;
+  const b80 = pow2(b40, _40n, P2) * b40 % P2;
+  const b160 = pow2(b80, _80n, P2) * b80 % P2;
+  const b240 = pow2(b160, _80n, P2) * b80 % P2;
+  const b250 = pow2(b240, _10n, P2) * b10 % P2;
+  const pow_p_5_8 = pow2(b250, _2n, P2) * x2 % P2;
   return { pow_p_5_8, b2 };
 }
 function adjustScalarBytes(bytes) {
@@ -2823,25 +8950,25 @@ function adjustScalarBytes(bytes) {
   return bytes;
 }
 const ED25519_SQRT_M1 = /* @__PURE__ */ BigInt("19681161376707505956807079304988542015446066515923890162744021073123829784752");
-function uvRatio(u, v) {
-  const P = ed25519_CURVE_p;
-  const v3 = mod(v * v * v, P);
-  const v7 = mod(v3 * v3 * v, P);
+function uvRatio(u, v2) {
+  const P2 = ed25519_CURVE_p;
+  const v3 = mod(v2 * v2 * v2, P2);
+  const v7 = mod(v3 * v3 * v2, P2);
   const pow = ed25519_pow_2_252_3(u * v7).pow_p_5_8;
-  let x = mod(u * v3 * pow, P);
-  const vx2 = mod(v * x * x, P);
-  const root1 = x;
-  const root2 = mod(x * ED25519_SQRT_M1, P);
+  let x2 = mod(u * v3 * pow, P2);
+  const vx2 = mod(v2 * x2 * x2, P2);
+  const root1 = x2;
+  const root2 = mod(x2 * ED25519_SQRT_M1, P2);
   const useRoot1 = vx2 === u;
-  const useRoot2 = vx2 === mod(-u, P);
-  const noRoot = vx2 === mod(-u * ED25519_SQRT_M1, P);
+  const useRoot2 = vx2 === mod(-u, P2);
+  const noRoot = vx2 === mod(-u * ED25519_SQRT_M1, P2);
   if (useRoot1)
-    x = root1;
+    x2 = root1;
   if (useRoot2 || noRoot)
-    x = root2;
-  if (isNegativeLE(x, P))
-    x = mod(-x, P);
-  return { isValid: useRoot1 || useRoot2, value: x };
+    x2 = root2;
+  if (isNegativeLE(x2, P2))
+    x2 = mod(-x2, P2);
+  return { isValid: useRoot1 || useRoot2, value: x2 };
 }
 const Fp = /* @__PURE__ */ (() => Field(ed25519_CURVE.p, { isLE: true }))();
 const ed25519Defaults = /* @__PURE__ */ (() => ({
@@ -2855,6 +8982,147 @@ const ed25519Defaults = /* @__PURE__ */ (() => ({
   uvRatio
 }))();
 const ed25519 = /* @__PURE__ */ (() => twistedEdwards(ed25519Defaults))();
+var _a, _b;
+class ExpirableMap {
+  /**
+   * Create a new ExpirableMap.
+   * @param {ExpirableMapOptions<any, any>} options - options for the map.
+   * @param {Iterable<[any, any]>} options.source - an optional source of entries to initialize the map with.
+   * @param {number} options.expirationTime - the time in milliseconds after which entries will expire.
+   */
+  constructor(options = {}) {
+    // Internals
+    __privateAdd(this, _inner);
+    __privateAdd(this, _expirationTime);
+    this[_a] = this.entries.bind(this);
+    this[_b] = "ExpirableMap";
+    const { source = [], expirationTime = 10 * 60 * 1e3 } = options;
+    const currentTime = Date.now();
+    __privateSet(this, _inner, new Map([...source].map(([key, value]) => [key, { value, timestamp: currentTime }])));
+    __privateSet(this, _expirationTime, expirationTime);
+  }
+  /**
+   * Prune removes all expired entries.
+   */
+  prune() {
+    const currentTime = Date.now();
+    for (const [key, entry] of __privateGet(this, _inner).entries()) {
+      if (currentTime - entry.timestamp > __privateGet(this, _expirationTime)) {
+        __privateGet(this, _inner).delete(key);
+      }
+    }
+    return this;
+  }
+  // Implementing the Map interface
+  /**
+   * Set the value for the given key. Prunes expired entries.
+   * @param key for the entry
+   * @param value of the entry
+   * @returns this
+   */
+  set(key, value) {
+    this.prune();
+    const entry = {
+      value,
+      timestamp: Date.now()
+    };
+    __privateGet(this, _inner).set(key, entry);
+    return this;
+  }
+  /**
+   * Get the value associated with the key, if it exists and has not expired.
+   * @param key K
+   * @returns the value associated with the key, or undefined if the key is not present or has expired.
+   */
+  get(key) {
+    const entry = __privateGet(this, _inner).get(key);
+    if (entry === void 0) {
+      return void 0;
+    }
+    if (Date.now() - entry.timestamp > __privateGet(this, _expirationTime)) {
+      __privateGet(this, _inner).delete(key);
+      return void 0;
+    }
+    return entry.value;
+  }
+  /**
+   * Clear all entries.
+   */
+  clear() {
+    __privateGet(this, _inner).clear();
+  }
+  /**
+   * Entries returns the entries of the map, without the expiration time.
+   * @returns an iterator over the entries of the map.
+   */
+  entries() {
+    const iterator = __privateGet(this, _inner).entries();
+    const generator = function* () {
+      for (const [key, value] of iterator) {
+        yield [key, value.value];
+      }
+      return void 0;
+    };
+    return generator();
+  }
+  /**
+   * Values returns the values of the map, without the expiration time.
+   * @returns an iterator over the values of the map.
+   */
+  values() {
+    const iterator = __privateGet(this, _inner).values();
+    const generator = function* () {
+      for (const value of iterator) {
+        yield value.value;
+      }
+      return void 0;
+    };
+    return generator();
+  }
+  /**
+   * Keys returns the keys of the map
+   * @returns an iterator over the keys of the map.
+   */
+  keys() {
+    return __privateGet(this, _inner).keys();
+  }
+  /**
+   * forEach calls the callbackfn on each entry of the map.
+   * @param callbackfn to call on each entry
+   * @param thisArg to use as this when calling the callbackfn
+   */
+  forEach(callbackfn, thisArg) {
+    for (const [key, value] of __privateGet(this, _inner).entries()) {
+      callbackfn.call(thisArg, value.value, key, this);
+    }
+  }
+  /**
+   * has returns true if the key exists and has not expired.
+   * @param key K
+   * @returns true if the key exists and has not expired.
+   */
+  has(key) {
+    return __privateGet(this, _inner).has(key);
+  }
+  /**
+   * delete the entry for the given key.
+   * @param key K
+   * @returns true if the key existed and has been deleted.
+   */
+  delete(key) {
+    return __privateGet(this, _inner).delete(key);
+  }
+  /**
+   * get size of the map.
+   * @returns the size of the map.
+   */
+  get size() {
+    return __privateGet(this, _inner).size;
+  }
+}
+_inner = new WeakMap();
+_expirationTime = new WeakMap();
+_a = Symbol.iterator, _b = Symbol.toStringTag;
 const encodeLenBytes = (len) => {
   if (len <= 127) {
     return 1;
@@ -2993,6 +9261,1470 @@ const unwrapDER = (derEncoded, oid) => {
   }
   return result;
 };
+let Ed25519PublicKey$1 = (_a2 = class {
+  // `fromRaw` and `fromDer` should be used for instantiation, not this constructor.
+  constructor(key) {
+    __privateAdd(this, _rawKey);
+    __privateAdd(this, _derKey);
+    if (key.byteLength !== _a2.RAW_KEY_LENGTH) {
+      throw InputError.fromCode(new DerDecodeErrorCode("An Ed25519 public key must be exactly 32 bytes long"));
+    }
+    __privateSet(this, _rawKey, key);
+    __privateSet(this, _derKey, _a2.derEncode(key));
+  }
+  static from(key) {
+    return this.fromDer(key.toDer());
+  }
+  static fromRaw(rawKey) {
+    return new _a2(rawKey);
+  }
+  static fromDer(derKey) {
+    return new _a2(this.derDecode(derKey));
+  }
+  static derEncode(publicKey) {
+    return wrapDER(publicKey, ED25519_OID);
+  }
+  static derDecode(key) {
+    const unwrapped = unwrapDER(key, ED25519_OID);
+    if (unwrapped.length !== this.RAW_KEY_LENGTH) {
+      throw InputError.fromCode(new DerDecodeErrorCode("An Ed25519 public key must be exactly 32 bytes long"));
+    }
+    return unwrapped;
+  }
+  get rawKey() {
+    return __privateGet(this, _rawKey);
+  }
+  get derKey() {
+    return __privateGet(this, _derKey);
+  }
+  toDer() {
+    return this.derKey;
+  }
+  toRaw() {
+    return this.rawKey;
+  }
+}, _rawKey = new WeakMap(), _derKey = new WeakMap(), _a2.RAW_KEY_LENGTH = 32, _a2);
+class Observable {
+  constructor() {
+    this.observers = [];
+  }
+  subscribe(func) {
+    this.observers.push(func);
+  }
+  unsubscribe(func) {
+    this.observers = this.observers.filter((observer2) => observer2 !== func);
+  }
+  notify(data, ...rest) {
+    this.observers.forEach((observer2) => observer2(data, ...rest));
+  }
+}
+class ObservableLog extends Observable {
+  constructor() {
+    super();
+  }
+  print(message, ...rest) {
+    this.notify({ message, level: "info" }, ...rest);
+  }
+  warn(message, ...rest) {
+    this.notify({ message, level: "warn" }, ...rest);
+  }
+  error(message, error, ...rest) {
+    this.notify({ message, level: "error", error }, ...rest);
+  }
+}
+const RANDOMIZATION_FACTOR = 0.5;
+const MULTIPLIER = 1.5;
+const INITIAL_INTERVAL_MSEC = 500;
+const MAX_INTERVAL_MSEC = 6e4;
+const MAX_ELAPSED_TIME_MSEC = 9e5;
+const MAX_ITERATIONS = 10;
+const _ExponentialBackoff = class _ExponentialBackoff {
+  constructor(options = _ExponentialBackoff.default) {
+    __privateAdd(this, _currentInterval);
+    __privateAdd(this, _randomizationFactor);
+    __privateAdd(this, _multiplier);
+    __privateAdd(this, _maxInterval);
+    __privateAdd(this, _startTime);
+    __privateAdd(this, _maxElapsedTime);
+    __privateAdd(this, _maxIterations);
+    __privateAdd(this, _date);
+    __privateAdd(this, _count, 0);
+    const { initialInterval = INITIAL_INTERVAL_MSEC, randomizationFactor = RANDOMIZATION_FACTOR, multiplier = MULTIPLIER, maxInterval = MAX_INTERVAL_MSEC, maxElapsedTime = MAX_ELAPSED_TIME_MSEC, maxIterations = MAX_ITERATIONS, date = Date } = options;
+    __privateSet(this, _currentInterval, initialInterval);
+    __privateSet(this, _randomizationFactor, randomizationFactor);
+    __privateSet(this, _multiplier, multiplier);
+    __privateSet(this, _maxInterval, maxInterval);
+    __privateSet(this, _date, date);
+    __privateSet(this, _startTime, date.now());
+    __privateSet(this, _maxElapsedTime, maxElapsedTime);
+    __privateSet(this, _maxIterations, maxIterations);
+  }
+  get ellapsedTimeInMsec() {
+    return __privateGet(this, _date).now() - __privateGet(this, _startTime);
+  }
+  get currentInterval() {
+    return __privateGet(this, _currentInterval);
+  }
+  get count() {
+    return __privateGet(this, _count);
+  }
+  get randomValueFromInterval() {
+    const delta = __privateGet(this, _randomizationFactor) * __privateGet(this, _currentInterval);
+    const min2 = __privateGet(this, _currentInterval) - delta;
+    const max2 = __privateGet(this, _currentInterval) + delta;
+    return Math.random() * (max2 - min2) + min2;
+  }
+  incrementCurrentInterval() {
+    __privateSet(this, _currentInterval, Math.min(__privateGet(this, _currentInterval) * __privateGet(this, _multiplier), __privateGet(this, _maxInterval)));
+    __privateWrapper(this, _count)._++;
+    return __privateGet(this, _currentInterval);
+  }
+  next() {
+    if (this.ellapsedTimeInMsec >= __privateGet(this, _maxElapsedTime) || __privateGet(this, _count) >= __privateGet(this, _maxIterations)) {
+      return null;
+    } else {
+      this.incrementCurrentInterval();
+      return this.randomValueFromInterval;
+    }
+  }
+};
+_currentInterval = new WeakMap();
+_randomizationFactor = new WeakMap();
+_multiplier = new WeakMap();
+_maxInterval = new WeakMap();
+_startTime = new WeakMap();
+_maxElapsedTime = new WeakMap();
+_maxIterations = new WeakMap();
+_date = new WeakMap();
+_count = new WeakMap();
+_ExponentialBackoff.default = {
+  initialInterval: INITIAL_INTERVAL_MSEC,
+  randomizationFactor: RANDOMIZATION_FACTOR,
+  multiplier: MULTIPLIER,
+  maxInterval: MAX_INTERVAL_MSEC,
+  // 1 minute
+  maxElapsedTime: MAX_ELAPSED_TIME_MSEC,
+  maxIterations: MAX_ITERATIONS,
+  date: Date
+};
+let ExponentialBackoff = _ExponentialBackoff;
+var RequestStatusResponseStatus;
+(function(RequestStatusResponseStatus2) {
+  RequestStatusResponseStatus2["Received"] = "received";
+  RequestStatusResponseStatus2["Processing"] = "processing";
+  RequestStatusResponseStatus2["Replied"] = "replied";
+  RequestStatusResponseStatus2["Rejected"] = "rejected";
+  RequestStatusResponseStatus2["Unknown"] = "unknown";
+  RequestStatusResponseStatus2["Done"] = "done";
+})(RequestStatusResponseStatus || (RequestStatusResponseStatus = {}));
+const MINUTE_TO_MSECS = 60 * 1e3;
+const MSECS_TO_NANOSECONDS = 1e6;
+const DEFAULT_TIME_DIFF_MSECS = 0;
+const IC_ROOT_KEY = "308182301d060d2b0601040182dc7c0503010201060c2b0601040182dc7c05030201036100814c0e6ec71fab583b08bd81373c255c3c371b2e84863c98a4f1e08b74235d14fb5d9c0cd546d9685f913a0c0b2cc5341583bf4b4392e467db96d65b9bb4cb717112f8472e0d5a4d14505ffd7484b01291091c5f87b98883463f98091a0baaae";
+const IC0_DOMAIN = "ic0.app";
+const IC0_SUB_DOMAIN = ".ic0.app";
+const ICP0_DOMAIN = "icp0.io";
+const ICP0_SUB_DOMAIN = ".icp0.io";
+const ICP_API_DOMAIN = "icp-api.io";
+const ICP_API_SUB_DOMAIN = ".icp-api.io";
+const HTTP_STATUS_OK = 200;
+const HTTP_STATUS_ACCEPTED = 202;
+const HTTP_STATUS_NOT_FOUND = 404;
+function getDefaultFetch() {
+  let defaultFetch;
+  if (typeof window !== "undefined") {
+    if (window.fetch) {
+      defaultFetch = window.fetch.bind(window);
+    } else {
+      throw ExternalError.fromCode(new HttpDefaultFetchErrorCode("Fetch implementation was not available. You appear to be in a browser context, but window.fetch was not present."));
+    }
+  } else if (typeof global !== "undefined") {
+    if (global.fetch) {
+      defaultFetch = global.fetch.bind(global);
+    } else {
+      throw ExternalError.fromCode(new HttpDefaultFetchErrorCode("Fetch implementation was not available. You appear to be in a Node.js context, but global.fetch was not available."));
+    }
+  } else if (typeof self !== "undefined") {
+    if (self.fetch) {
+      defaultFetch = self.fetch.bind(self);
+    }
+  }
+  if (defaultFetch) {
+    return defaultFetch;
+  }
+  throw ExternalError.fromCode(new HttpDefaultFetchErrorCode("Fetch implementation was not available. Please provide fetch to the HttpAgent constructor, or ensure it is available in the window or global context."));
+}
+function determineHost(configuredHost) {
+  let host;
+  if (configuredHost !== void 0) {
+    if (!configuredHost.match(/^[a-z]+:/) && typeof window !== "undefined") {
+      host = new URL(window.location.protocol + "//" + configuredHost);
+    } else {
+      host = new URL(configuredHost);
+    }
+  } else {
+    const knownHosts = ["ic0.app", "icp0.io", "127.0.0.1", "localhost"];
+    const remoteHosts = [".github.dev", ".gitpod.io"];
+    const location2 = typeof window !== "undefined" ? window.location : void 0;
+    const hostname = location2 == null ? void 0 : location2.hostname;
+    let knownHost;
+    if (hostname && typeof hostname === "string") {
+      if (remoteHosts.some((host2) => hostname.endsWith(host2))) {
+        knownHost = hostname;
+      } else {
+        knownHost = knownHosts.find((host2) => hostname.endsWith(host2));
+      }
+    }
+    if (location2 && knownHost) {
+      host = new URL(`${location2.protocol}//${knownHost}${location2.port ? ":" + location2.port : ""}`);
+    } else {
+      host = new URL("https://icp-api.io");
+    }
+  }
+  return host.toString();
+}
+const _HttpAgent = class _HttpAgent {
+  /**
+   * @param options - Options for the HttpAgent
+   * @deprecated Use `HttpAgent.create` or `HttpAgent.createSync` instead
+   */
+  constructor(options = {}) {
+    __privateAdd(this, _HttpAgent_instances);
+    __privateAdd(this, _rootKeyPromise);
+    __privateAdd(this, _shouldFetchRootKey);
+    __privateAdd(this, _timeDiffMsecs);
+    __privateAdd(this, _hasSyncedTime);
+    __privateAdd(this, _syncTimePromise);
+    __privateAdd(this, _shouldSyncTime);
+    __privateAdd(this, _identity);
+    __privateAdd(this, _fetch);
+    __privateAdd(this, _fetchOptions);
+    __privateAdd(this, _callOptions);
+    __privateAdd(this, _credentials);
+    __privateAdd(this, _retryTimes);
+    // Retry requests N times before erroring by default
+    __privateAdd(this, _backoffStrategy);
+    __privateAdd(this, _maxIngressExpiryInMinutes);
+    __privateAdd(this, _queryPipeline);
+    __privateAdd(this, _updatePipeline);
+    __privateAdd(this, _subnetKeys);
+    __privateAdd(this, _verifyQuerySignatures);
+    /**
+     * See https://internetcomputer.org/docs/current/references/ic-interface-spec/#http-query for details on validation
+     * @param queryResponse - The response from the query
+     * @param subnetStatus - The subnet status, including all node keys
+     * @returns ApiQueryResponse
+     */
+    __privateAdd(this, _verifyQueryResponse);
+    __privateSet(this, _rootKeyPromise, null);
+    __privateSet(this, _shouldFetchRootKey, false);
+    __privateSet(this, _timeDiffMsecs, DEFAULT_TIME_DIFF_MSECS);
+    __privateSet(this, _hasSyncedTime, false);
+    __privateSet(this, _syncTimePromise, null);
+    __privateSet(this, _shouldSyncTime, false);
+    this._isAgent = true;
+    this.config = {};
+    this.log = new ObservableLog();
+    __privateSet(this, _queryPipeline, []);
+    __privateSet(this, _updatePipeline, []);
+    __privateSet(this, _subnetKeys, new ExpirableMap({
+      expirationTime: 5 * MINUTE_TO_MSECS
+    }));
+    __privateSet(this, _verifyQuerySignatures, true);
+    __privateSet(this, _verifyQueryResponse, (queryResponse, subnetStatus) => {
+      if (__privateGet(this, _verifyQuerySignatures) === false) {
+        return queryResponse;
+      }
+      const { status, signatures = [], requestId } = queryResponse;
+      for (const sig of signatures) {
+        const { timestamp, identity } = sig;
+        const nodeId = Principal$1.fromUint8Array(identity).toText();
+        let hash;
+        if (status === QueryResponseStatus.Replied) {
+          const { reply } = queryResponse;
+          hash = hashOfMap({
+            status,
+            reply,
+            timestamp: BigInt(timestamp),
+            request_id: requestId
+          });
+        } else if (status === QueryResponseStatus.Rejected) {
+          const { reject_code, reject_message, error_code } = queryResponse;
+          hash = hashOfMap({
+            status,
+            reject_code,
+            reject_message,
+            error_code,
+            timestamp: BigInt(timestamp),
+            request_id: requestId
+          });
+        } else {
+          throw UnknownError.fromCode(new UnexpectedErrorCode(`Unknown status: ${status}`));
+        }
+        const separatorWithHash = concatBytes(IC_RESPONSE_DOMAIN_SEPARATOR, hash);
+        const pubKey = subnetStatus.nodeKeys.get(nodeId);
+        if (!pubKey) {
+          throw ProtocolError.fromCode(new MalformedPublicKeyErrorCode());
+        }
+        const rawKey = Ed25519PublicKey$1.fromDer(pubKey).rawKey;
+        const valid = ed25519.verify(sig.signature, separatorWithHash, rawKey);
+        if (valid)
+          return queryResponse;
+        throw TrustError.fromCode(new QuerySignatureVerificationFailedErrorCode(nodeId));
+      }
+      return queryResponse;
+    });
+    this.config = options;
+    __privateSet(this, _fetch, options.fetch || getDefaultFetch() || fetch.bind(global));
+    __privateSet(this, _fetchOptions, options.fetchOptions);
+    __privateSet(this, _callOptions, options.callOptions);
+    __privateSet(this, _shouldFetchRootKey, options.shouldFetchRootKey ?? false);
+    __privateSet(this, _shouldSyncTime, options.shouldSyncTime ?? false);
+    if (options.rootKey) {
+      this.rootKey = options.rootKey;
+    } else if (__privateGet(this, _shouldFetchRootKey)) {
+      this.rootKey = null;
+    } else {
+      this.rootKey = hexToBytes(IC_ROOT_KEY);
+    }
+    const host = determineHost(options.host);
+    this.host = new URL(host);
+    if (options.verifyQuerySignatures !== void 0) {
+      __privateSet(this, _verifyQuerySignatures, options.verifyQuerySignatures);
+    }
+    __privateSet(this, _retryTimes, options.retryTimes ?? 3);
+    const defaultBackoffFactory = () => new ExponentialBackoff({
+      maxIterations: __privateGet(this, _retryTimes)
+    });
+    __privateSet(this, _backoffStrategy, options.backoffStrategy || defaultBackoffFactory);
+    if (this.host.hostname.endsWith(IC0_SUB_DOMAIN)) {
+      this.host.hostname = IC0_DOMAIN;
+    } else if (this.host.hostname.endsWith(ICP0_SUB_DOMAIN)) {
+      this.host.hostname = ICP0_DOMAIN;
+    } else if (this.host.hostname.endsWith(ICP_API_SUB_DOMAIN)) {
+      this.host.hostname = ICP_API_DOMAIN;
+    }
+    if (options.credentials) {
+      const { name, password } = options.credentials;
+      __privateSet(this, _credentials, `${name}${password ? ":" + password : ""}`);
+    }
+    __privateSet(this, _identity, Promise.resolve(options.identity || new AnonymousIdentity()));
+    if (options.ingressExpiryInMinutes && options.ingressExpiryInMinutes > 5) {
+      throw InputError.fromCode(new IngressExpiryInvalidErrorCode("The maximum ingress expiry time is 5 minutes.", options.ingressExpiryInMinutes));
+    }
+    if (options.ingressExpiryInMinutes && options.ingressExpiryInMinutes <= 0) {
+      throw InputError.fromCode(new IngressExpiryInvalidErrorCode("Ingress expiry time must be greater than 0.", options.ingressExpiryInMinutes));
+    }
+    __privateSet(this, _maxIngressExpiryInMinutes, options.ingressExpiryInMinutes || 5);
+    this.addTransform("update", makeNonceTransform(makeNonce));
+    if (options.useQueryNonces) {
+      this.addTransform("query", makeNonceTransform(makeNonce));
+    }
+    if (options.logToConsole) {
+      this.log.subscribe((log2) => {
+        if (log2.level === "error") {
+          console.error(log2.message);
+        } else if (log2.level === "warn") {
+          console.warn(log2.message);
+        } else {
+          console.log(log2.message);
+        }
+      });
+    }
+  }
+  static createSync(options = {}) {
+    return new this({ ...options });
+  }
+  static async create(options = {}) {
+    var _a3;
+    const agent = _HttpAgent.createSync(options);
+    await __privateMethod(_a3 = agent, _HttpAgent_instances, asyncGuard_fn).call(_a3);
+    return agent;
+  }
+  static async from(agent) {
+    try {
+      if ("config" in agent) {
+        return await _HttpAgent.create(agent.config);
+      }
+      return await _HttpAgent.create({
+        fetch: agent._fetch,
+        fetchOptions: agent._fetchOptions,
+        callOptions: agent._callOptions,
+        host: agent._host.toString(),
+        identity: agent._identity ?? void 0
+      });
+    } catch {
+      throw InputError.fromCode(new CreateHttpAgentErrorCode());
+    }
+  }
+  isLocal() {
+    const hostname = this.host.hostname;
+    return hostname === "127.0.0.1" || hostname.endsWith("127.0.0.1");
+  }
+  addTransform(type, fn, priority = fn.priority || 0) {
+    if (type === "update") {
+      const i = __privateGet(this, _updatePipeline).findIndex((x2) => (x2.priority || 0) < priority);
+      __privateGet(this, _updatePipeline).splice(i >= 0 ? i : __privateGet(this, _updatePipeline).length, 0, Object.assign(fn, { priority }));
+    } else if (type === "query") {
+      const i = __privateGet(this, _queryPipeline).findIndex((x2) => (x2.priority || 0) < priority);
+      __privateGet(this, _queryPipeline).splice(i >= 0 ? i : __privateGet(this, _queryPipeline).length, 0, Object.assign(fn, { priority }));
+    }
+  }
+  async getPrincipal() {
+    if (!__privateGet(this, _identity)) {
+      throw ExternalError.fromCode(new IdentityInvalidErrorCode());
+    }
+    return (await __privateGet(this, _identity)).getPrincipal();
+  }
+  /**
+   * Makes a call to a canister method.
+   * @param canisterId - The ID of the canister to call. Can be a Principal or a string.
+   * @param options - Options for the call.
+   * @param options.methodName - The name of the method to call.
+   * @param options.arg - The argument to pass to the method, as a Uint8Array.
+   * @param options.effectiveCanisterId - (Optional) The effective canister ID, if different from the target canister ID.
+   * @param options.callSync - (Optional) Whether to use synchronous call mode. Defaults to true.
+   * @param options.nonce - (Optional) A unique nonce for the request. If provided, it will override any nonce set by transforms.
+   * @param identity - (Optional) The identity to use for the call. If not provided, the agent's current identity will be used.
+   * @returns A promise that resolves to the response of the call, including the request ID and response details.
+   */
+  async call(canisterId, options, identity) {
+    const callSync = options.callSync ?? true;
+    const id2 = await (identity ?? __privateGet(this, _identity));
+    if (!id2) {
+      throw ExternalError.fromCode(new IdentityInvalidErrorCode());
+    }
+    const canister = Principal$1.from(canisterId);
+    const ecid = options.effectiveCanisterId ? Principal$1.from(options.effectiveCanisterId) : canister;
+    await __privateMethod(this, _HttpAgent_instances, asyncGuard_fn).call(this, ecid);
+    const sender = id2.getPrincipal();
+    const ingress_expiry = calculateIngressExpiry(__privateGet(this, _maxIngressExpiryInMinutes), __privateGet(this, _timeDiffMsecs));
+    const submit = {
+      request_type: SubmitRequestType.Call,
+      canister_id: canister,
+      method_name: options.methodName,
+      arg: options.arg,
+      sender,
+      ingress_expiry
+    };
+    let transformedRequest = await this._transform({
+      request: {
+        body: null,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/cbor",
+          ...__privateGet(this, _credentials) ? { Authorization: "Basic " + btoa(__privateGet(this, _credentials)) } : {}
+        }
+      },
+      endpoint: Endpoint.Call,
+      body: submit
+    });
+    let nonce;
+    if (options == null ? void 0 : options.nonce) {
+      nonce = toNonce(options.nonce);
+    } else if (transformedRequest.body.nonce) {
+      nonce = toNonce(transformedRequest.body.nonce);
+    } else {
+      nonce = void 0;
+    }
+    submit.nonce = nonce;
+    function toNonce(buf) {
+      return Object.assign(buf, { __nonce__: void 0 });
+    }
+    transformedRequest = await id2.transformRequest(transformedRequest);
+    const body = encode$1(transformedRequest.body);
+    const backoff2 = __privateGet(this, _backoffStrategy).call(this);
+    const requestId = requestIdOf(submit);
+    try {
+      const requestSync = () => {
+        this.log.print(`fetching "/api/v3/canister/${ecid.toText()}/call" with request:`, transformedRequest);
+        return __privateGet(this, _fetch).call(this, "" + new URL(`/api/v3/canister/${ecid.toText()}/call`, this.host), {
+          ...__privateGet(this, _callOptions),
+          ...transformedRequest.request,
+          body
+        });
+      };
+      const requestAsync = () => {
+        this.log.print(`fetching "/api/v2/canister/${ecid.toText()}/call" with request:`, transformedRequest);
+        return __privateGet(this, _fetch).call(this, "" + new URL(`/api/v2/canister/${ecid.toText()}/call`, this.host), {
+          ...__privateGet(this, _callOptions),
+          ...transformedRequest.request,
+          body
+        });
+      };
+      const requestFn = callSync ? requestSync : requestAsync;
+      const { responseBodyBytes, ...response } = await __privateMethod(this, _HttpAgent_instances, requestAndRetry_fn).call(this, {
+        requestFn,
+        backoff: backoff2,
+        tries: 0
+      });
+      const responseBody = responseBodyBytes.byteLength > 0 ? decode$1(responseBodyBytes) : null;
+      return {
+        requestId,
+        response: {
+          ...response,
+          body: responseBody
+        },
+        requestDetails: submit
+      };
+    } catch (error) {
+      let callError;
+      if (error instanceof AgentError) {
+        if (error.hasCode(HttpV3ApiNotSupportedErrorCode)) {
+          this.log.warn("v3 api not supported. Fall back to v2");
+          return this.call(canisterId, {
+            ...options,
+            // disable v3 api
+            callSync: false
+          }, identity);
+        } else if (error.hasCode(IngressExpiryInvalidErrorCode) && !__privateGet(this, _hasSyncedTime)) {
+          await this.syncTime(canister);
+          return this.call(canister, options, identity);
+        } else {
+          error.code.requestContext = {
+            requestId,
+            senderPubKey: transformedRequest.body.sender_pubkey,
+            senderSignature: transformedRequest.body.sender_sig,
+            ingressExpiry: transformedRequest.body.content.ingress_expiry
+          };
+          callError = error;
+        }
+      } else {
+        callError = UnknownError.fromCode(new UnexpectedErrorCode(error));
+      }
+      this.log.error(`Error while making call: ${callError.message}`, callError);
+      throw callError;
+    }
+  }
+  async query(canisterId, fields, identity) {
+    const backoff2 = __privateGet(this, _backoffStrategy).call(this);
+    const ecid = fields.effectiveCanisterId ? Principal$1.from(fields.effectiveCanisterId) : Principal$1.from(canisterId);
+    await __privateMethod(this, _HttpAgent_instances, asyncGuard_fn).call(this, ecid);
+    this.log.print(`ecid ${ecid.toString()}`);
+    this.log.print(`canisterId ${canisterId.toString()}`);
+    let transformedRequest;
+    const id2 = await (identity ?? __privateGet(this, _identity));
+    if (!id2) {
+      throw ExternalError.fromCode(new IdentityInvalidErrorCode());
+    }
+    const canister = Principal$1.from(canisterId);
+    const sender = id2.getPrincipal();
+    const ingressExpiry = calculateIngressExpiry(__privateGet(this, _maxIngressExpiryInMinutes), __privateGet(this, _timeDiffMsecs));
+    const request2 = {
+      request_type: ReadRequestType.Query,
+      canister_id: canister,
+      method_name: fields.methodName,
+      arg: fields.arg,
+      sender,
+      ingress_expiry: ingressExpiry
+    };
+    const requestId = requestIdOf(request2);
+    transformedRequest = await this._transform({
+      request: {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/cbor",
+          ...__privateGet(this, _credentials) ? { Authorization: "Basic " + btoa(__privateGet(this, _credentials)) } : {}
+        }
+      },
+      endpoint: Endpoint.Query,
+      body: request2
+    });
+    transformedRequest = await id2.transformRequest(transformedRequest);
+    const body = encode$1(transformedRequest.body);
+    const args = {
+      canister: canister.toText(),
+      ecid,
+      transformedRequest,
+      body,
+      requestId,
+      backoff: backoff2,
+      tries: 0
+    };
+    const makeQuery = async () => {
+      const query = await __privateMethod(this, _HttpAgent_instances, requestAndRetryQuery_fn).call(this, args);
+      return {
+        requestDetails: request2,
+        ...query
+      };
+    };
+    const getSubnetStatus = async () => {
+      const cachedSubnetStatus = __privateGet(this, _subnetKeys).get(ecid.toString());
+      if (cachedSubnetStatus) {
+        return cachedSubnetStatus;
+      }
+      await this.fetchSubnetKeys(ecid.toString());
+      const subnetStatus = __privateGet(this, _subnetKeys).get(ecid.toString());
+      if (!subnetStatus) {
+        throw TrustError.fromCode(new MissingSignatureErrorCode());
+      }
+      return subnetStatus;
+    };
+    try {
+      if (!__privateGet(this, _verifyQuerySignatures)) {
+        return await makeQuery();
+      }
+      const [queryWithDetails, subnetStatus] = await Promise.all([makeQuery(), getSubnetStatus()]);
+      try {
+        return __privateGet(this, _verifyQueryResponse).call(this, queryWithDetails, subnetStatus);
+      } catch {
+        this.log.warn("Query response verification failed. Retrying with fresh subnet keys.");
+        __privateGet(this, _subnetKeys).delete(ecid.toString());
+        const updatedSubnetStatus = await getSubnetStatus();
+        return __privateGet(this, _verifyQueryResponse).call(this, queryWithDetails, updatedSubnetStatus);
+      }
+    } catch (error) {
+      let queryError;
+      if (error instanceof AgentError) {
+        error.code.requestContext = {
+          requestId,
+          senderPubKey: transformedRequest.body.sender_pubkey,
+          senderSignature: transformedRequest.body.sender_sig,
+          ingressExpiry: transformedRequest.body.content.ingress_expiry
+        };
+        queryError = error;
+      } else {
+        queryError = UnknownError.fromCode(new UnexpectedErrorCode(error));
+      }
+      this.log.error(`Error while making query: ${queryError.message}`, queryError);
+      throw queryError;
+    }
+  }
+  async createReadStateRequest(fields, identity) {
+    await __privateMethod(this, _HttpAgent_instances, asyncGuard_fn).call(this);
+    const id2 = await (identity ?? __privateGet(this, _identity));
+    if (!id2) {
+      throw ExternalError.fromCode(new IdentityInvalidErrorCode());
+    }
+    const sender = id2.getPrincipal();
+    const transformedRequest = await this._transform({
+      request: {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/cbor",
+          ...__privateGet(this, _credentials) ? { Authorization: "Basic " + btoa(__privateGet(this, _credentials)) } : {}
+        }
+      },
+      endpoint: Endpoint.ReadState,
+      body: {
+        request_type: ReadRequestType.ReadState,
+        paths: fields.paths,
+        sender,
+        ingress_expiry: calculateIngressExpiry(__privateGet(this, _maxIngressExpiryInMinutes), __privateGet(this, _timeDiffMsecs))
+      }
+    });
+    return id2.transformRequest(transformedRequest);
+  }
+  async readState(canisterId, fields, _identity2, request2) {
+    await __privateMethod(this, _HttpAgent_instances, rootKeyGuard_fn).call(this);
+    const canister = Principal$1.from(canisterId);
+    function getRequestId(options) {
+      for (const path of options.paths) {
+        const [pathName, value] = path;
+        const request_status = new TextEncoder().encode("request_status");
+        if (uint8Equals(pathName, request_status)) {
+          return value;
+        }
+      }
+    }
+    let transformedRequest;
+    let requestId;
+    if (request2) {
+      transformedRequest = request2;
+      requestId = requestIdOf(transformedRequest);
+    } else {
+      requestId = getRequestId(fields);
+      const identity = await __privateGet(this, _identity);
+      if (!identity) {
+        throw ExternalError.fromCode(new IdentityInvalidErrorCode());
+      }
+      transformedRequest = await this.createReadStateRequest(fields, identity);
+    }
+    this.log.print(`fetching "/api/v2/canister/${canister}/read_state" with request:`, transformedRequest);
+    const backoff2 = __privateGet(this, _backoffStrategy).call(this);
+    try {
+      const { responseBodyBytes } = await __privateMethod(this, _HttpAgent_instances, requestAndRetry_fn).call(this, {
+        requestFn: () => __privateGet(this, _fetch).call(this, "" + new URL(`/api/v2/canister/${canister.toString()}/read_state`, this.host), {
+          ...__privateGet(this, _fetchOptions),
+          ...transformedRequest.request,
+          body: encode$1(transformedRequest.body)
+        }),
+        backoff: backoff2,
+        tries: 0
+      });
+      const decodedResponse = decode$1(responseBodyBytes);
+      this.log.print("Read state response:", decodedResponse);
+      return decodedResponse;
+    } catch (error) {
+      let readStateError;
+      if (error instanceof AgentError) {
+        error.code.requestContext = {
+          requestId,
+          senderPubKey: transformedRequest.body.sender_pubkey,
+          senderSignature: transformedRequest.body.sender_sig,
+          ingressExpiry: transformedRequest.body.content.ingress_expiry
+        };
+        readStateError = error;
+      } else {
+        readStateError = UnknownError.fromCode(new UnexpectedErrorCode(error));
+      }
+      this.log.error(`Error while making read state: ${readStateError.message}`, readStateError);
+      throw readStateError;
+    }
+  }
+  parseTimeFromResponse(response) {
+    let tree;
+    if (response.certificate) {
+      const decoded = decode$1(response.certificate);
+      if (decoded && "tree" in decoded) {
+        tree = decoded.tree;
+      } else {
+        throw ProtocolError.fromCode(new HashTreeDecodeErrorCode("Could not decode time from response"));
+      }
+      const timeLookup = lookup_path(["time"], tree);
+      if (timeLookup.status !== LookupPathStatus.Found) {
+        throw ProtocolError.fromCode(new LookupErrorCode("Time was not found in the response or was not in its expected format.", timeLookup.status));
+      }
+      if (!(timeLookup.value instanceof Uint8Array) && !ArrayBuffer.isView(timeLookup)) {
+        throw ProtocolError.fromCode(new MalformedLookupFoundValueErrorCode("Time was not in its expected format."));
+      }
+      const date = decodeTime(timeLookup.value);
+      this.log.print("Time from response:", date);
+      this.log.print("Time from response in milliseconds:", date.getTime());
+      return date.getTime();
+    } else {
+      this.log.warn("No certificate found in response");
+    }
+    return 0;
+  }
+  /**
+   * Allows agent to sync its time with the network. Can be called during intialization or mid-lifecycle if the device's clock has drifted away from the network time. This is necessary to set the Expiry for a request
+   * @param {Principal} canisterIdOverride - Pass a canister ID if you need to sync the time with a particular subnet. Uses the ICP ledger canister by default.
+   */
+  async syncTime(canisterIdOverride) {
+    __privateSet(this, _syncTimePromise, __privateGet(this, _syncTimePromise) ?? (async () => {
+      await __privateMethod(this, _HttpAgent_instances, rootKeyGuard_fn).call(this);
+      const callTime = Date.now();
+      try {
+        if (!canisterIdOverride) {
+          this.log.print("Syncing time with the IC. No canisterId provided, so falling back to ryjl3-tyaaa-aaaaa-aaaba-cai");
+        }
+        const canisterId = canisterIdOverride ?? Principal$1.from("ryjl3-tyaaa-aaaaa-aaaba-cai");
+        const anonymousAgent = _HttpAgent.createSync({
+          identity: new AnonymousIdentity(),
+          host: this.host.toString(),
+          fetch: __privateGet(this, _fetch),
+          retryTimes: 0,
+          rootKey: this.rootKey ?? void 0,
+          shouldSyncTime: false
+        });
+        const replicaTimes = await Promise.all(Array(3).fill(null).map(async () => {
+          const status = await request({
+            canisterId,
+            agent: anonymousAgent,
+            paths: ["time"],
+            disableCertificateTimeVerification: true
+            // avoid recursive calls to syncTime
+          });
+          const date = status.get("time");
+          if (date instanceof Date) {
+            return date.getTime();
+          }
+        }, []));
+        const maxReplicaTime = replicaTimes.reduce((max2, current) => {
+          return typeof current === "number" && current > max2 ? current : max2;
+        }, 0);
+        if (maxReplicaTime > 0) {
+          __privateSet(this, _timeDiffMsecs, maxReplicaTime - callTime);
+          __privateSet(this, _hasSyncedTime, true);
+          this.log.notify({
+            message: `Syncing time: offset of ${__privateGet(this, _timeDiffMsecs)}`,
+            level: "info"
+          });
+        }
+      } catch (error) {
+        const syncTimeError = error instanceof AgentError ? error : UnknownError.fromCode(new UnexpectedErrorCode(error));
+        this.log.error("Caught exception while attempting to sync time", syncTimeError);
+        throw syncTimeError;
+      }
+    })());
+    await __privateGet(this, _syncTimePromise).finally(() => {
+      __privateSet(this, _syncTimePromise, null);
+    });
+  }
+  async status() {
+    const headers = __privateGet(this, _credentials) ? {
+      Authorization: "Basic " + btoa(__privateGet(this, _credentials))
+    } : {};
+    this.log.print(`fetching "/api/v2/status"`);
+    const backoff2 = __privateGet(this, _backoffStrategy).call(this);
+    const { responseBodyBytes } = await __privateMethod(this, _HttpAgent_instances, requestAndRetry_fn).call(this, {
+      backoff: backoff2,
+      requestFn: () => __privateGet(this, _fetch).call(this, "" + new URL(`/api/v2/status`, this.host), { headers, ...__privateGet(this, _fetchOptions) }),
+      tries: 0
+    });
+    return decode$1(responseBodyBytes);
+  }
+  async fetchRootKey() {
+    __privateSet(this, _rootKeyPromise, __privateGet(this, _rootKeyPromise) ?? (async () => {
+      const value = await this.status();
+      this.rootKey = value.root_key;
+      return this.rootKey;
+    })());
+    return await __privateGet(this, _rootKeyPromise).finally(() => {
+      __privateSet(this, _rootKeyPromise, null);
+    });
+  }
+  invalidateIdentity() {
+    __privateSet(this, _identity, null);
+  }
+  replaceIdentity(identity) {
+    __privateSet(this, _identity, Promise.resolve(identity));
+  }
+  async fetchSubnetKeys(canisterId) {
+    const effectiveCanisterId = Principal$1.from(canisterId);
+    await __privateMethod(this, _HttpAgent_instances, asyncGuard_fn).call(this, effectiveCanisterId);
+    const response = await request({
+      canisterId: effectiveCanisterId,
+      paths: ["subnet"],
+      agent: this
+    });
+    const subnetResponse = response.get("subnet");
+    if (subnetResponse && typeof subnetResponse === "object" && "nodeKeys" in subnetResponse) {
+      __privateGet(this, _subnetKeys).set(effectiveCanisterId.toText(), subnetResponse);
+      return subnetResponse;
+    }
+    return void 0;
+  }
+  _transform(request2) {
+    let p2 = Promise.resolve(request2);
+    if (request2.endpoint === Endpoint.Call) {
+      for (const fn of __privateGet(this, _updatePipeline)) {
+        p2 = p2.then((r2) => fn(r2).then((r22) => r22 || r2));
+      }
+    } else {
+      for (const fn of __privateGet(this, _queryPipeline)) {
+        p2 = p2.then((r2) => fn(r2).then((r22) => r22 || r2));
+      }
+    }
+    return p2;
+  }
+  /**
+   * Returns the time difference in milliseconds between the IC network clock and the client's clock,
+   * after the clock has been synced.
+   *
+   * If the time has not been synced, returns `0`.
+   */
+  getTimeDiffMsecs() {
+    return __privateGet(this, _timeDiffMsecs);
+  }
+  /**
+   * Returns `true` if the time has been synced at least once with the IC network, `false` otherwise.
+   */
+  hasSyncedTime() {
+    return __privateGet(this, _hasSyncedTime);
+  }
+};
+_rootKeyPromise = new WeakMap();
+_shouldFetchRootKey = new WeakMap();
+_timeDiffMsecs = new WeakMap();
+_hasSyncedTime = new WeakMap();
+_syncTimePromise = new WeakMap();
+_shouldSyncTime = new WeakMap();
+_identity = new WeakMap();
+_fetch = new WeakMap();
+_fetchOptions = new WeakMap();
+_callOptions = new WeakMap();
+_credentials = new WeakMap();
+_retryTimes = new WeakMap();
+_backoffStrategy = new WeakMap();
+_maxIngressExpiryInMinutes = new WeakMap();
+_HttpAgent_instances = new WeakSet();
+maxIngressExpiryInMs_get = function() {
+  return __privateGet(this, _maxIngressExpiryInMinutes) * MINUTE_TO_MSECS;
+};
+_queryPipeline = new WeakMap();
+_updatePipeline = new WeakMap();
+_subnetKeys = new WeakMap();
+_verifyQuerySignatures = new WeakMap();
+requestAndRetryQuery_fn = async function(args) {
+  var _a3, _b3;
+  const { ecid, transformedRequest, body, requestId, backoff: backoff2, tries } = args;
+  const delay2 = tries === 0 ? 0 : backoff2.next();
+  this.log.print(`fetching "/api/v2/canister/${ecid.toString()}/query" with tries:`, {
+    tries,
+    backoff: backoff2,
+    delay: delay2
+  });
+  if (delay2 === null) {
+    throw UnknownError.fromCode(new TimeoutWaitingForResponseErrorCode(`Backoff strategy exhausted after ${tries} attempts.`, requestId));
+  }
+  if (delay2 > 0) {
+    await new Promise((resolve) => setTimeout(resolve, delay2));
+  }
+  let response;
+  try {
+    this.log.print(`fetching "/api/v2/canister/${ecid.toString()}/query" with request:`, transformedRequest);
+    const fetchResponse = await __privateGet(this, _fetch).call(this, "" + new URL(`/api/v2/canister/${ecid.toString()}/query`, this.host), {
+      ...__privateGet(this, _fetchOptions),
+      ...transformedRequest.request,
+      body
+    });
+    if (fetchResponse.status === HTTP_STATUS_OK) {
+      const queryResponse = decode$1(uint8FromBufLike(await fetchResponse.arrayBuffer()));
+      response = {
+        ...queryResponse,
+        httpDetails: {
+          ok: fetchResponse.ok,
+          status: fetchResponse.status,
+          statusText: fetchResponse.statusText,
+          headers: httpHeadersTransform(fetchResponse.headers)
+        },
+        requestId
+      };
+    } else {
+      throw ProtocolError.fromCode(new HttpErrorCode(fetchResponse.status, fetchResponse.statusText, httpHeadersTransform(fetchResponse.headers), await fetchResponse.text()));
+    }
+  } catch (error) {
+    if (tries < __privateGet(this, _retryTimes)) {
+      this.log.warn(`Caught exception while attempting to make query:
+  ${error}
+  Retrying query.`);
+      return await __privateMethod(this, _HttpAgent_instances, requestAndRetryQuery_fn).call(this, { ...args, tries: tries + 1 });
+    }
+    if (error instanceof AgentError) {
+      throw error;
+    }
+    throw TransportError.fromCode(new HttpFetchErrorCode(error));
+  }
+  if (!__privateGet(this, _verifyQuerySignatures)) {
+    return response;
+  }
+  const signatureTimestampNs = (_b3 = (_a3 = response.signatures) == null ? void 0 : _a3[0]) == null ? void 0 : _b3.timestamp;
+  if (!signatureTimestampNs) {
+    throw ProtocolError.fromCode(new MalformedSignatureErrorCode("Timestamp not found in query response. This suggests a malformed or malicious response."));
+  }
+  const signatureTimestampMs = Number(BigInt(signatureTimestampNs) / BigInt(MSECS_TO_NANOSECONDS));
+  const currentTimestampInMs = Date.now() + __privateGet(this, _timeDiffMsecs);
+  if (currentTimestampInMs - signatureTimestampMs > __privateGet(this, _HttpAgent_instances, maxIngressExpiryInMs_get)) {
+    if (tries < __privateGet(this, _retryTimes)) {
+      this.log.warn("Timestamp is older than the max ingress expiry. Retrying query.", {
+        requestId,
+        signatureTimestampMs
+      });
+      return await __privateMethod(this, _HttpAgent_instances, requestAndRetryQuery_fn).call(this, { ...args, tries: tries + 1 });
+    }
+    throw TrustError.fromCode(new CertificateOutdatedErrorCode(__privateGet(this, _maxIngressExpiryInMinutes), requestId, tries));
+  }
+  return response;
+};
+requestAndRetry_fn = async function(args) {
+  const { requestFn, backoff: backoff2, tries } = args;
+  const delay2 = tries === 0 ? 0 : backoff2.next();
+  if (delay2 === null) {
+    throw ProtocolError.fromCode(new TimeoutWaitingForResponseErrorCode(`Retry strategy exhausted after ${tries} attempts.`));
+  }
+  if (delay2 > 0) {
+    await new Promise((resolve) => setTimeout(resolve, delay2));
+  }
+  let response;
+  let responseBodyBytes = new Uint8Array();
+  try {
+    response = await requestFn();
+    if (response.status === HTTP_STATUS_OK) {
+      responseBodyBytes = uint8FromBufLike(await response.clone().arrayBuffer());
+    }
+  } catch (error) {
+    if (tries < __privateGet(this, _retryTimes)) {
+      this.log.warn(`Caught exception while attempting to make request:
+  ${error}
+  Retrying request.`);
+      return await __privateMethod(this, _HttpAgent_instances, requestAndRetry_fn).call(this, { requestFn, backoff: backoff2, tries: tries + 1 });
+    }
+    throw TransportError.fromCode(new HttpFetchErrorCode(error));
+  }
+  const headers = httpHeadersTransform(response.headers);
+  if (response.status === HTTP_STATUS_OK || response.status === HTTP_STATUS_ACCEPTED) {
+    return {
+      ok: response.ok,
+      // should always be true
+      status: response.status,
+      statusText: response.statusText,
+      responseBodyBytes,
+      headers
+    };
+  }
+  const responseText = await response.text();
+  if (response.status === HTTP_STATUS_NOT_FOUND && response.url.includes("api/v3")) {
+    throw ProtocolError.fromCode(new HttpV3ApiNotSupportedErrorCode());
+  }
+  if (responseText.startsWith("Invalid request expiry: ")) {
+    throw InputError.fromCode(new IngressExpiryInvalidErrorCode(responseText, __privateGet(this, _maxIngressExpiryInMinutes)));
+  }
+  if (tries < __privateGet(this, _retryTimes)) {
+    return await __privateMethod(this, _HttpAgent_instances, requestAndRetry_fn).call(this, { requestFn, backoff: backoff2, tries: tries + 1 });
+  }
+  throw ProtocolError.fromCode(new HttpErrorCode(response.status, response.statusText, headers, responseText));
+};
+_verifyQueryResponse = new WeakMap();
+asyncGuard_fn = async function(canisterIdOverride) {
+  await Promise.all([__privateMethod(this, _HttpAgent_instances, rootKeyGuard_fn).call(this), __privateMethod(this, _HttpAgent_instances, syncTimeGuard_fn).call(this, canisterIdOverride)]);
+};
+rootKeyGuard_fn = async function() {
+  if (this.rootKey) {
+    return;
+  } else if (this.rootKey === null && this.host.toString() !== "https://icp-api.io" && __privateGet(this, _shouldFetchRootKey)) {
+    await this.fetchRootKey();
+  } else {
+    throw ExternalError.fromCode(new MissingRootKeyErrorCode(__privateGet(this, _shouldFetchRootKey)));
+  }
+};
+syncTimeGuard_fn = async function(canisterIdOverride) {
+  if (__privateGet(this, _shouldSyncTime) && !this.hasSyncedTime()) {
+    await this.syncTime(canisterIdOverride);
+  }
+};
+let HttpAgent = _HttpAgent;
+function calculateIngressExpiry(maxIngressExpiryInMinutes, timeDiffMsecs) {
+  const ingressExpiryMs = maxIngressExpiryInMinutes * MINUTE_TO_MSECS;
+  return Expiry.fromDeltaInMilliseconds(ingressExpiryMs, timeDiffMsecs);
+}
+const FIVE_MINUTES_IN_MSEC = 5 * 60 * 1e3;
+function defaultStrategy() {
+  return chain(conditionalDelay(once(), 1e3), backoff(1e3, 1.2), timeout(FIVE_MINUTES_IN_MSEC));
+}
+function once() {
+  let first = true;
+  return async () => {
+    if (first) {
+      first = false;
+      return true;
+    }
+    return false;
+  };
+}
+function conditionalDelay(condition, timeInMsec) {
+  return async (canisterId, requestId, status) => {
+    if (await condition(canisterId, requestId, status)) {
+      return new Promise((resolve) => setTimeout(resolve, timeInMsec));
+    }
+  };
+}
+function timeout(timeInMsec) {
+  const end = Date.now() + timeInMsec;
+  return async (_canisterId, requestId, status) => {
+    if (Date.now() > end) {
+      throw ProtocolError.fromCode(new TimeoutWaitingForResponseErrorCode(`Request timed out after ${timeInMsec} msec`, requestId, status));
+    }
+  };
+}
+function backoff(startingThrottleInMsec, backoffFactor) {
+  let currentThrottling = startingThrottleInMsec;
+  return () => new Promise((resolve) => setTimeout(() => {
+    currentThrottling *= backoffFactor;
+    resolve();
+  }, currentThrottling));
+}
+function chain(...strategies) {
+  return async (canisterId, requestId, status) => {
+    for (const a2 of strategies) {
+      await a2(canisterId, requestId, status);
+    }
+  };
+}
+const DEFAULT_POLLING_OPTIONS = {
+  preSignReadStateRequest: false
+};
+function hasProperty(value, property) {
+  return Object.prototype.hasOwnProperty.call(value, property);
+}
+function isObjectWithProperty(value, property) {
+  return value !== null && typeof value === "object" && hasProperty(value, property);
+}
+function hasFunction(value, property) {
+  return hasProperty(value, property) && typeof value[property] === "function";
+}
+function isSignedReadStateRequestWithExpiry(value) {
+  return isObjectWithProperty(value, "body") && isObjectWithProperty(value.body, "content") && value.body.content.request_type === ReadRequestType.ReadState && isObjectWithProperty(value.body.content, "ingress_expiry") && typeof value.body.content.ingress_expiry === "object" && value.body.content.ingress_expiry !== null && hasFunction(value.body.content.ingress_expiry, "toHash");
+}
+async function pollForResponse(agent, canisterId, requestId, options = {}) {
+  const path = [utf8ToBytes("request_status"), requestId];
+  let state;
+  let currentRequest;
+  const preSignReadStateRequest = options.preSignReadStateRequest ?? false;
+  if (preSignReadStateRequest) {
+    currentRequest = await constructRequest({
+      paths: [path],
+      agent,
+      pollingOptions: options
+    });
+    state = await agent.readState(canisterId, { paths: [path] }, void 0, currentRequest);
+  } else {
+    state = await agent.readState(canisterId, { paths: [path] });
+  }
+  if (agent.rootKey == null) {
+    throw ExternalError.fromCode(new MissingRootKeyErrorCode());
+  }
+  const cert = await Certificate.create({
+    certificate: state.certificate,
+    rootKey: agent.rootKey,
+    canisterId,
+    blsVerify: options.blsVerify,
+    agent
+  });
+  const maybeBuf = lookupResultToBuffer(cert.lookup_path([...path, utf8ToBytes("status")]));
+  let status;
+  if (typeof maybeBuf === "undefined") {
+    status = RequestStatusResponseStatus.Unknown;
+  } else {
+    status = new TextDecoder().decode(maybeBuf);
+  }
+  switch (status) {
+    case RequestStatusResponseStatus.Replied: {
+      return {
+        reply: lookupResultToBuffer(cert.lookup_path([...path, "reply"])),
+        certificate: cert
+      };
+    }
+    case RequestStatusResponseStatus.Received:
+    case RequestStatusResponseStatus.Unknown:
+    case RequestStatusResponseStatus.Processing: {
+      const strategy = options.strategy ?? defaultStrategy();
+      await strategy(canisterId, requestId, status);
+      return pollForResponse(agent, canisterId, requestId, {
+        ...options,
+        // Pass over either the strategy already provided or the new one created above
+        strategy,
+        request: currentRequest
+      });
+    }
+    case RequestStatusResponseStatus.Rejected: {
+      const rejectCode = new Uint8Array(lookupResultToBuffer(cert.lookup_path([...path, "reject_code"])))[0];
+      const rejectMessage = new TextDecoder().decode(lookupResultToBuffer(cert.lookup_path([...path, "reject_message"])));
+      const errorCodeBuf = lookupResultToBuffer(cert.lookup_path([...path, "error_code"]));
+      const errorCode = errorCodeBuf ? new TextDecoder().decode(errorCodeBuf) : void 0;
+      throw RejectError.fromCode(new CertifiedRejectErrorCode(requestId, rejectCode, rejectMessage, errorCode));
+    }
+    case RequestStatusResponseStatus.Done:
+      throw UnknownError.fromCode(new RequestStatusDoneNoReplyErrorCode(requestId));
+  }
+  throw UNREACHABLE_ERROR;
+}
+async function constructRequest(options) {
+  var _a3;
+  const { paths, agent, pollingOptions } = options;
+  if (pollingOptions.request && isSignedReadStateRequestWithExpiry(pollingOptions.request)) {
+    return pollingOptions.request;
+  }
+  const request2 = await ((_a3 = agent.createReadStateRequest) == null ? void 0 : _a3.call(agent, {
+    paths
+  }, void 0));
+  if (!isSignedReadStateRequestWithExpiry(request2)) {
+    throw InputError.fromCode(new InvalidReadStateRequestErrorCode(request2));
+  }
+  return request2;
+}
+const metadataSymbol = Symbol.for("ic-agent-metadata");
+class Actor {
+  /**
+   * Get the Agent class this Actor would call, or undefined if the Actor would use
+   * the default agent (global.ic.agent).
+   * @param actor The actor to get the agent of.
+   */
+  static agentOf(actor) {
+    return actor[metadataSymbol].config.agent;
+  }
+  /**
+   * Get the interface of an actor, in the form of an instance of a Service.
+   * @param actor The actor to get the interface of.
+   */
+  static interfaceOf(actor) {
+    return actor[metadataSymbol].service;
+  }
+  static canisterIdOf(actor) {
+    return Principal$1.from(actor[metadataSymbol].config.canisterId);
+  }
+  static createActorClass(interfaceFactory, options) {
+    const service = interfaceFactory({ IDL });
+    class CanisterActor extends Actor {
+      constructor(config) {
+        if (!config.canisterId) {
+          throw InputError.fromCode(new MissingCanisterIdErrorCode(config.canisterId));
+        }
+        const canisterId = typeof config.canisterId === "string" ? Principal$1.fromText(config.canisterId) : config.canisterId;
+        super({
+          config: {
+            ...DEFAULT_ACTOR_CONFIG,
+            ...config,
+            canisterId
+          },
+          service
+        });
+        for (const [methodName, func] of service._fields) {
+          if (options == null ? void 0 : options.httpDetails) {
+            func.annotations.push(ACTOR_METHOD_WITH_HTTP_DETAILS);
+          }
+          if (options == null ? void 0 : options.certificate) {
+            func.annotations.push(ACTOR_METHOD_WITH_CERTIFICATE);
+          }
+          this[methodName] = _createActorMethod(this, methodName, func, config.blsVerify);
+        }
+      }
+    }
+    return CanisterActor;
+  }
+  /**
+   * Creates an actor with the given interface factory and configuration.
+   *
+   * The [`@icp-sdk/bindgen`](https://js.icp.build/bindgen/) package can be used to generate the interface factory for your canister.
+   * @param interfaceFactory - the interface factory for the actor, typically generated by the [`@icp-sdk/bindgen`](https://js.icp.build/bindgen/) package
+   * @param configuration - the configuration for the actor
+   * @returns an actor with the given interface factory and configuration
+   * @example
+   * Using the interface factory generated by the [`@icp-sdk/bindgen`](https://js.icp.build/bindgen/) package:
+   * ```ts
+   * import { Actor, HttpAgent } from '@icp-sdk/core/agent';
+   * import { Principal } from '@icp-sdk/core/principal';
+   * import { idlFactory } from './api/declarations/hello-world.did';
+   *
+   * const canisterId = Principal.fromText('rrkah-fqaaa-aaaaa-aaaaq-cai');
+   *
+   * const agent = await HttpAgent.create({
+   *   host: 'https://icp-api.io',
+   * });
+   *
+   * const actor = Actor.createActor(idlFactory, {
+   *   agent,
+   *   canisterId,
+   * });
+   *
+   * const response = await actor.greet('world');
+   * console.log(response);
+   * ```
+   * @example
+   * Using the `createActor` wrapper function generated by the [`@icp-sdk/bindgen`](https://js.icp.build/bindgen/) package:
+   * ```ts
+   * import { HttpAgent } from '@icp-sdk/core/agent';
+   * import { Principal } from '@icp-sdk/core/principal';
+   * import { createActor } from './api/hello-world';
+   *
+   * const canisterId = Principal.fromText('rrkah-fqaaa-aaaaa-aaaaq-cai');
+   *
+   * const agent = await HttpAgent.create({
+   *   host: 'https://icp-api.io',
+   * });
+   *
+   * const actor = createActor(canisterId, {
+   *   agent,
+   * });
+   *
+   * const response = await actor.greet('world');
+   * console.log(response);
+   * ```
+   */
+  static createActor(interfaceFactory, configuration) {
+    if (!configuration.canisterId) {
+      throw InputError.fromCode(new MissingCanisterIdErrorCode(configuration.canisterId));
+    }
+    return new (this.createActorClass(interfaceFactory))(configuration);
+  }
+  /**
+   * Returns an actor with methods that return the http response details along with the result
+   * @param interfaceFactory - the interface factory for the actor
+   * @param configuration - the configuration for the actor
+   * @deprecated - use createActor with actorClassOptions instead
+   */
+  static createActorWithHttpDetails(interfaceFactory, configuration) {
+    return new (this.createActorClass(interfaceFactory, { httpDetails: true }))(configuration);
+  }
+  /**
+   * Returns an actor with methods that return the http response details along with the result
+   * @param interfaceFactory - the interface factory for the actor
+   * @param configuration - the configuration for the actor
+   * @param actorClassOptions - options for the actor class extended details to return with the result
+   */
+  static createActorWithExtendedDetails(interfaceFactory, configuration, actorClassOptions = {
+    httpDetails: true,
+    certificate: true
+  }) {
+    return new (this.createActorClass(interfaceFactory, actorClassOptions))(configuration);
+  }
+  constructor(metadata) {
+    this[metadataSymbol] = Object.freeze(metadata);
+  }
+}
+function decodeReturnValue(types, msg) {
+  const returnValues = decode$2(types, msg);
+  switch (returnValues.length) {
+    case 0:
+      return void 0;
+    case 1:
+      return returnValues[0];
+    default:
+      return returnValues;
+  }
+}
+const DEFAULT_ACTOR_CONFIG = {
+  pollingOptions: DEFAULT_POLLING_OPTIONS
+};
+const ACTOR_METHOD_WITH_HTTP_DETAILS = "http-details";
+const ACTOR_METHOD_WITH_CERTIFICATE = "certificate";
+function _createActorMethod(actor, methodName, func, blsVerify2) {
+  let caller;
+  if (func.annotations.includes("query") || func.annotations.includes("composite_query")) {
+    caller = async (options, ...args) => {
+      var _a3, _b3;
+      options = {
+        ...options,
+        ...(_b3 = (_a3 = actor[metadataSymbol].config).queryTransform) == null ? void 0 : _b3.call(_a3, methodName, args, {
+          ...actor[metadataSymbol].config,
+          ...options
+        })
+      };
+      const agent = options.agent || actor[metadataSymbol].config.agent || new HttpAgent();
+      const cid = Principal$1.from(options.canisterId || actor[metadataSymbol].config.canisterId);
+      const arg = encode$2(func.argTypes, args);
+      const result = await agent.query(cid, {
+        methodName,
+        arg,
+        effectiveCanisterId: options.effectiveCanisterId
+      });
+      const httpDetails = {
+        ...result.httpDetails,
+        requestDetails: result.requestDetails
+      };
+      switch (result.status) {
+        case QueryResponseStatus.Rejected: {
+          const uncertifiedRejectErrorCode = new UncertifiedRejectErrorCode(result.requestId, result.reject_code, result.reject_message, result.error_code, result.signatures);
+          uncertifiedRejectErrorCode.callContext = {
+            canisterId: cid,
+            methodName,
+            httpDetails
+          };
+          throw RejectError.fromCode(uncertifiedRejectErrorCode);
+        }
+        case QueryResponseStatus.Replied:
+          return func.annotations.includes(ACTOR_METHOD_WITH_HTTP_DETAILS) ? {
+            httpDetails,
+            result: decodeReturnValue(func.retTypes, result.reply.arg)
+          } : decodeReturnValue(func.retTypes, result.reply.arg);
+      }
+    };
+  } else {
+    caller = async (options, ...args) => {
+      var _a3, _b3;
+      options = {
+        ...options,
+        ...(_b3 = (_a3 = actor[metadataSymbol].config).callTransform) == null ? void 0 : _b3.call(_a3, methodName, args, {
+          ...actor[metadataSymbol].config,
+          ...options
+        })
+      };
+      const agent = options.agent || actor[metadataSymbol].config.agent || HttpAgent.createSync();
+      const { canisterId, effectiveCanisterId, pollingOptions } = {
+        ...DEFAULT_ACTOR_CONFIG,
+        ...actor[metadataSymbol].config,
+        ...options
+      };
+      const cid = Principal$1.from(canisterId);
+      const ecid = effectiveCanisterId !== void 0 ? Principal$1.from(effectiveCanisterId) : cid;
+      const arg = encode$2(func.argTypes, args);
+      const { requestId, response, requestDetails } = await agent.call(cid, {
+        methodName,
+        arg,
+        effectiveCanisterId: ecid,
+        nonce: options.nonce
+      });
+      let reply;
+      let certificate;
+      if (isV3ResponseBody(response.body)) {
+        if (agent.rootKey == null) {
+          throw ExternalError.fromCode(new MissingRootKeyErrorCode());
+        }
+        const cert = response.body.certificate;
+        certificate = await Certificate.create({
+          certificate: cert,
+          rootKey: agent.rootKey,
+          canisterId: ecid,
+          blsVerify: blsVerify2,
+          agent
+        });
+        const path = [utf8ToBytes("request_status"), requestId];
+        const status = new TextDecoder().decode(lookupResultToBuffer(certificate.lookup_path([...path, "status"])));
+        switch (status) {
+          case "replied":
+            reply = lookupResultToBuffer(certificate.lookup_path([...path, "reply"]));
+            break;
+          case "rejected": {
+            const rejectCode = new Uint8Array(lookupResultToBuffer(certificate.lookup_path([...path, "reject_code"])))[0];
+            const rejectMessage = new TextDecoder().decode(lookupResultToBuffer(certificate.lookup_path([...path, "reject_message"])));
+            const error_code_buf = lookupResultToBuffer(certificate.lookup_path([...path, "error_code"]));
+            const error_code = error_code_buf ? new TextDecoder().decode(error_code_buf) : void 0;
+            const certifiedRejectErrorCode = new CertifiedRejectErrorCode(requestId, rejectCode, rejectMessage, error_code);
+            certifiedRejectErrorCode.callContext = {
+              canisterId: cid,
+              methodName,
+              httpDetails: response
+            };
+            throw RejectError.fromCode(certifiedRejectErrorCode);
+          }
+        }
+      } else if (isV2ResponseBody(response.body)) {
+        const { reject_code, reject_message, error_code } = response.body;
+        const errorCode = new UncertifiedRejectUpdateErrorCode(requestId, reject_code, reject_message, error_code);
+        errorCode.callContext = {
+          canisterId: cid,
+          methodName,
+          httpDetails: response
+        };
+        throw RejectError.fromCode(errorCode);
+      }
+      if (response.status === 202) {
+        const pollOptions = {
+          ...pollingOptions,
+          blsVerify: blsVerify2
+        };
+        const response2 = await pollForResponse(agent, ecid, requestId, pollOptions);
+        certificate = response2.certificate;
+        reply = response2.reply;
+      }
+      const shouldIncludeHttpDetails = func.annotations.includes(ACTOR_METHOD_WITH_HTTP_DETAILS);
+      const shouldIncludeCertificate = func.annotations.includes(ACTOR_METHOD_WITH_CERTIFICATE);
+      const httpDetails = { ...response, requestDetails };
+      if (reply !== void 0) {
+        if (shouldIncludeHttpDetails && shouldIncludeCertificate) {
+          return {
+            httpDetails,
+            certificate,
+            result: decodeReturnValue(func.retTypes, reply)
+          };
+        } else if (shouldIncludeCertificate) {
+          return {
+            certificate,
+            result: decodeReturnValue(func.retTypes, reply)
+          };
+        } else if (shouldIncludeHttpDetails) {
+          return {
+            httpDetails,
+            result: decodeReturnValue(func.retTypes, reply)
+          };
+        }
+        return decodeReturnValue(func.retTypes, reply);
+      } else {
+        const errorCode = new UnexpectedErrorCode(`Call was returned undefined. We cannot determine if the call was successful or not. Return types: [${func.retTypes.map((t) => t.display()).join(",")}].`);
+        errorCode.callContext = {
+          canisterId: cid,
+          methodName,
+          httpDetails
+        };
+        throw UnknownError.fromCode(errorCode);
+      }
+    };
+  }
+  const handler = (...args) => caller({}, ...args);
+  handler.withOptions = (options) => (...args) => caller(options, ...args);
+  return handler;
+}
 new TextEncoder().encode("icfs-chunk/");
 new TextEncoder().encode("icfs-metadata/");
 new TextEncoder().encode("ynode/");
@@ -3062,7 +10794,7 @@ var Subscribable = class {
   onUnsubscribe() {
   }
 };
-var FocusManager = (_a = class extends Subscribable {
+var FocusManager = (_b2 = class extends Subscribable {
   constructor() {
     super();
     __privateAdd(this, _focused);
@@ -3085,16 +10817,16 @@ var FocusManager = (_a = class extends Subscribable {
     }
   }
   onUnsubscribe() {
-    var _a2;
+    var _a3;
     if (!this.hasListeners()) {
-      (_a2 = __privateGet(this, _cleanup)) == null ? void 0 : _a2.call(this);
+      (_a3 = __privateGet(this, _cleanup)) == null ? void 0 : _a3.call(this);
       __privateSet(this, _cleanup, void 0);
     }
   }
   setEventListener(setup) {
-    var _a2;
+    var _a3;
     __privateSet(this, _setup, setup);
-    (_a2 = __privateGet(this, _cleanup)) == null ? void 0 : _a2.call(this);
+    (_a3 = __privateGet(this, _cleanup)) == null ? void 0 : _a3.call(this);
     __privateSet(this, _cleanup, setup((focused) => {
       if (typeof focused === "boolean") {
         this.setFocused(focused);
@@ -3117,13 +10849,13 @@ var FocusManager = (_a = class extends Subscribable {
     });
   }
   isFocused() {
-    var _a2;
+    var _a3;
     if (typeof __privateGet(this, _focused) === "boolean") {
       return __privateGet(this, _focused);
     }
-    return ((_a2 = globalThis.document) == null ? void 0 : _a2.visibilityState) !== "hidden";
+    return ((_a3 = globalThis.document) == null ? void 0 : _a3.visibilityState) !== "hidden";
   }
-}, _focused = new WeakMap(), _cleanup = new WeakMap(), _setup = new WeakMap(), _a);
+}, _focused = new WeakMap(), _cleanup = new WeakMap(), _setup = new WeakMap(), _b2);
 var focusManager = new FocusManager();
 var defaultTimeoutProvider = {
   // We need the wrapper function syntax below instead of direct references to
@@ -3141,7 +10873,7 @@ var defaultTimeoutProvider = {
   setInterval: (callback, delay2) => setInterval(callback, delay2),
   clearInterval: (intervalId) => clearInterval(intervalId)
 };
-var TimeoutManager = (_b = class {
+var TimeoutManager = (_c = class {
   constructor() {
     // We cannot have TimeoutManager<T> as we must instantiate it with a concrete
     // type at app boot; and if we leave that type, then any new timer provider
@@ -3168,7 +10900,7 @@ var TimeoutManager = (_b = class {
   clearInterval(intervalId) {
     __privateGet(this, _provider).clearInterval(intervalId);
   }
-}, _provider = new WeakMap(), _providerCalled = new WeakMap(), _b);
+}, _provider = new WeakMap(), _providerCalled = new WeakMap(), _c);
 var timeoutManager = new TimeoutManager();
 function systemSetTimeoutZero(callback) {
   setTimeout(callback, 0);
@@ -3258,63 +10990,63 @@ function hashQueryKeyByOptions(queryKey, options) {
 function hashKey(queryKey) {
   return JSON.stringify(
     queryKey,
-    (_, val) => isPlainObject$2(val) ? Object.keys(val).sort().reduce((result, key) => {
+    (_2, val) => isPlainObject$2(val) ? Object.keys(val).sort().reduce((result, key) => {
       result[key] = val[key];
       return result;
     }, {}) : val
   );
 }
-function partialMatchKey(a, b) {
-  if (a === b) {
+function partialMatchKey(a2, b2) {
+  if (a2 === b2) {
     return true;
   }
-  if (typeof a !== typeof b) {
+  if (typeof a2 !== typeof b2) {
     return false;
   }
-  if (a && b && typeof a === "object" && typeof b === "object") {
-    return Object.keys(b).every((key) => partialMatchKey(a[key], b[key]));
+  if (a2 && b2 && typeof a2 === "object" && typeof b2 === "object") {
+    return Object.keys(b2).every((key) => partialMatchKey(a2[key], b2[key]));
   }
   return false;
 }
 var hasOwn$1 = Object.prototype.hasOwnProperty;
-function replaceEqualDeep$1(a, b, depth = 0) {
-  if (a === b) {
-    return a;
+function replaceEqualDeep$1(a2, b2, depth = 0) {
+  if (a2 === b2) {
+    return a2;
   }
-  if (depth > 500) return b;
-  const array = isPlainArray$1(a) && isPlainArray$1(b);
-  if (!array && !(isPlainObject$2(a) && isPlainObject$2(b))) return b;
-  const aItems = array ? a : Object.keys(a);
+  if (depth > 500) return b2;
+  const array = isPlainArray$1(a2) && isPlainArray$1(b2);
+  if (!array && !(isPlainObject$2(a2) && isPlainObject$2(b2))) return b2;
+  const aItems = array ? a2 : Object.keys(a2);
   const aSize = aItems.length;
-  const bItems = array ? b : Object.keys(b);
+  const bItems = array ? b2 : Object.keys(b2);
   const bSize = bItems.length;
   const copy = array ? new Array(bSize) : {};
   let equalItems = 0;
   for (let i = 0; i < bSize; i++) {
     const key = array ? i : bItems[i];
-    const aItem = a[key];
-    const bItem = b[key];
+    const aItem = a2[key];
+    const bItem = b2[key];
     if (aItem === bItem) {
       copy[key] = aItem;
-      if (array ? i < aSize : hasOwn$1.call(a, key)) equalItems++;
+      if (array ? i < aSize : hasOwn$1.call(a2, key)) equalItems++;
       continue;
     }
     if (aItem === null || bItem === null || typeof aItem !== "object" || typeof bItem !== "object") {
       copy[key] = bItem;
       continue;
     }
-    const v = replaceEqualDeep$1(aItem, bItem, depth + 1);
-    copy[key] = v;
-    if (v === aItem) equalItems++;
+    const v2 = replaceEqualDeep$1(aItem, bItem, depth + 1);
+    copy[key] = v2;
+    if (v2 === aItem) equalItems++;
   }
-  return aSize === bSize && equalItems === aSize ? a : copy;
+  return aSize === bSize && equalItems === aSize ? a2 : copy;
 }
-function shallowEqualObjects(a, b) {
-  if (!b || Object.keys(a).length !== Object.keys(b).length) {
+function shallowEqualObjects(a2, b2) {
+  if (!b2 || Object.keys(a2).length !== Object.keys(b2).length) {
     return false;
   }
-  for (const key in a) {
-    if (a[key] !== b[key]) {
+  for (const key in a2) {
+    if (a2[key] !== b2[key]) {
       return false;
     }
   }
@@ -3323,11 +11055,11 @@ function shallowEqualObjects(a, b) {
 function isPlainArray$1(value) {
   return Array.isArray(value) && value.length === Object.keys(value).length;
 }
-function isPlainObject$2(o) {
-  if (!hasObjectPrototype$1(o)) {
+function isPlainObject$2(o2) {
+  if (!hasObjectPrototype$1(o2)) {
     return false;
   }
-  const ctor = o.constructor;
+  const ctor = o2.constructor;
   if (ctor === void 0) {
     return true;
   }
@@ -3338,17 +11070,17 @@ function isPlainObject$2(o) {
   if (!prot.hasOwnProperty("isPrototypeOf")) {
     return false;
   }
-  if (Object.getPrototypeOf(o) !== Object.prototype) {
+  if (Object.getPrototypeOf(o2) !== Object.prototype) {
     return false;
   }
   return true;
 }
-function hasObjectPrototype$1(o) {
-  return Object.prototype.toString.call(o) === "[object Object]";
+function hasObjectPrototype$1(o2) {
+  return Object.prototype.toString.call(o2) === "[object Object]";
 }
-function sleep(timeout) {
+function sleep(timeout2) {
   return new Promise((resolve) => {
-    timeoutManager.setTimeout(resolve, timeout);
+    timeoutManager.setTimeout(resolve, timeout2);
   });
 }
 function replaceData(prevData, data, options) {
@@ -3530,7 +11262,7 @@ function createNotifyManager() {
   };
 }
 var notifyManager = createNotifyManager();
-var OnlineManager = (_c = class extends Subscribable {
+var OnlineManager = (_d = class extends Subscribable {
   constructor() {
     super();
     __privateAdd(this, _online, true);
@@ -3556,16 +11288,16 @@ var OnlineManager = (_c = class extends Subscribable {
     }
   }
   onUnsubscribe() {
-    var _a2;
+    var _a3;
     if (!this.hasListeners()) {
-      (_a2 = __privateGet(this, _cleanup2)) == null ? void 0 : _a2.call(this);
+      (_a3 = __privateGet(this, _cleanup2)) == null ? void 0 : _a3.call(this);
       __privateSet(this, _cleanup2, void 0);
     }
   }
   setEventListener(setup) {
-    var _a2;
+    var _a3;
     __privateSet(this, _setup2, setup);
-    (_a2 = __privateGet(this, _cleanup2)) == null ? void 0 : _a2.call(this);
+    (_a3 = __privateGet(this, _cleanup2)) == null ? void 0 : _a3.call(this);
     __privateSet(this, _cleanup2, setup(this.setOnline.bind(this)));
   }
   setOnline(online) {
@@ -3580,7 +11312,7 @@ var OnlineManager = (_c = class extends Subscribable {
   isOnline() {
     return __privateGet(this, _online);
   }
-}, _online = new WeakMap(), _cleanup2 = new WeakMap(), _setup2 = new WeakMap(), _c);
+}, _online = new WeakMap(), _cleanup2 = new WeakMap(), _setup2 = new WeakMap(), _d);
 var onlineManager = new OnlineManager();
 function defaultRetryDelay(failureCount) {
   return Math.min(1e3 * 2 ** failureCount, 3e4);
@@ -3602,11 +11334,11 @@ function createRetryer(config) {
   const thenable = pendingThenable();
   const isResolved = () => thenable.status !== "pending";
   const cancel = (cancelOptions) => {
-    var _a2;
+    var _a3;
     if (!isResolved()) {
       const error = new CancelledError(cancelOptions);
       reject(error);
-      (_a2 = config.onCancel) == null ? void 0 : _a2.call(config, error);
+      (_a3 = config.onCancel) == null ? void 0 : _a3.call(config, error);
     }
   };
   const cancelRetry = () => {
@@ -3631,18 +11363,18 @@ function createRetryer(config) {
   };
   const pause = () => {
     return new Promise((continueResolve) => {
-      var _a2;
+      var _a3;
       continueFn = (value) => {
         if (isResolved() || canContinue()) {
           continueResolve(value);
         }
       };
-      (_a2 = config.onPause) == null ? void 0 : _a2.call(config);
+      (_a3 = config.onPause) == null ? void 0 : _a3.call(config);
     }).then(() => {
-      var _a2;
+      var _a3;
       continueFn = void 0;
       if (!isResolved()) {
-        (_a2 = config.onContinue) == null ? void 0 : _a2.call(config);
+        (_a3 = config.onContinue) == null ? void 0 : _a3.call(config);
       }
     });
   };
@@ -3658,7 +11390,7 @@ function createRetryer(config) {
       promiseOrValue = Promise.reject(error);
     }
     Promise.resolve(promiseOrValue).then(resolve).catch((error) => {
-      var _a2;
+      var _a3;
       if (isResolved()) {
         return;
       }
@@ -3671,7 +11403,7 @@ function createRetryer(config) {
         return;
       }
       failureCount++;
-      (_a2 = config.onFail) == null ? void 0 : _a2.call(config, failureCount, error);
+      (_a3 = config.onFail) == null ? void 0 : _a3.call(config, failureCount, error);
       sleep(delay2).then(() => {
         return canContinue() ? void 0 : pause();
       }).then(() => {
@@ -3704,7 +11436,7 @@ function createRetryer(config) {
     }
   };
 }
-var Removable = (_d = class {
+var Removable = (_e = class {
   constructor() {
     __privateAdd(this, _gcTimeout);
   }
@@ -3731,8 +11463,8 @@ var Removable = (_d = class {
       __privateSet(this, _gcTimeout, void 0);
     }
   }
-}, _gcTimeout = new WeakMap(), _d);
-var Query = (_e = class extends Removable {
+}, _gcTimeout = new WeakMap(), _e);
+var Query = (_f = class extends Removable {
   constructor(config) {
     super();
     __privateAdd(this, _Query_instances);
@@ -3759,8 +11491,8 @@ var Query = (_e = class extends Removable {
     return this.options.meta;
   }
   get promise() {
-    var _a2;
-    return (_a2 = __privateGet(this, _retryer)) == null ? void 0 : _a2.promise;
+    var _a3;
+    return (_a3 = __privateGet(this, _retryer)) == null ? void 0 : _a3.promise;
   }
   setOptions(options) {
     this.options = { ...__privateGet(this, _defaultOptions), ...options };
@@ -3794,9 +11526,9 @@ var Query = (_e = class extends Removable {
     __privateMethod(this, _Query_instances, dispatch_fn).call(this, { type: "setState", state, setStateOptions });
   }
   cancel(options) {
-    var _a2, _b2;
-    const promise = (_a2 = __privateGet(this, _retryer)) == null ? void 0 : _a2.promise;
-    (_b2 = __privateGet(this, _retryer)) == null ? void 0 : _b2.cancel(options);
+    var _a3, _b3;
+    const promise = (_a3 = __privateGet(this, _retryer)) == null ? void 0 : _a3.promise;
+    (_b3 = __privateGet(this, _retryer)) == null ? void 0 : _b3.cancel(options);
     return promise ? promise.then(noop$7).catch(noop$7) : Promise.resolve();
   }
   destroy() {
@@ -3853,16 +11585,16 @@ var Query = (_e = class extends Removable {
     return !timeUntilStale(this.state.dataUpdatedAt, staleTime);
   }
   onFocus() {
-    var _a2;
-    const observer2 = this.observers.find((x) => x.shouldFetchOnWindowFocus());
+    var _a3;
+    const observer2 = this.observers.find((x2) => x2.shouldFetchOnWindowFocus());
     observer2 == null ? void 0 : observer2.refetch({ cancelRefetch: false });
-    (_a2 = __privateGet(this, _retryer)) == null ? void 0 : _a2.continue();
+    (_a3 = __privateGet(this, _retryer)) == null ? void 0 : _a3.continue();
   }
   onOnline() {
-    var _a2;
-    const observer2 = this.observers.find((x) => x.shouldFetchOnReconnect());
+    var _a3;
+    const observer2 = this.observers.find((x2) => x2.shouldFetchOnReconnect());
     observer2 == null ? void 0 : observer2.refetch({ cancelRefetch: false });
-    (_a2 = __privateGet(this, _retryer)) == null ? void 0 : _a2.continue();
+    (_a3 = __privateGet(this, _retryer)) == null ? void 0 : _a3.continue();
   }
   addObserver(observer2) {
     if (!this.observers.includes(observer2)) {
@@ -3873,7 +11605,7 @@ var Query = (_e = class extends Removable {
   }
   removeObserver(observer2) {
     if (this.observers.includes(observer2)) {
-      this.observers = this.observers.filter((x) => x !== observer2);
+      this.observers = this.observers.filter((x2) => x2 !== observer2);
       if (!this.observers.length) {
         if (__privateGet(this, _retryer)) {
           if (__privateGet(this, _abortSignalConsumed) || __privateMethod(this, _Query_instances, isInitialPausedFetch_fn).call(this)) {
@@ -3896,11 +11628,11 @@ var Query = (_e = class extends Removable {
     }
   }
   async fetch(options, fetchOptions) {
-    var _a2, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2, _l;
+    var _a3, _b3, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2, _l2;
     if (this.state.fetchStatus !== "idle" && // If the promise in the retryer is already rejected, we have to definitely
     // re-start the fetch; there is a chance that the query is still in a
     // pending state when that happens
-    ((_a2 = __privateGet(this, _retryer)) == null ? void 0 : _a2.status()) !== "rejected") {
+    ((_a3 = __privateGet(this, _retryer)) == null ? void 0 : _a3.status()) !== "rejected") {
       if (this.state.data !== void 0 && (fetchOptions == null ? void 0 : fetchOptions.cancelRefetch)) {
         this.cancel({ silent: true });
       } else if (__privateGet(this, _retryer)) {
@@ -3912,7 +11644,7 @@ var Query = (_e = class extends Removable {
       this.setOptions(options);
     }
     if (!this.options.queryFn) {
-      const observer2 = this.observers.find((x) => x.options.queryFn);
+      const observer2 = this.observers.find((x2) => x2.options.queryFn);
       if (observer2) {
         this.setOptions(observer2.options);
       }
@@ -3962,7 +11694,7 @@ var Query = (_e = class extends Removable {
       return context2;
     };
     const context = createFetchContext();
-    (_b2 = this.options.behavior) == null ? void 0 : _b2.onFetch(context, this);
+    (_b3 = this.options.behavior) == null ? void 0 : _b3.onFetch(context, this);
     __privateSet(this, _revertState, this.state);
     if (this.state.fetchStatus === "idle" || this.state.fetchMeta !== ((_c2 = context.fetchOptions) == null ? void 0 : _c2.meta)) {
       __privateMethod(this, _Query_instances, dispatch_fn).call(this, { type: "fetch", meta: (_d2 = context.fetchOptions) == null ? void 0 : _d2.meta });
@@ -4028,7 +11760,7 @@ var Query = (_e = class extends Removable {
         error,
         this
       );
-      (_l = (_k2 = __privateGet(this, _cache).config).onSettled) == null ? void 0 : _l.call(
+      (_l2 = (_k2 = __privateGet(this, _cache).config).onSettled) == null ? void 0 : _l2.call(
         _k2,
         this.state.data,
         error,
@@ -4113,7 +11845,7 @@ var Query = (_e = class extends Removable {
     });
     __privateGet(this, _cache).notify({ query: this, type: "updated", action });
   });
-}, _e);
+}, _f);
 function fetchState(data, options) {
   return {
     fetchFailureCount: 0,
@@ -4153,7 +11885,7 @@ function getDefaultState$1(options) {
     fetchStatus: "idle"
   };
 }
-var QueryObserver = (_f = class extends Subscribable {
+var QueryObserver = (_g = class extends Subscribable {
   constructor(client2, options) {
     super();
     __privateAdd(this, _QueryObserver_instances);
@@ -4314,7 +12046,7 @@ var QueryObserver = (_f = class extends Subscribable {
     });
   }
   createResult(query, options) {
-    var _a2;
+    var _a3;
     const prevQuery = __privateGet(this, _currentQuery);
     const prevOptions = this.options;
     const prevResult = __privateGet(this, _currentResult);
@@ -4350,7 +12082,7 @@ var QueryObserver = (_f = class extends Subscribable {
         skipSelect = true;
       } else {
         placeholderData = typeof options.placeholderData === "function" ? options.placeholderData(
-          (_a2 = __privateGet(this, _lastQueryWithDefinedData)) == null ? void 0 : _a2.state.data,
+          (_a3 = __privateGet(this, _lastQueryWithDefinedData)) == null ? void 0 : _a3.state.data,
           __privateGet(this, _lastQueryWithDefinedData)
         ) : options.placeholderData;
       }
@@ -4515,12 +12247,12 @@ var QueryObserver = (_f = class extends Subscribable {
     return;
   }
   const time2 = timeUntilStale(__privateGet(this, _currentResult).dataUpdatedAt, staleTime);
-  const timeout = time2 + 1;
+  const timeout2 = time2 + 1;
   __privateSet(this, _staleTimeoutId, timeoutManager.setTimeout(() => {
     if (!__privateGet(this, _currentResult).isStale) {
       this.updateResult();
     }
-  }, timeout));
+  }, timeout2));
 }, computeRefetchInterval_fn = function() {
   return (typeof this.options.refetchInterval === "function" ? this.options.refetchInterval(__privateGet(this, _currentQuery)) : this.options.refetchInterval) ?? false;
 }, updateRefetchInterval_fn = function(nextInterval) {
@@ -4571,7 +12303,7 @@ var QueryObserver = (_f = class extends Subscribable {
       type: "observerResultsUpdated"
     });
   });
-}, _f);
+}, _g);
 function shouldLoadOnMount(query, options) {
   return resolveEnabled(options.enabled, query) !== false && query.state.data === void 0 && !(query.state.status === "error" && options.retryOnMount === false);
 }
@@ -4600,9 +12332,9 @@ function shouldAssignObserverCurrentProperties(observer2, optimisticResult) {
 function infiniteQueryBehavior(pages) {
   return {
     onFetch: (context, query) => {
-      var _a2, _b2, _c2, _d2, _e2;
+      var _a3, _b3, _c2, _d2, _e2;
       const options = context.options;
-      const direction = (_c2 = (_b2 = (_a2 = context.fetchOptions) == null ? void 0 : _a2.meta) == null ? void 0 : _b2.fetchMore) == null ? void 0 : _c2.direction;
+      const direction = (_c2 = (_b3 = (_a3 = context.fetchOptions) == null ? void 0 : _a3.meta) == null ? void 0 : _b3.fetchMore) == null ? void 0 : _c2.direction;
       const oldPages = ((_d2 = context.state.data) == null ? void 0 : _d2.pages) || [];
       const oldPageParams = ((_e2 = context.state.data) == null ? void 0 : _e2.pageParams) || [];
       let result = { pages: [], pageParams: [] };
@@ -4668,9 +12400,9 @@ function infiniteQueryBehavior(pages) {
       };
       if (context.options.persister) {
         context.fetchFn = () => {
-          var _a3, _b3;
-          return (_b3 = (_a3 = context.options).persister) == null ? void 0 : _b3.call(
-            _a3,
+          var _a4, _b4;
+          return (_b4 = (_a4 = context.options).persister) == null ? void 0 : _b4.call(
+            _a4,
             fetchFn,
             {
               client: context.client,
@@ -4697,10 +12429,10 @@ function getNextPageParam(options, { pages, pageParams }) {
   ) : void 0;
 }
 function getPreviousPageParam(options, { pages, pageParams }) {
-  var _a2;
-  return pages.length > 0 ? (_a2 = options.getPreviousPageParam) == null ? void 0 : _a2.call(options, pages[0], pages, pageParams[0], pageParams) : void 0;
+  var _a3;
+  return pages.length > 0 ? (_a3 = options.getPreviousPageParam) == null ? void 0 : _a3.call(options, pages[0], pages, pageParams[0], pageParams) : void 0;
 }
-var Mutation = (_g = class extends Removable {
+var Mutation = (_h = class extends Removable {
   constructor(config) {
     super();
     __privateAdd(this, _Mutation_instances);
@@ -4735,7 +12467,7 @@ var Mutation = (_g = class extends Removable {
     }
   }
   removeObserver(observer2) {
-    __privateSet(this, _observers, __privateGet(this, _observers).filter((x) => x !== observer2));
+    __privateSet(this, _observers, __privateGet(this, _observers).filter((x2) => x2 !== observer2));
     this.scheduleGc();
     __privateGet(this, _mutationCache).notify({
       type: "observerRemoved",
@@ -4753,12 +12485,12 @@ var Mutation = (_g = class extends Removable {
     }
   }
   continue() {
-    var _a2;
-    return ((_a2 = __privateGet(this, _retryer2)) == null ? void 0 : _a2.continue()) ?? // continuing a mutation assumes that variables are set, mutation must have been dehydrated before
+    var _a3;
+    return ((_a3 = __privateGet(this, _retryer2)) == null ? void 0 : _a3.continue()) ?? // continuing a mutation assumes that variables are set, mutation must have been dehydrated before
     this.execute(this.state.variables);
   }
   async execute(variables) {
-    var _a2, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2, _l, _m, _n, _o, _p, _q, _r;
+    var _a3, _b3, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2, _l2, _m, _n, _o, _p, _q, _r;
     const onContinue = () => {
       __privateMethod(this, _Mutation_instances, dispatch_fn2).call(this, { type: "continue" });
     };
@@ -4800,8 +12532,8 @@ var Mutation = (_g = class extends Removable {
             mutationFnContext
           );
         }
-        const context = await ((_b2 = (_a2 = this.options).onMutate) == null ? void 0 : _b2.call(
-          _a2,
+        const context = await ((_b3 = (_a3 = this.options).onMutate) == null ? void 0 : _b3.call(
+          _a3,
           variables,
           mutationFnContext
         ));
@@ -4851,7 +12583,7 @@ var Mutation = (_g = class extends Removable {
       return data;
     } catch (error) {
       try {
-        await ((_l = (_k2 = __privateGet(this, _mutationCache).config).onError) == null ? void 0 : _l.call(
+        await ((_l2 = (_k2 = __privateGet(this, _mutationCache).config).onError) == null ? void 0 : _l2.call(
           _k2,
           error,
           variables,
@@ -4969,7 +12701,7 @@ var Mutation = (_g = class extends Removable {
       action
     });
   });
-}, _g);
+}, _h);
 function getDefaultState() {
   return {
     context: void 0,
@@ -4983,7 +12715,7 @@ function getDefaultState() {
     submittedAt: 0
   };
 }
-var MutationCache = (_h = class extends Subscribable {
+var MutationCache = (_i = class extends Subscribable {
   constructor(config = {}) {
     super();
     __privateAdd(this, _mutations);
@@ -5042,7 +12774,7 @@ var MutationCache = (_h = class extends Subscribable {
     if (typeof scope === "string") {
       const mutationsWithSameScope = __privateGet(this, _scopes).get(scope);
       const firstPendingMutation = mutationsWithSameScope == null ? void 0 : mutationsWithSameScope.find(
-        (m) => m.state.status === "pending"
+        (m2) => m2.state.status === "pending"
       );
       return !firstPendingMutation || firstPendingMutation === mutation;
     } else {
@@ -5050,10 +12782,10 @@ var MutationCache = (_h = class extends Subscribable {
     }
   }
   runNext(mutation) {
-    var _a2;
+    var _a3;
     const scope = scopeFor(mutation);
     if (typeof scope === "string") {
-      const foundMutation = (_a2 = __privateGet(this, _scopes).get(scope)) == null ? void 0 : _a2.find((m) => m !== mutation && m.state.isPaused);
+      const foundMutation = (_a3 = __privateGet(this, _scopes).get(scope)) == null ? void 0 : _a3.find((m2) => m2 !== mutation && m2.state.isPaused);
       return (foundMutation == null ? void 0 : foundMutation.continue()) ?? Promise.resolve();
     } else {
       return Promise.resolve();
@@ -5088,19 +12820,19 @@ var MutationCache = (_h = class extends Subscribable {
     });
   }
   resumePausedMutations() {
-    const pausedMutations = this.getAll().filter((x) => x.state.isPaused);
+    const pausedMutations = this.getAll().filter((x2) => x2.state.isPaused);
     return notifyManager.batch(
       () => Promise.all(
         pausedMutations.map((mutation) => mutation.continue().catch(noop$7))
       )
     );
   }
-}, _mutations = new WeakMap(), _scopes = new WeakMap(), _mutationId = new WeakMap(), _h);
+}, _mutations = new WeakMap(), _scopes = new WeakMap(), _mutationId = new WeakMap(), _i);
 function scopeFor(mutation) {
-  var _a2;
-  return (_a2 = mutation.options.scope) == null ? void 0 : _a2.id;
+  var _a3;
+  return (_a3 = mutation.options.scope) == null ? void 0 : _a3.id;
 }
-var MutationObserver$1 = (_i = class extends Subscribable {
+var MutationObserver$1 = (_j = class extends Subscribable {
   constructor(client2, options) {
     super();
     __privateAdd(this, _MutationObserver_instances);
@@ -5118,7 +12850,7 @@ var MutationObserver$1 = (_i = class extends Subscribable {
     this.reset = this.reset.bind(this);
   }
   setOptions(options) {
-    var _a2;
+    var _a3;
     const prevOptions = this.options;
     this.options = __privateGet(this, _client4).defaultMutationOptions(options);
     if (!shallowEqualObjects(this.options, prevOptions)) {
@@ -5130,14 +12862,14 @@ var MutationObserver$1 = (_i = class extends Subscribable {
     }
     if ((prevOptions == null ? void 0 : prevOptions.mutationKey) && this.options.mutationKey && hashKey(prevOptions.mutationKey) !== hashKey(this.options.mutationKey)) {
       this.reset();
-    } else if (((_a2 = __privateGet(this, _currentMutation)) == null ? void 0 : _a2.state.status) === "pending") {
+    } else if (((_a3 = __privateGet(this, _currentMutation)) == null ? void 0 : _a3.state.status) === "pending") {
       __privateGet(this, _currentMutation).setOptions(this.options);
     }
   }
   onUnsubscribe() {
-    var _a2;
+    var _a3;
     if (!this.hasListeners()) {
-      (_a2 = __privateGet(this, _currentMutation)) == null ? void 0 : _a2.removeObserver(this);
+      (_a3 = __privateGet(this, _currentMutation)) == null ? void 0 : _a3.removeObserver(this);
     }
   }
   onMutationUpdate(action) {
@@ -5148,23 +12880,23 @@ var MutationObserver$1 = (_i = class extends Subscribable {
     return __privateGet(this, _currentResult2);
   }
   reset() {
-    var _a2;
-    (_a2 = __privateGet(this, _currentMutation)) == null ? void 0 : _a2.removeObserver(this);
+    var _a3;
+    (_a3 = __privateGet(this, _currentMutation)) == null ? void 0 : _a3.removeObserver(this);
     __privateSet(this, _currentMutation, void 0);
     __privateMethod(this, _MutationObserver_instances, updateResult_fn).call(this);
     __privateMethod(this, _MutationObserver_instances, notify_fn2).call(this);
   }
   mutate(variables, options) {
-    var _a2;
+    var _a3;
     __privateSet(this, _mutateOptions, options);
-    (_a2 = __privateGet(this, _currentMutation)) == null ? void 0 : _a2.removeObserver(this);
+    (_a3 = __privateGet(this, _currentMutation)) == null ? void 0 : _a3.removeObserver(this);
     __privateSet(this, _currentMutation, __privateGet(this, _client4).getMutationCache().build(__privateGet(this, _client4), this.options));
     __privateGet(this, _currentMutation).addObserver(this);
     return __privateGet(this, _currentMutation).execute(variables);
   }
 }, _client4 = new WeakMap(), _currentResult2 = new WeakMap(), _currentMutation = new WeakMap(), _mutateOptions = new WeakMap(), _MutationObserver_instances = new WeakSet(), updateResult_fn = function() {
-  var _a2;
-  const state = ((_a2 = __privateGet(this, _currentMutation)) == null ? void 0 : _a2.state) ?? getDefaultState();
+  var _a3;
+  const state = ((_a3 = __privateGet(this, _currentMutation)) == null ? void 0 : _a3.state) ?? getDefaultState();
   __privateSet(this, _currentResult2, {
     ...state,
     isPending: state.status === "pending",
@@ -5176,7 +12908,7 @@ var MutationObserver$1 = (_i = class extends Subscribable {
   });
 }, notify_fn2 = function(action) {
   notifyManager.batch(() => {
-    var _a2, _b2, _c2, _d2, _e2, _f2, _g2, _h2;
+    var _a3, _b3, _c2, _d2, _e2, _f2, _g2, _h2;
     if (__privateGet(this, _mutateOptions) && this.hasListeners()) {
       const variables = __privateGet(this, _currentResult2).variables;
       const onMutateResult = __privateGet(this, _currentResult2).context;
@@ -5187,8 +12919,8 @@ var MutationObserver$1 = (_i = class extends Subscribable {
       };
       if ((action == null ? void 0 : action.type) === "success") {
         try {
-          (_b2 = (_a2 = __privateGet(this, _mutateOptions)).onSuccess) == null ? void 0 : _b2.call(
-            _a2,
+          (_b3 = (_a3 = __privateGet(this, _mutateOptions)).onSuccess) == null ? void 0 : _b3.call(
+            _a3,
             action.data,
             variables,
             onMutateResult,
@@ -5239,8 +12971,8 @@ var MutationObserver$1 = (_i = class extends Subscribable {
       listener(__privateGet(this, _currentResult2));
     });
   });
-}, _i);
-var QueryCache = (_j = class extends Subscribable {
+}, _j);
+var QueryCache = (_k = class extends Subscribable {
   constructor(config = {}) {
     super();
     __privateAdd(this, _queries);
@@ -5327,8 +13059,8 @@ var QueryCache = (_j = class extends Subscribable {
       });
     });
   }
-}, _queries = new WeakMap(), _j);
-var QueryClient = (_k = class {
+}, _queries = new WeakMap(), _k);
+var QueryClient = (_l = class {
   constructor(config = {}) {
     __privateAdd(this, _queryCache);
     __privateAdd(this, _mutationCache2);
@@ -5362,12 +13094,12 @@ var QueryClient = (_k = class {
     }));
   }
   unmount() {
-    var _a2, _b2;
+    var _a3, _b3;
     __privateWrapper(this, _mountCount)._--;
     if (__privateGet(this, _mountCount) !== 0) return;
-    (_a2 = __privateGet(this, _unsubscribeFocus)) == null ? void 0 : _a2.call(this);
+    (_a3 = __privateGet(this, _unsubscribeFocus)) == null ? void 0 : _a3.call(this);
     __privateSet(this, _unsubscribeFocus, void 0);
-    (_b2 = __privateGet(this, _unsubscribeOnline)) == null ? void 0 : _b2.call(this);
+    (_b3 = __privateGet(this, _unsubscribeOnline)) == null ? void 0 : _b3.call(this);
     __privateSet(this, _unsubscribeOnline, void 0);
   }
   isFetching(filters) {
@@ -5384,9 +13116,9 @@ var QueryClient = (_k = class {
    * Use `useQuery` to create a `QueryObserver` that subscribes to changes.
    */
   getQueryData(queryKey) {
-    var _a2;
+    var _a3;
     const options = this.defaultQueryOptions({ queryKey });
-    return (_a2 = __privateGet(this, _queryCache).get(options.queryHash)) == null ? void 0 : _a2.state.data;
+    return (_a3 = __privateGet(this, _queryCache).get(options.queryHash)) == null ? void 0 : _a3.state.data;
   }
   ensureQueryData(options) {
     const defaultedOptions = this.defaultQueryOptions(options);
@@ -5427,11 +13159,11 @@ var QueryClient = (_k = class {
     );
   }
   getQueryState(queryKey) {
-    var _a2;
+    var _a3;
     const options = this.defaultQueryOptions({ queryKey });
-    return (_a2 = __privateGet(this, _queryCache).get(
+    return (_a3 = __privateGet(this, _queryCache).get(
       options.queryHash
-    )) == null ? void 0 : _a2.state;
+    )) == null ? void 0 : _a3.state;
   }
   removeQueries(filters) {
     const queryCache = __privateGet(this, _queryCache);
@@ -5615,7 +13347,7 @@ var QueryClient = (_k = class {
     __privateGet(this, _queryCache).clear();
     __privateGet(this, _mutationCache2).clear();
   }
-}, _queryCache = new WeakMap(), _mutationCache2 = new WeakMap(), _defaultOptions2 = new WeakMap(), _queryDefaults = new WeakMap(), _mutationDefaults = new WeakMap(), _mountCount = new WeakMap(), _unsubscribeFocus = new WeakMap(), _unsubscribeOnline = new WeakMap(), _k);
+}, _queryCache = new WeakMap(), _mutationCache2 = new WeakMap(), _defaultOptions2 = new WeakMap(), _queryDefaults = new WeakMap(), _mutationDefaults = new WeakMap(), _mountCount = new WeakMap(), _unsubscribeFocus = new WeakMap(), _unsubscribeOnline = new WeakMap(), _l);
 var react = { exports: {} };
 var react_production = {};
 /**
@@ -5762,8 +13494,8 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
         }
     }
   if (invokeCallback)
-    return callback = callback(children), invokeCallback = "" === nameSoFar ? "." + getElementKey(children, 0) : nameSoFar, isArrayImpl$1(callback) ? (escapedPrefix = "", null != invokeCallback && (escapedPrefix = invokeCallback.replace(userProvidedKeyEscapeRegex, "$&/") + "/"), mapIntoArray(callback, array, escapedPrefix, "", function(c) {
-      return c;
+    return callback = callback(children), invokeCallback = "" === nameSoFar ? "." + getElementKey(children, 0) : nameSoFar, isArrayImpl$1(callback) ? (escapedPrefix = "", null != invokeCallback && (escapedPrefix = invokeCallback.replace(userProvidedKeyEscapeRegex, "$&/") + "/"), mapIntoArray(callback, array, escapedPrefix, "", function(c2) {
+      return c2;
     })) : null != callback && (isValidElement(callback) && (callback = cloneAndReplaceKey(
       callback,
       escapedPrefix + (null == callback.key || children && children.key === callback.key ? "" : ("" + callback.key).replace(
@@ -6143,13 +13875,13 @@ var fetchOptimistic = (defaultedOptions, observer2, errorResetBoundary) => obser
   errorResetBoundary.clearReset();
 });
 function useBaseQuery(options, Observer, queryClient2) {
-  var _a2, _b2, _c2, _d2;
+  var _a3, _b3, _c2, _d2;
   const isRestoring = useIsRestoring();
   const errorResetBoundary = useQueryErrorResetBoundary();
   const client2 = useQueryClient();
   const defaultedOptions = client2.defaultQueryOptions(options);
-  (_b2 = (_a2 = client2.getDefaultOptions().queries) == null ? void 0 : _a2._experimental_beforeQuery) == null ? void 0 : _b2.call(
-    _a2,
+  (_b3 = (_a3 = client2.getDefaultOptions().queries) == null ? void 0 : _a3._experimental_beforeQuery) == null ? void 0 : _b3.call(
+    _a3,
     defaultedOptions
   );
   const query = client2.getQueryCache().get(defaultedOptions.queryHash);
@@ -6251,13 +13983,13 @@ function isObject$2(value) {
 const _Ed25519PublicKey = class _Ed25519PublicKey {
   // `fromRaw` and `fromDer` should be used for instantiation, not this constructor.
   constructor(key) {
-    __privateAdd(this, _rawKey);
-    __privateAdd(this, _derKey);
+    __privateAdd(this, _rawKey2);
+    __privateAdd(this, _derKey2);
     if (key.byteLength !== _Ed25519PublicKey.RAW_KEY_LENGTH) {
       throw new Error("An Ed25519 public key must be exactly 32bytes long");
     }
-    __privateSet(this, _rawKey, key);
-    __privateSet(this, _derKey, _Ed25519PublicKey.derEncode(key));
+    __privateSet(this, _rawKey2, key);
+    __privateSet(this, _derKey2, _Ed25519PublicKey.derEncode(key));
   }
   /**
    * Construct Ed25519PublicKey from an existing PublicKey
@@ -6306,10 +14038,10 @@ const _Ed25519PublicKey = class _Ed25519PublicKey {
     return unwrapped;
   }
   get rawKey() {
-    return __privateGet(this, _rawKey);
+    return __privateGet(this, _rawKey2);
   }
   get derKey() {
-    return __privateGet(this, _derKey);
+    return __privateGet(this, _derKey2);
   }
   toDer() {
     return this.derKey;
@@ -6318,8 +14050,8 @@ const _Ed25519PublicKey = class _Ed25519PublicKey {
     return this.rawKey;
   }
 };
-_rawKey = new WeakMap();
-_derKey = new WeakMap();
+_rawKey2 = new WeakMap();
+_derKey2 = new WeakMap();
 _Ed25519PublicKey.RAW_KEY_LENGTH = 32;
 let Ed25519PublicKey = _Ed25519PublicKey;
 const _Ed25519KeyIdentity = class _Ed25519KeyIdentity extends SignIdentity {
@@ -6415,11 +14147,11 @@ const _Ed25519KeyIdentity = class _Ed25519KeyIdentity extends SignIdentity {
    * @returns - true if the signature is valid, false otherwise
    */
   static verify(sig, msg, pk) {
-    const [signature, message, publicKey] = [sig, msg, pk].map((x) => {
-      if (typeof x === "string") {
-        x = hexToBytes(x);
+    const [signature, message, publicKey] = [sig, msg, pk].map((x2) => {
+      if (typeof x2 === "string") {
+        x2 = hexToBytes(x2);
       }
-      return uint8FromBufLike$1(x);
+      return uint8FromBufLike$1(x2);
     });
     return ed25519.verify(signature, message, publicKey);
   }
@@ -6527,41 +14259,41 @@ class ECDSAKeyIdentity extends SignIdentity {
 }
 class PartialIdentity {
   constructor(inner) {
-    __privateAdd(this, _inner);
-    __privateSet(this, _inner, inner);
+    __privateAdd(this, _inner2);
+    __privateSet(this, _inner2, inner);
   }
   /**
    * The raw public key of this identity.
    */
   get rawKey() {
-    return __privateGet(this, _inner).rawKey;
+    return __privateGet(this, _inner2).rawKey;
   }
   /**
    * The DER-encoded public key of this identity.
    */
   get derKey() {
-    return __privateGet(this, _inner).derKey;
+    return __privateGet(this, _inner2).derKey;
   }
   /**
    * The DER-encoded public key of this identity.
    */
   toDer() {
-    return __privateGet(this, _inner).toDer();
+    return __privateGet(this, _inner2).toDer();
   }
   /**
    * The inner {@link PublicKey} used by this identity.
    */
   getPublicKey() {
-    return __privateGet(this, _inner);
+    return __privateGet(this, _inner2);
   }
   /**
    * The {@link Principal} of this identity.
    */
   getPrincipal() {
-    if (!__privateGet(this, _inner).rawKey) {
+    if (!__privateGet(this, _inner2).rawKey) {
       throw new Error("Cannot get principal from a public key without a raw key.");
     }
-    return Principal.fromUint8Array(new Uint8Array(__privateGet(this, _inner).rawKey));
+    return Principal$1.fromUint8Array(new Uint8Array(__privateGet(this, _inner2).rawKey));
   }
   /**
    * Required for the Identity interface, but cannot implemented for just a public key.
@@ -6570,7 +14302,7 @@ class PartialIdentity {
     return Promise.reject("Not implemented. You are attempting to use a partial identity to sign calls, but this identity only has access to the public key.To sign calls, use a DelegationIdentity instead.");
   }
 }
-_inner = new WeakMap();
+_inner2 = new WeakMap();
 function safeBytesToHex(data) {
   if (data instanceof Uint8Array) {
     return bytesToHex(data);
@@ -6602,7 +14334,7 @@ class Delegation {
     return {
       expiration: this.expiration.toString(16),
       pubkey: safeBytesToHex(this.pubkey),
-      ...this.targets && { targets: this.targets.map((p) => p.toHex()) }
+      ...this.targets && { targets: this.targets.map((p2) => p2.toHex()) }
     };
   }
 }
@@ -6654,9 +14386,9 @@ class DelegationChain {
    * @param options.targets - targets that scope the delegation (e.g. Canister Principals)
    */
   static async create(from, to, expiration = new Date(Date.now() + 15 * 60 * 1e3), options = {}) {
-    var _a2, _b2;
+    var _a3, _b3;
     const delegation = await _createSingleDelegation(from, to, expiration, options.targets);
-    return new DelegationChain([...((_a2 = options.previous) == null ? void 0 : _a2.delegations) || [], delegation], ((_b2 = options.previous) == null ? void 0 : _b2.publicKey) || from.getPublicKey().toDer());
+    return new DelegationChain([...((_a3 = options.previous) == null ? void 0 : _a3.delegations) || [], delegation], ((_b3 = options.previous) == null ? void 0 : _b3.publicKey) || from.getPublicKey().toDer());
   }
   /**
    * Creates a DelegationChain object from a JSON string.
@@ -6682,7 +14414,7 @@ class DelegationChain {
             if (typeof t !== "string") {
               throw new Error("Invalid target.");
             }
-            return Principal.fromHex(t);
+            return Principal$1.fromHex(t);
           })
         ),
         signature: _parseBlob(signature)
@@ -6731,9 +14463,9 @@ class DelegationIdentity extends SignIdentity {
   static fromDelegation(key, delegation) {
     return new this(key, delegation);
   }
-  constructor(_inner2, _delegation2) {
+  constructor(_inner3, _delegation2) {
     super();
-    this._inner = _inner2;
+    this._inner = _inner3;
     this._delegation = _delegation2;
   }
   getDelegation() {
@@ -6748,8 +14480,8 @@ class DelegationIdentity extends SignIdentity {
   sign(blob) {
     return this._inner.sign(blob);
   }
-  async transformRequest(request) {
-    const { body, ...fields } = request;
+  async transformRequest(request2) {
+    const { body, ...fields } = request2;
     const requestId = await requestIdOf(body);
     return {
       ...fields,
@@ -6785,16 +14517,16 @@ const _PartialDelegationIdentity = class _PartialDelegationIdentity extends Part
 };
 _delegation = new WeakMap();
 let PartialDelegationIdentity = _PartialDelegationIdentity;
-function isDelegationValid(chain, checks) {
-  for (const { delegation } of chain.delegations) {
+function isDelegationValid(chain2, checks) {
+  for (const { delegation } of chain2.delegations) {
     if (+new Date(Number(delegation.expiration / BigInt(1e6))) <= +Date.now()) {
       return false;
     }
   }
   const scopes = [];
-  for (const s of scopes) {
-    const scope = s.toText();
-    for (const { delegation } of chain.delegations) {
+  for (const s2 of scopes) {
+    const scope = s2.toText();
+    for (const { delegation } of chain2.delegations) {
       if (delegation.targets === void 0) {
         continue;
       }
@@ -6831,15 +14563,15 @@ class IdleManager {
       document.addEventListener(name, _resetTimer, true);
     });
     const debounce = (func, wait) => {
-      let timeout;
+      let timeout2;
       return (...args) => {
         const context = this;
         const later = function() {
-          timeout = void 0;
+          timeout2 = void 0;
           func.apply(context, args);
         };
-        clearTimeout(timeout);
-        timeout = window.setTimeout(later, wait);
+        clearTimeout(timeout2);
+        timeout2 = window.setTimeout(later, wait);
       };
     };
     if (options == null ? void 0 : options.captureScroll) {
@@ -6887,7 +14619,7 @@ class IdleManager {
     this.timeoutID = window.setTimeout(exit, this.idleTimeout);
   }
 }
-const instanceOfAny = (object, constructors) => constructors.some((c) => object instanceof c);
+const instanceOfAny = (object, constructors) => constructors.some((c2) => object instanceof c2);
 let idbProxyableTypes;
 let cursorAdvanceMethods;
 function getIdbProxyableTypes() {
@@ -6911,30 +14643,30 @@ const transactionDoneMap = /* @__PURE__ */ new WeakMap();
 const transactionStoreNamesMap = /* @__PURE__ */ new WeakMap();
 const transformCache = /* @__PURE__ */ new WeakMap();
 const reverseTransformCache = /* @__PURE__ */ new WeakMap();
-function promisifyRequest(request) {
+function promisifyRequest(request2) {
   const promise = new Promise((resolve, reject) => {
     const unlisten = () => {
-      request.removeEventListener("success", success);
-      request.removeEventListener("error", error);
+      request2.removeEventListener("success", success);
+      request2.removeEventListener("error", error);
     };
     const success = () => {
-      resolve(wrap(request.result));
+      resolve(wrap(request2.result));
       unlisten();
     };
     const error = () => {
-      reject(request.error);
+      reject(request2.error);
       unlisten();
     };
-    request.addEventListener("success", success);
-    request.addEventListener("error", error);
+    request2.addEventListener("success", success);
+    request2.addEventListener("error", error);
   });
   promise.then((value) => {
     if (value instanceof IDBCursor) {
-      cursorRequestMap.set(value, request);
+      cursorRequestMap.set(value, request2);
     }
   }).catch(() => {
   });
-  reverseTransformCache.set(promise, request);
+  reverseTransformCache.set(promise, request2);
   return promise;
 }
 function cacheDonePromiseForTransaction(tx) {
@@ -7029,15 +14761,15 @@ function wrap(value) {
 }
 const unwrap = (value) => reverseTransformCache.get(value);
 function openDB(name, version, { blocked, upgrade, blocking, terminated } = {}) {
-  const request = indexedDB.open(name, version);
-  const openPromise = wrap(request);
+  const request2 = indexedDB.open(name, version);
+  const openPromise = wrap(request2);
   if (upgrade) {
-    request.addEventListener("upgradeneeded", (event) => {
-      upgrade(wrap(request.result), event.oldVersion, event.newVersion, wrap(request.transaction), event);
+    request2.addEventListener("upgradeneeded", (event) => {
+      upgrade(wrap(request2.result), event.oldVersion, event.newVersion, wrap(request2.transaction), event);
     });
   }
   if (blocked) {
-    request.addEventListener("blocked", (event) => blocked(
+    request2.addEventListener("blocked", (event) => blocked(
       // Casting due to https://github.com/microsoft/TypeScript-DOM-lib-generator/pull/1405
       event.oldVersion,
       event.newVersion,
@@ -7253,7 +14985,7 @@ const ED25519_KEY_LABEL = "Ed25519";
 const INTERRUPT_CHECK_INTERVAL = 500;
 const ERROR_USER_INTERRUPT = "UserInterrupt";
 class AuthClient {
-  constructor(_identity, _key, _chain, _storage, idleManager, _createOptions, _idpWindow, _eventHandler) {
+  constructor(_identity2, _key, _chain, _storage, idleManager, _createOptions, _idpWindow, _eventHandler) {
     __publicField(this, "_identity");
     __publicField(this, "_key");
     __publicField(this, "_chain");
@@ -7262,7 +14994,7 @@ class AuthClient {
     __publicField(this, "_createOptions");
     __publicField(this, "_idpWindow");
     __publicField(this, "_eventHandler");
-    this._identity = _identity;
+    this._identity = _identity2;
     this._key = _key;
     this._chain = _chain;
     this._storage = _storage;
@@ -7292,7 +15024,7 @@ class AuthClient {
    * })
    */
   static async create(options = {}) {
-    var _a2;
+    var _a3;
     const storage = options.storage ?? new IdbStorage();
     const keyType = options.keyType ?? ECDSA_KEY_LABEL;
     let key = null;
@@ -7333,7 +15065,7 @@ class AuthClient {
       }
     }
     let identity = new AnonymousIdentity();
-    let chain = null;
+    let chain2 = null;
     if (key) {
       try {
         const chainStorage = await storage.get(KEY_STORAGE_DELEGATION);
@@ -7343,15 +15075,15 @@ class AuthClient {
         if (options.identity) {
           identity = options.identity;
         } else if (chainStorage) {
-          chain = DelegationChain.fromJSON(chainStorage);
-          if (!isDelegationValid(chain)) {
+          chain2 = DelegationChain.fromJSON(chainStorage);
+          if (!isDelegationValid(chain2)) {
             await _deleteStorage(storage);
             key = null;
           } else {
             if ("toDer" in key) {
-              identity = PartialDelegationIdentity.fromDelegation(key, chain);
+              identity = PartialDelegationIdentity.fromDelegation(key, chain2);
             } else {
-              identity = DelegationIdentity.fromDelegation(key, chain);
+              identity = DelegationIdentity.fromDelegation(key, chain2);
             }
           }
         }
@@ -7362,9 +15094,9 @@ class AuthClient {
       }
     }
     let idleManager;
-    if ((_a2 = options.idleOptions) == null ? void 0 : _a2.disableIdle) {
+    if ((_a3 = options.idleOptions) == null ? void 0 : _a3.disableIdle) {
       idleManager = void 0;
-    } else if (chain || options.identity) {
+    } else if (chain2 || options.identity) {
       idleManager = IdleManager.create(options.idleOptions);
     }
     if (!key) {
@@ -7379,20 +15111,20 @@ class AuthClient {
         await storage.set(KEY_STORAGE_KEY, key.getKeyPair());
       }
     }
-    return new this(identity, key, chain, storage, idleManager, options);
+    return new this(identity, key, chain2, storage, idleManager, options);
   }
   _registerDefaultIdleCallback() {
-    var _a2, _b2;
-    const idleOptions = (_a2 = this._createOptions) == null ? void 0 : _a2.idleOptions;
+    var _a3, _b3;
+    const idleOptions = (_a3 = this._createOptions) == null ? void 0 : _a3.idleOptions;
     if (!(idleOptions == null ? void 0 : idleOptions.onIdle) && !(idleOptions == null ? void 0 : idleOptions.disableDefaultIdleCallback)) {
-      (_b2 = this.idleManager) == null ? void 0 : _b2.registerCallback(() => {
+      (_b3 = this.idleManager) == null ? void 0 : _b3.registerCallback(() => {
         this.logout();
         location.reload();
       });
     }
   }
   async _handleSuccess(message, onSuccess) {
-    var _a2, _b2;
+    var _a3, _b3;
     const delegations = message.delegations.map((signedDelegation) => {
       return {
         delegation: new Delegation(signedDelegation.delegation.pubkey, signedDelegation.delegation.expiration, signedDelegation.delegation.targets),
@@ -7410,8 +15142,8 @@ class AuthClient {
     } else {
       this._identity = DelegationIdentity.fromDelegation(key, this._chain);
     }
-    (_a2 = this._idpWindow) == null ? void 0 : _a2.close();
-    const idleOptions = (_b2 = this._createOptions) == null ? void 0 : _b2.idleOptions;
+    (_a3 = this._idpWindow) == null ? void 0 : _a3.close();
+    const idleOptions = (_b3 = this._createOptions) == null ? void 0 : _b3.idleOptions;
     if (!this.idleManager && !(idleOptions == null ? void 0 : idleOptions.disableIdle)) {
       this.idleManager = IdleManager.create(idleOptions);
       this._registerDefaultIdleCallback();
@@ -7455,10 +15187,10 @@ class AuthClient {
    * });
    */
   async login(options) {
-    var _a2, _b2, _c2;
-    const loginOptions = mergeLoginOptions((_a2 = this._createOptions) == null ? void 0 : _a2.loginOptions, options);
+    var _a3, _b3, _c2;
+    const loginOptions = mergeLoginOptions((_a3 = this._createOptions) == null ? void 0 : _a3.loginOptions, options);
     const maxTimeToLive = (loginOptions == null ? void 0 : loginOptions.maxTimeToLive) ?? DEFAULT_MAX_TIME_TO_LIVE;
-    const identityProviderUrl = new URL(((_b2 = loginOptions == null ? void 0 : loginOptions.identityProvider) == null ? void 0 : _b2.toString()) || IDENTITY_PROVIDER_DEFAULT);
+    const identityProviderUrl = new URL(((_b3 = loginOptions == null ? void 0 : loginOptions.identityProvider) == null ? void 0 : _b3.toString()) || IDENTITY_PROVIDER_DEFAULT);
     identityProviderUrl.hash = IDENTITY_PROVIDER_ENDPOINT;
     (_c2 = this._idpWindow) == null ? void 0 : _c2.close();
     this._removeEventListener();
@@ -7481,23 +15213,23 @@ class AuthClient {
   }
   _getEventHandler(identityProviderUrl, options) {
     return async (event) => {
-      var _a2, _b2, _c2;
+      var _a3, _b3, _c2;
       if (event.origin !== identityProviderUrl.origin) {
         return;
       }
       const message = event.data;
       switch (message.kind) {
         case "authorize-ready": {
-          const request = {
+          const request2 = {
             kind: "authorize-client",
-            sessionPublicKey: new Uint8Array((_a2 = this._key) == null ? void 0 : _a2.getPublicKey().toDer()),
+            sessionPublicKey: new Uint8Array((_a3 = this._key) == null ? void 0 : _a3.getPublicKey().toDer()),
             maxTimeToLive: options == null ? void 0 : options.maxTimeToLive,
             allowPinAuthentication: options == null ? void 0 : options.allowPinAuthentication,
-            derivationOrigin: (_b2 = options == null ? void 0 : options.derivationOrigin) == null ? void 0 : _b2.toString(),
+            derivationOrigin: (_b3 = options == null ? void 0 : options.derivationOrigin) == null ? void 0 : _b3.toString(),
             // Pass any custom values to the IDP.
             ...options == null ? void 0 : options.customValues
           };
-          (_c2 = this._idpWindow) == null ? void 0 : _c2.postMessage(request, identityProviderUrl.origin);
+          (_c2 = this._idpWindow) == null ? void 0 : _c2.postMessage(request2, identityProviderUrl.origin);
           break;
         }
         case "authorize-client-success":
@@ -7514,8 +15246,8 @@ class AuthClient {
     };
   }
   _handleFailure(errorMessage, onError) {
-    var _a2;
-    (_a2 = this._idpWindow) == null ? void 0 : _a2.close();
+    var _a3;
+    (_a3 = this._idpWindow) == null ? void 0 : _a3.close();
     onError == null ? void 0 : onError(errorMessage);
     this._removeEventListener();
     delete this._idpWindow;
@@ -7559,7 +15291,7 @@ function mergeLoginOptions(loginOptions, otherLoginOptions) {
   };
 }
 const ONE_HOUR_IN_NANOSECONDS = BigInt(36e11);
-const DEFAULT_IDENTITY_PROVIDER = "https://id.ai";
+const DEFAULT_IDENTITY_PROVIDER = "https://id.ai/authorize";
 const InternetIdentityReactContext = reactExports.createContext(void 0);
 async function createAuthClient(createOptions) {
   const config = await loadConfig();
@@ -7578,6 +15310,16 @@ async function createAuthClient(createOptions) {
   const authClient = await AuthClient.create(options);
   return authClient;
 }
+function assertProviderPresent(context) {
+  if (!context) {
+    throw new Error("InternetIdentityProvider is not present. Wrap your component tree with it.");
+  }
+}
+const useInternetIdentity = () => {
+  const context = reactExports.useContext(InternetIdentityReactContext);
+  assertProviderPresent(context);
+  return context;
+};
 function InternetIdentityProvider({ children, createOptions }) {
   const [authClient, setAuthClient] = reactExports.useState(void 0);
   const [identity, setIdentity] = reactExports.useState(void 0);
@@ -7725,9 +15467,9 @@ var scheduler_production = {};
     }
     return first;
   }
-  function compare2(a, b) {
-    var diff = a.sortIndex - b.sortIndex;
-    return 0 !== diff ? diff : a.id - b.id;
+  function compare2(a2, b2) {
+    var diff = a2.sortIndex - b2.sortIndex;
+    return 0 !== diff ? diff : a2.id - b2.id;
   }
   exports$1.unstable_now = void 0;
   if ("object" === typeof performance && "function" === typeof performance.now) {
@@ -7904,30 +15646,30 @@ var scheduler_production = {};
     "object" === typeof options && null !== options ? (options = options.delay, options = "number" === typeof options && 0 < options ? currentTime + options : currentTime) : options = currentTime;
     switch (priorityLevel) {
       case 1:
-        var timeout = -1;
+        var timeout2 = -1;
         break;
       case 2:
-        timeout = 250;
+        timeout2 = 250;
         break;
       case 5:
-        timeout = 1073741823;
+        timeout2 = 1073741823;
         break;
       case 4:
-        timeout = 1e4;
+        timeout2 = 1e4;
         break;
       default:
-        timeout = 5e3;
+        timeout2 = 5e3;
     }
-    timeout = options + timeout;
+    timeout2 = options + timeout2;
     priorityLevel = {
       id: taskIdCounter++,
       callback,
       priorityLevel,
       startTime: options,
-      expirationTime: timeout,
+      expirationTime: timeout2,
       sortIndex: -1
     };
-    options > currentTime ? (priorityLevel.sortIndex = options, push2(timerQueue, priorityLevel), null === peek(taskQueue) && priorityLevel === peek(timerQueue) && (isHostTimeoutScheduled ? (localClearTimeout(taskTimeoutID), taskTimeoutID = -1) : isHostTimeoutScheduled = true, requestHostTimeout(handleTimeout, options - currentTime))) : (priorityLevel.sortIndex = timeout, push2(taskQueue, priorityLevel), isHostCallbackScheduled || isPerformingWork || (isHostCallbackScheduled = true, isMessageLoopRunning || (isMessageLoopRunning = true, schedulePerformWorkUntilDeadline())));
+    options > currentTime ? (priorityLevel.sortIndex = options, push2(timerQueue, priorityLevel), null === peek(taskQueue) && priorityLevel === peek(timerQueue) && (isHostTimeoutScheduled ? (localClearTimeout(taskTimeoutID), taskTimeoutID = -1) : isHostTimeoutScheduled = true, requestHostTimeout(handleTimeout, options - currentTime))) : (priorityLevel.sortIndex = timeout2, push2(taskQueue, priorityLevel), isHostCallbackScheduled || isPerformingWork || (isHostCallbackScheduled = true, isMessageLoopRunning || (isMessageLoopRunning = true, schedulePerformWorkUntilDeadline())));
     return priorityLevel;
   };
   exports$1.unstable_shouldYield = shouldYieldToHost;
@@ -8090,8 +15832,8 @@ reactDom_production.preloadModule = function(href, options) {
 reactDom_production.requestFormReset = function(form) {
   Internals.d.r(form);
 };
-reactDom_production.unstable_batchedUpdates = function(fn, a) {
-  return fn(a);
+reactDom_production.unstable_batchedUpdates = function(fn, a2) {
+  return fn(a2);
 };
 reactDom_production.useFormState = function(action, initialState, permalink) {
   return ReactSharedInternals$1.H.useFormState(action, initialState, permalink);
@@ -8168,55 +15910,55 @@ function findCurrentFiberUsingSlowPath(fiber) {
     if (null === alternate) throw Error(formatProdErrorMessage(188));
     return alternate !== fiber ? null : fiber;
   }
-  for (var a = fiber, b = alternate; ; ) {
-    var parentA = a.return;
+  for (var a2 = fiber, b2 = alternate; ; ) {
+    var parentA = a2.return;
     if (null === parentA) break;
     var parentB = parentA.alternate;
     if (null === parentB) {
-      b = parentA.return;
-      if (null !== b) {
-        a = b;
+      b2 = parentA.return;
+      if (null !== b2) {
+        a2 = b2;
         continue;
       }
       break;
     }
     if (parentA.child === parentB.child) {
       for (parentB = parentA.child; parentB; ) {
-        if (parentB === a) return assertIsMounted(parentA), fiber;
-        if (parentB === b) return assertIsMounted(parentA), alternate;
+        if (parentB === a2) return assertIsMounted(parentA), fiber;
+        if (parentB === b2) return assertIsMounted(parentA), alternate;
         parentB = parentB.sibling;
       }
       throw Error(formatProdErrorMessage(188));
     }
-    if (a.return !== b.return) a = parentA, b = parentB;
+    if (a2.return !== b2.return) a2 = parentA, b2 = parentB;
     else {
       for (var didFindChild = false, child$0 = parentA.child; child$0; ) {
-        if (child$0 === a) {
+        if (child$0 === a2) {
           didFindChild = true;
-          a = parentA;
-          b = parentB;
+          a2 = parentA;
+          b2 = parentB;
           break;
         }
-        if (child$0 === b) {
+        if (child$0 === b2) {
           didFindChild = true;
-          b = parentA;
-          a = parentB;
+          b2 = parentA;
+          a2 = parentB;
           break;
         }
         child$0 = child$0.sibling;
       }
       if (!didFindChild) {
         for (child$0 = parentB.child; child$0; ) {
-          if (child$0 === a) {
+          if (child$0 === a2) {
             didFindChild = true;
-            a = parentB;
-            b = parentA;
+            a2 = parentB;
+            b2 = parentA;
             break;
           }
-          if (child$0 === b) {
+          if (child$0 === b2) {
             didFindChild = true;
-            b = parentB;
-            a = parentA;
+            b2 = parentB;
+            a2 = parentA;
             break;
           }
           child$0 = child$0.sibling;
@@ -8224,10 +15966,10 @@ function findCurrentFiberUsingSlowPath(fiber) {
         if (!didFindChild) throw Error(formatProdErrorMessage(189));
       }
     }
-    if (a.alternate !== b) throw Error(formatProdErrorMessage(190));
+    if (a2.alternate !== b2) throw Error(formatProdErrorMessage(190));
   }
-  if (3 !== a.tag) throw Error(formatProdErrorMessage(188));
-  return a.stateNode.current === a ? fiber : alternate;
+  if (3 !== a2.tag) throw Error(formatProdErrorMessage(188));
+  return a2.stateNode.current === a2 ? fiber : alternate;
 }
 function findCurrentHostFiberImpl(node) {
   var tag = node.tag;
@@ -8288,7 +16030,7 @@ function getComponentNameFromType(type) {
         type = type._init;
         try {
           return getComponentNameFromType(type(innerType));
-        } catch (x) {
+        } catch (x2) {
         }
     }
   return null;
@@ -8363,9 +16105,9 @@ function setIsStrictModeForDevtools(newIsStrictMode) {
     }
 }
 var clz32 = Math.clz32 ? Math.clz32 : clz32Fallback, log = Math.log, LN2 = Math.LN2;
-function clz32Fallback(x) {
-  x >>>= 0;
-  return 0 === x ? 32 : 31 - (log(x) / LN2 | 0) | 0;
+function clz32Fallback(x2) {
+  x2 >>>= 0;
+  return 0 === x2 ? 32 : 31 - (log(x2) / LN2 | 0) | 0;
 }
 var nextTransitionLane = 256, nextRetryLane = 4194304;
 function getHighestPriorityLanes(lanes) {
@@ -8715,10 +16457,10 @@ function describeBuiltInComponentFrame(name) {
   if (void 0 === prefix$1)
     try {
       throw Error();
-    } catch (x) {
-      var match = x.stack.trim().match(/\n( *(at )?)/);
+    } catch (x2) {
+      var match = x2.stack.trim().match(/\n( *(at )?)/);
       prefix$1 = match && match[1] || "";
-      suffix = -1 < x.stack.indexOf("\n    at") ? " (<anonymous>)" : -1 < x.stack.indexOf("@") ? "@unknown:0:0" : "";
+      suffix = -1 < x2.stack.indexOf("\n    at") ? " (<anonymous>)" : -1 < x2.stack.indexOf("@") ? "@unknown:0:0" : "";
     }
   return "\n" + prefix$1 + name + suffix;
 }
@@ -8744,8 +16486,8 @@ function describeNativeComponentFrame(fn, construct) {
             if ("object" === typeof Reflect && Reflect.construct) {
               try {
                 Reflect.construct(Fake, []);
-              } catch (x) {
-                var control = x;
+              } catch (x2) {
+                var control = x2;
               }
               Reflect.construct(fn, [], Fake);
             } else {
@@ -8845,8 +16587,8 @@ function getStackByFiberInDevAndProd(workInProgress2) {
       info += describeFiber(workInProgress2), workInProgress2 = workInProgress2.return;
     while (workInProgress2);
     return info;
-  } catch (x) {
-    return "\nError generating stack: " + x.message + "\n" + x.stack;
+  } catch (x2) {
+    return "\nError generating stack: " + x2.message + "\n" + x2.stack;
   }
 }
 function getToStringValue(value) {
@@ -9206,16 +16948,16 @@ function restoreStateOfTarget(target) {
   }
 }
 var isInsideEventHandler = false;
-function batchedUpdates$1(fn, a, b) {
-  if (isInsideEventHandler) return fn(a, b);
+function batchedUpdates$1(fn, a2, b2) {
+  if (isInsideEventHandler) return fn(a2, b2);
   isInsideEventHandler = true;
   try {
-    var JSCompiler_inline_result = fn(a);
+    var JSCompiler_inline_result = fn(a2);
     return JSCompiler_inline_result;
   } finally {
     if (isInsideEventHandler = false, null !== restoreTarget || null !== restoreQueue) {
-      if (flushSyncWork$1(), restoreTarget && (a = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a), fn))
-        for (a = 0; a < fn.length; a++) restoreStateOfTarget(fn[a]);
+      if (flushSyncWork$1(), restoreTarget && (a2 = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a2), fn))
+        for (a2 = 0; a2 < fn.length; a2++) restoreStateOfTarget(fn[a2]);
     }
   }
 }
@@ -9623,8 +17365,8 @@ function getTargetInstForInputOrChangeEvent(domEventName, targetInst) {
   if ("input" === domEventName || "change" === domEventName)
     return getInstIfValueChanged(targetInst);
 }
-function is$2(x, y) {
-  return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
+function is$2(x2, y2) {
+  return x2 === y2 && (0 !== x2 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
 }
 var objectIs$2 = "function" === typeof Object.is ? Object.is : is$2;
 function shallowEqual(objA, objB) {
@@ -11146,9 +18888,9 @@ function updateActionStateImpl(stateHook, currentStateHook, action) {
   if ("object" === typeof currentStateHook && null !== currentStateHook && "function" === typeof currentStateHook.then)
     try {
       var state = useThenable(currentStateHook);
-    } catch (x) {
-      if (x === SuspenseException) throw SuspenseActionException;
-      throw x;
+    } catch (x2) {
+      if (x2 === SuspenseException) throw SuspenseActionException;
+      throw x2;
     }
   else state = currentStateHook;
   currentStateHook = updateWorkInProgressHook();
@@ -12236,9 +19978,9 @@ function createChildReconciler(shouldTrackSideEffects) {
       );
       thenableState = null;
       return firstChildFiber;
-    } catch (x) {
-      if (x === SuspenseException || x === SuspenseActionException) throw x;
-      var fiber = createFiberImplClass(29, x, null, returnFiber.mode);
+    } catch (x2) {
+      if (x2 === SuspenseException || x2 === SuspenseActionException) throw x2;
+      var fiber = createFiberImplClass(29, x2, null, returnFiber.mode);
       fiber.lanes = lanes;
       fiber.return = returnFiber;
       return fiber;
@@ -18602,8 +26344,8 @@ function updateContainerImpl(rootFiber, lane, element, container, parentComponen
 function markRetryLaneImpl(fiber, retryLane) {
   fiber = fiber.memoizedState;
   if (null !== fiber && null !== fiber.dehydrated) {
-    var a = fiber.retryLane;
-    fiber.retryLane = 0 !== a && a < retryLane ? a : retryLane;
+    var a2 = fiber.retryLane;
+    fiber.retryLane = 0 !== a2 && a2 < retryLane ? a2 : retryLane;
   }
 }
 function markRetryLaneIfNotHydrated(fiber, retryLane) {
@@ -19211,9 +26953,9 @@ let __batchDepth = 0;
 const __pendingUpdates = /* @__PURE__ */ new Set();
 const __initialBatchValues = /* @__PURE__ */ new Map();
 function __flush_internals(relatedVals) {
-  const sorted = Array.from(relatedVals).sort((a, b) => {
-    if (a instanceof Derived && a.options.deps.includes(b)) return 1;
-    if (b instanceof Derived && b.options.deps.includes(a)) return -1;
+  const sorted = Array.from(relatedVals).sort((a2, b2) => {
+    if (a2 instanceof Derived && a2.options.deps.includes(b2)) return 1;
+    if (b2 instanceof Derived && b2.options.deps.includes(a2)) return -1;
     return 0;
   });
   for (const derived of sorted) {
@@ -19308,9 +27050,9 @@ class Store {
   constructor(initialState, options) {
     this.listeners = /* @__PURE__ */ new Set();
     this.subscribe = (listener) => {
-      var _a2, _b2;
+      var _a3, _b3;
       this.listeners.add(listener);
-      const unsub = (_b2 = (_a2 = this.options) == null ? void 0 : _a2.onSubscribe) == null ? void 0 : _b2.call(_a2, listener, this);
+      const unsub = (_b3 = (_a3 = this.options) == null ? void 0 : _a3.onSubscribe) == null ? void 0 : _b3.call(_a3, listener, this);
       return () => {
         this.listeners.delete(listener);
         unsub == null ? void 0 : unsub();
@@ -19321,9 +27063,9 @@ class Store {
     this.options = options;
   }
   setState(updater) {
-    var _a2, _b2, _c2;
+    var _a3, _b3, _c2;
     this.prevState = this.state;
-    if ((_a2 = this.options) == null ? void 0 : _a2.updateFn) {
+    if ((_a3 = this.options) == null ? void 0 : _a3.updateFn) {
       this.state = this.options.updateFn(this.prevState)(updater);
     } else {
       if (isUpdaterFunction(updater)) {
@@ -19332,7 +27074,7 @@ class Store {
         this.state = updater;
       }
     }
-    (_c2 = (_b2 = this.options) == null ? void 0 : _b2.onUpdate) == null ? void 0 : _c2.call(_b2);
+    (_c2 = (_b3 = this.options) == null ? void 0 : _b3.onUpdate) == null ? void 0 : _c2.call(_b3);
     __flush(this);
   }
 }
@@ -19358,11 +27100,11 @@ class Derived {
       };
     };
     this.recompute = () => {
-      var _a2, _b2;
+      var _a3, _b3;
       this.prevState = this.state;
       const depVals = this.getDepVals();
       this.state = this.options.fn(depVals);
-      (_b2 = (_a2 = this.options).onUpdate) == null ? void 0 : _b2.call(_a2);
+      (_b3 = (_a3 = this.options).onUpdate) == null ? void 0 : _b3.call(_a3);
     };
     this.checkIfRecalculationNeededDeeply = () => {
       for (const dep of this.options.deps) {
@@ -19394,9 +27136,9 @@ class Derived {
       };
     };
     this.subscribe = (listener) => {
-      var _a2, _b2;
+      var _a3, _b3;
       this.listeners.add(listener);
-      const unsub = (_b2 = (_a2 = this.options).onSubscribe) == null ? void 0 : _b2.call(_a2, listener, this);
+      const unsub = (_b3 = (_a3 = this.options).onSubscribe) == null ? void 0 : _b3.call(_a3, listener, this);
       return () => {
         this.listeners.delete(listener);
         unsub == null ? void 0 : unsub();
@@ -19466,13 +27208,13 @@ function createHistory(opts) {
     navigateOpts,
     ...actionInfo
   }) => {
-    var _a2, _b2;
+    var _a3, _b3;
     const ignoreBlocker = (navigateOpts == null ? void 0 : navigateOpts.ignoreBlocker) ?? false;
     if (ignoreBlocker) {
       task();
       return;
     }
-    const blockers = ((_a2 = opts.getBlockers) == null ? void 0 : _a2.call(opts)) ?? [];
+    const blockers = ((_a3 = opts.getBlockers) == null ? void 0 : _a3.call(opts)) ?? [];
     const isPushOrReplace = actionInfo.type === "PUSH" || actionInfo.type === "REPLACE";
     if (typeof document !== "undefined" && blockers.length && isPushOrReplace) {
       for (const blocker of blockers) {
@@ -19483,7 +27225,7 @@ function createHistory(opts) {
           action: actionInfo.type
         });
         if (isBlocked) {
-          (_b2 = opts.onBlocked) == null ? void 0 : _b2.call(opts);
+          (_b3 = opts.onBlocked) == null ? void 0 : _b3.call(opts);
           return;
         }
       }
@@ -19565,24 +27307,24 @@ function createHistory(opts) {
     canGoBack: () => location2.state[stateIndexKey] !== 0,
     createHref: (str) => opts.createHref(str),
     block: (blocker) => {
-      var _a2;
+      var _a3;
       if (!opts.setBlockers) return () => {
       };
-      const blockers = ((_a2 = opts.getBlockers) == null ? void 0 : _a2.call(opts)) ?? [];
+      const blockers = ((_a3 = opts.getBlockers) == null ? void 0 : _a3.call(opts)) ?? [];
       opts.setBlockers([...blockers, blocker]);
       return () => {
-        var _a22, _b2;
+        var _a22, _b3;
         const blockers2 = ((_a22 = opts.getBlockers) == null ? void 0 : _a22.call(opts)) ?? [];
-        (_b2 = opts.setBlockers) == null ? void 0 : _b2.call(opts, blockers2.filter((b) => b !== blocker));
+        (_b3 = opts.setBlockers) == null ? void 0 : _b3.call(opts, blockers2.filter((b2) => b2 !== blocker));
       };
     },
     flush: () => {
-      var _a2;
-      return (_a2 = opts.flush) == null ? void 0 : _a2.call(opts);
+      var _a3;
+      return (_a3 = opts.flush) == null ? void 0 : _a3.call(opts);
     },
     destroy: () => {
-      var _a2;
-      return (_a2 = opts.destroy) == null ? void 0 : _a2.call(opts);
+      var _a3;
+      return (_a3 = opts.destroy) == null ? void 0 : _a3.call(opts);
     },
     notify
   };
@@ -19601,7 +27343,7 @@ function assignKeyAndIndex(index2, state) {
   };
 }
 function createBrowserHistory(opts) {
-  var _a2, _b2;
+  var _a3, _b3;
   const win = typeof document !== "undefined" ? window : void 0;
   const originalPushState = win.history.pushState;
   const originalReplaceState = win.history.replaceState;
@@ -19613,7 +27355,7 @@ function createBrowserHistory(opts) {
     `${win.location.pathname}${win.location.search}${win.location.hash}`,
     win.history.state
   );
-  if (!((_a2 = win.history.state) == null ? void 0 : _a2.__TSR_key) && !((_b2 = win.history.state) == null ? void 0 : _b2.key)) {
+  if (!((_a3 = win.history.state) == null ? void 0 : _a3.__TSR_key) && !((_b3 = win.history.state) == null ? void 0 : _b3.key)) {
     const addedKey = createRandomKey();
     win.history.replaceState(
       {
@@ -19845,8 +27587,8 @@ function createRandomKey() {
 function last(arr) {
   return arr[arr.length - 1];
 }
-function isFunction$2(d) {
-  return typeof d === "function";
+function isFunction$2(d2) {
+  return typeof d2 === "function";
 }
 function functionalUpdate(updater, previous) {
   if (isFunction$2(updater)) {
@@ -19872,42 +27614,42 @@ function replaceEqualDeep(prev, _next) {
   let equalItems = 0;
   for (let i = 0; i < nextSize; i++) {
     const key = array ? i : nextItems[i];
-    const p = prev[key];
+    const p2 = prev[key];
     const n = next[key];
-    if (p === n) {
-      copy[key] = p;
+    if (p2 === n) {
+      copy[key] = p2;
       if (array ? i < prevSize : hasOwn.call(prev, key)) equalItems++;
       continue;
     }
-    if (p === null || n === null || typeof p !== "object" || typeof n !== "object") {
+    if (p2 === null || n === null || typeof p2 !== "object" || typeof n !== "object") {
       copy[key] = n;
       continue;
     }
-    const v = replaceEqualDeep(p, n);
-    copy[key] = v;
-    if (v === p) equalItems++;
+    const v2 = replaceEqualDeep(p2, n);
+    copy[key] = v2;
+    if (v2 === p2) equalItems++;
   }
   return prevSize === nextSize && equalItems === prevSize ? prev : copy;
 }
-function getEnumerableOwnKeys(o) {
+function getEnumerableOwnKeys(o2) {
   const keys = [];
-  const names = Object.getOwnPropertyNames(o);
+  const names = Object.getOwnPropertyNames(o2);
   for (const name of names) {
-    if (!Object.prototype.propertyIsEnumerable.call(o, name)) return false;
+    if (!Object.prototype.propertyIsEnumerable.call(o2, name)) return false;
     keys.push(name);
   }
-  const symbols = Object.getOwnPropertySymbols(o);
+  const symbols = Object.getOwnPropertySymbols(o2);
   for (const symbol of symbols) {
-    if (!Object.prototype.propertyIsEnumerable.call(o, symbol)) return false;
+    if (!Object.prototype.propertyIsEnumerable.call(o2, symbol)) return false;
     keys.push(symbol);
   }
   return keys;
 }
-function isPlainObject$1(o) {
-  if (!hasObjectPrototype(o)) {
+function isPlainObject$1(o2) {
+  if (!hasObjectPrototype(o2)) {
     return false;
   }
-  const ctor = o.constructor;
+  const ctor = o2.constructor;
   if (typeof ctor === "undefined") {
     return true;
   }
@@ -19920,49 +27662,49 @@ function isPlainObject$1(o) {
   }
   return true;
 }
-function hasObjectPrototype(o) {
-  return Object.prototype.toString.call(o) === "[object Object]";
+function hasObjectPrototype(o2) {
+  return Object.prototype.toString.call(o2) === "[object Object]";
 }
 function isPlainArray(value) {
   return Array.isArray(value) && value.length === Object.keys(value).length;
 }
-function deepEqual$2(a, b, opts) {
-  if (a === b) {
+function deepEqual$2(a2, b2, opts) {
+  if (a2 === b2) {
     return true;
   }
-  if (typeof a !== typeof b) {
+  if (typeof a2 !== typeof b2) {
     return false;
   }
-  if (Array.isArray(a) && Array.isArray(b)) {
-    if (a.length !== b.length) return false;
-    for (let i = 0, l = a.length; i < l; i++) {
-      if (!deepEqual$2(a[i], b[i], opts)) return false;
+  if (Array.isArray(a2) && Array.isArray(b2)) {
+    if (a2.length !== b2.length) return false;
+    for (let i = 0, l = a2.length; i < l; i++) {
+      if (!deepEqual$2(a2[i], b2[i], opts)) return false;
     }
     return true;
   }
-  if (isPlainObject$1(a) && isPlainObject$1(b)) {
+  if (isPlainObject$1(a2) && isPlainObject$1(b2)) {
     const ignoreUndefined = (opts == null ? void 0 : opts.ignoreUndefined) ?? true;
     if (opts == null ? void 0 : opts.partial) {
-      for (const k in b) {
-        if (!ignoreUndefined || b[k] !== void 0) {
-          if (!deepEqual$2(a[k], b[k], opts)) return false;
+      for (const k2 in b2) {
+        if (!ignoreUndefined || b2[k2] !== void 0) {
+          if (!deepEqual$2(a2[k2], b2[k2], opts)) return false;
         }
       }
       return true;
     }
     let aCount = 0;
     if (!ignoreUndefined) {
-      aCount = Object.keys(a).length;
+      aCount = Object.keys(a2).length;
     } else {
-      for (const k in a) {
-        if (a[k] !== void 0) aCount++;
+      for (const k2 in a2) {
+        if (a2[k2] !== void 0) aCount++;
       }
     }
     let bCount = 0;
-    for (const k in b) {
-      if (!ignoreUndefined || b[k] !== void 0) {
+    for (const k2 in b2) {
+      if (!ignoreUndefined || b2[k2] !== void 0) {
         bCount++;
-        if (bCount > aCount || !deepEqual$2(a[k], b[k], opts)) return false;
+        if (bCount > aCount || !deepEqual$2(a2[k2], b2[k2], opts)) return false;
       }
     }
     return aCount === bCount;
@@ -20072,12 +27814,12 @@ function resolvePath({
   caseSensitive,
   parseCache
 }) {
-  var _a2;
+  var _a3;
   base = removeBasepath(basepath, base, caseSensitive);
   to = removeBasepath(basepath, to, caseSensitive);
   let baseSegments = parseBasePathSegments(base, parseCache).slice();
   const toSegments = parseRoutePathSegments(to, parseCache);
-  if (baseSegments.length > 1 && ((_a2 = last(baseSegments)) == null ? void 0 : _a2.value) === "/") {
+  if (baseSegments.length > 1 && ((_a3 = last(baseSegments)) == null ? void 0 : _a3.value) === "/") {
     baseSegments.pop();
   }
   for (let index2 = 0, length = toSegments.length; index2 < length; index2++) {
@@ -20367,7 +28109,7 @@ function matchByPath(basepath, from, {
   return result ? params : void 0;
 }
 function isMatch(baseSegments, routeSegments, params, fuzzy, caseSensitive) {
-  var _a2, _b2, _c2;
+  var _a3, _b3, _c2;
   let baseIndex = 0;
   let routeIndex = 0;
   while (baseIndex < baseSegments.length || routeIndex < routeSegments.length) {
@@ -20388,12 +28130,12 @@ function isMatch(baseSegments, routeSegments, params, fuzzy, caseSensitive) {
             }
           }
           if ("suffixSegment" in routeSegment) {
-            if (!((_a2 = baseSegments[baseSegments.length - 1]) == null ? void 0 : _a2.value.endsWith(suffix2))) {
+            if (!((_a3 = baseSegments[baseSegments.length - 1]) == null ? void 0 : _a3.value.endsWith(suffix2))) {
               return false;
             }
           }
           let rejoinedSplat = decodeURI(
-            joinPaths(remainingBaseSegments.map((d) => d.value))
+            joinPaths(remainingBaseSegments.map((d2) => d2.value))
           );
           if (prefix2 && rejoinedSplat.startsWith(prefix2)) {
             rejoinedSplat = rejoinedSplat.slice(prefix2.length);
@@ -20407,7 +28149,7 @@ function isMatch(baseSegments, routeSegments, params, fuzzy, caseSensitive) {
           _splat = rejoinedSplat;
         } else {
           _splat = decodeURI(
-            joinPaths(remainingBaseSegments.map((d) => d.value))
+            joinPaths(remainingBaseSegments.map((d2) => d2.value))
           );
         }
         params["*"] = _splat;
@@ -20532,9 +28274,9 @@ function isMatch(baseSegments, routeSegments, params, fuzzy, caseSensitive) {
     }
     if (baseIndex < baseSegments.length && routeIndex >= routeSegments.length) {
       params["**"] = joinPaths(
-        baseSegments.slice(baseIndex).map((d) => d.value)
+        baseSegments.slice(baseIndex).map((d2) => d2.value)
       );
-      return !!fuzzy && ((_b2 = routeSegments[routeSegments.length - 1]) == null ? void 0 : _b2.value) !== "/";
+      return !!fuzzy && ((_b3 = routeSegments[routeSegments.length - 1]) == null ? void 0 : _b3.value) !== "/";
     }
     if (routeIndex < routeSegments.length && baseIndex >= baseSegments.length) {
       for (let i = routeIndex; i < routeSegments.length; i++) {
@@ -20573,15 +28315,15 @@ function handleParam(segment, baseScore) {
 }
 function sortRoutes(routes) {
   const scoredRoutes = [];
-  routes.forEach((d, i) => {
-    var _a2;
-    if (d.isRoot || !d.path) {
+  routes.forEach((d2, i) => {
+    var _a3;
+    if (d2.isRoot || !d2.path) {
       return;
     }
-    const trimmed = trimPathLeft(d.fullPath);
+    const trimmed = trimPathLeft(d2.fullPath);
     let parsed = parseRoutePathSegments(trimmed);
     let skip = 0;
-    while (parsed.length > skip + 1 && ((_a2 = parsed[skip]) == null ? void 0 : _a2.value) === "/") {
+    while (parsed.length > skip + 1 && ((_a3 = parsed[skip]) == null ? void 0 : _a3.value) === "/") {
       skip++;
     }
     if (skip > 0) parsed = parsed.slice(skip);
@@ -20616,7 +28358,7 @@ function sortRoutes(routes) {
       return handleParam(segment, baseScore);
     });
     scoredRoutes.push({
-      child: d,
+      child: d2,
       trimmed,
       parsed,
       index: i,
@@ -20625,34 +28367,34 @@ function sortRoutes(routes) {
       hasStaticAfter
     });
   });
-  const flatRoutes = scoredRoutes.sort((a, b) => {
-    const minLength = Math.min(a.scores.length, b.scores.length);
+  const flatRoutes = scoredRoutes.sort((a2, b2) => {
+    const minLength = Math.min(a2.scores.length, b2.scores.length);
     for (let i = 0; i < minLength; i++) {
-      if (a.scores[i] !== b.scores[i]) {
-        return b.scores[i] - a.scores[i];
+      if (a2.scores[i] !== b2.scores[i]) {
+        return b2.scores[i] - a2.scores[i];
       }
     }
-    if (a.scores.length !== b.scores.length) {
-      if (a.optionalParamCount !== b.optionalParamCount) {
-        if (a.hasStaticAfter === b.hasStaticAfter) {
-          return a.optionalParamCount - b.optionalParamCount;
-        } else if (a.hasStaticAfter && !b.hasStaticAfter) {
+    if (a2.scores.length !== b2.scores.length) {
+      if (a2.optionalParamCount !== b2.optionalParamCount) {
+        if (a2.hasStaticAfter === b2.hasStaticAfter) {
+          return a2.optionalParamCount - b2.optionalParamCount;
+        } else if (a2.hasStaticAfter && !b2.hasStaticAfter) {
           return -1;
-        } else if (!a.hasStaticAfter && b.hasStaticAfter) {
+        } else if (!a2.hasStaticAfter && b2.hasStaticAfter) {
           return 1;
         }
       }
-      return b.scores.length - a.scores.length;
+      return b2.scores.length - a2.scores.length;
     }
     for (let i = 0; i < minLength; i++) {
-      if (a.parsed[i].value !== b.parsed[i].value) {
-        return a.parsed[i].value > b.parsed[i].value ? 1 : -1;
+      if (a2.parsed[i].value !== b2.parsed[i].value) {
+        return a2.parsed[i].value > b2.parsed[i].value ? 1 : -1;
       }
     }
-    return a.index - b.index;
-  }).map((d, i) => {
-    d.child.rank = i;
-    return d.child;
+    return a2.index - b2.index;
+  }).map((d2, i) => {
+    d2.child.rank = i;
+    return d2.child;
   });
   return flatRoutes;
 }
@@ -20701,12 +28443,12 @@ function getSafeSessionStorage() {
 }
 const storageKey = "tsr-scroll-restoration-v1_3";
 const throttle = (fn, wait) => {
-  let timeout;
+  let timeout2;
   return (...args) => {
-    if (!timeout) {
-      timeout = setTimeout(() => {
+    if (!timeout2) {
+      timeout2 = setTimeout(() => {
         fn(...args);
-        timeout = null;
+        timeout2 = null;
       }, wait);
     }
   };
@@ -20750,7 +28492,7 @@ function restoreScroll({
   scrollToTopSelectors,
   location: location2
 }) {
-  var _a2, _b2;
+  var _a3, _b3;
   let byKey;
   try {
     byKey = JSON.parse(sessionStorage.getItem(storageKey2) || "{}");
@@ -20758,7 +28500,7 @@ function restoreScroll({
     console.error(error);
     return;
   }
-  const resolvedKey = key || ((_a2 = window.history.state) == null ? void 0 : _a2.key);
+  const resolvedKey = key || ((_a3 = window.history.state) == null ? void 0 : _a3.key);
   const elementEntries = byKey[resolvedKey];
   ignoreScroll = true;
   scroll: {
@@ -20783,7 +28525,7 @@ function restoreScroll({
     }
     const hash = (location2 ?? window.location).hash.split("#", 2)[1];
     if (hash) {
-      const hashScrollIntoViewOptions = ((_b2 = window.history.state) == null ? void 0 : _b2.__hashScrollIntoViewOptions) ?? true;
+      const hashScrollIntoViewOptions = ((_b3 = window.history.state) == null ? void 0 : _b3.__hashScrollIntoViewOptions) ?? true;
       if (hashScrollIntoViewOptions) {
         const el = document.getElementById(hash);
         if (el) {
@@ -21051,25 +28793,25 @@ function createLRUCache(max2) {
   };
 }
 const triggerOnReady = (inner) => {
-  var _a2;
+  var _a3;
   if (!inner.rendered) {
     inner.rendered = true;
-    return (_a2 = inner.onReady) == null ? void 0 : _a2.call(inner);
+    return (_a3 = inner.onReady) == null ? void 0 : _a3.call(inner);
   }
 };
 const resolvePreload = (inner, matchId) => {
-  return !!(inner.preload && !inner.router.state.matches.some((d) => d.id === matchId));
+  return !!(inner.preload && !inner.router.state.matches.some((d2) => d2.id === matchId));
 };
 const _handleNotFound = (inner, err) => {
-  var _a2;
+  var _a3;
   const routeCursor = inner.router.routesById[err.routeId ?? ""] ?? inner.router.routeTree;
-  if (!routeCursor.options.notFoundComponent && ((_a2 = inner.router.options) == null ? void 0 : _a2.defaultNotFoundComponent)) {
+  if (!routeCursor.options.notFoundComponent && ((_a3 = inner.router.options) == null ? void 0 : _a3.defaultNotFoundComponent)) {
     routeCursor.options.notFoundComponent = inner.router.options.defaultNotFoundComponent;
   }
   invariant$1(
     routeCursor.options.notFoundComponent
   );
-  const matchForRoute = inner.matches.find((m) => m.routeId === routeCursor.id);
+  const matchForRoute = inner.matches.find((m2) => m2.routeId === routeCursor.id);
   invariant$1(matchForRoute, "Could not find match for route: " + routeCursor.id);
   inner.updateMatch(matchForRoute.id, (prev) => ({
     ...prev,
@@ -21083,14 +28825,14 @@ const _handleNotFound = (inner, err) => {
   }
 };
 const handleRedirectAndNotFound = (inner, match, err) => {
-  var _a2, _b2, _c2;
+  var _a3, _b3, _c2;
   if (!isRedirect(err) && !isNotFound(err)) return;
   if (isRedirect(err) && err.redirectHandled && !err.options.reloadDocument) {
     throw err;
   }
   if (match) {
-    (_a2 = match._nonReactive.beforeLoadPromise) == null ? void 0 : _a2.resolve();
-    (_b2 = match._nonReactive.loaderPromise) == null ? void 0 : _b2.resolve();
+    (_a3 = match._nonReactive.beforeLoadPromise) == null ? void 0 : _a3.resolve();
+    (_b3 = match._nonReactive.loaderPromise) == null ? void 0 : _b3.resolve();
     match._nonReactive.beforeLoadPromise = void 0;
     match._nonReactive.loaderPromise = void 0;
     const status = isRedirect(err) ? "redirected" : "notFound";
@@ -21127,7 +28869,7 @@ const shouldSkipLoader = (inner, matchId) => {
   return false;
 };
 const handleSerialError = (inner, index2, err, routerCode) => {
-  var _a2, _b2;
+  var _a3, _b3;
   const { id: matchId, routeId } = inner.matches[index2];
   const route = inner.router.looseRoutesById[routeId];
   if (err instanceof Promise) {
@@ -21137,7 +28879,7 @@ const handleSerialError = (inner, index2, err, routerCode) => {
   inner.firstBadMatchIndex ?? (inner.firstBadMatchIndex = index2);
   handleRedirectAndNotFound(inner, inner.router.getMatch(matchId), err);
   try {
-    (_b2 = (_a2 = route.options).onError) == null ? void 0 : _b2.call(_a2, err);
+    (_b3 = (_a3 = route.options).onError) == null ? void 0 : _b3.call(_a3, err);
   } catch (errorHandlerErr) {
     err = errorHandlerErr;
     handleRedirectAndNotFound(inner, inner.router.getMatch(matchId), err);
@@ -21158,9 +28900,9 @@ const handleSerialError = (inner, index2, err, routerCode) => {
   });
 };
 const isBeforeLoadSsr = (inner, matchId, index2, route) => {
-  var _a2;
+  var _a3;
   const existingMatch = inner.router.getMatch(matchId);
-  const parentMatchId = (_a2 = inner.matches[index2 - 1]) == null ? void 0 : _a2.id;
+  const parentMatchId = (_a3 = inner.matches[index2 - 1]) == null ? void 0 : _a3.id;
   const parentMatch = parentMatchId ? inner.router.getMatch(parentMatchId) : void 0;
   if (inner.router.isShell()) {
     existingMatch.ssr = matchId === rootRouteId;
@@ -21212,10 +28954,10 @@ const isBeforeLoadSsr = (inner, matchId, index2, route) => {
   return;
 };
 const setupPendingTimeout = (inner, matchId, route, match) => {
-  var _a2;
+  var _a3;
   if (match._nonReactive.pendingTimeout !== void 0) return;
   const pendingMs = route.options.pendingMs ?? inner.router.options.defaultPendingMs;
-  const shouldPending = !!(inner.onReady && !inner.router.isServer && !resolvePreload(inner, matchId) && (route.options.loader || route.options.beforeLoad || routeNeedsPreload(route)) && typeof pendingMs === "number" && pendingMs !== Infinity && (route.options.pendingComponent ?? ((_a2 = inner.router.options) == null ? void 0 : _a2.defaultPendingComponent)));
+  const shouldPending = !!(inner.onReady && !inner.router.isServer && !resolvePreload(inner, matchId) && (route.options.loader || route.options.beforeLoad || routeNeedsPreload(route)) && typeof pendingMs === "number" && pendingMs !== Infinity && (route.options.pendingComponent ?? ((_a3 = inner.router.options) == null ? void 0 : _a3.defaultPendingComponent)));
   if (shouldPending) {
     const pendingTimeout = setTimeout(() => {
       triggerOnReady(inner);
@@ -21237,7 +28979,7 @@ const preBeforeLoadSetup = (inner, matchId, route) => {
   return existingMatch._nonReactive.beforeLoadPromise ? existingMatch._nonReactive.beforeLoadPromise.then(then) : then();
 };
 const executeBeforeLoad = (inner, matchId, index2, route) => {
-  var _a2;
+  var _a3;
   const match = inner.router.getMatch(matchId);
   const prevLoadPromise = match._nonReactive.loadPromise;
   match._nonReactive.loadPromise = createControlledPromise(() => {
@@ -21252,7 +28994,7 @@ const executeBeforeLoad = (inner, matchId, index2, route) => {
   }
   setupPendingTimeout(inner, matchId, route, match);
   const abortController = new AbortController();
-  const parentMatchId = (_a2 = inner.matches[index2 - 1]) == null ? void 0 : _a2.id;
+  const parentMatchId = (_a3 = inner.matches[index2 - 1]) == null ? void 0 : _a3.id;
   const parentMatch = parentMatchId ? inner.router.getMatch(parentMatchId) : void 0;
   const parentMatchContext = (parentMatch == null ? void 0 : parentMatch.context) ?? inner.router.options.context ?? void 0;
   const context = { ...parentMatchContext, ...match.__routeContext };
@@ -21362,7 +29104,7 @@ const handleBeforeLoad = (inner, index2) => {
   return serverSsr();
 };
 const executeHead = (inner, matchId, route) => {
-  var _a2, _b2, _c2, _d2, _e2, _f2;
+  var _a3, _b3, _c2, _d2, _e2, _f2;
   const match = inner.router.getMatch(matchId);
   if (!match) {
     return;
@@ -21377,7 +29119,7 @@ const executeHead = (inner, matchId, route) => {
     loaderData: match.loaderData
   };
   return Promise.all([
-    (_b2 = (_a2 = route.options).head) == null ? void 0 : _b2.call(_a2, assetContext),
+    (_b3 = (_a3 = route.options).head) == null ? void 0 : _b3.call(_a3, assetContext),
     (_d2 = (_c2 = route.options).scripts) == null ? void 0 : _d2.call(_c2, assetContext),
     (_f2 = (_e2 = route.options).headers) == null ? void 0 : _f2.call(_e2, assetContext)
   ]).then(([headFnContent, scripts, headers]) => {
@@ -21416,15 +29158,15 @@ const getLoaderContext = (inner, matchId, index2, route) => {
   };
 };
 const runLoader = async (inner, matchId, index2, route) => {
-  var _a2, _b2, _c2, _d2;
+  var _a3, _b3, _c2, _d2;
   try {
     const match = inner.router.getMatch(matchId);
     try {
       if (!inner.router.isServer || match.ssr === true) {
         loadRouteChunk(route);
       }
-      const loaderResult = (_b2 = (_a2 = route.options).loader) == null ? void 0 : _b2.call(
-        _a2,
+      const loaderResult = (_b3 = (_a3 = route.options).loader) == null ? void 0 : _b3.call(
+        _a3,
         getLoaderContext(inner, matchId, index2, route)
       );
       const loaderResultIsPromise = route.options.loader && isPromise(loaderResult);
@@ -21505,7 +29247,7 @@ const runLoader = async (inner, matchId, index2, route) => {
   }
 };
 const loadRouteMatch = async (inner, index2) => {
-  var _a2, _b2;
+  var _a3, _b3;
   const { id: matchId, routeId } = inner.matches[index2];
   let loaderShouldRunAsync = false;
   let loaderIsRunningAsync = false;
@@ -21539,7 +29281,7 @@ const loadRouteMatch = async (inner, index2) => {
       const staleAge = preload2 ? route.options.preloadStaleTime ?? inner.router.options.defaultPreloadStaleTime ?? 3e4 : route.options.staleTime ?? inner.router.options.defaultStaleTime ?? 0;
       const shouldReloadOption = route.options.shouldReload;
       const shouldReload = typeof shouldReloadOption === "function" ? shouldReloadOption(getLoaderContext(inner, matchId, index2, route)) : shouldReloadOption;
-      const nextPreload = !!preload2 && !inner.router.state.matches.some((d) => d.id === matchId);
+      const nextPreload = !!preload2 && !inner.router.state.matches.some((d2) => d2.id === matchId);
       const match2 = inner.router.getMatch(matchId);
       match2._nonReactive.loaderPromise = createControlledPromise();
       if (nextPreload !== match2.preload) {
@@ -21583,8 +29325,8 @@ const loadRouteMatch = async (inner, index2) => {
   }
   const match = inner.router.getMatch(matchId);
   if (!loaderIsRunningAsync) {
-    (_a2 = match._nonReactive.loaderPromise) == null ? void 0 : _a2.resolve();
-    (_b2 = match._nonReactive.loadPromise) == null ? void 0 : _b2.resolve();
+    (_a3 = match._nonReactive.loaderPromise) == null ? void 0 : _a3.resolve();
+    (_b3 = match._nonReactive.loadPromise) == null ? void 0 : _b3.resolve();
   }
   clearTimeout(match._nonReactive.pendingTimeout);
   match._nonReactive.pendingTimeout = void 0;
@@ -21606,7 +29348,7 @@ async function loadMatches(arg) {
   const inner = Object.assign(arg, {
     matchPromises: []
   });
-  if (!inner.router.isServer && inner.router.state.matches.some((d) => d._forcePending)) {
+  if (!inner.router.isServer && inner.router.state.matches.some((d2) => d2._forcePending)) {
     triggerOnReady(inner);
   }
   try {
@@ -21648,10 +29390,10 @@ async function loadRouteChunk(route) {
   }
   if (!route._componentsLoaded && route._componentsPromise === void 0) {
     const loadComponents = () => {
-      var _a2;
+      var _a3;
       const preloads = [];
       for (const type of componentTypes) {
-        const preload2 = (_a2 = route.options[type]) == null ? void 0 : _a2.preload;
+        const preload2 = (_a3 = route.options[type]) == null ? void 0 : _a3.preload;
         if (preload2) preloads.push(preload2());
       }
       if (preloads.length)
@@ -21674,9 +29416,9 @@ function makeMaybe(value, error) {
   return { status: "success", value };
 }
 function routeNeedsPreload(route) {
-  var _a2;
+  var _a3;
   for (const componentType of componentTypes) {
-    if ((_a2 = route.options[componentType]) == null ? void 0 : _a2.preload) {
+    if ((_a3 = route.options[componentType]) == null ? void 0 : _a3.preload) {
       return true;
     }
   }
@@ -21712,7 +29454,7 @@ class RouterCore {
     this.isScrollRestorationSetup = false;
     this.startTransition = (fn) => fn();
     this.update = (newOptions) => {
-      var _a2;
+      var _a3;
       if (newOptions.notFoundRoute) {
         console.warn(
           "The notFoundRoute API is deprecated and will be removed in the next major version. See https://tanstack.com/router/v1/docs/framework/react/guide/not-found-errors#migrating-from-notfoundroute for more info."
@@ -21753,14 +29495,14 @@ class RouterCore {
             this.__store.state = {
               ...this.state,
               cachedMatches: this.state.cachedMatches.filter(
-                (d) => !["redirected"].includes(d.status)
+                (d2) => !["redirected"].includes(d2.status)
               )
             };
           }
         });
         setupScrollRestoration(this);
       }
-      if (typeof window !== "undefined" && "CSS" in window && typeof ((_a2 = window.CSS) == null ? void 0 : _a2.supports) === "function") {
+      if (typeof window !== "undefined" && "CSS" in window && typeof ((_a3 = window.CSS) == null ? void 0 : _a3.supports) === "function") {
         this.isViewTransitionTypesSupported = window.CSS.supports(
           "selector(:active-view-transition-type(a)"
         );
@@ -21885,14 +29627,14 @@ class RouterCore {
       match._nonReactive.pendingTimeout = void 0;
     };
     this.cancelMatches = () => {
-      var _a2;
-      (_a2 = this.state.pendingMatches) == null ? void 0 : _a2.forEach((match) => {
+      var _a3;
+      (_a3 = this.state.pendingMatches) == null ? void 0 : _a3.forEach((match) => {
         this.cancelMatch(match.id);
       });
     };
     this.buildLocation = (opts) => {
       const build = (dest = {}) => {
-        var _a2, _b2;
+        var _a3, _b3;
         const currentLocation = dest._fromLocation || this.latestLocation;
         const allCurrentLocationMatches = this.matchRoutes(currentLocation, {
           _buildLocation: true
@@ -21915,10 +29657,10 @@ class RouterCore {
         }).interpolatedPath;
         const destRoutes = this.matchRoutes(interpolatedNextTo, void 0, {
           _buildLocation: true
-        }).map((d) => this.looseRoutesById[d.routeId]);
+        }).map((d2) => this.looseRoutesById[d2.routeId]);
         if (Object.keys(nextParams).length > 0) {
           for (const route of destRoutes) {
-            const fn = ((_a2 = route.options.params) == null ? void 0 : _a2.stringify) ?? route.options.stringifyParams;
+            const fn = ((_a3 = route.options.params) == null ? void 0 : _a3.stringify) ?? route.options.stringifyParams;
             if (fn) {
               Object.assign(nextParams, fn(nextParams));
             }
@@ -21935,7 +29677,7 @@ class RouterCore {
           parseCache: this.parsePathnameCache
         }).interpolatedPath;
         let nextSearch = fromSearch;
-        if (opts._includeValidateSearch && ((_b2 = this.options.search) == null ? void 0 : _b2.strict)) {
+        if (opts._includeValidateSearch && ((_b3 = this.options.search) == null ? void 0 : _b3.strict)) {
           const validatedSearch = {};
           destRoutes.forEach((route) => {
             if (route.options.validateSearch) {
@@ -21976,17 +29718,17 @@ class RouterCore {
         };
       };
       const buildWithMatches = (dest = {}, maskedDest) => {
-        var _a2;
+        var _a3;
         const next = build(dest);
         let maskedNext = maskedDest ? build(maskedDest) : void 0;
         if (!maskedNext) {
           let params = {};
-          const foundMask = (_a2 = this.options.routeMasks) == null ? void 0 : _a2.find((d) => {
+          const foundMask = (_a3 = this.options.routeMasks) == null ? void 0 : _a3.find((d2) => {
             const match = matchPathname(
               this.basepath,
               next.pathname,
               {
-                to: d.from,
+                to: d2.from,
                 caseSensitive: false,
                 fuzzy: false
               },
@@ -22172,16 +29914,16 @@ class RouterCore {
         }
       }
       const pendingMatches = this.matchRoutes(this.latestLocation);
-      this.__store.setState((s) => ({
-        ...s,
+      this.__store.setState((s2) => ({
+        ...s2,
         status: "pending",
         statusCode: 200,
         isLoading: true,
         location: this.latestLocation,
         pendingMatches,
         // If a cached moved to pendingMatches, remove it from cachedMatches
-        cachedMatches: s.cachedMatches.filter(
-          (d) => !pendingMatches.some((e) => e.id === d.id)
+        cachedMatches: s2.cachedMatches.filter(
+          (d2) => !pendingMatches.some((e) => e.id === d2.id)
         )
       }));
     };
@@ -22191,7 +29933,7 @@ class RouterCore {
       let loadPromise;
       loadPromise = new Promise((resolve) => {
         this.startTransition(async () => {
-          var _a2;
+          var _a3;
           try {
             this.beforeLoad();
             const next = this.latestLocation;
@@ -22225,27 +29967,27 @@ class RouterCore {
                   let enteringMatches;
                   let stayingMatches;
                   batch(() => {
-                    this.__store.setState((s) => {
-                      const previousMatches = s.matches;
-                      const newMatches = s.pendingMatches || s.matches;
+                    this.__store.setState((s2) => {
+                      const previousMatches = s2.matches;
+                      const newMatches = s2.pendingMatches || s2.matches;
                       exitingMatches = previousMatches.filter(
-                        (match) => !newMatches.some((d) => d.id === match.id)
+                        (match) => !newMatches.some((d2) => d2.id === match.id)
                       );
                       enteringMatches = newMatches.filter(
-                        (match) => !previousMatches.some((d) => d.id === match.id)
+                        (match) => !previousMatches.some((d2) => d2.id === match.id)
                       );
                       stayingMatches = previousMatches.filter(
-                        (match) => newMatches.some((d) => d.id === match.id)
+                        (match) => newMatches.some((d2) => d2.id === match.id)
                       );
                       return {
-                        ...s,
+                        ...s2,
                         isLoading: false,
                         loadedAt: Date.now(),
                         matches: newMatches,
                         pendingMatches: void 0,
                         cachedMatches: [
-                          ...s.cachedMatches,
-                          ...exitingMatches.filter((d) => d.status !== "error")
+                          ...s2.cachedMatches,
+                          ...exitingMatches.filter((d2) => d2.status !== "error")
                         ]
                       };
                     });
@@ -22257,8 +29999,8 @@ class RouterCore {
                     [stayingMatches, "onStay"]
                   ].forEach(([matches, hook]) => {
                     matches.forEach((match) => {
-                      var _a22, _b2;
-                      (_b2 = (_a22 = this.looseRoutesById[match.routeId].options)[hook]) == null ? void 0 : _b2.call(_a22, match);
+                      var _a22, _b3;
+                      (_b3 = (_a22 = this.looseRoutesById[match.routeId].options)[hook]) == null ? void 0 : _b3.call(_a22, match);
                     });
                   });
                 });
@@ -22277,14 +30019,14 @@ class RouterCore {
             } else if (isNotFound(err)) {
               notFound = err;
             }
-            this.__store.setState((s) => ({
-              ...s,
-              statusCode: redirect2 ? redirect2.status : notFound ? 404 : s.matches.some((d) => d.status === "error") ? 500 : 200,
+            this.__store.setState((s2) => ({
+              ...s2,
+              statusCode: redirect2 ? redirect2.status : notFound ? 404 : s2.matches.some((d2) => d2.status === "error") ? 500 : 200,
               redirect: redirect2
             }));
           }
           if (this.latestLoadPromise === loadPromise) {
-            (_a2 = this.commitLocationPromise) == null ? void 0 : _a2.resolve();
+            (_a3 = this.commitLocationPromise) == null ? void 0 : _a3.resolve();
             this.latestLoadPromise = void 0;
             this.commitLocationPromise = void 0;
           }
@@ -22297,8 +30039,8 @@ class RouterCore {
         await this.latestLoadPromise;
       }
       if (this.hasNotFoundMatch()) {
-        this.__store.setState((s) => ({
-          ...s,
+        this.__store.setState((s2) => ({
+          ...s2,
           statusCode: 404
         }));
       }
@@ -22330,42 +30072,42 @@ class RouterCore {
       }
     };
     this.updateMatch = (id2, updater) => {
-      var _a2;
-      const matchesKey = ((_a2 = this.state.pendingMatches) == null ? void 0 : _a2.some((d) => d.id === id2)) ? "pendingMatches" : this.state.matches.some((d) => d.id === id2) ? "matches" : this.state.cachedMatches.some((d) => d.id === id2) ? "cachedMatches" : "";
+      var _a3;
+      const matchesKey = ((_a3 = this.state.pendingMatches) == null ? void 0 : _a3.some((d2) => d2.id === id2)) ? "pendingMatches" : this.state.matches.some((d2) => d2.id === id2) ? "matches" : this.state.cachedMatches.some((d2) => d2.id === id2) ? "cachedMatches" : "";
       if (matchesKey) {
-        this.__store.setState((s) => {
+        this.__store.setState((s2) => {
           var _a22;
           return {
-            ...s,
-            [matchesKey]: (_a22 = s[matchesKey]) == null ? void 0 : _a22.map((d) => d.id === id2 ? updater(d) : d)
+            ...s2,
+            [matchesKey]: (_a22 = s2[matchesKey]) == null ? void 0 : _a22.map((d2) => d2.id === id2 ? updater(d2) : d2)
           };
         });
       }
     };
     this.getMatch = (matchId) => {
-      var _a2;
-      const findFn = (d) => d.id === matchId;
-      return this.state.cachedMatches.find(findFn) ?? ((_a2 = this.state.pendingMatches) == null ? void 0 : _a2.find(findFn)) ?? this.state.matches.find(findFn);
+      var _a3;
+      const findFn = (d2) => d2.id === matchId;
+      return this.state.cachedMatches.find(findFn) ?? ((_a3 = this.state.pendingMatches) == null ? void 0 : _a3.find(findFn)) ?? this.state.matches.find(findFn);
     };
     this.invalidate = (opts) => {
-      const invalidate = (d) => {
-        var _a2;
-        if (((_a2 = opts == null ? void 0 : opts.filter) == null ? void 0 : _a2.call(opts, d)) ?? true) {
+      const invalidate = (d2) => {
+        var _a3;
+        if (((_a3 = opts == null ? void 0 : opts.filter) == null ? void 0 : _a3.call(opts, d2)) ?? true) {
           return {
-            ...d,
+            ...d2,
             invalid: true,
-            ...(opts == null ? void 0 : opts.forcePending) || d.status === "error" ? { status: "pending", error: void 0 } : void 0
+            ...(opts == null ? void 0 : opts.forcePending) || d2.status === "error" ? { status: "pending", error: void 0 } : void 0
           };
         }
-        return d;
+        return d2;
       };
-      this.__store.setState((s) => {
-        var _a2;
+      this.__store.setState((s2) => {
+        var _a3;
         return {
-          ...s,
-          matches: s.matches.map(invalidate),
-          cachedMatches: s.cachedMatches.map(invalidate),
-          pendingMatches: (_a2 = s.pendingMatches) == null ? void 0 : _a2.map(invalidate)
+          ...s2,
+          matches: s2.matches.map(invalidate),
+          cachedMatches: s2.cachedMatches.map(invalidate),
+          pendingMatches: (_a3 = s2.pendingMatches) == null ? void 0 : _a3.map(invalidate)
         };
       });
       this.shouldViewTransition = false;
@@ -22384,33 +30126,33 @@ class RouterCore {
     this.clearCache = (opts) => {
       const filter2 = opts == null ? void 0 : opts.filter;
       if (filter2 !== void 0) {
-        this.__store.setState((s) => {
+        this.__store.setState((s2) => {
           return {
-            ...s,
-            cachedMatches: s.cachedMatches.filter(
-              (m) => !filter2(m)
+            ...s2,
+            cachedMatches: s2.cachedMatches.filter(
+              (m2) => !filter2(m2)
             )
           };
         });
       } else {
-        this.__store.setState((s) => {
+        this.__store.setState((s2) => {
           return {
-            ...s,
+            ...s2,
             cachedMatches: []
           };
         });
       }
     };
     this.clearExpiredCache = () => {
-      const filter2 = (d) => {
-        const route = this.looseRoutesById[d.routeId];
+      const filter2 = (d2) => {
+        const route = this.looseRoutesById[d2.routeId];
         if (!route.options.loader) {
           return true;
         }
-        const gcTime = (d.preload ? route.options.preloadGcTime ?? this.options.defaultPreloadGcTime : route.options.gcTime ?? this.options.defaultGcTime) ?? 5 * 60 * 1e3;
-        const isError = d.status === "error";
+        const gcTime = (d2.preload ? route.options.preloadGcTime ?? this.options.defaultPreloadGcTime : route.options.gcTime ?? this.options.defaultGcTime) ?? 5 * 60 * 1e3;
+        const isError = d2.status === "error";
         if (isError) return true;
-        const gcEligible = Date.now() - d.updatedAt >= gcTime;
+        const gcEligible = Date.now() - d2.updatedAt >= gcTime;
         return gcEligible;
       };
       this.clearCache({ filter: filter2 });
@@ -22425,19 +30167,19 @@ class RouterCore {
       });
       const activeMatchIds = new Set(
         [...this.state.matches, ...this.state.pendingMatches ?? []].map(
-          (d) => d.id
+          (d2) => d2.id
         )
       );
       const loadedMatchIds = /* @__PURE__ */ new Set([
         ...activeMatchIds,
-        ...this.state.cachedMatches.map((d) => d.id)
+        ...this.state.cachedMatches.map((d2) => d2.id)
       ]);
       batch(() => {
         matches.forEach((match) => {
           if (!loadedMatchIds.has(match.id)) {
-            this.__store.setState((s) => ({
-              ...s,
-              cachedMatches: [...s.cachedMatches, match]
+            this.__store.setState((s2) => ({
+              ...s2,
+              cachedMatches: [...s2.cachedMatches, match]
             }));
           }
         });
@@ -22450,7 +30192,7 @@ class RouterCore {
           preload: true,
           updateMatch: (id2, updater) => {
             if (activeMatchIds.has(id2)) {
-              matches = matches.map((d) => d.id === id2 ? updater(d) : d);
+              matches = matches.map((d2) => d2.id === id2 ? updater(d2) : d2);
             } else {
               this.updateMatch(id2, updater);
             }
@@ -22513,7 +30255,7 @@ class RouterCore {
     };
     this.hasNotFoundMatch = () => {
       return this.__store.state.matches.some(
-        (d) => d.status === "notFound" || d.globalNotFound
+        (d2) => d2.status === "notFound" || d2.globalNotFound
       );
     };
     this.update({
@@ -22544,10 +30286,10 @@ class RouterCore {
     return this.routesById;
   }
   matchRoutesInternal(next, opts) {
-    var _a2;
+    var _a3;
     const { foundRoute, matchedRoutes, routeParams } = this.getMatchedRoutes(
       next.pathname,
-      (_a2 = opts == null ? void 0 : opts.dest) == null ? void 0 : _a2.to
+      (_a3 = opts == null ? void 0 : opts.dest) == null ? void 0 : _a3.to
     );
     let isGlobalNotFound = false;
     if (
@@ -22584,7 +30326,7 @@ class RouterCore {
       return parentContext;
     };
     matchedRoutes.forEach((route, index2) => {
-      var _a22, _b2, _c2;
+      var _a22, _b3, _c2;
       const parentMatch = matches[index2 - 1];
       const [preMatchSearch, strictMatchSearch, searchError] = (() => {
         const parentSearch = (parentMatch == null ? void 0 : parentMatch.search) ?? next.search;
@@ -22612,7 +30354,7 @@ class RouterCore {
           return [parentSearch, {}, searchParamError];
         }
       })();
-      const loaderDeps = ((_b2 = (_a22 = route.options).loaderDeps) == null ? void 0 : _b2.call(_a22, {
+      const loaderDeps = ((_b3 = (_a22 = route.options).loaderDeps) == null ? void 0 : _b3.call(_a22, {
         search: preMatchSearch
       })) ?? "";
       const loaderDepsHash = loaderDeps ? JSON.stringify(loaderDeps) : "";
@@ -22630,7 +30372,7 @@ class RouterCore {
       }).interpolatedPath + loaderDepsHash;
       const existingMatch = this.getMatch(matchId);
       const previousMatch = this.state.matches.find(
-        (d) => d.routeId === route.id
+        (d2) => d2.routeId === route.id
       );
       const strictParams = (existingMatch == null ? void 0 : existingMatch._strictParams) ?? usedParams;
       let paramsError = void 0;
@@ -22795,13 +30537,13 @@ function getMatchedRoutes({
   let routeParams = {};
   const trimmedPath = trimPathRight(pathname);
   const getMatchedParams = (route) => {
-    var _a2;
+    var _a3;
     const result = matchPathname(
       basepath,
       trimmedPath,
       {
         to: route.fullPath,
-        caseSensitive: ((_a2 = route.options) == null ? void 0 : _a2.caseSensitive) ?? caseSensitive,
+        caseSensitive: ((_a3 = route.options) == null ? void 0 : _a3.caseSensitive) ?? caseSensitive,
         // we need fuzzy matching for `notFoundMode: 'fuzzy'`
         fuzzy: true
       },
@@ -22850,10 +30592,10 @@ function applySearchMiddleware({
 }) {
   const allMiddlewares = destRoutes.reduce(
     (acc, route) => {
-      var _a2;
+      var _a3;
       const middlewares = [];
       if ("search" in route.options) {
-        if ((_a2 = route.options.search) == null ? void 0 : _a2.middlewares) {
+        if ((_a3 = route.options.search) == null ? void 0 : _a3.middlewares) {
           middlewares.push(...route.options.search.middlewares);
         }
       } else if (route.options.preSearchFilters || route.options.postSearchFilters) {
@@ -22924,11 +30666,11 @@ const preloadWarning = "Error preloading route! ☝️";
 class BaseRoute {
   constructor(options) {
     this.init = (opts) => {
-      var _a2, _b2;
+      var _a3, _b3;
       this.originalIndex = opts.originalIndex;
       const options2 = this.options;
       const isRoot = !(options2 == null ? void 0 : options2.path) && !(options2 == null ? void 0 : options2.id);
-      this.parentRoute = (_b2 = (_a2 = this.options).getParentRoute) == null ? void 0 : _b2.call(_a2);
+      this.parentRoute = (_b3 = (_a3 = this.options).getParentRoute) == null ? void 0 : _b3.call(_a3);
       if (isRoot) {
         this._path = rootRouteId;
       } else if (!this.parentRoute) {
@@ -23084,7 +30826,7 @@ function ErrorComponent({ error }) {
             fontWeight: "bold",
             borderRadius: ".25rem"
           },
-          onClick: () => setShow((d) => !d),
+          onClick: () => setShow((d2) => !d2),
           children: show ? "Hide Error" : "Show Error"
         }
       )
@@ -23134,8 +30876,8 @@ var useSyncExternalStoreShim_production = {};
  * LICENSE file in the root directory of this source tree.
  */
 var React$1 = reactExports;
-function is$1(x, y) {
-  return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
+function is$1(x2, y2) {
+  return x2 === y2 && (0 !== x2 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
 }
 var objectIs$1 = "function" === typeof Object.is ? Object.is : is$1, useState = React$1.useState, useEffect$1 = React$1.useEffect, useLayoutEffect$1 = React$1.useLayoutEffect, useDebugValue$1 = React$1.useDebugValue;
 function useSyncExternalStore$2(subscribe2, getSnapshot) {
@@ -23189,8 +30931,8 @@ var shimExports = shim$2.exports;
  * LICENSE file in the root directory of this source tree.
  */
 var React = reactExports, shim = shimExports;
-function is(x, y) {
-  return x === y && (0 !== x || 1 / x === 1 / y) || x !== x && y !== y;
+function is(x2, y2) {
+  return x2 === y2 && (0 !== x2 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
 }
 var objectIs = "function" === typeof Object.is ? Object.is : is, useSyncExternalStore = shim.useSyncExternalStore, useRef = React.useRef, useEffect = React.useEffect, useMemo = React.useMemo, useDebugValue = React.useDebugValue;
 withSelector_production.useSyncExternalStoreWithSelector = function(subscribe2, getSnapshot, getServerSnapshot, selector, isEqual) {
@@ -23248,7 +30990,7 @@ withSelector_production.useSyncExternalStoreWithSelector = function(subscribe2, 
   withSelector.exports = withSelector_production;
 }
 var withSelectorExports = withSelector.exports;
-function useStore(store, selector = (d) => d) {
+function useStore(store, selector = (d2) => d2) {
   const slice = withSelectorExports.useSyncExternalStoreWithSelector(
     store.subscribe,
     () => store.state,
@@ -23267,15 +31009,15 @@ function shallow(objA, objB) {
   }
   if (objA instanceof Map && objB instanceof Map) {
     if (objA.size !== objB.size) return false;
-    for (const [k, v] of objA) {
-      if (!objB.has(k) || !Object.is(v, objB.get(k))) return false;
+    for (const [k2, v2] of objA) {
+      if (!objB.has(k2) || !Object.is(v2, objB.get(k2))) return false;
     }
     return true;
   }
   if (objA instanceof Set && objB instanceof Set) {
     if (objA.size !== objB.size) return false;
-    for (const v of objA) {
-      if (!objB.has(v)) return false;
+    for (const v2 of objA) {
+      if (!objB.has(v2)) return false;
     }
     return true;
   }
@@ -23349,7 +31091,7 @@ function useMatch(opts) {
   const matchSelection = useRouterState({
     select: (state) => {
       const match = state.matches.find(
-        (d) => opts.from ? opts.from === d.routeId : d.id === nearestMatchId
+        (d2) => opts.from ? opts.from === d2.routeId : d2.id === nearestMatchId
       );
       invariant$1(
         !((opts.shouldThrow ?? true) && !match),
@@ -23369,8 +31111,8 @@ function useLoaderData(opts) {
     from: opts.from,
     strict: opts.strict,
     structuralSharing: opts.structuralSharing,
-    select: (s) => {
-      return opts.select ? opts.select(s.loaderData) : s.loaderData;
+    select: (s2) => {
+      return opts.select ? opts.select(s2.loaderData) : s2.loaderData;
     }
   });
 }
@@ -23378,8 +31120,8 @@ function useLoaderDeps(opts) {
   const { select, ...rest } = opts;
   return useMatch({
     ...rest,
-    select: (s) => {
-      return select ? select(s.loaderDeps) : s.loaderDeps;
+    select: (s2) => {
+      return select ? select(s2.loaderDeps) : s2.loaderDeps;
     }
   });
 }
@@ -23503,7 +31245,7 @@ function useLinkProps(options, forwardedRef) {
     return "internal";
   }, [to]);
   const currentSearch = useRouterState({
-    select: (s) => s.location.search,
+    select: (s2) => s2.location.search,
     structuralSharing: true
   });
   const from = options.from;
@@ -23534,11 +31276,11 @@ function useLinkProps(options, forwardedRef) {
   const preload2 = options.reloadDocument || isExternal ? false : userPreload ?? router2.options.defaultPreload;
   const preloadDelay = userPreloadDelay ?? router2.options.defaultPreloadDelay ?? 0;
   const isActive = useRouterState({
-    select: (s) => {
+    select: (s2) => {
       if (isExternal) return false;
       if (activeOptions == null ? void 0 : activeOptions.exact) {
         const testExact = exactPathTest(
-          s.location.pathname,
+          s2.location.pathname,
           next.pathname,
           router2.basepath
         );
@@ -23547,7 +31289,7 @@ function useLinkProps(options, forwardedRef) {
         }
       } else {
         const currentPathSplit = removeTrailingSlash(
-          s.location.pathname,
+          s2.location.pathname,
           router2.basepath
         );
         const nextPathSplit = removeTrailingSlash(
@@ -23560,7 +31302,7 @@ function useLinkProps(options, forwardedRef) {
         }
       }
       if ((activeOptions == null ? void 0 : activeOptions.includeSearch) ?? true) {
-        const searchTest = deepEqual$2(s.location.search, next.search, {
+        const searchTest = deepEqual$2(s2.location.search, next.search, {
           partial: !(activeOptions == null ? void 0 : activeOptions.exact),
           ignoreUndefined: !(activeOptions == null ? void 0 : activeOptions.explicitUndefined)
         });
@@ -23569,7 +31311,7 @@ function useLinkProps(options, forwardedRef) {
         }
       }
       if (activeOptions == null ? void 0 : activeOptions.includeHash) {
-        return s.location.hash === next.hash;
+        return s2.location.hash === next.hash;
       }
       return true;
     }
@@ -23644,7 +31386,7 @@ function useLinkProps(options, forwardedRef) {
       ...onTouchStart && { onTouchStart }
     };
   }
-  const handleFocus = (_) => {
+  const handleFocus = (_2) => {
     if (disabled) return;
     if (preload2) {
       doPreload();
@@ -23768,7 +31510,7 @@ class Route extends BaseRoute {
       return useMatch({
         ...opts,
         from: this.id,
-        select: (d) => (opts == null ? void 0 : opts.select) ? opts.select(d.context) : d.context
+        select: (d2) => (opts == null ? void 0 : opts.select) ? opts.select(d2.context) : d2.context
       });
     };
     this.useSearch = (opts) => {
@@ -23822,7 +31564,7 @@ class RootRoute extends BaseRootRoute {
       return useMatch({
         ...opts,
         from: this.id,
-        select: (d) => (opts == null ? void 0 : opts.select) ? opts.select(d.context) : d.context
+        select: (d2) => (opts == null ? void 0 : opts.select) ? opts.select(d2.context) : d2.context
       });
     };
     this.useSearch = (opts) => {
@@ -23895,7 +31637,7 @@ class LazyRoute {
     this.useRouteContext = (opts2) => {
       return useMatch({
         from: this.options.id,
-        select: (d) => (opts2 == null ? void 0 : opts2.select) ? opts2.select(d.context) : d.context
+        select: (d2) => (opts2 == null ? void 0 : opts2.select) ? opts2.select(d2.context) : d2.context
       });
     };
     this.useSearch = (opts2) => {
@@ -23937,9 +31679,9 @@ function Transitioner() {
   const mountLoadForRouter = reactExports.useRef({ router: router2, mounted: false });
   const [isTransitioning, setIsTransitioning] = reactExports.useState(false);
   const { hasPendingMatches, isLoading } = useRouterState({
-    select: (s) => ({
-      isLoading: s.isLoading,
-      hasPendingMatches: s.matches.some((d) => d.status === "pending")
+    select: (s2) => ({
+      isLoading: s2.isLoading,
+      hasPendingMatches: s2.matches.some((d2) => d2.status === "pending")
     }),
     structuralSharing: true
   });
@@ -24012,10 +31754,10 @@ function Transitioner() {
         type: "onResolved",
         ...getLocationChangeInfo(router2.state)
       });
-      router2.__store.setState((s) => ({
-        ...s,
+      router2.__store.setState((s2) => ({
+        ...s2,
         status: "idle",
-        resolvedLocation: s.location
+        resolvedLocation: s2.location
       }));
       handleHashScroll(router2);
     }
@@ -24024,24 +31766,24 @@ function Transitioner() {
 }
 function CatchNotFound(props) {
   const resetKey = useRouterState({
-    select: (s) => `not-found-${s.location.pathname}-${s.status}`
+    select: (s2) => `not-found-${s2.location.pathname}-${s2.status}`
   });
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     CatchBoundary,
     {
       getResetKey: () => resetKey,
       onCatch: (error, errorInfo) => {
-        var _a2;
+        var _a3;
         if (isNotFound(error)) {
-          (_a2 = props.onCatch) == null ? void 0 : _a2.call(props, error, errorInfo);
+          (_a3 = props.onCatch) == null ? void 0 : _a3.call(props, error, errorInfo);
         } else {
           throw error;
         }
       },
       errorComponent: ({ error }) => {
-        var _a2;
+        var _a3;
         if (isNotFound(error)) {
-          return (_a2 = props.fallback) == null ? void 0 : _a2.call(props, error);
+          return (_a3 = props.fallback) == null ? void 0 : _a3.call(props, error);
         } else {
           throw error;
         }
@@ -24106,11 +31848,11 @@ function ScrollRestoration() {
 const Match = reactExports.memo(function MatchImpl({
   matchId
 }) {
-  var _a2, _b2;
+  var _a3, _b3;
   const router2 = useRouter();
   const matchState = useRouterState({
-    select: (s) => {
-      const match = s.matches.find((d) => d.id === matchId);
+    select: (s2) => {
+      const match = s2.matches.find((d2) => d2.id === matchId);
       invariant$1(
         match
       );
@@ -24129,23 +31871,23 @@ const Match = reactExports.memo(function MatchImpl({
   const routeOnCatch = route.options.onCatch ?? router2.options.defaultOnCatch;
   const routeNotFoundComponent = route.isRoot ? (
     // If it's the root route, use the globalNotFound option, with fallback to the notFoundRoute's component
-    route.options.notFoundComponent ?? ((_a2 = router2.options.notFoundRoute) == null ? void 0 : _a2.options.component)
+    route.options.notFoundComponent ?? ((_a3 = router2.options.notFoundRoute) == null ? void 0 : _a3.options.component)
   ) : route.options.notFoundComponent;
   const resolvedNoSsr = matchState.ssr === false || matchState.ssr === "data-only";
   const ResolvedSuspenseBoundary = (
     // If we're on the root route, allow forcefully wrapping in suspense
-    (!route.isRoot || route.options.wrapInSuspense || resolvedNoSsr) && (route.options.wrapInSuspense ?? PendingComponent ?? (((_b2 = route.options.errorComponent) == null ? void 0 : _b2.preload) || resolvedNoSsr)) ? reactExports.Suspense : SafeFragment
+    (!route.isRoot || route.options.wrapInSuspense || resolvedNoSsr) && (route.options.wrapInSuspense ?? PendingComponent ?? (((_b3 = route.options.errorComponent) == null ? void 0 : _b3.preload) || resolvedNoSsr)) ? reactExports.Suspense : SafeFragment
   );
   const ResolvedCatchBoundary = routeErrorComponent ? CatchBoundary : SafeFragment;
   const ResolvedNotFoundBoundary = routeNotFoundComponent ? CatchNotFound : SafeFragment;
   const resetKey = useRouterState({
-    select: (s) => s.loadedAt
+    select: (s2) => s2.loadedAt
   });
   const parentRouteId = useRouterState({
-    select: (s) => {
+    select: (s2) => {
       var _a22;
-      const index2 = s.matches.findIndex((d) => d.id === matchId);
-      return (_a22 = s.matches[index2 - 1]) == null ? void 0 : _a22.routeId;
+      const index2 = s2.matches.findIndex((d2) => d2.id === matchId);
+      return (_a22 = s2.matches[index2 - 1]) == null ? void 0 : _a22.routeId;
     }
   });
   const ShellComponent = route.isRoot ? route.options.shellComponent ?? SafeFragment : SafeFragment;
@@ -24203,11 +31945,11 @@ function OnRendered() {
 const MatchInner = reactExports.memo(function MatchInnerImpl({
   matchId
 }) {
-  var _a2, _b2, _c2, _d2;
+  var _a3, _b3, _c2, _d2;
   const router2 = useRouter();
   const { match, key, routeId } = useRouterState({
-    select: (s) => {
-      const match2 = s.matches.find((d) => d.id === matchId);
+    select: (s2) => {
+      const match2 = s2.matches.find((d2) => d2.id === matchId);
       const routeId2 = match2.routeId;
       const remountFn = router2.routesById[routeId2].options.remountDeps ?? router2.options.defaultRemountDeps;
       const remountDeps = remountFn == null ? void 0 : remountFn({
@@ -24240,10 +31982,10 @@ const MatchInner = reactExports.memo(function MatchInnerImpl({
     return /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {});
   }, [key, route.options.component, router2.options.defaultComponent]);
   if (match._displayPending) {
-    throw (_a2 = router2.getMatch(match.id)) == null ? void 0 : _a2._nonReactive.displayPendingPromise;
+    throw (_a3 = router2.getMatch(match.id)) == null ? void 0 : _a3._nonReactive.displayPendingPromise;
   }
   if (match._forcePending) {
-    throw (_b2 = router2.getMatch(match.id)) == null ? void 0 : _b2._nonReactive.minPendingPromise;
+    throw (_b3 = router2.getMatch(match.id)) == null ? void 0 : _b3._nonReactive.minPendingPromise;
   }
   if (match.status === "pending") {
     const pendingMinMs = route.options.pendingMinMs ?? router2.options.defaultPendingMinMs;
@@ -24292,16 +32034,16 @@ const Outlet = reactExports.memo(function OutletImpl() {
   const router2 = useRouter();
   const matchId = reactExports.useContext(matchContext);
   const routeId = useRouterState({
-    select: (s) => {
-      var _a2;
-      return (_a2 = s.matches.find((d) => d.id === matchId)) == null ? void 0 : _a2.routeId;
+    select: (s2) => {
+      var _a3;
+      return (_a3 = s2.matches.find((d2) => d2.id === matchId)) == null ? void 0 : _a3.routeId;
     }
   });
   const route = router2.routesById[routeId];
   const parentGlobalNotFound = useRouterState({
-    select: (s) => {
-      const matches = s.matches;
-      const parentMatch = matches.find((d) => d.id === matchId);
+    select: (s2) => {
+      const matches = s2.matches;
+      const parentMatch = matches.find((d2) => d2.id === matchId);
       invariant$1(
         parentMatch
       );
@@ -24309,11 +32051,11 @@ const Outlet = reactExports.memo(function OutletImpl() {
     }
   });
   const childMatchId = useRouterState({
-    select: (s) => {
-      var _a2;
-      const matches = s.matches;
-      const index2 = matches.findIndex((d) => d.id === matchId);
-      return (_a2 = matches[index2 + 1]) == null ? void 0 : _a2.id;
+    select: (s2) => {
+      var _a3;
+      const matches = s2.matches;
+      const index2 = matches.findIndex((d2) => d2.id === matchId);
+      return (_a3 = matches[index2 + 1]) == null ? void 0 : _a3.id;
     }
   });
   const pendingElement = router2.options.defaultPendingComponent ? /* @__PURE__ */ jsxRuntimeExports.jsx(router2.options.defaultPendingComponent, {}) : null;
@@ -24342,13 +32084,13 @@ function Matches() {
 function MatchesInner() {
   const router2 = useRouter();
   const matchId = useRouterState({
-    select: (s) => {
-      var _a2;
-      return (_a2 = s.matches[0]) == null ? void 0 : _a2.id;
+    select: (s2) => {
+      var _a3;
+      return (_a3 = s2.matches[0]) == null ? void 0 : _a3.id;
     }
   });
   const resetKey = useRouterState({
-    select: (s) => s.loadedAt
+    select: (s2) => s2.loadedAt
   });
   const matchComponent = matchId ? /* @__PURE__ */ jsxRuntimeExports.jsx(Match, { matchId }) : null;
   return /* @__PURE__ */ jsxRuntimeExports.jsx(matchContext.Provider, { value: matchId, children: router2.options.disableGlobalCatchBoundary ? matchComponent : /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -24508,29 +32250,29 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$H = [
+const __iconNode$M = [
   ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
   ["path", { d: "M19 12H5", key: "x3x0zl" }]
 ];
-const ArrowLeft = createLucideIcon("arrow-left", __iconNode$H);
+const ArrowLeft = createLucideIcon("arrow-left", __iconNode$M);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$G = [
+const __iconNode$L = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$G);
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$L);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$F = [
+const __iconNode$K = [
   [
     "path",
     {
@@ -24540,14 +32282,14 @@ const __iconNode$F = [
   ],
   ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-const BadgeCheck = createLucideIcon("badge-check", __iconNode$F);
+const BadgeCheck = createLucideIcon("badge-check", __iconNode$K);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$E = [
+const __iconNode$J = [
   ["path", { d: "M12 7v14", key: "1akyts" }],
   [
     "path",
@@ -24557,25 +32299,25 @@ const __iconNode$E = [
     }
   ]
 ];
-const BookOpen = createLucideIcon("book-open", __iconNode$E);
+const BookOpen = createLucideIcon("book-open", __iconNode$J);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$D = [
+const __iconNode$I = [
   ["path", { d: "M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16", key: "jecpp" }],
   ["rect", { width: "20", height: "14", x: "2", y: "6", rx: "2", key: "i6l2r4" }]
 ];
-const Briefcase = createLucideIcon("briefcase", __iconNode$D);
+const Briefcase = createLucideIcon("briefcase", __iconNode$I);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$C = [
+const __iconNode$H = [
   ["path", { d: "M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z", key: "1b4qmf" }],
   ["path", { d: "M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2", key: "i71pzd" }],
   ["path", { d: "M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2", key: "10jefs" }],
@@ -24584,14 +32326,14 @@ const __iconNode$C = [
   ["path", { d: "M10 14h4", key: "kelpxr" }],
   ["path", { d: "M10 18h4", key: "1ulq68" }]
 ];
-const Building2 = createLucideIcon("building-2", __iconNode$C);
+const Building2 = createLucideIcon("building-2", __iconNode$H);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$B = [
+const __iconNode$G = [
   ["path", { d: "M8 2v4", key: "1cmpym" }],
   ["path", { d: "M16 2v4", key: "4m81vk" }],
   ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
@@ -24603,72 +32345,72 @@ const __iconNode$B = [
   ["path", { d: "M12 18h.01", key: "mhygvu" }],
   ["path", { d: "M16 18h.01", key: "kzsmim" }]
 ];
-const CalendarDays = createLucideIcon("calendar-days", __iconNode$B);
+const CalendarDays = createLucideIcon("calendar-days", __iconNode$G);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$A = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$A);
+const __iconNode$F = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$F);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$z = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$z);
+const __iconNode$E = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$E);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$y = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
-const ChevronUp = createLucideIcon("chevron-up", __iconNode$y);
+const __iconNode$D = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
+const ChevronUp = createLucideIcon("chevron-up", __iconNode$D);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$x = [
+const __iconNode$C = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
   ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
 ];
-const CircleAlert = createLucideIcon("circle-alert", __iconNode$x);
+const CircleAlert = createLucideIcon("circle-alert", __iconNode$C);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$w = [
+const __iconNode$B = [
   ["path", { d: "M21.801 10A10 10 0 1 1 17 3.335", key: "yps3ct" }],
   ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
 ];
-const CircleCheckBig = createLucideIcon("circle-check-big", __iconNode$w);
+const CircleCheckBig = createLucideIcon("circle-check-big", __iconNode$B);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$v = [
+const __iconNode$A = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-const CircleCheck = createLucideIcon("circle-check", __iconNode$v);
+const CircleCheck = createLucideIcon("circle-check", __iconNode$A);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$u = [
+const __iconNode$z = [
   ["rect", { width: "8", height: "4", x: "8", y: "2", rx: "1", ry: "1", key: "tgr4d6" }],
   [
     "path",
@@ -24682,36 +32424,36 @@ const __iconNode$u = [
   ["path", { d: "M8 11h.01", key: "1dfujw" }],
   ["path", { d: "M8 16h.01", key: "18s6g9" }]
 ];
-const ClipboardList = createLucideIcon("clipboard-list", __iconNode$u);
+const ClipboardList = createLucideIcon("clipboard-list", __iconNode$z);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$t = [
+const __iconNode$y = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["polyline", { points: "12 6 12 12 16 14", key: "68esgv" }]
 ];
-const Clock = createLucideIcon("clock", __iconNode$t);
+const Clock = createLucideIcon("clock", __iconNode$y);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$s = [
+const __iconNode$x = [
   ["line", { x1: "12", x2: "12", y1: "2", y2: "22", key: "7eqyqh" }],
   ["path", { d: "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6", key: "1b0p4s" }]
 ];
-const DollarSign = createLucideIcon("dollar-sign", __iconNode$s);
+const DollarSign = createLucideIcon("dollar-sign", __iconNode$x);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$r = [
+const __iconNode$w = [
   [
     "path",
     {
@@ -24721,41 +32463,41 @@ const __iconNode$r = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const Eye = createLucideIcon("eye", __iconNode$r);
+const Eye = createLucideIcon("eye", __iconNode$w);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$q = [
+const __iconNode$v = [
   [
     "path",
     { d: "M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z", key: "1jg4f8" }
   ]
 ];
-const Facebook = createLucideIcon("facebook", __iconNode$q);
+const Facebook = createLucideIcon("facebook", __iconNode$v);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$p = [
+const __iconNode$u = [
   ["path", { d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z", key: "1rqfz7" }],
   ["path", { d: "M14 2v4a2 2 0 0 0 2 2h4", key: "tnqrlb" }],
   ["path", { d: "M10 9H8", key: "b1mrlr" }],
   ["path", { d: "M16 13H8", key: "t4e002" }],
   ["path", { d: "M16 17H8", key: "z1uh3a" }]
 ];
-const FileText = createLucideIcon("file-text", __iconNode$p);
+const FileText = createLucideIcon("file-text", __iconNode$u);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$o = [
+const __iconNode$t = [
   [
     "path",
     {
@@ -24766,14 +32508,14 @@ const __iconNode$o = [
   ["path", { d: "M22 10v6", key: "1lu8f3" }],
   ["path", { d: "M6 12.5V16a6 3 0 0 0 12 0v-3.5", key: "1r8lef" }]
 ];
-const GraduationCap = createLucideIcon("graduation-cap", __iconNode$o);
+const GraduationCap = createLucideIcon("graduation-cap", __iconNode$t);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$n = [
+const __iconNode$s = [
   [
     "path",
     {
@@ -24782,26 +32524,26 @@ const __iconNode$n = [
     }
   ]
 ];
-const Heart = createLucideIcon("heart", __iconNode$n);
+const Heart = createLucideIcon("heart", __iconNode$s);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$m = [
+const __iconNode$r = [
   ["rect", { width: "20", height: "20", x: "2", y: "2", rx: "5", ry: "5", key: "2e1cvw" }],
   ["path", { d: "M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z", key: "9exkf1" }],
   ["line", { x1: "17.5", x2: "17.51", y1: "6.5", y2: "6.5", key: "r4j83e" }]
 ];
-const Instagram = createLucideIcon("instagram", __iconNode$m);
+const Instagram = createLucideIcon("instagram", __iconNode$r);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$l = [
+const __iconNode$q = [
   [
     "path",
     {
@@ -24812,33 +32554,57 @@ const __iconNode$l = [
   ["rect", { width: "4", height: "12", x: "2", y: "9", key: "mk3on5" }],
   ["circle", { cx: "4", cy: "4", r: "2", key: "bt5ra8" }]
 ];
-const Linkedin = createLucideIcon("linkedin", __iconNode$l);
+const Linkedin = createLucideIcon("linkedin", __iconNode$q);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$k = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-const LoaderCircle = createLucideIcon("loader-circle", __iconNode$k);
+const __iconNode$p = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = createLucideIcon("loader-circle", __iconNode$p);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$j = [
+const __iconNode$o = [
+  ["path", { d: "m10 17 5-5-5-5", key: "1bsop3" }],
+  ["path", { d: "M15 12H3", key: "6jk70r" }],
+  ["path", { d: "M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4", key: "u53s6r" }]
+];
+const LogIn = createLucideIcon("log-in", __iconNode$o);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$n = [
+  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
+  ["path", { d: "M21 12H9", key: "dn1m92" }],
+  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
+];
+const LogOut = createLucideIcon("log-out", __iconNode$n);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$m = [
   ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
   ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
 ];
-const Mail = createLucideIcon("mail", __iconNode$j);
+const Mail = createLucideIcon("mail", __iconNode$m);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$i = [
+const __iconNode$l = [
   [
     "path",
     {
@@ -24848,7 +32614,39 @@ const __iconNode$i = [
   ],
   ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }]
 ];
-const MapPin = createLucideIcon("map-pin", __iconNode$i);
+const MapPin = createLucideIcon("map-pin", __iconNode$l);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$k = [
+  ["path", { d: "M4 12h16", key: "1lakjw" }],
+  ["path", { d: "M4 18h16", key: "19g7jn" }],
+  ["path", { d: "M4 6h16", key: "1o0s65" }]
+];
+const Menu = createLucideIcon("menu", __iconNode$k);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$j = [
+  ["path", { d: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z", key: "1lielz" }]
+];
+const MessageSquare = createLucideIcon("message-square", __iconNode$j);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$i = [
+  ["path", { d: "M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z", key: "a7tn18" }]
+];
+const Moon = createLucideIcon("moon", __iconNode$i);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -24856,11 +32654,15 @@ const MapPin = createLucideIcon("map-pin", __iconNode$i);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$h = [
-  ["path", { d: "M4 12h16", key: "1lakjw" }],
-  ["path", { d: "M4 18h16", key: "19g7jn" }],
-  ["path", { d: "M4 6h16", key: "1o0s65" }]
+  [
+    "path",
+    {
+      d: "M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384",
+      key: "9njp5v"
+    }
+  ]
 ];
-const Menu = createLucideIcon("menu", __iconNode$h);
+const Phone = createLucideIcon("phone", __iconNode$h);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -24868,9 +32670,10 @@ const Menu = createLucideIcon("menu", __iconNode$h);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$g = [
-  ["path", { d: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z", key: "1lielz" }]
+  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
+  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-const MessageSquare = createLucideIcon("message-square", __iconNode$g);
+const Search = createLucideIcon("search", __iconNode$g);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -24878,9 +32681,16 @@ const MessageSquare = createLucideIcon("message-square", __iconNode$g);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$f = [
-  ["path", { d: "M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z", key: "a7tn18" }]
+  [
+    "path",
+    {
+      d: "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z",
+      key: "1ffxy3"
+    }
+  ],
+  ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
 ];
-const Moon = createLucideIcon("moon", __iconNode$f);
+const Send = createLucideIcon("send", __iconNode$f);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -24891,12 +32701,13 @@ const __iconNode$e = [
   [
     "path",
     {
-      d: "M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384",
-      key: "9njp5v"
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
     }
-  ]
+  ],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-const Phone = createLucideIcon("phone", __iconNode$e);
+const ShieldCheck = createLucideIcon("shield-check", __iconNode$e);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -24904,10 +32715,15 @@ const Phone = createLucideIcon("phone", __iconNode$e);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$d = [
-  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
-  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ]
 ];
-const Search = createLucideIcon("search", __iconNode$d);
+const Shield = createLucideIcon("shield", __iconNode$d);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -24915,40 +32731,6 @@ const Search = createLucideIcon("search", __iconNode$d);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$c = [
-  [
-    "path",
-    {
-      d: "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z",
-      key: "1ffxy3"
-    }
-  ],
-  ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
-];
-const Send = createLucideIcon("send", __iconNode$c);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$b = [
-  [
-    "path",
-    {
-      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
-      key: "oel41y"
-    }
-  ],
-  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
-];
-const ShieldCheck = createLucideIcon("shield-check", __iconNode$b);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$a = [
   [
     "path",
     {
@@ -24961,14 +32743,14 @@ const __iconNode$a = [
   ["path", { d: "M4 17v2", key: "vumght" }],
   ["path", { d: "M5 18H3", key: "zchphs" }]
 ];
-const Sparkles = createLucideIcon("sparkles", __iconNode$a);
+const Sparkles = createLucideIcon("sparkles", __iconNode$c);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$9 = [
+const __iconNode$b = [
   ["path", { d: "M12 2v8", key: "1q4o3n" }],
   ["path", { d: "m4.93 10.93 1.41 1.41", key: "2a7f42" }],
   ["path", { d: "M2 18h2", key: "j10viu" }],
@@ -24978,14 +32760,14 @@ const __iconNode$9 = [
   ["path", { d: "m8 6 4-4 4 4", key: "ybng9g" }],
   ["path", { d: "M16 18a4 4 0 0 0-8 0", key: "1lzouq" }]
 ];
-const Sunrise = createLucideIcon("sunrise", __iconNode$9);
+const Sunrise = createLucideIcon("sunrise", __iconNode$b);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$8 = [
+const __iconNode$a = [
   ["path", { d: "M12 10V2", key: "16sf7g" }],
   ["path", { d: "m4.93 10.93 1.41 1.41", key: "2a7f42" }],
   ["path", { d: "M2 18h2", key: "j10viu" }],
@@ -24995,7 +32777,30 @@ const __iconNode$8 = [
   ["path", { d: "m16 6-4 4-4-4", key: "6wukr" }],
   ["path", { d: "M16 18a4 4 0 0 0-8 0", key: "1lzouq" }]
 ];
-const Sunset = createLucideIcon("sunset", __iconNode$8);
+const Sunset = createLucideIcon("sunset", __iconNode$a);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$9 = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["circle", { cx: "12", cy: "12", r: "6", key: "1vlfrh" }],
+  ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }]
+];
+const Target = createLucideIcon("target", __iconNode$9);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$8 = [
+  ["path", { d: "M16 7h6v6", key: "box55l" }],
+  ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
+];
+const TrendingUp = createLucideIcon("trending-up", __iconNode$8);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -25003,29 +32808,6 @@ const Sunset = createLucideIcon("sunset", __iconNode$8);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$7 = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["circle", { cx: "12", cy: "12", r: "6", key: "1vlfrh" }],
-  ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }]
-];
-const Target = createLucideIcon("target", __iconNode$7);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$6 = [
-  ["path", { d: "M16 7h6v6", key: "box55l" }],
-  ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
-];
-const TrendingUp = createLucideIcon("trending-up", __iconNode$6);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$5 = [
   [
     "path",
     {
@@ -25034,7 +32816,32 @@ const __iconNode$5 = [
     }
   ]
 ];
-const Twitter = createLucideIcon("twitter", __iconNode$5);
+const Twitter = createLucideIcon("twitter", __iconNode$7);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$6 = [
+  ["path", { d: "m16 11 2 2 4-4", key: "9rsbq5" }],
+  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
+  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
+];
+const UserCheck = createLucideIcon("user-check", __iconNode$6);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$5 = [
+  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
+  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }],
+  ["line", { x1: "19", x2: "19", y1: "8", y2: "14", key: "1bvyxn" }],
+  ["line", { x1: "22", x2: "16", y1: "11", y2: "11", key: "1shjgl" }]
+];
+const UserPlus = createLucideIcon("user-plus", __iconNode$5);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -25042,11 +32849,10 @@ const Twitter = createLucideIcon("twitter", __iconNode$5);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$4 = [
-  ["path", { d: "m16 11 2 2 4-4", key: "9rsbq5" }],
-  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
-  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
+  ["circle", { cx: "12", cy: "8", r: "5", key: "1hypcn" }],
+  ["path", { d: "M20 21a8 8 0 0 0-16 0", key: "rfgkzh" }]
 ];
-const UserCheck = createLucideIcon("user-check", __iconNode$4);
+const UserRound = createLucideIcon("user-round", __iconNode$4);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -25054,10 +32860,10 @@ const UserCheck = createLucideIcon("user-check", __iconNode$4);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$3 = [
-  ["circle", { cx: "12", cy: "8", r: "5", key: "1hypcn" }],
-  ["path", { d: "M20 21a8 8 0 0 0-16 0", key: "rfgkzh" }]
+  ["path", { d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2", key: "975kel" }],
+  ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
 ];
-const UserRound = createLucideIcon("user-round", __iconNode$3);
+const User = createLucideIcon("user", __iconNode$3);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -25109,10 +32915,10 @@ var IconContext = React$4.createContext && /* @__PURE__ */ React$4.createContext
 var _excluded = ["attr", "size", "title"];
 function _objectWithoutProperties(e, t) {
   if (null == e) return {};
-  var o, r2, i = _objectWithoutPropertiesLoose(e, t);
+  var o2, r2, i = _objectWithoutPropertiesLoose(e, t);
   if (Object.getOwnPropertySymbols) {
     var n = Object.getOwnPropertySymbols(e);
-    for (r2 = 0; r2 < n.length; r2++) o = n[r2], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
+    for (r2 = 0; r2 < n.length; r2++) o2 = n[r2], -1 === t.indexOf(o2) && {}.propertyIsEnumerable.call(e, o2) && (i[o2] = e[o2]);
   }
   return i;
 }
@@ -25137,10 +32943,10 @@ function _extends() {
 function ownKeys(e, r2) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e);
-    r2 && (o = o.filter(function(r3) {
+    var o2 = Object.getOwnPropertySymbols(e);
+    r2 && (o2 = o2.filter(function(r3) {
       return Object.getOwnPropertyDescriptor(e, r3).enumerable;
-    })), t.push.apply(t, o);
+    })), t.push.apply(t, o2);
   }
   return t;
 }
@@ -25450,13 +33256,13 @@ function mergeProps$1(slotProps, childProps) {
   return { ...slotProps, ...overrideProps };
 }
 function getElementRef$1(element) {
-  var _a2, _b2;
-  let getter = (_a2 = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a2.get;
+  var _a3, _b3;
+  let getter = (_a3 = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a3.get;
   let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
   if (mayWarn) {
     return element.ref;
   }
-  getter = (_b2 = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b2.get;
+  getter = (_b3 = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b3.get;
   mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
   if (mayWarn) {
     return element.props.ref;
@@ -25467,13 +33273,13 @@ function r(e) {
   var t, f, n = "";
   if ("string" == typeof e || "number" == typeof e) n += e;
   else if ("object" == typeof e) if (Array.isArray(e)) {
-    var o = e.length;
-    for (t = 0; t < o; t++) e[t] && (f = r(e[t])) && (n && (n += " "), n += f);
+    var o2 = e.length;
+    for (t = 0; t < o2; t++) e[t] && (f = r(e[t])) && (n && (n += " "), n += f);
   } else for (f in e) e[f] && (n && (n += " "), n += f);
   return n;
 }
 function clsx() {
-  for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r(e)) && (n && (n += " "), n += t);
+  for (var e, t, f = 0, n = "", o2 = arguments.length; f < o2; f++) (e = arguments[f]) && (t = r(e)) && (n && (n += " "), n += t);
   return n;
 }
 const falsyToString = (value) => typeof value === "boolean" ? `${value}` : value === 0 ? "0" : value;
@@ -25543,7 +33349,7 @@ const createClassGroupUtils = (config) => {
   };
 };
 const getGroupRecursive = (classParts, classPartObject) => {
-  var _a2;
+  var _a3;
   if (classParts.length === 0) {
     return classPartObject.classGroupId;
   }
@@ -25557,9 +33363,9 @@ const getGroupRecursive = (classParts, classPartObject) => {
     return void 0;
   }
   const classRest = classParts.join(CLASS_PART_SEPARATOR);
-  return (_a2 = classPartObject.validators.find(({
+  return (_a3 = classPartObject.validators.find(({
     validator
-  }) => validator(classRest))) == null ? void 0 : _a2.classGroupId;
+  }) => validator(classRest))) == null ? void 0 : _a3.classGroupId;
 };
 const arbitraryPropertyRegex = /^\[(.+)\]$/;
 const getGroupIdForArbitraryProperty = (className) => {
@@ -25824,9 +33630,9 @@ const toValue = (mix2) => {
   }
   let resolvedValue;
   let string = "";
-  for (let k = 0; k < mix2.length; k++) {
-    if (mix2[k]) {
-      if (resolvedValue = toValue(mix2[k])) {
+  for (let k2 = 0; k2 < mix2.length; k2++) {
+    if (mix2[k2]) {
+      if (resolvedValue = toValue(mix2[k2])) {
         string && (string += " ");
         string += resolvedValue;
       }
@@ -28020,6 +35826,710 @@ function Button({
     }
   );
 }
+const Error$1 = Variant({
+  "FrontendOriginsNotConfigured": Null,
+  "MixedSsoSources": Record({
+    "otherKeys": Vec(Text),
+    "ssoKeys": Vec(Text)
+  }),
+  "Stale": Record({ "ageNs": Nat }),
+  "MalformedCandid": Null,
+  "AmbiguousAttribute": Record({
+    "field": Text,
+    "sources": Vec(Text)
+  }),
+  "NoAttributes": Null,
+  "UnknownNonce": Null,
+  "UntrustedSsoSource": Record({ "domain": Text }),
+  "MissingField": Text,
+  "FrontendOriginMismatch": Record({
+    "got": Text,
+    "expected": Vec(Text)
+  })
+});
+const Result = Variant({ "ok": Null, "err": Error$1 });
+const NewShiftJob = Record({
+  "jobRole": Text,
+  "description": Text,
+  "company": Text,
+  "shiftStart": Text,
+  "shiftEnd": Text,
+  "shiftType": Text,
+  "location": Text
+});
+const ShiftJobId = Nat;
+const ShiftJob = Record({
+  "id": ShiftJobId,
+  "jobRole": Text,
+  "createdAt": Int,
+  "description": Text,
+  "isActive": Bool,
+  "company": Text,
+  "shiftStart": Text,
+  "shiftEnd": Text,
+  "shiftType": Text,
+  "location": Text
+});
+const UserRole = Variant({
+  "admin": Null,
+  "user": Null,
+  "guest": Null
+});
+const InterviewId = Nat;
+const Timestamp = Int;
+const Interview = Record({
+  "id": InterviewId,
+  "jobRole": Text,
+  "date": Text,
+  "createdAt": Timestamp,
+  "time": Text,
+  "description": Text,
+  "isActive": Bool,
+  "company": Text,
+  "location": Text
+});
+const ApplicationId = Nat;
+const Application = Record({
+  "id": ApplicationId,
+  "appliedAt": Timestamp,
+  "interviewId": Opt(InterviewId),
+  "name": Text,
+  "email": Text,
+  "message": Text,
+  "phone": Text,
+  "skills": Text,
+  "qualification": Text
+});
+const UserId = Principal2;
+const UserProfile = Record({
+  "id": UserId,
+  "createdAt": Timestamp,
+  "fullName": Text,
+  "email": Text
+});
+const UserProfileInput = Record({
+  "fullName": Text,
+  "email": Text
+});
+const ApplicationInput = Record({
+  "interviewId": Opt(InterviewId),
+  "name": Text,
+  "email": Text,
+  "message": Text,
+  "phone": Text,
+  "skills": Text,
+  "qualification": Text
+});
+Service({
+  "_initialize_access_control": Func([], [], []),
+  "_internet_identity_sign_in_finish": Func([], [Result], []),
+  "_internet_identity_sign_in_start": Func([], [Vec(Nat8)], []),
+  "addShiftJob": Func([NewShiftJob], [ShiftJob], []),
+  "assignCallerUserRole": Func([Principal2, UserRole], [], []),
+  "getActiveInterviews": Func([], [Vec(Interview)], ["query"]),
+  "getAllApplications": Func([], [Vec(Application)], ["query"]),
+  "getCallerUserProfile": Func([], [Opt(UserProfile)], ["query"]),
+  "getCallerUserRole": Func([], [UserRole], ["query"]),
+  "getInterview": Func([InterviewId], [Opt(Interview)], ["query"]),
+  "getShiftJobs": Func([], [Vec(ShiftJob)], ["query"]),
+  "getUserProfile": Func(
+    [Principal2],
+    [Opt(UserProfile)],
+    ["query"]
+  ),
+  "isCallerAdmin": Func([], [Bool], ["query"]),
+  "saveCallerUserProfile": Func(
+    [UserProfileInput],
+    [Variant({ "ok": UserProfile, "err": Text })],
+    []
+  ),
+  "submitApplication": Func(
+    [ApplicationInput],
+    [Variant({ "ok": Text, "err": Text })],
+    []
+  )
+});
+const idlFactory = ({ IDL: IDL2 }) => {
+  const Error2 = IDL2.Variant({
+    "FrontendOriginsNotConfigured": IDL2.Null,
+    "MixedSsoSources": IDL2.Record({
+      "otherKeys": IDL2.Vec(IDL2.Text),
+      "ssoKeys": IDL2.Vec(IDL2.Text)
+    }),
+    "Stale": IDL2.Record({ "ageNs": IDL2.Nat }),
+    "MalformedCandid": IDL2.Null,
+    "AmbiguousAttribute": IDL2.Record({
+      "field": IDL2.Text,
+      "sources": IDL2.Vec(IDL2.Text)
+    }),
+    "NoAttributes": IDL2.Null,
+    "UnknownNonce": IDL2.Null,
+    "UntrustedSsoSource": IDL2.Record({ "domain": IDL2.Text }),
+    "MissingField": IDL2.Text,
+    "FrontendOriginMismatch": IDL2.Record({
+      "got": IDL2.Text,
+      "expected": IDL2.Vec(IDL2.Text)
+    })
+  });
+  const Result2 = IDL2.Variant({ "ok": IDL2.Null, "err": Error2 });
+  const NewShiftJob2 = IDL2.Record({
+    "jobRole": IDL2.Text,
+    "description": IDL2.Text,
+    "company": IDL2.Text,
+    "shiftStart": IDL2.Text,
+    "shiftEnd": IDL2.Text,
+    "shiftType": IDL2.Text,
+    "location": IDL2.Text
+  });
+  const ShiftJobId2 = IDL2.Nat;
+  const ShiftJob2 = IDL2.Record({
+    "id": ShiftJobId2,
+    "jobRole": IDL2.Text,
+    "createdAt": IDL2.Int,
+    "description": IDL2.Text,
+    "isActive": IDL2.Bool,
+    "company": IDL2.Text,
+    "shiftStart": IDL2.Text,
+    "shiftEnd": IDL2.Text,
+    "shiftType": IDL2.Text,
+    "location": IDL2.Text
+  });
+  const UserRole2 = IDL2.Variant({
+    "admin": IDL2.Null,
+    "user": IDL2.Null,
+    "guest": IDL2.Null
+  });
+  const InterviewId2 = IDL2.Nat;
+  const Timestamp2 = IDL2.Int;
+  const Interview2 = IDL2.Record({
+    "id": InterviewId2,
+    "jobRole": IDL2.Text,
+    "date": IDL2.Text,
+    "createdAt": Timestamp2,
+    "time": IDL2.Text,
+    "description": IDL2.Text,
+    "isActive": IDL2.Bool,
+    "company": IDL2.Text,
+    "location": IDL2.Text
+  });
+  const ApplicationId2 = IDL2.Nat;
+  const Application2 = IDL2.Record({
+    "id": ApplicationId2,
+    "appliedAt": Timestamp2,
+    "interviewId": IDL2.Opt(InterviewId2),
+    "name": IDL2.Text,
+    "email": IDL2.Text,
+    "message": IDL2.Text,
+    "phone": IDL2.Text,
+    "skills": IDL2.Text,
+    "qualification": IDL2.Text
+  });
+  const UserId2 = IDL2.Principal;
+  const UserProfile2 = IDL2.Record({
+    "id": UserId2,
+    "createdAt": Timestamp2,
+    "fullName": IDL2.Text,
+    "email": IDL2.Text
+  });
+  const UserProfileInput2 = IDL2.Record({
+    "fullName": IDL2.Text,
+    "email": IDL2.Text
+  });
+  const ApplicationInput2 = IDL2.Record({
+    "interviewId": IDL2.Opt(InterviewId2),
+    "name": IDL2.Text,
+    "email": IDL2.Text,
+    "message": IDL2.Text,
+    "phone": IDL2.Text,
+    "skills": IDL2.Text,
+    "qualification": IDL2.Text
+  });
+  return IDL2.Service({
+    "_initialize_access_control": IDL2.Func([], [], []),
+    "_internet_identity_sign_in_finish": IDL2.Func([], [Result2], []),
+    "_internet_identity_sign_in_start": IDL2.Func([], [IDL2.Vec(IDL2.Nat8)], []),
+    "addShiftJob": IDL2.Func([NewShiftJob2], [ShiftJob2], []),
+    "assignCallerUserRole": IDL2.Func([IDL2.Principal, UserRole2], [], []),
+    "getActiveInterviews": IDL2.Func([], [IDL2.Vec(Interview2)], ["query"]),
+    "getAllApplications": IDL2.Func([], [IDL2.Vec(Application2)], ["query"]),
+    "getCallerUserProfile": IDL2.Func([], [IDL2.Opt(UserProfile2)], ["query"]),
+    "getCallerUserRole": IDL2.Func([], [UserRole2], ["query"]),
+    "getInterview": IDL2.Func([InterviewId2], [IDL2.Opt(Interview2)], ["query"]),
+    "getShiftJobs": IDL2.Func([], [IDL2.Vec(ShiftJob2)], ["query"]),
+    "getUserProfile": IDL2.Func(
+      [IDL2.Principal],
+      [IDL2.Opt(UserProfile2)],
+      ["query"]
+    ),
+    "isCallerAdmin": IDL2.Func([], [IDL2.Bool], ["query"]),
+    "saveCallerUserProfile": IDL2.Func(
+      [UserProfileInput2],
+      [IDL2.Variant({ "ok": UserProfile2, "err": IDL2.Text })],
+      []
+    ),
+    "submitApplication": IDL2.Func(
+      [ApplicationInput2],
+      [IDL2.Variant({ "ok": IDL2.Text, "err": IDL2.Text })],
+      []
+    )
+  });
+};
+function candid_some(value) {
+  return [
+    value
+  ];
+}
+function candid_none() {
+  return [];
+}
+function record_opt_to_undefined(arg) {
+  return arg == null ? void 0 : arg;
+}
+class Backend {
+  constructor(actor, _uploadFile, _downloadFile, processError) {
+    this.actor = actor;
+    this._uploadFile = _uploadFile;
+    this._downloadFile = _downloadFile;
+    this.processError = processError;
+  }
+  async _initialize_access_control() {
+    if (this.processError) {
+      try {
+        const result = await this.actor._initialize_access_control();
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor._initialize_access_control();
+      return result;
+    }
+  }
+  async _internet_identity_sign_in_finish() {
+    if (this.processError) {
+      try {
+        const result = await this.actor._internet_identity_sign_in_finish();
+        return from_candid_Result_n1(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor._internet_identity_sign_in_finish();
+      return from_candid_Result_n1(this._uploadFile, this._downloadFile, result);
+    }
+  }
+  async _internet_identity_sign_in_start() {
+    if (this.processError) {
+      try {
+        const result = await this.actor._internet_identity_sign_in_start();
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor._internet_identity_sign_in_start();
+      return result;
+    }
+  }
+  async addShiftJob(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.addShiftJob(arg0);
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.addShiftJob(arg0);
+      return result;
+    }
+  }
+  async assignCallerUserRole(arg0, arg1) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n5(this._uploadFile, this._downloadFile, arg1));
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n5(this._uploadFile, this._downloadFile, arg1));
+      return result;
+    }
+  }
+  async getActiveInterviews() {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getActiveInterviews();
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getActiveInterviews();
+      return result;
+    }
+  }
+  async getAllApplications() {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getAllApplications();
+        return from_candid_vec_n7(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getAllApplications();
+      return from_candid_vec_n7(this._uploadFile, this._downloadFile, result);
+    }
+  }
+  async getCallerUserProfile() {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getCallerUserProfile();
+        return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getCallerUserProfile();
+      return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+    }
+  }
+  async getCallerUserRole() {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getCallerUserRole();
+        return from_candid_UserRole_n12(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getCallerUserRole();
+      return from_candid_UserRole_n12(this._uploadFile, this._downloadFile, result);
+    }
+  }
+  async getInterview(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getInterview(arg0);
+        return from_candid_opt_n14(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getInterview(arg0);
+      return from_candid_opt_n14(this._uploadFile, this._downloadFile, result);
+    }
+  }
+  async getShiftJobs() {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getShiftJobs();
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getShiftJobs();
+      return result;
+    }
+  }
+  async getUserProfile(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getUserProfile(arg0);
+        return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getUserProfile(arg0);
+      return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
+    }
+  }
+  async isCallerAdmin() {
+    if (this.processError) {
+      try {
+        const result = await this.actor.isCallerAdmin();
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.isCallerAdmin();
+      return result;
+    }
+  }
+  async saveCallerUserProfile(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.saveCallerUserProfile(arg0);
+        return from_candid_variant_n15(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.saveCallerUserProfile(arg0);
+      return from_candid_variant_n15(this._uploadFile, this._downloadFile, result);
+    }
+  }
+  async submitApplication(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.submitApplication(to_candid_ApplicationInput_n16(this._uploadFile, this._downloadFile, arg0));
+        return from_candid_variant_n18(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.submitApplication(to_candid_ApplicationInput_n16(this._uploadFile, this._downloadFile, arg0));
+      return from_candid_variant_n18(this._uploadFile, this._downloadFile, result);
+    }
+  }
+}
+function from_candid_Application_n8(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n9(_uploadFile, _downloadFile, value);
+}
+function from_candid_Error_n3(_uploadFile, _downloadFile, value) {
+  return from_candid_variant_n4(_uploadFile, _downloadFile, value);
+}
+function from_candid_Result_n1(_uploadFile, _downloadFile, value) {
+  return from_candid_variant_n2(_uploadFile, _downloadFile, value);
+}
+function from_candid_UserRole_n12(_uploadFile, _downloadFile, value) {
+  return from_candid_variant_n13(_uploadFile, _downloadFile, value);
+}
+function from_candid_opt_n10(_uploadFile, _downloadFile, value) {
+  return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n11(_uploadFile, _downloadFile, value) {
+  return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n14(_uploadFile, _downloadFile, value) {
+  return value.length === 0 ? null : value[0];
+}
+function from_candid_record_n9(_uploadFile, _downloadFile, value) {
+  return {
+    id: value.id,
+    appliedAt: value.appliedAt,
+    interviewId: record_opt_to_undefined(from_candid_opt_n10(_uploadFile, _downloadFile, value.interviewId)),
+    name: value.name,
+    email: value.email,
+    message: value.message,
+    phone: value.phone,
+    skills: value.skills,
+    qualification: value.qualification
+  };
+}
+function from_candid_variant_n13(_uploadFile, _downloadFile, value) {
+  return "admin" in value ? "admin" : "user" in value ? "user" : "guest" in value ? "guest" : value;
+}
+function from_candid_variant_n15(_uploadFile, _downloadFile, value) {
+  return "ok" in value ? {
+    __kind__: "ok",
+    ok: value.ok
+  } : "err" in value ? {
+    __kind__: "err",
+    err: value.err
+  } : value;
+}
+function from_candid_variant_n18(_uploadFile, _downloadFile, value) {
+  return "ok" in value ? {
+    __kind__: "ok",
+    ok: value.ok
+  } : "err" in value ? {
+    __kind__: "err",
+    err: value.err
+  } : value;
+}
+function from_candid_variant_n2(_uploadFile, _downloadFile, value) {
+  return "ok" in value ? {
+    __kind__: "ok",
+    ok: value.ok
+  } : "err" in value ? {
+    __kind__: "err",
+    err: from_candid_Error_n3(_uploadFile, _downloadFile, value.err)
+  } : value;
+}
+function from_candid_variant_n4(_uploadFile, _downloadFile, value) {
+  return "FrontendOriginsNotConfigured" in value ? {
+    __kind__: "FrontendOriginsNotConfigured",
+    FrontendOriginsNotConfigured: value.FrontendOriginsNotConfigured
+  } : "MixedSsoSources" in value ? {
+    __kind__: "MixedSsoSources",
+    MixedSsoSources: value.MixedSsoSources
+  } : "Stale" in value ? {
+    __kind__: "Stale",
+    Stale: value.Stale
+  } : "MalformedCandid" in value ? {
+    __kind__: "MalformedCandid",
+    MalformedCandid: value.MalformedCandid
+  } : "AmbiguousAttribute" in value ? {
+    __kind__: "AmbiguousAttribute",
+    AmbiguousAttribute: value.AmbiguousAttribute
+  } : "NoAttributes" in value ? {
+    __kind__: "NoAttributes",
+    NoAttributes: value.NoAttributes
+  } : "UnknownNonce" in value ? {
+    __kind__: "UnknownNonce",
+    UnknownNonce: value.UnknownNonce
+  } : "UntrustedSsoSource" in value ? {
+    __kind__: "UntrustedSsoSource",
+    UntrustedSsoSource: value.UntrustedSsoSource
+  } : "MissingField" in value ? {
+    __kind__: "MissingField",
+    MissingField: value.MissingField
+  } : "FrontendOriginMismatch" in value ? {
+    __kind__: "FrontendOriginMismatch",
+    FrontendOriginMismatch: value.FrontendOriginMismatch
+  } : value;
+}
+function from_candid_vec_n7(_uploadFile, _downloadFile, value) {
+  return value.map((x2) => from_candid_Application_n8(_uploadFile, _downloadFile, x2));
+}
+function to_candid_ApplicationInput_n16(_uploadFile, _downloadFile, value) {
+  return to_candid_record_n17(_uploadFile, _downloadFile, value);
+}
+function to_candid_UserRole_n5(_uploadFile, _downloadFile, value) {
+  return to_candid_variant_n6(_uploadFile, _downloadFile, value);
+}
+function to_candid_record_n17(_uploadFile, _downloadFile, value) {
+  return {
+    interviewId: value.interviewId ? candid_some(value.interviewId) : candid_none(),
+    name: value.name,
+    email: value.email,
+    message: value.message,
+    phone: value.phone,
+    skills: value.skills,
+    qualification: value.qualification
+  };
+}
+function to_candid_variant_n6(_uploadFile, _downloadFile, value) {
+  return value == "admin" ? {
+    admin: null
+  } : value == "user" ? {
+    user: null
+  } : value == "guest" ? {
+    guest: null
+  } : value;
+}
+function createActor(canisterId, _uploadFile, _downloadFile, options = {}) {
+  const agent = options.agent || HttpAgent.createSync({
+    ...options.agentOptions
+  });
+  if (options.agent && options.agentOptions) {
+    console.warn("Detected both agent and agentOptions passed to createActor. Ignoring agentOptions and proceeding with the provided agent.");
+  }
+  const actor = Actor.createActor(idlFactory, {
+    agent,
+    canisterId,
+    ...options.actorOptions
+  });
+  return new Backend(actor, _uploadFile, _downloadFile, options.processError);
+}
+const AuthContext = reactExports.createContext(void 0);
+function getBackendActor() {
+  const noop3 = async () => new Uint8Array();
+  const noopDown = async () => ({
+    directURL: "",
+    getBytes: noop3,
+    getDirectURL: () => "",
+    withUploadProgress: () => ({
+      directURL: "",
+      getBytes: noop3,
+      getDirectURL: () => "",
+      withUploadProgress: () => null,
+      _blob: void 0,
+      onProgress: void 0
+    })
+  });
+  return createActor(
+    window.__CANISTER_ID_BACKEND__ ?? "",
+    noop3,
+    noopDown,
+    {}
+  );
+}
+function AuthProvider({ children }) {
+  const {
+    identity,
+    isInitializing,
+    isLoginSuccess,
+    clear,
+    login: iiLogin,
+    isLoggingIn,
+    isLoginError,
+    loginError
+  } = useInternetIdentity();
+  const [currentUser, setCurrentUser] = reactExports.useState(null);
+  const [isLoading, setIsLoading] = reactExports.useState(true);
+  reactExports.useEffect(() => {
+    if (isInitializing) return;
+    if (!isLoginSuccess || !identity) {
+      setCurrentUser(null);
+      setIsLoading(false);
+      return;
+    }
+    setIsLoading(true);
+    const actor = getBackendActor();
+    actor.getCallerUserProfile().then((profile) => {
+      setCurrentUser(profile);
+    }).catch(() => {
+      setCurrentUser(null);
+    }).finally(() => {
+      setIsLoading(false);
+    });
+  }, [isLoginSuccess, identity, isInitializing]);
+  const logout = reactExports.useCallback(() => {
+    clear();
+    setCurrentUser(null);
+  }, [clear]);
+  const login = reactExports.useCallback(() => {
+    iiLogin();
+  }, [iiLogin]);
+  const register = reactExports.useCallback(() => {
+    iiLogin();
+  }, [iiLogin]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    AuthContext.Provider,
+    {
+      value: {
+        isLoggedIn: isLoginSuccess && !!currentUser,
+        currentUser,
+        isLoading: isLoading || isInitializing,
+        isInitializing,
+        logout,
+        login,
+        register,
+        isLoggingIn,
+        isLoginError,
+        loginError
+      },
+      children
+    }
+  );
+}
+function useAuthContext() {
+  const ctx = reactExports.useContext(AuthContext);
+  if (!ctx) throw new Error("useAuthContext must be used inside AuthProvider");
+  return ctx;
+}
 const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "About Us", to: "/about" },
@@ -28030,9 +36540,11 @@ const NAV_LINKS = [
   { label: "Contact", to: "/contact" }
 ];
 function Navbar() {
+  var _a3;
   const [mobileOpen, setMobileOpen] = reactExports.useState(false);
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
+  const { isLoggedIn, currentUser, logout } = useAuthContext();
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "header",
     {
@@ -28071,8 +36583,57 @@ function Navbar() {
               })
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/apply", "data-ocid": "nav-cta", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { className: "hidden sm:flex gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md transition-smooth", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+            isLoggedIn ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hidden sm:flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "span",
+                {
+                  className: "text-sm font-medium text-foreground px-2 truncate max-w-[120px]",
+                  title: currentUser == null ? void 0 : currentUser.fullName,
+                  "data-ocid": "nav-username",
+                  children: (_a3 = currentUser == null ? void 0 : currentUser.fullName) == null ? void 0 : _a3.split(" ")[0]
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                Button,
+                {
+                  variant: "outline",
+                  size: "sm",
+                  onClick: logout,
+                  className: "gap-1.5 border-border text-muted-foreground hover:text-foreground rounded-md transition-smooth",
+                  "data-ocid": "nav-logout-button",
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(LogOut, { className: "w-3.5 h-3.5" }),
+                    "Logout"
+                  ]
+                }
+              )
+            ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hidden sm:flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/login", "data-ocid": "nav-login-link", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                Button,
+                {
+                  variant: "ghost",
+                  size: "sm",
+                  className: "gap-1.5 text-muted-foreground hover:text-foreground rounded-md transition-smooth",
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(LogIn, { className: "w-3.5 h-3.5" }),
+                    "Login"
+                  ]
+                }
+              ) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/signup", "data-ocid": "nav-signup-link", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                Button,
+                {
+                  size: "sm",
+                  className: "gap-1.5 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md transition-smooth",
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(UserPlus, { className: "w-3.5 h-3.5" }),
+                    "Sign Up"
+                  ]
+                }
+              ) })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/apply", "data-ocid": "nav-cta", className: "hidden lg:block", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { className: "gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md transition-smooth", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(Briefcase, { className: "w-4 h-4" }),
               "Apply Now"
             ] }) }),
@@ -28108,10 +36669,63 @@ function Navbar() {
                   link.to
                 );
               }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/apply", onClick: () => setMobileOpen(false), children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { className: "w-full mt-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Briefcase, { className: "w-4 h-4 mr-2" }),
-                "Apply Now"
-              ] }) })
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "pt-2 border-t border-border space-y-1.5", children: [
+                isLoggedIn ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-3 py-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "span",
+                    {
+                      className: "text-sm font-medium text-foreground",
+                      "data-ocid": "nav-mobile-username",
+                      children: currentUser == null ? void 0 : currentUser.fullName
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    Button,
+                    {
+                      variant: "outline",
+                      size: "sm",
+                      onClick: () => {
+                        logout();
+                        setMobileOpen(false);
+                      },
+                      className: "gap-1.5 border-border text-muted-foreground rounded-md",
+                      "data-ocid": "nav-mobile-logout-button",
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(LogOut, { className: "w-3.5 h-3.5" }),
+                        "Logout"
+                      ]
+                    }
+                  )
+                ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/login", onClick: () => setMobileOpen(false), children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    Button,
+                    {
+                      variant: "outline",
+                      className: "w-full gap-2 border-border text-foreground rounded-md",
+                      "data-ocid": "nav-mobile-login-link",
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(LogIn, { className: "w-4 h-4" }),
+                        "Login"
+                      ]
+                    }
+                  ) }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/signup", onClick: () => setMobileOpen(false), children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    Button,
+                    {
+                      className: "w-full gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md",
+                      "data-ocid": "nav-mobile-signup-link",
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(UserPlus, { className: "w-4 h-4" }),
+                        "Sign Up"
+                      ]
+                    }
+                  ) })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/apply", onClick: () => setMobileOpen(false), children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { className: "w-full mt-1 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-md", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Briefcase, { className: "w-4 h-4 mr-2" }),
+                  "Apply Now"
+                ] }) })
+              ] })
             ] })
           }
         )
@@ -28189,21 +36803,21 @@ function removeItem(arr, item) {
   if (index2 > -1)
     arr.splice(index2, 1);
 }
-const clamp$2 = (min2, max2, v) => {
-  if (v > max2)
+const clamp$2 = (min2, max2, v2) => {
+  if (v2 > max2)
     return max2;
-  if (v < min2)
+  if (v2 < min2)
     return min2;
-  return v;
+  return v2;
 };
 let invariant = () => {
 };
 const MotionGlobalConfig = {};
-const isNumericalString = (v) => /^-?(?:\d+(?:\.\d+)?|\.\d+)$/u.test(v);
+const isNumericalString = (v2) => /^-?(?:\d+(?:\.\d+)?|\.\d+)$/u.test(v2);
 function isObject$1(value) {
   return typeof value === "object" && value !== null;
 }
-const isZeroValueString = (v) => /^0[^.\s]+$/u.test(v);
+const isZeroValueString = (v2) => /^0[^.\s]+$/u.test(v2);
 // @__NO_SIDE_EFFECTS__
 function memo(callback) {
   let result;
@@ -28214,7 +36828,7 @@ function memo(callback) {
   };
 }
 const noop$1 = /* @__NO_SIDE_EFFECTS__ */ (any) => any;
-const combineFunctions = (a, b) => (v) => b(a(v));
+const combineFunctions = (a2, b2) => (v2) => b2(a2(v2));
 const pipe = (...transformers) => transformers.reduce(combineFunctions);
 const progress = /* @__NO_SIDE_EFFECTS__ */ (from, to, value) => {
   const toFromDifference = to - from;
@@ -28228,16 +36842,16 @@ class SubscriptionManager {
     addUniqueItem(this.subscriptions, handler);
     return () => removeItem(this.subscriptions, handler);
   }
-  notify(a, b, c) {
+  notify(a2, b2, c2) {
     const numSubscriptions = this.subscriptions.length;
     if (!numSubscriptions)
       return;
     if (numSubscriptions === 1) {
-      this.subscriptions[0](a, b, c);
+      this.subscriptions[0](a2, b2, c2);
     } else {
       for (let i = 0; i < numSubscriptions; i++) {
         const handler = this.subscriptions[i];
-        handler && handler(a, b, c);
+        handler && handler(a2, b2, c2);
       }
     }
   }
@@ -28256,13 +36870,13 @@ function velocityPerSecond(velocity, frameDuration) {
 const calcBezier = (t, a1, a2) => (((1 - 3 * a2 + 3 * a1) * t + (3 * a2 - 6 * a1)) * t + 3 * a1) * t;
 const subdivisionPrecision = 1e-7;
 const subdivisionMaxIterations = 12;
-function binarySubdivide(x, lowerBound, upperBound, mX1, mX2) {
+function binarySubdivide(x2, lowerBound, upperBound, mX1, mX2) {
   let currentX;
   let currentT;
   let i = 0;
   do {
     currentT = lowerBound + (upperBound - lowerBound) / 2;
-    currentX = calcBezier(currentT, mX1, mX2) - x;
+    currentX = calcBezier(currentT, mX1, mX2) - x2;
     if (currentX > 0) {
       upperBound = currentT;
     } else {
@@ -28277,13 +36891,13 @@ function cubicBezier(mX1, mY1, mX2, mY2) {
   const getTForX = (aX) => binarySubdivide(aX, 0, 1, mX1, mX2);
   return (t) => t === 0 || t === 1 ? t : calcBezier(getTForX(t), mY1, mY2);
 }
-const mirrorEasing = (easing) => (p) => p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2;
-const reverseEasing = (easing) => (p) => 1 - easing(1 - p);
+const mirrorEasing = (easing) => (p2) => p2 <= 0.5 ? easing(2 * p2) / 2 : (2 - easing(2 * (1 - p2))) / 2;
+const reverseEasing = (easing) => (p2) => 1 - easing(1 - p2);
 const backOut = /* @__PURE__ */ cubicBezier(0.33, 1.53, 0.69, 0.99);
 const backIn = /* @__PURE__ */ reverseEasing(backOut);
 const backInOut = /* @__PURE__ */ mirrorEasing(backIn);
-const anticipate = (p) => p >= 1 ? 1 : (p *= 2) < 1 ? 0.5 * backIn(p) : 0.5 * (2 - Math.pow(2, -10 * (p - 1)));
-const circIn = (p) => 1 - Math.sin(Math.acos(p));
+const anticipate = (p2) => p2 >= 1 ? 1 : (p2 *= 2) < 1 ? 0.5 * backIn(p2) : 0.5 * (2 - Math.pow(2, -10 * (p2 - 1)));
+const circIn = (p2) => 1 - Math.sin(Math.acos(p2));
 const circOut = reverseEasing(circIn);
 const circInOut = mirrorEasing(circIn);
 const easeIn = /* @__PURE__ */ cubicBezier(0.42, 0, 1, 1);
@@ -28492,73 +37106,73 @@ function containsCSSVariable(value) {
   return value.split("/*")[0].includes("var(--");
 }
 const number = {
-  test: (v) => typeof v === "number",
+  test: (v2) => typeof v2 === "number",
   parse: parseFloat,
-  transform: (v) => v
+  transform: (v2) => v2
 };
 const alpha = {
   ...number,
-  transform: (v) => clamp$2(0, 1, v)
+  transform: (v2) => clamp$2(0, 1, v2)
 };
 const scale = {
   ...number,
   default: 1
 };
-const sanitize = (v) => Math.round(v * 1e5) / 1e5;
+const sanitize = (v2) => Math.round(v2 * 1e5) / 1e5;
 const floatRegex = /-?(?:\d+(?:\.\d+)?|\.\d+)/gu;
-function isNullish(v) {
-  return v == null;
+function isNullish(v2) {
+  return v2 == null;
 }
 const singleColorRegex = /^(?:#[\da-f]{3,8}|(?:rgb|hsl)a?\((?:-?[\d.]+%?[,\s]+){2}-?[\d.]+%?\s*(?:[,/]\s*)?(?:\b\d+(?:\.\d+)?|\.\d+)?%?\))$/iu;
-const isColorString = (type, testProp) => (v) => {
-  return Boolean(typeof v === "string" && singleColorRegex.test(v) && v.startsWith(type) || testProp && !isNullish(v) && Object.prototype.hasOwnProperty.call(v, testProp));
+const isColorString = (type, testProp) => (v2) => {
+  return Boolean(typeof v2 === "string" && singleColorRegex.test(v2) && v2.startsWith(type) || testProp && !isNullish(v2) && Object.prototype.hasOwnProperty.call(v2, testProp));
 };
-const splitColor = (aName, bName, cName) => (v) => {
-  if (typeof v !== "string")
-    return v;
-  const [a, b, c, alpha2] = v.match(floatRegex);
+const splitColor = (aName, bName, cName) => (v2) => {
+  if (typeof v2 !== "string")
+    return v2;
+  const [a2, b2, c2, alpha2] = v2.match(floatRegex);
   return {
-    [aName]: parseFloat(a),
-    [bName]: parseFloat(b),
-    [cName]: parseFloat(c),
+    [aName]: parseFloat(a2),
+    [bName]: parseFloat(b2),
+    [cName]: parseFloat(c2),
     alpha: alpha2 !== void 0 ? parseFloat(alpha2) : 1
   };
 };
-const clampRgbUnit = (v) => clamp$2(0, 255, v);
+const clampRgbUnit = (v2) => clamp$2(0, 255, v2);
 const rgbUnit = {
   ...number,
-  transform: (v) => Math.round(clampRgbUnit(v))
+  transform: (v2) => Math.round(clampRgbUnit(v2))
 };
 const rgba = {
   test: /* @__PURE__ */ isColorString("rgb", "red"),
   parse: /* @__PURE__ */ splitColor("red", "green", "blue"),
   transform: ({ red, green, blue, alpha: alpha$1 = 1 }) => "rgba(" + rgbUnit.transform(red) + ", " + rgbUnit.transform(green) + ", " + rgbUnit.transform(blue) + ", " + sanitize(alpha.transform(alpha$1)) + ")"
 };
-function parseHex(v) {
+function parseHex(v2) {
   let r2 = "";
-  let g = "";
-  let b = "";
-  let a = "";
-  if (v.length > 5) {
-    r2 = v.substring(1, 3);
-    g = v.substring(3, 5);
-    b = v.substring(5, 7);
-    a = v.substring(7, 9);
+  let g2 = "";
+  let b2 = "";
+  let a2 = "";
+  if (v2.length > 5) {
+    r2 = v2.substring(1, 3);
+    g2 = v2.substring(3, 5);
+    b2 = v2.substring(5, 7);
+    a2 = v2.substring(7, 9);
   } else {
-    r2 = v.substring(1, 2);
-    g = v.substring(2, 3);
-    b = v.substring(3, 4);
-    a = v.substring(4, 5);
+    r2 = v2.substring(1, 2);
+    g2 = v2.substring(2, 3);
+    b2 = v2.substring(3, 4);
+    a2 = v2.substring(4, 5);
     r2 += r2;
-    g += g;
-    b += b;
-    a += a;
+    g2 += g2;
+    b2 += b2;
+    a2 += a2;
   }
   return {
     red: parseInt(r2, 16),
-    green: parseInt(g, 16),
-    blue: parseInt(b, 16),
-    alpha: a ? parseInt(a, 16) / 255 : 1
+    green: parseInt(g2, 16),
+    blue: parseInt(b2, 16),
+    alpha: a2 ? parseInt(a2, 16) / 255 : 1
   };
 }
 const hex = {
@@ -28567,9 +37181,9 @@ const hex = {
   transform: rgba.transform
 };
 const createUnitType = /* @__NO_SIDE_EFFECTS__ */ (unit) => ({
-  test: (v) => typeof v === "string" && v.endsWith(unit) && v.split(" ").length === 1,
+  test: (v2) => typeof v2 === "string" && v2.endsWith(unit) && v2.split(" ").length === 1,
   parse: parseFloat,
-  transform: (v) => `${v}${unit}`
+  transform: (v2) => `${v2}${unit}`
 });
 const degrees = /* @__PURE__ */ createUnitType("deg");
 const percent = /* @__PURE__ */ createUnitType("%");
@@ -28578,8 +37192,8 @@ const vh = /* @__PURE__ */ createUnitType("vh");
 const vw = /* @__PURE__ */ createUnitType("vw");
 const progressPercentage = /* @__PURE__ */ (() => ({
   ...percent,
-  parse: (v) => percent.parse(v) / 100,
-  transform: (v) => percent.transform(v * 100)
+  parse: (v2) => percent.parse(v2) / 100,
+  transform: (v2) => percent.transform(v2 * 100)
 }))();
 const hsla = {
   test: /* @__PURE__ */ isColorString("hsl", "hue"),
@@ -28589,29 +37203,29 @@ const hsla = {
   }
 };
 const color = {
-  test: (v) => rgba.test(v) || hex.test(v) || hsla.test(v),
-  parse: (v) => {
-    if (rgba.test(v)) {
-      return rgba.parse(v);
-    } else if (hsla.test(v)) {
-      return hsla.parse(v);
+  test: (v2) => rgba.test(v2) || hex.test(v2) || hsla.test(v2),
+  parse: (v2) => {
+    if (rgba.test(v2)) {
+      return rgba.parse(v2);
+    } else if (hsla.test(v2)) {
+      return hsla.parse(v2);
     } else {
-      return hex.parse(v);
+      return hex.parse(v2);
     }
   },
-  transform: (v) => {
-    return typeof v === "string" ? v : v.hasOwnProperty("red") ? rgba.transform(v) : hsla.transform(v);
+  transform: (v2) => {
+    return typeof v2 === "string" ? v2 : v2.hasOwnProperty("red") ? rgba.transform(v2) : hsla.transform(v2);
   },
-  getAnimatableNone: (v) => {
-    const parsed = color.parse(v);
+  getAnimatableNone: (v2) => {
+    const parsed = color.parse(v2);
     parsed.alpha = 0;
     return color.transform(parsed);
   }
 };
 const colorRegex = /(?:#[\da-f]{3,8}|(?:rgb|hsl)a?\((?:-?[\d.]+%?[,\s]+){2}-?[\d.]+%?\s*(?:[,/]\s*)?(?:\b\d+(?:\.\d+)?|\.\d+)?%?\))/giu;
-function test(v) {
-  var _a2, _b2;
-  return isNaN(v) && typeof v === "string" && (((_a2 = v.match(floatRegex)) == null ? void 0 : _a2.length) || 0) + (((_b2 = v.match(colorRegex)) == null ? void 0 : _b2.length) || 0) > 0;
+function test(v2) {
+  var _a3, _b3;
+  return isNaN(v2) && typeof v2 === "string" && (((_a3 = v2.match(floatRegex)) == null ? void 0 : _a3.length) || 0) + (((_b3 = v2.match(colorRegex)) == null ? void 0 : _b3.length) || 0) > 0;
 }
 const NUMBER_TOKEN = "number";
 const COLOR_TOKEN = "color";
@@ -28649,23 +37263,23 @@ function analyseComplexValue(value) {
   const split2 = tokenised.split(SPLIT_TOKEN);
   return { values, split: split2, indexes, types };
 }
-function parseComplexValue(v) {
-  return analyseComplexValue(v).values;
+function parseComplexValue(v2) {
+  return analyseComplexValue(v2).values;
 }
 function buildTransformer({ split: split2, types }) {
   const numSections = split2.length;
-  return (v) => {
+  return (v2) => {
     let output = "";
     for (let i = 0; i < numSections; i++) {
       output += split2[i];
-      if (v[i] !== void 0) {
+      if (v2[i] !== void 0) {
         const type = types[i];
         if (type === NUMBER_TOKEN) {
-          output += sanitize(v[i]);
+          output += sanitize(v2[i]);
         } else if (type === COLOR_TOKEN) {
-          output += color.transform(v[i]);
+          output += color.transform(v2[i]);
         } else {
-          output += v[i];
+          output += v2[i];
         }
       }
     }
@@ -28675,15 +37289,15 @@ function buildTransformer({ split: split2, types }) {
 function createTransformer(source) {
   return buildTransformer(analyseComplexValue(source));
 }
-const convertNumbersToZero = (v) => typeof v === "number" ? 0 : color.test(v) ? color.getAnimatableNone(v) : v;
+const convertNumbersToZero = (v2) => typeof v2 === "number" ? 0 : color.test(v2) ? color.getAnimatableNone(v2) : v2;
 const convertToZero = (value, splitBefore) => {
   if (typeof value === "number") {
     return (splitBefore == null ? void 0 : splitBefore.trim().endsWith("/")) ? value : 0;
   }
   return convertNumbersToZero(value);
 };
-function getAnimatableNone$1(v) {
-  const info = analyseComplexValue(v);
+function getAnimatableNone$1(v2) {
+  const info = analyseComplexValue(v2);
   const transformer = buildTransformer(info);
   return transformer(info.values.map((value, i) => convertToZero(value, info.split[i])));
 }
@@ -28693,18 +37307,18 @@ const complex = {
   createTransformer,
   getAnimatableNone: getAnimatableNone$1
 };
-function hueToRgb(p, q, t) {
+function hueToRgb(p2, q2, t) {
   if (t < 0)
     t += 1;
   if (t > 1)
     t -= 1;
   if (t < 1 / 6)
-    return p + (q - p) * 6 * t;
+    return p2 + (q2 - p2) * 6 * t;
   if (t < 1 / 2)
-    return q;
+    return q2;
   if (t < 2 / 3)
-    return p + (q - p) * (2 / 3 - t) * 6;
-  return p;
+    return p2 + (q2 - p2) * (2 / 3 - t) * 6;
+  return p2;
 }
 function hslaToRgba({ hue, saturation, lightness, alpha: alpha2 }) {
   hue /= 360;
@@ -28716,11 +37330,11 @@ function hslaToRgba({ hue, saturation, lightness, alpha: alpha2 }) {
   if (!saturation) {
     red = green = blue = lightness;
   } else {
-    const q = lightness < 0.5 ? lightness * (1 + saturation) : lightness + saturation - lightness * saturation;
-    const p = 2 * lightness - q;
-    red = hueToRgb(p, q, hue + 1 / 3);
-    green = hueToRgb(p, q, hue);
-    blue = hueToRgb(p, q, hue - 1 / 3);
+    const q2 = lightness < 0.5 ? lightness * (1 + saturation) : lightness + saturation - lightness * saturation;
+    const p2 = 2 * lightness - q2;
+    red = hueToRgb(p2, q2, hue + 1 / 3);
+    green = hueToRgb(p2, q2, hue);
+    blue = hueToRgb(p2, q2, hue - 1 / 3);
   }
   return {
     red: Math.round(red * 255),
@@ -28729,19 +37343,19 @@ function hslaToRgba({ hue, saturation, lightness, alpha: alpha2 }) {
     alpha: alpha2
   };
 }
-function mixImmediate(a, b) {
-  return (p) => p > 0 ? b : a;
+function mixImmediate(a2, b2) {
+  return (p2) => p2 > 0 ? b2 : a2;
 }
 const mixNumber$1 = (from, to, progress2) => {
   return from + (to - from) * progress2;
 };
-const mixLinearColor = (from, to, v) => {
+const mixLinearColor = (from, to, v2) => {
   const fromExpo = from * from;
-  const expo = v * (to * to - fromExpo) + fromExpo;
+  const expo = v2 * (to * to - fromExpo) + fromExpo;
   return expo < 0 ? 0 : Math.sqrt(expo);
 };
 const colorTypes = [hex, rgba, hsla];
-const getColorType = (v) => colorTypes.find((type) => type.test(v));
+const getColorType = (v2) => colorTypes.find((type) => type.test(v2));
 function asRGBA(color2) {
   const type = getColorType(color2);
   if (!Boolean(type))
@@ -28759,59 +37373,59 @@ const mixColor = (from, to) => {
     return mixImmediate(from, to);
   }
   const blended = { ...fromRGBA };
-  return (v) => {
-    blended.red = mixLinearColor(fromRGBA.red, toRGBA.red, v);
-    blended.green = mixLinearColor(fromRGBA.green, toRGBA.green, v);
-    blended.blue = mixLinearColor(fromRGBA.blue, toRGBA.blue, v);
-    blended.alpha = mixNumber$1(fromRGBA.alpha, toRGBA.alpha, v);
+  return (v2) => {
+    blended.red = mixLinearColor(fromRGBA.red, toRGBA.red, v2);
+    blended.green = mixLinearColor(fromRGBA.green, toRGBA.green, v2);
+    blended.blue = mixLinearColor(fromRGBA.blue, toRGBA.blue, v2);
+    blended.alpha = mixNumber$1(fromRGBA.alpha, toRGBA.alpha, v2);
     return rgba.transform(blended);
   };
 };
 const invisibleValues = /* @__PURE__ */ new Set(["none", "hidden"]);
 function mixVisibility(origin, target) {
   if (invisibleValues.has(origin)) {
-    return (p) => p <= 0 ? origin : target;
+    return (p2) => p2 <= 0 ? origin : target;
   } else {
-    return (p) => p >= 1 ? target : origin;
+    return (p2) => p2 >= 1 ? target : origin;
   }
 }
-function mixNumber(a, b) {
-  return (p) => mixNumber$1(a, b, p);
+function mixNumber(a2, b2) {
+  return (p2) => mixNumber$1(a2, b2, p2);
 }
-function getMixer(a) {
-  if (typeof a === "number") {
+function getMixer(a2) {
+  if (typeof a2 === "number") {
     return mixNumber;
-  } else if (typeof a === "string") {
-    return isCSSVariableToken(a) ? mixImmediate : color.test(a) ? mixColor : mixComplex;
-  } else if (Array.isArray(a)) {
+  } else if (typeof a2 === "string") {
+    return isCSSVariableToken(a2) ? mixImmediate : color.test(a2) ? mixColor : mixComplex;
+  } else if (Array.isArray(a2)) {
     return mixArray;
-  } else if (typeof a === "object") {
-    return color.test(a) ? mixColor : mixObject;
+  } else if (typeof a2 === "object") {
+    return color.test(a2) ? mixColor : mixObject;
   }
   return mixImmediate;
 }
-function mixArray(a, b) {
-  const output = [...a];
+function mixArray(a2, b2) {
+  const output = [...a2];
   const numValues = output.length;
-  const blendValue = a.map((v, i) => getMixer(v)(v, b[i]));
-  return (p) => {
+  const blendValue = a2.map((v2, i) => getMixer(v2)(v2, b2[i]));
+  return (p2) => {
     for (let i = 0; i < numValues; i++) {
-      output[i] = blendValue[i](p);
+      output[i] = blendValue[i](p2);
     }
     return output;
   };
 }
-function mixObject(a, b) {
-  const output = { ...a, ...b };
+function mixObject(a2, b2) {
+  const output = { ...a2, ...b2 };
   const blendValue = {};
   for (const key in output) {
-    if (a[key] !== void 0 && b[key] !== void 0) {
-      blendValue[key] = getMixer(a[key])(a[key], b[key]);
+    if (a2[key] !== void 0 && b2[key] !== void 0) {
+      blendValue[key] = getMixer(a2[key])(a2[key], b2[key]);
     }
   }
-  return (v) => {
+  return (v2) => {
     for (const key in blendValue) {
-      output[key] = blendValue[key](v);
+      output[key] = blendValue[key](v2);
     }
     return output;
   };
@@ -28842,9 +37456,9 @@ const mixComplex = (origin, target) => {
     return mixImmediate(origin, target);
   }
 };
-function mix(from, to, p) {
-  if (typeof from === "number" && typeof to === "number" && typeof p === "number") {
-    return mixNumber$1(from, to, p);
+function mix(from, to, p2) {
+  if (typeof from === "number" && typeof to === "number" && typeof p2 === "number") {
+    return mixNumber$1(from, to, p2);
   }
   const mixer = getMixer(from);
   return mixer(from, to);
@@ -28942,31 +37556,31 @@ function findSpring({ duration = springDefaults.duration, bounce = springDefault
     envelope = (undampedFreq2) => {
       const exponentialDecay = undampedFreq2 * dampingRatio;
       const delta = exponentialDecay * duration;
-      const a = exponentialDecay - velocity;
-      const b = calcAngularFreq(undampedFreq2, dampingRatio);
-      const c = Math.exp(-delta);
-      return safeMin - a / b * c;
+      const a2 = exponentialDecay - velocity;
+      const b2 = calcAngularFreq(undampedFreq2, dampingRatio);
+      const c2 = Math.exp(-delta);
+      return safeMin - a2 / b2 * c2;
     };
     derivative = (undampedFreq2) => {
       const exponentialDecay = undampedFreq2 * dampingRatio;
       const delta = exponentialDecay * duration;
-      const d = delta * velocity + velocity;
+      const d2 = delta * velocity + velocity;
       const e = Math.pow(dampingRatio, 2) * Math.pow(undampedFreq2, 2) * duration;
       const f = Math.exp(-delta);
-      const g = calcAngularFreq(Math.pow(undampedFreq2, 2), dampingRatio);
+      const g2 = calcAngularFreq(Math.pow(undampedFreq2, 2), dampingRatio);
       const factor = -envelope(undampedFreq2) + safeMin > 0 ? -1 : 1;
-      return factor * ((d - e) * f) / g;
+      return factor * ((d2 - e) * f) / g2;
     };
   } else {
     envelope = (undampedFreq2) => {
-      const a = Math.exp(-undampedFreq2 * duration);
-      const b = (undampedFreq2 - velocity) * duration + 1;
-      return -safeMin + a * b;
+      const a2 = Math.exp(-undampedFreq2 * duration);
+      const b2 = (undampedFreq2 - velocity) * duration + 1;
+      return -safeMin + a2 * b2;
     };
     derivative = (undampedFreq2) => {
-      const a = Math.exp(-undampedFreq2 * duration);
-      const b = (velocity - undampedFreq2) * (duration * duration);
-      return a * b;
+      const a2 = Math.exp(-undampedFreq2 * duration);
+      const b2 = (velocity - undampedFreq2) * (duration * duration);
+      return a2 * b2;
     };
   }
   const initialGuess = 5 / duration;
@@ -29050,26 +37664,26 @@ function spring(optionsOrVisualDuration = springDefaults.visualDuration, bounce 
   let resolveSpring;
   let resolveVelocity;
   let angularFreq;
-  let A;
+  let A2;
   let sinCoeff;
   let cosCoeff;
   if (dampingRatio < 1) {
     angularFreq = calcAngularFreq(undampedAngularFreq, dampingRatio);
-    A = (initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) / angularFreq;
+    A2 = (initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) / angularFreq;
     resolveSpring = (t) => {
       const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
-      return target - envelope * (A * Math.sin(angularFreq * t) + initialDelta * Math.cos(angularFreq * t));
+      return target - envelope * (A2 * Math.sin(angularFreq * t) + initialDelta * Math.cos(angularFreq * t));
     };
-    sinCoeff = dampingRatio * undampedAngularFreq * A + initialDelta * angularFreq;
-    cosCoeff = dampingRatio * undampedAngularFreq * initialDelta - A * angularFreq;
+    sinCoeff = dampingRatio * undampedAngularFreq * A2 + initialDelta * angularFreq;
+    cosCoeff = dampingRatio * undampedAngularFreq * initialDelta - A2 * angularFreq;
     resolveVelocity = (t) => {
       const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
       return envelope * (sinCoeff * Math.sin(angularFreq * t) + cosCoeff * Math.cos(angularFreq * t));
     };
   } else if (dampingRatio === 1) {
     resolveSpring = (t) => target - Math.exp(-undampedAngularFreq * t) * (initialDelta + (initialVelocity + undampedAngularFreq * initialDelta) * t);
-    const C = initialVelocity + undampedAngularFreq * initialDelta;
-    resolveVelocity = (t) => Math.exp(-undampedAngularFreq * t) * (undampedAngularFreq * C * t - initialVelocity);
+    const C2 = initialVelocity + undampedAngularFreq * initialDelta;
+    resolveVelocity = (t) => Math.exp(-undampedAngularFreq * t) * (undampedAngularFreq * C2 * t - initialVelocity);
   } else {
     const dampedAngularFreq = undampedAngularFreq * Math.sqrt(dampingRatio * dampingRatio - 1);
     resolveSpring = (t) => {
@@ -29077,9 +37691,9 @@ function spring(optionsOrVisualDuration = springDefaults.visualDuration, bounce 
       const freqForT = Math.min(dampedAngularFreq * t, 300);
       return target - envelope * ((initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) * Math.sinh(freqForT) + dampedAngularFreq * initialDelta * Math.cosh(freqForT)) / dampedAngularFreq;
     };
-    const P = (initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) / dampedAngularFreq;
-    const sinhCoeff = dampingRatio * undampedAngularFreq * P - initialDelta * dampedAngularFreq;
-    const coshCoeff = dampingRatio * undampedAngularFreq * initialDelta - P * dampedAngularFreq;
+    const P2 = (initialVelocity + dampingRatio * undampedAngularFreq * initialDelta) / dampedAngularFreq;
+    const sinhCoeff = dampingRatio * undampedAngularFreq * P2 - initialDelta * dampedAngularFreq;
+    const coshCoeff = dampingRatio * undampedAngularFreq * initialDelta - P2 * dampedAngularFreq;
     resolveVelocity = (t) => {
       const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
       const freqForT = Math.min(dampedAngularFreq * t, 300);
@@ -29094,7 +37708,7 @@ function spring(optionsOrVisualDuration = springDefaults.visualDuration, bounce 
         const envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
         const sin = Math.sin(angularFreq * t);
         const cos = Math.cos(angularFreq * t);
-        const current2 = target - envelope * (A * sin + initialDelta * cos);
+        const current2 = target - envelope * (A2 * sin + initialDelta * cos);
         const currentVelocity = /* @__PURE__ */ secondsToMilliseconds(envelope * (sinCoeff * sin + cosCoeff * cos));
         state.done = Math.abs(currentVelocity) <= restSpeed && Math.abs(target - current2) <= restDelta;
         state.value = state.done ? target : current2;
@@ -29138,13 +37752,13 @@ function inertia({ keyframes: keyframes2, velocity = 0, power = 0.8, timeConstan
     done: false,
     value: origin
   };
-  const isOutOfBounds = (v) => min2 !== void 0 && v < min2 || max2 !== void 0 && v > max2;
-  const nearestBoundary = (v) => {
+  const isOutOfBounds = (v2) => min2 !== void 0 && v2 < min2 || max2 !== void 0 && v2 > max2;
+  const nearestBoundary = (v2) => {
     if (min2 === void 0)
       return max2;
     if (max2 === void 0)
       return min2;
-    return Math.abs(min2 - v) < Math.abs(max2 - v) ? min2 : max2;
+    return Math.abs(min2 - v2) < Math.abs(max2 - v2) ? min2 : max2;
   };
   let amplitude = power * velocity;
   const ideal = origin + amplitude;
@@ -29222,20 +37836,20 @@ function interpolate(input, output, { clamp: isClamp = true, ease: ease2, mixer 
   }
   const mixers = createMixers(output, ease2, mixer);
   const numMixers = mixers.length;
-  const interpolator = (v) => {
-    if (isZeroDeltaRange && v < input[0])
+  const interpolator = (v2) => {
+    if (isZeroDeltaRange && v2 < input[0])
       return output[0];
     let i = 0;
     if (numMixers > 1) {
       for (; i < input.length - 2; i++) {
-        if (v < input[i + 1])
+        if (v2 < input[i + 1])
           break;
       }
     }
-    const progressInRange = /* @__PURE__ */ progress(input[i], input[i + 1], v);
+    const progressInRange = /* @__PURE__ */ progress(input[i], input[i + 1], v2);
     return mixers[i](progressInRange);
   };
-  return isClamp ? (v) => interpolator(clamp$2(input[0], input[inputLength - 1], v)) : interpolator;
+  return isClamp ? (v2) => interpolator(clamp$2(input[0], input[inputLength - 1], v2)) : interpolator;
 }
 function fillOffset(offset2, remaining) {
   const min2 = offset2[offset2.length - 1];
@@ -29250,7 +37864,7 @@ function defaultOffset(arr) {
   return offset2;
 }
 function convertOffsetToTimes(offset2, duration) {
-  return offset2.map((o) => o * duration);
+  return offset2.map((o2) => o2 * duration);
 }
 function defaultEasing(values, easing) {
   return values.map(() => easing || easeInOut).splice(0, values.length - 1);
@@ -29337,7 +37951,7 @@ class JSAnimation extends WithPromise {
       value: void 0
     };
     this.stop = () => {
-      var _a2, _b2;
+      var _a3, _b3;
       const { motionValue: motionValue2 } = this.options;
       if (motionValue2 && motionValue2.updatedAt !== time.now()) {
         this.tick(time.now());
@@ -29346,7 +37960,7 @@ class JSAnimation extends WithPromise {
       if (this.state === "idle")
         return;
       this.teardown();
-      (_b2 = (_a2 = this.options).onStop) == null ? void 0 : _b2.call(_a2);
+      (_b3 = (_a3 = this.options).onStop) == null ? void 0 : _b3.call(_a3);
     };
     this.options = options;
     this.initAnimation();
@@ -29508,7 +38122,7 @@ class JSAnimation extends WithPromise {
       return this.generator.velocity(t);
     }
     const current = this.generator.next(t).value;
-    return getGeneratorVelocity((s) => this.generator.next(s).value, t, current);
+    return getGeneratorVelocity((s2) => this.generator.next(s2).value, t, current);
   }
   get speed() {
     return this.playbackSpeed;
@@ -29524,14 +38138,14 @@ class JSAnimation extends WithPromise {
     }
   }
   play() {
-    var _a2, _b2;
+    var _a3, _b3;
     if (this.isStopped)
       return;
     const { driver = frameloopDriver, startTime } = this.options;
     if (!this.driver) {
       this.driver = driver((timestamp) => this.tick(timestamp));
     }
-    (_b2 = (_a2 = this.options).onPlay) == null ? void 0 : _b2.call(_a2);
+    (_b3 = (_a3 = this.options).onPlay) == null ? void 0 : _b3.call(_a3);
     const now2 = this.driver.now();
     if (this.state === "finished") {
       this.updateFinished();
@@ -29561,19 +38175,19 @@ class JSAnimation extends WithPromise {
     this.holdTime = null;
   }
   finish() {
-    var _a2, _b2;
+    var _a3, _b3;
     this.notifyFinished();
     this.teardown();
     this.state = "finished";
-    (_b2 = (_a2 = this.options).onComplete) == null ? void 0 : _b2.call(_a2);
+    (_b3 = (_a3 = this.options).onComplete) == null ? void 0 : _b3.call(_a3);
   }
   cancel() {
-    var _a2, _b2;
+    var _a3, _b3;
     this.holdTime = null;
     this.startTime = 0;
     this.tick(0);
     this.teardown();
-    (_b2 = (_a2 = this.options).onCancel) == null ? void 0 : _b2.call(_a2);
+    (_b3 = (_a3 = this.options).onCancel) == null ? void 0 : _b3.call(_a3);
   }
   teardown() {
     this.state = "idle";
@@ -29591,13 +38205,13 @@ class JSAnimation extends WithPromise {
     return this.tick(sampleTime, true);
   }
   attachTimeline(timeline) {
-    var _a2;
+    var _a3;
     if (this.options.allowFlatten) {
       this.options.type = "keyframes";
       this.options.ease = "linear";
       this.initAnimation();
     }
-    (_a2 = this.driver) == null ? void 0 : _a2.stop();
+    (_a3 = this.driver) == null ? void 0 : _a3.stop();
     return timeline.observe(this);
   }
 }
@@ -29607,8 +38221,8 @@ function fillWildcards(keyframes2) {
   }
 }
 const radToDeg = (rad) => rad * 180 / Math.PI;
-const rotate = (v) => {
-  const angle = radToDeg(Math.atan2(v[1], v[0]));
+const rotate = (v2) => {
+  const angle = radToDeg(Math.atan2(v2[1], v2[0]));
   return rebaseAngle(angle);
 };
 const matrix2dParsers = {
@@ -29618,12 +38232,12 @@ const matrix2dParsers = {
   translateY: 5,
   scaleX: 0,
   scaleY: 3,
-  scale: (v) => (Math.abs(v[0]) + Math.abs(v[3])) / 2,
+  scale: (v2) => (Math.abs(v2[0]) + Math.abs(v2[3])) / 2,
   rotate,
   rotateZ: rotate,
-  skewX: (v) => radToDeg(Math.atan(v[1])),
-  skewY: (v) => radToDeg(Math.atan(v[2])),
-  skew: (v) => (Math.abs(v[1]) + Math.abs(v[2])) / 2
+  skewX: (v2) => radToDeg(Math.atan(v2[1])),
+  skewY: (v2) => radToDeg(Math.atan(v2[2])),
+  skew: (v2) => (Math.abs(v2[1]) + Math.abs(v2[2])) / 2
 };
 const rebaseAngle = (angle) => {
   angle = angle % 360;
@@ -29632,8 +38246,8 @@ const rebaseAngle = (angle) => {
   return angle;
 };
 const rotateZ = rotate;
-const scaleX = (v) => Math.sqrt(v[0] * v[0] + v[1] * v[1]);
-const scaleY = (v) => Math.sqrt(v[4] * v[4] + v[5] * v[5]);
+const scaleX = (v2) => Math.sqrt(v2[0] * v2[0] + v2[1] * v2[1]);
+const scaleY = (v2) => Math.sqrt(v2[4] * v2[4] + v2[5] * v2[5]);
 const matrix3dParsers = {
   x: 12,
   y: 13,
@@ -29643,14 +38257,14 @@ const matrix3dParsers = {
   translateZ: 14,
   scaleX,
   scaleY,
-  scale: (v) => (scaleX(v) + scaleY(v)) / 2,
-  rotateX: (v) => rebaseAngle(radToDeg(Math.atan2(v[6], v[5]))),
-  rotateY: (v) => rebaseAngle(radToDeg(Math.atan2(-v[2], v[0]))),
+  scale: (v2) => (scaleX(v2) + scaleY(v2)) / 2,
+  rotateX: (v2) => rebaseAngle(radToDeg(Math.atan2(v2[6], v2[5]))),
+  rotateY: (v2) => rebaseAngle(radToDeg(Math.atan2(-v2[2], v2[0]))),
   rotateZ,
   rotate: rotateZ,
-  skewX: (v) => radToDeg(Math.atan(v[4])),
-  skewY: (v) => radToDeg(Math.atan(v[1])),
-  skew: (v) => (Math.abs(v[1]) + Math.abs(v[4])) / 2
+  skewX: (v2) => radToDeg(Math.atan(v2[4])),
+  skewY: (v2) => radToDeg(Math.atan(v2[1])),
+  skew: (v2) => (Math.abs(v2[1]) + Math.abs(v2[4])) / 2
 };
 function defaultTransformValue(name) {
   return name.includes("scale") ? 1 : 0;
@@ -29704,7 +38318,7 @@ const transformPropOrder = [
   "skewY"
 ];
 const transformProps = /* @__PURE__ */ (() => new Set(transformPropOrder))();
-const isNumOrPxType = (v) => v === number || v === px;
+const isNumOrPxType = (v2) => v2 === number || v2 === px;
 const transformKeys = /* @__PURE__ */ new Set(["x", "y", "z"]);
 const nonTranslationalTransformKeys = transformPropOrder.filter((key) => !transformKeys.has(key));
 function removeNonTranslationalTransform(visualElement) {
@@ -29720,18 +38334,18 @@ function removeNonTranslationalTransform(visualElement) {
 }
 const positionalValues = {
   // Dimensions
-  width: ({ x }, { paddingLeft = "0", paddingRight = "0", boxSizing }) => {
-    const width = x.max - x.min;
+  width: ({ x: x2 }, { paddingLeft = "0", paddingRight = "0", boxSizing }) => {
+    const width = x2.max - x2.min;
     return boxSizing === "border-box" ? width : width - parseFloat(paddingLeft) - parseFloat(paddingRight);
   },
-  height: ({ y }, { paddingTop = "0", paddingBottom = "0", boxSizing }) => {
-    const height = y.max - y.min;
+  height: ({ y: y2 }, { paddingTop = "0", paddingBottom = "0", boxSizing }) => {
+    const height = y2.max - y2.min;
     return boxSizing === "border-box" ? height : height - parseFloat(paddingTop) - parseFloat(paddingBottom);
   },
   top: (_bbox, { top }) => parseFloat(top),
   left: (_bbox, { left }) => parseFloat(left),
-  bottom: ({ y }, { top }) => parseFloat(top) + (y.max - y.min),
-  right: ({ x }, { left }) => parseFloat(left) + (x.max - x.min),
+  bottom: ({ y: y2 }, { top }) => parseFloat(top) + (y2.max - y2.min),
+  right: ({ x: x2 }, { left }) => parseFloat(left) + (x2.max - x2.min),
   // Transform
   x: (_bbox, { transform }) => parseValueFromTransform(transform, "x"),
   y: (_bbox, { transform }) => parseValueFromTransform(transform, "y")
@@ -29760,8 +38374,8 @@ function measureAllKeyframes() {
       const restore = transformsToRestore.get(element);
       if (restore) {
         restore.forEach(([key, value]) => {
-          var _a2;
-          (_a2 = element.getValue(key)) == null ? void 0 : _a2.set(value);
+          var _a3;
+          (_a3 = element.getValue(key)) == null ? void 0 : _a3.set(value);
         });
       }
     });
@@ -29881,7 +38495,7 @@ const supportsLinearEasing = /* @__PURE__ */ memoSupports(() => {
   }
   return true;
 }, "linearEasing");
-const cubicBezierAsString = ([a, b, c, d]) => `cubic-bezier(${a}, ${b}, ${c}, ${d})`;
+const cubicBezierAsString = ([a2, b2, c2, d2]) => `cubic-bezier(${a2}, ${b2}, ${c2}, ${d2})`;
 const supportedWaapiEasing = {
   linear: "linear",
   ease: "ease",
@@ -29985,8 +38599,8 @@ class NativeAnimation extends WithPromise {
     this.animation.pause();
   }
   complete() {
-    var _a2, _b2;
-    (_b2 = (_a2 = this.animation).finish) == null ? void 0 : _b2.call(_a2);
+    var _a3, _b3;
+    (_b3 = (_a3 = this.animation).finish) == null ? void 0 : _b3.call(_a3);
   }
   cancel() {
     try {
@@ -30023,15 +38637,15 @@ class NativeAnimation extends WithPromise {
    * while deferring the commit until the next animation frame.
    */
   commitStyles() {
-    var _a2, _b2, _c2;
-    const element = (_a2 = this.options) == null ? void 0 : _a2.element;
+    var _a3, _b3, _c2;
+    const element = (_a3 = this.options) == null ? void 0 : _a3.element;
     if (!this.isPseudoElement && (element == null ? void 0 : element.isConnected)) {
-      (_c2 = (_b2 = this.animation).commitStyles) == null ? void 0 : _c2.call(_b2);
+      (_c2 = (_b3 = this.animation).commitStyles) == null ? void 0 : _c2.call(_b3);
     }
   }
   get duration() {
-    var _a2, _b2;
-    const duration = ((_b2 = (_a2 = this.animation.effect) == null ? void 0 : _a2.getComputedTiming) == null ? void 0 : _b2.call(_a2).duration) || 0;
+    var _a3, _b3;
+    const duration = ((_b3 = (_a3 = this.animation.effect) == null ? void 0 : _a3.getComputedTiming) == null ? void 0 : _b3.call(_a3).duration) || 0;
     return /* @__PURE__ */ millisecondsToSeconds(Number(duration));
   }
   get iterationDuration() {
@@ -30075,9 +38689,9 @@ class NativeAnimation extends WithPromise {
    * Attaches a timeline to the animation, for instance the `ScrollTimeline`.
    */
   attachTimeline({ timeline, rangeStart, rangeEnd, observe }) {
-    var _a2;
+    var _a3;
     if (this.allowFlatten) {
-      (_a2 = this.animation.effect) == null ? void 0 : _a2.updateTiming({ easing: "linear" });
+      (_a3 = this.animation.effect) == null ? void 0 : _a3.updateTiming({ easing: "linear" });
     }
     this.animation.onfinish = null;
     if (timeline && supportsScrollTimeline()) {
@@ -30218,9 +38832,9 @@ const colorProperties = /* @__PURE__ */ new Set([
 ]);
 const supportsWaapi = /* @__PURE__ */ memo(() => Object.hasOwnProperty.call(Element.prototype, "animate"));
 function supportsBrowserAnimation(options) {
-  var _a2;
+  var _a3;
   const { motionValue: motionValue2, name, repeatDelay, repeatType, damping, type, keyframes: keyframes2 } = options;
-  const subject = (_a2 = motionValue2 == null ? void 0 : motionValue2.owner) == null ? void 0 : _a2.current;
+  const subject = (_a3 = motionValue2 == null ? void 0 : motionValue2.owner) == null ? void 0 : _a3.current;
   if (!(subject instanceof HTMLElement)) {
     return false;
   }
@@ -30238,15 +38852,15 @@ function supportsBrowserAnimation(options) {
 const MAX_RESOLVE_DELAY = 40;
 class AsyncMotionValueAnimation extends WithPromise {
   constructor({ autoplay = true, delay: delay2 = 0, type = "keyframes", repeat = 0, repeatDelay = 0, repeatType = "loop", keyframes: keyframes2, name, motionValue: motionValue2, element, ...options }) {
-    var _a2;
+    var _a3;
     super();
     this.stop = () => {
-      var _a3, _b2;
+      var _a4, _b3;
       if (this._animation) {
         this._animation.stop();
-        (_a3 = this.stopTimeline) == null ? void 0 : _a3.call(this);
+        (_a4 = this.stopTimeline) == null ? void 0 : _a4.call(this);
       }
-      (_b2 = this.keyframeResolver) == null ? void 0 : _b2.cancel();
+      (_b3 = this.keyframeResolver) == null ? void 0 : _b3.cancel();
     };
     this.createdAt = time.now();
     const optionsWithDefaults = {
@@ -30263,10 +38877,10 @@ class AsyncMotionValueAnimation extends WithPromise {
     };
     const KeyframeResolver$1 = (element == null ? void 0 : element.KeyframeResolver) || KeyframeResolver;
     this.keyframeResolver = new KeyframeResolver$1(keyframes2, (resolvedKeyframes, finalKeyframe, forced) => this.onKeyframesResolved(resolvedKeyframes, finalKeyframe, optionsWithDefaults, !forced), name, motionValue2, element);
-    (_a2 = this.keyframeResolver) == null ? void 0 : _a2.scheduleResolve();
+    (_a3 = this.keyframeResolver) == null ? void 0 : _a3.scheduleResolve();
   }
   onKeyframesResolved(keyframes2, finalKeyframe, options, sync) {
-    var _a2, _b2;
+    var _a3, _b3;
     this.keyframeResolver = void 0;
     const { name, type, velocity, delay: delay2, isHandoff, onUpdate } = options;
     this.resolvedAt = time.now();
@@ -30288,7 +38902,7 @@ class AsyncMotionValueAnimation extends WithPromise {
       keyframes: keyframes2
     };
     const useWaapi = canAnimateValue && !isHandoff && supportsBrowserAnimation(resolvedOptions);
-    const element = (_b2 = (_a2 = resolvedOptions.motionValue) == null ? void 0 : _a2.owner) == null ? void 0 : _b2.current;
+    const element = (_b3 = (_a3 = resolvedOptions.motionValue) == null ? void 0 : _a3.owner) == null ? void 0 : _b3.current;
     let animation;
     if (useWaapi) {
       try {
@@ -30323,9 +38937,9 @@ class AsyncMotionValueAnimation extends WithPromise {
     });
   }
   get animation() {
-    var _a2;
+    var _a3;
     if (!this._animation) {
-      (_a2 = this.keyframeResolver) == null ? void 0 : _a2.resume();
+      (_a3 = this.keyframeResolver) == null ? void 0 : _a3.resume();
       flushKeyframeResolvers();
     }
     return this._animation;
@@ -30372,15 +38986,15 @@ class AsyncMotionValueAnimation extends WithPromise {
     this.animation.complete();
   }
   cancel() {
-    var _a2;
+    var _a3;
     if (this._animation) {
       this.animation.cancel();
     }
-    (_a2 = this.keyframeResolver) == null ? void 0 : _a2.cancel();
+    (_a3 = this.keyframeResolver) == null ? void 0 : _a3.cancel();
   }
 }
 function calcChildStagger(children, child, delayChildren, staggerChildren = 0, staggerDirection = 1) {
-  const index2 = Array.from(children).sort((a, b) => a.sortNodePosition(b)).indexOf(child);
+  const index2 = Array.from(children).sort((a2, b2) => a2.sortNodePosition(b2)).indexOf(child);
   const numChildren = children.size;
   const maxStaggerDuration = (numChildren - 1) * staggerChildren;
   const delayIsFunction = typeof delayChildren === "function";
@@ -30439,7 +39053,7 @@ const getDefaultTransition = (valueKey, { keyframes: keyframes2 }) => {
 };
 function resolveTransition(transition, parentTransition) {
   if ((transition == null ? void 0 : transition.inherit) && parentTransition) {
-    const { inherit: _, ...rest } = transition;
+    const { inherit: _2, ...rest } = transition;
     return { ...parentTransition, ...rest };
   }
   return transition;
@@ -30481,9 +39095,9 @@ const animateMotionValue = (name, value, target, transition = {}, element, isHan
     velocity: value.getVelocity(),
     ...valueTransition,
     delay: -elapsed,
-    onUpdate: (v) => {
-      value.set(v);
-      valueTransition.onUpdate && valueTransition.onUpdate(v);
+    onUpdate: (v2) => {
+      value.set(v2);
+      valueTransition.onUpdate && valueTransition.onUpdate(v2);
     },
     onComplete: () => {
       onComplete();
@@ -30575,16 +39189,16 @@ class MotionValue {
   constructor(init, options = {}) {
     this.canTrackVelocity = null;
     this.events = {};
-    this.updateAndNotify = (v) => {
-      var _a2;
+    this.updateAndNotify = (v2) => {
+      var _a3;
       const currentTime = time.now();
       if (this.updatedAt !== currentTime) {
         this.setPrevFrameValue();
       }
       this.prev = this.current;
-      this.setCurrent(v);
+      this.setCurrent(v2);
       if (this.current !== this.prev) {
-        (_a2 = this.events.change) == null ? void 0 : _a2.notify(this.current);
+        (_a3 = this.events.change) == null ? void 0 : _a3.notify(this.current);
         if (this.dependents) {
           for (const dependent of this.dependents) {
             dependent.dirty();
@@ -30694,11 +39308,11 @@ class MotionValue {
    *
    * @public
    */
-  set(v) {
+  set(v2) {
     if (!this.passiveEffect) {
-      this.updateAndNotify(v);
+      this.updateAndNotify(v2);
     } else {
-      this.passiveEffect(v, this.updateAndNotify);
+      this.passiveEffect(v2, this.updateAndNotify);
     }
   }
   setWithVelocity(prev, current, delta) {
@@ -30711,17 +39325,17 @@ class MotionValue {
    * Set the state of the `MotionValue`, stopping any active animations,
    * effects, and resets velocity to `0`.
    */
-  jump(v, endAnimation = true) {
-    this.updateAndNotify(v);
-    this.prev = v;
+  jump(v2, endAnimation = true) {
+    this.updateAndNotify(v2);
+    this.prev = v2;
     this.prevUpdatedAt = this.prevFrameValue = void 0;
     endAnimation && this.stop();
     if (this.stopPassiveEffect)
       this.stopPassiveEffect();
   }
   dirty() {
-    var _a2;
-    (_a2 = this.events.change) == null ? void 0 : _a2.notify(this.current);
+    var _a3;
+    (_a3 = this.events.change) == null ? void 0 : _a3.notify(this.current);
   }
   addDependent(dependent) {
     if (!this.dependents) {
@@ -30825,9 +39439,9 @@ class MotionValue {
    * @public
    */
   destroy() {
-    var _a2, _b2;
-    (_a2 = this.dependents) == null ? void 0 : _a2.clear();
-    (_b2 = this.events.destroy) == null ? void 0 : _b2.notify();
+    var _a3, _b3;
+    (_a3 = this.dependents) == null ? void 0 : _a3.clear();
+    (_b3 = this.events.destroy) == null ? void 0 : _b3.notify();
     this.clearListeners();
     this.stop();
     if (this.stopPassiveEffect) {
@@ -30838,8 +39452,8 @@ class MotionValue {
 function motionValue(init, options) {
   return new MotionValue(init, options);
 }
-const isKeyframesTarget = (v) => {
-  return Array.isArray(v);
+const isKeyframesTarget = (v2) => {
+  return Array.isArray(v2);
 };
 function setMotionValue(visualElement, key, value) {
   if (visualElement.hasValue(key)) {
@@ -30848,8 +39462,8 @@ function setMotionValue(visualElement, key, value) {
     visualElement.addValue(key, motionValue(value));
   }
 }
-function resolveFinalValueInKeyframes(v) {
-  return isKeyframesTarget(v) ? v[v.length - 1] || 0 : v;
+function resolveFinalValueInKeyframes(v2) {
+  return isKeyframesTarget(v2) ? v2[v2.length - 1] || 0 : v2;
 }
 function setTarget(visualElement, definition) {
   const resolved = resolveVariant(visualElement, definition);
@@ -30943,8 +39557,8 @@ function animateTarget(visualElement, targetAndTransition, { delay: delay2 = 0, 
   return animations2;
 }
 function animateVariant(visualElement, variant, options = {}) {
-  var _a2;
-  const resolved = resolveVariant(visualElement, variant, options.type === "exit" ? (_a2 = visualElement.presenceContext) == null ? void 0 : _a2.custom : void 0);
+  var _a3;
+  const resolved = resolveVariant(visualElement, variant, options.type === "exit" ? (_a3 = visualElement.presenceContext) == null ? void 0 : _a3.custom : void 0);
   let { transition = visualElement.getDefaultTransition() || {} } = resolved || {};
   if (options.transitionOverride) {
     transition = options.transitionOverride;
@@ -30990,12 +39604,12 @@ function animateVisualElement(visualElement, definition, options = {}) {
   });
 }
 const auto = {
-  test: (v) => v === "auto",
-  parse: (v) => v
+  test: (v2) => v2 === "auto",
+  parse: (v2) => v2
 };
-const testValueType = (v) => (type) => type.test(v);
+const testValueType = (v2) => (type) => type.test(v2);
 const dimensionValueTypes = [number, px, percent, degrees, vw, vh, auto];
-const findDimensionValueType = (v) => dimensionValueTypes.find(testValueType(v));
+const findDimensionValueType = (v2) => dimensionValueTypes.find(testValueType(v2));
 function isNone(value) {
   if (typeof value === "number") {
     return value === 0;
@@ -31006,13 +39620,13 @@ function isNone(value) {
   }
 }
 const maxDefaults = /* @__PURE__ */ new Set(["brightness", "contrast", "saturate", "opacity"]);
-function applyDefaultFilter(v) {
-  const [name, value] = v.slice(0, -1).split("(");
+function applyDefaultFilter(v2) {
+  const [name, value] = v2.slice(0, -1).split("(");
   if (name === "drop-shadow")
-    return v;
+    return v2;
   const [number2] = value.match(floatRegex) || [];
   if (!number2)
-    return v;
+    return v2;
   const unit = value.replace(number2, "");
   let defaultValue = maxDefaults.has(name) ? 1 : 0;
   if (number2 !== value)
@@ -31022,17 +39636,17 @@ function applyDefaultFilter(v) {
 const functionRegex = /\b([a-z-]*)\(.*?\)/gu;
 const filter = {
   ...complex,
-  getAnimatableNone: (v) => {
-    const functions = v.match(functionRegex);
-    return functions ? functions.map(applyDefaultFilter).join(" ") : v;
+  getAnimatableNone: (v2) => {
+    const functions = v2.match(functionRegex);
+    return functions ? functions.map(applyDefaultFilter).join(" ") : v2;
   }
 };
 const mask = {
   ...complex,
-  getAnimatableNone: (v) => {
-    const parsed = complex.parse(v);
-    const transformer = complex.createTransformer(v);
-    return transformer(parsed.map((v2) => typeof v2 === "number" ? 0 : typeof v2 === "object" ? { ...v2, alpha: 1 } : v2));
+  getAnimatableNone: (v2) => {
+    const parsed = complex.parse(v2);
+    const transformer = complex.createTransformer(v2);
+    return transformer(parsed.map((v3) => typeof v3 === "number" ? 0 : typeof v3 === "object" ? { ...v3, alpha: 1 } : v3));
   }
 };
 const int = {
@@ -31249,7 +39863,7 @@ class DOMKeyframesResolver extends KeyframeResolver {
     }
   }
   measureEndState() {
-    var _a2;
+    var _a3;
     const { element, name, unresolvedKeyframes } = this;
     if (!element || !element.current)
       return;
@@ -31261,7 +39875,7 @@ class DOMKeyframesResolver extends KeyframeResolver {
     if (finalKeyframe !== null && this.finalKeyframe === void 0) {
       this.finalKeyframe = finalKeyframe;
     }
-    if ((_a2 = this.removedTransforms) == null ? void 0 : _a2.length) {
+    if ((_a3 = this.removedTransforms) == null ? void 0 : _a3.length) {
       this.removedTransforms.forEach(([unsetTransformName, unsetTransformValue]) => {
         element.getValue(unsetTransformName).set(unsetTransformValue);
       });
@@ -31512,8 +40126,8 @@ const getSize = (borderBoxAxis, svgAxis, htmlAxis) => (target, borderBoxSize) =>
 const getWidth = /* @__PURE__ */ getSize("inline", "width", "offsetWidth");
 const getHeight = /* @__PURE__ */ getSize("block", "height", "offsetHeight");
 function notifyTarget({ target, borderBoxSize }) {
-  var _a2;
-  (_a2 = resizeHandlers.get(target)) == null ? void 0 : _a2.forEach((handler) => {
+  var _a3;
+  (_a3 = resizeHandlers.get(target)) == null ? void 0 : _a3.forEach((handler) => {
     handler(target, {
       get width() {
         return getWidth(target, borderBoxSize);
@@ -31583,14 +40197,14 @@ function resizeWindow(callback) {
     }
   };
 }
-function resize(a, b) {
-  return typeof a === "function" ? resizeWindow(a) : resizeElement(a, b);
+function resize(a2, b2) {
+  return typeof a2 === "function" ? resizeWindow(a2) : resizeElement(a2, b2);
 }
 function isSVGSVGElement(element) {
   return isSVGElement(element) && element.tagName === "svg";
 }
 const valueTypes = [...dimensionValueTypes, color, complex];
-const findValueType = (v) => valueTypes.find(testValueType(v));
+const findValueType = (v2) => valueTypes.find(testValueType(v2));
 const createAxisDelta = () => ({
   translate: 0,
   scale: 1,
@@ -31607,11 +40221,11 @@ const createBox = () => ({
   y: createAxis()
 });
 const visualElementStore = /* @__PURE__ */ new WeakMap();
-function isAnimationControls(v) {
-  return v !== null && typeof v === "object" && typeof v.start === "function";
+function isAnimationControls(v2) {
+  return v2 !== null && typeof v2 === "object" && typeof v2.start === "function";
 }
-function isVariantLabel(v) {
-  return typeof v === "string" || Array.isArray(v);
+function isVariantLabel(v2) {
+  return typeof v2 === "string" || Array.isArray(v2);
 }
 const variantPriorityOrder = [
   "animate",
@@ -31758,10 +40372,10 @@ class VisualElement {
     }
   }
   mount(instance) {
-    var _a2, _b2;
+    var _a3, _b3;
     if (this.hasBeenMounted) {
       for (const key in this.initialValues) {
-        (_a2 = this.values.get(key)) == null ? void 0 : _a2.jump(this.initialValues[key]);
+        (_a3 = this.values.get(key)) == null ? void 0 : _a3.jump(this.initialValues[key]);
         this.latestValues[key] = this.initialValues[key];
       }
     }
@@ -31785,19 +40399,19 @@ class VisualElement {
       this.shouldReduceMotion = prefersReducedMotion.current;
     }
     this.shouldSkipAnimations = this.skipAnimationsConfig ?? false;
-    (_b2 = this.parent) == null ? void 0 : _b2.addChild(this);
+    (_b3 = this.parent) == null ? void 0 : _b3.addChild(this);
     this.update(this.props, this.presenceContext);
     this.hasBeenMounted = true;
   }
   unmount() {
-    var _a2;
+    var _a3;
     this.projection && this.projection.unmount();
     cancelFrame(this.notifyUpdate);
     cancelFrame(this.render);
     this.valueSubscriptions.forEach((remove) => remove());
     this.valueSubscriptions.clear();
     this.removeFromVariantTree && this.removeFromVariantTree();
-    (_a2 = this.parent) == null ? void 0 : _a2.removeChild(this);
+    (_a3 = this.parent) == null ? void 0 : _a3.removeChild(this);
     for (const key in this.events) {
       this.events[key].clear();
     }
@@ -32040,11 +40654,11 @@ class VisualElement {
    * props.
    */
   getBaseTarget(key) {
-    var _a2;
+    var _a3;
     const { initial } = this.props;
     let valueFromInitial;
     if (typeof initial === "string" || typeof initial === "object") {
-      const variant = resolveVariantFromProps(this.props, initial, (_a2 = this.presenceContext) == null ? void 0 : _a2.custom);
+      const variant = resolveVariantFromProps(this.props, initial, (_a3 = this.presenceContext) == null ? void 0 : _a3.custom);
       if (variant) {
         valueFromInitial = variant[key];
       }
@@ -32077,8 +40691,8 @@ class DOMVisualElement extends VisualElement {
     super(...arguments);
     this.KeyframeResolver = DOMKeyframesResolver;
   }
-  sortInstanceNodePosition(a, b) {
-    return a.compareDocumentPosition(b) & 2 ? 1 : -1;
+  sortInstanceNodePosition(a2, b2) {
+    return a2.compareDocumentPosition(b2) & 2 ? 1 : -1;
   }
   getBaseTargetFromProps(props, key) {
     const style2 = props.style;
@@ -32117,8 +40731,8 @@ function convertBoundingBoxToBox({ top, left, right, bottom }) {
     y: { min: top, max: bottom }
   };
 }
-function convertBoxToBoundingBox({ x, y }) {
-  return { top: y.min, right: x.max, bottom: y.max, left: x.min };
+function convertBoxToBoundingBox({ x: x2, y: y2 }) {
+  return { top: y2.min, right: x2.max, bottom: y2.max, left: x2.min };
 }
 function transformBoxPoints(point, transformPoint2) {
   if (!transformPoint2)
@@ -32162,14 +40776,14 @@ function applyAxisDelta(axis, translate = 0, scale2 = 1, originPoint, boxScale) 
   axis.min = applyPointDelta(axis.min, translate, scale2, originPoint, boxScale);
   axis.max = applyPointDelta(axis.max, translate, scale2, originPoint, boxScale);
 }
-function applyBoxDelta(box, { x, y }) {
-  applyAxisDelta(box.x, x.translate, x.scale, x.originPoint);
-  applyAxisDelta(box.y, y.translate, y.scale, y.originPoint);
+function applyBoxDelta(box, { x: x2, y: y2 }) {
+  applyAxisDelta(box.x, x2.translate, x2.scale, x2.originPoint);
+  applyAxisDelta(box.y, y2.translate, y2.scale, y2.originPoint);
 }
 const TREE_SCALE_SNAP_MIN = 0.999999999999;
 const TREE_SCALE_SNAP_MAX = 1.0000000000001;
 function applyTreeDeltas(box, treeScale, treePath, isSharedTransition = false) {
-  var _a2;
+  var _a3;
   const treeLength = treePath.length;
   if (!treeLength)
     return;
@@ -32193,7 +40807,7 @@ function applyTreeDeltas(box, treeScale, treePath, isSharedTransition = false) {
       applyBoxDelta(box, delta);
     }
     if (isSharedTransition && hasTransform(node.latestValues)) {
-      transformBox(box, node.latestValues, (_a2 = node.layout) == null ? void 0 : _a2.layoutBox);
+      transformBox(box, node.latestValues, (_a3 = node.layout) == null ? void 0 : _a3.layoutBox);
     }
   }
   if (treeScale.x < TREE_SCALE_SNAP_MAX && treeScale.x > TREE_SCALE_SNAP_MIN) {
@@ -32337,9 +40951,9 @@ const correctBorderRadius = {
         return latest;
       }
     }
-    const x = pixelsToPercent(latest, node.target.x);
-    const y = pixelsToPercent(latest, node.target.y);
-    return `${x}% ${y}%`;
+    const x2 = pixelsToPercent(latest, node.target.x);
+    const y2 = pixelsToPercent(latest, node.target.y);
+    return `${x2}% ${y2}%`;
   }
 };
 const correctBoxShadow = {
@@ -32382,14 +40996,14 @@ function isForcedMotionValue(key, { layout: layout2, layoutId }) {
   return transformProps.has(key) || key.startsWith("origin") || (layout2 || layoutId !== void 0) && (!!scaleCorrectors[key] || key === "opacity");
 }
 function scrapeMotionValuesFromProps$1(props, prevProps, visualElement) {
-  var _a2;
+  var _a3;
   const style2 = props.style;
   const prevStyle = prevProps == null ? void 0 : prevProps.style;
   const newValues = {};
   if (!style2)
     return newValues;
   for (const key in style2) {
-    if (isMotionValue(style2[key]) || prevStyle && isMotionValue(prevStyle[key]) || isForcedMotionValue(key, props) || ((_a2 = visualElement == null ? void 0 : visualElement.getValue(key)) == null ? void 0 : _a2.liveStyle) !== void 0) {
+    if (isMotionValue(style2[key]) || prevStyle && isMotionValue(prevStyle[key]) || isForcedMotionValue(key, props) || ((_a3 = visualElement == null ? void 0 : visualElement.getValue(key)) == null ? void 0 : _a3.liveStyle) !== void 0) {
       newValues[key] = style2[key];
     }
   }
@@ -32405,9 +41019,9 @@ class HTMLVisualElement extends DOMVisualElement {
     this.renderInstance = renderHTML;
   }
   readValueFromInstance(instance, key) {
-    var _a2;
+    var _a3;
     if (transformProps.has(key)) {
-      return ((_a2 = this.projection) == null ? void 0 : _a2.isProjecting) ? defaultTransformValue(key) : readTransformValue(instance, key);
+      return ((_a3 = this.projection) == null ? void 0 : _a3.isProjecting) ? defaultTransformValue(key) : readTransformValue(instance, key);
     } else {
       const computedStyle = getComputedStyle$2(instance);
       const value = (isCSSVariableName(key) ? computedStyle.getPropertyValue(key) : computedStyle[key]) || 0;
@@ -32612,8 +41226,8 @@ function createAnimationState(visualElement) {
   let isInitialRender = true;
   let wasReset = false;
   const buildResolvedTypeValues = (type) => (acc, definition) => {
-    var _a2;
-    const resolved = resolveVariant(visualElement, definition, type === "exit" ? (_a2 = visualElement.presenceContext) == null ? void 0 : _a2.custom : void 0);
+    var _a3;
+    const resolved = resolveVariant(visualElement, definition, type === "exit" ? (_a3 = visualElement.presenceContext) == null ? void 0 : _a3.custom : void 0);
     if (resolved) {
       const { transition, transitionEnd, ...target } = resolved;
       acc = { ...acc, ...target, ...transitionEnd };
@@ -32762,12 +41376,12 @@ function createAnimationState(visualElement) {
     return shouldAnimate ? animate(animations2) : Promise.resolve();
   }
   function setActive(type, isActive) {
-    var _a2;
+    var _a3;
     if (state[type].isActive === isActive)
       return Promise.resolve();
-    (_a2 = visualElement.variantChildren) == null ? void 0 : _a2.forEach((child) => {
-      var _a3;
-      return (_a3 = child.animationState) == null ? void 0 : _a3.setActive(type, isActive);
+    (_a3 = visualElement.variantChildren) == null ? void 0 : _a3.forEach((child) => {
+      var _a4;
+      return (_a4 = child.animationState) == null ? void 0 : _a4.setActive(type, isActive);
     });
     state[type].isActive = isActive;
     const animations2 = animateChanges(type);
@@ -32911,23 +41525,23 @@ function isAxisDeltaZero(delta) {
 function isDeltaZero(delta) {
   return isAxisDeltaZero(delta.x) && isAxisDeltaZero(delta.y);
 }
-function axisEquals(a, b) {
-  return a.min === b.min && a.max === b.max;
+function axisEquals(a2, b2) {
+  return a2.min === b2.min && a2.max === b2.max;
 }
-function boxEquals(a, b) {
-  return axisEquals(a.x, b.x) && axisEquals(a.y, b.y);
+function boxEquals(a2, b2) {
+  return axisEquals(a2.x, b2.x) && axisEquals(a2.y, b2.y);
 }
-function axisEqualsRounded(a, b) {
-  return Math.round(a.min) === Math.round(b.min) && Math.round(a.max) === Math.round(b.max);
+function axisEqualsRounded(a2, b2) {
+  return Math.round(a2.min) === Math.round(b2.min) && Math.round(a2.max) === Math.round(b2.max);
 }
-function boxEqualsRounded(a, b) {
-  return axisEqualsRounded(a.x, b.x) && axisEqualsRounded(a.y, b.y);
+function boxEqualsRounded(a2, b2) {
+  return axisEqualsRounded(a2.x, b2.x) && axisEqualsRounded(a2.y, b2.y);
 }
 function aspectRatio(box) {
   return calcLength(box.x) / calcLength(box.y);
 }
-function axisDeltaEquals(a, b) {
-  return a.translate === b.translate && a.scale === b.scale && a.originPoint === b.originPoint;
+function axisDeltaEquals(a2, b2) {
+  return a2.translate === b2.translate && a2.scale === b2.scale && a2.originPoint === b2.originPoint;
 }
 function eachAxis(callback) {
   return [callback("x"), callback("y")];
@@ -33009,12 +41623,12 @@ function getRadius(values, radiusName) {
 const easeCrossfadeIn = /* @__PURE__ */ compress(0, 0.5, circOut);
 const easeCrossfadeOut = /* @__PURE__ */ compress(0.5, 0.95, noop$1);
 function compress(min2, max2, easing) {
-  return (p) => {
-    if (p < min2)
+  return (p2) => {
+    if (p2 < min2)
       return 0;
-    if (p > max2)
+    if (p2 > max2)
       return 1;
-    return easing(/* @__PURE__ */ progress(min2, max2, p));
+    return easing(/* @__PURE__ */ progress(min2, max2, p2));
   };
 }
 function animateSingleValue(value, keyframes2, options) {
@@ -33026,7 +41640,7 @@ function addDomEvent(target, eventName, handler, options = { passive: true }) {
   target.addEventListener(eventName, handler, options);
   return () => target.removeEventListener(eventName, handler);
 }
-const compareByDepth = (a, b) => a.depth - b.depth;
+const compareByDepth = (a2, b2) => a2.depth - b2.depth;
 class FlatTree {
   constructor() {
     this.children = [];
@@ -33046,13 +41660,13 @@ class FlatTree {
     this.children.forEach(callback);
   }
 }
-function delay(callback, timeout) {
+function delay(callback, timeout2) {
   const start = time.now();
   const checkElapsed = ({ timestamp }) => {
     const elapsed = timestamp - start;
-    if (elapsed >= timeout) {
+    if (elapsed >= timeout2) {
       cancelFrame(checkElapsed);
-      callback(elapsed - timeout);
+      callback(elapsed - timeout2);
     }
   };
   frame.setup(checkElapsed, true);
@@ -33090,10 +41704,10 @@ class NodeStack {
     }
   }
   relegate(node) {
-    var _a2;
+    var _a3;
     for (let i = this.members.indexOf(node) - 1; i >= 0; i--) {
       const member = this.members[i];
-      if (member.isPresent !== false && ((_a2 = member.instance) == null ? void 0 : _a2.isConnected) !== false) {
+      if (member.isPresent !== false && ((_a3 = member.instance) == null ? void 0 : _a3.isConnected) !== false) {
         this.promote(member);
         return true;
       }
@@ -33101,7 +41715,7 @@ class NodeStack {
     return false;
   }
   promote(node, preserveFollowOpacity) {
-    var _a2;
+    var _a3;
     const prevLead = this.lead;
     if (node === prevLead)
       return;
@@ -33121,7 +41735,7 @@ class NodeStack {
           node.snapshot = prevLead.snapshot;
           node.snapshot.latestValues = prevLead.animationValues || prevLead.latestValues;
         }
-        if ((_a2 = node.root) == null ? void 0 : _a2.isUpdating)
+        if ((_a3 = node.root) == null ? void 0 : _a3.isUpdating)
           node.isLayoutDirty = true;
       }
       if (node.options.crossfade === false)
@@ -33130,8 +41744,8 @@ class NodeStack {
   }
   exitAnimationComplete() {
     this.members.forEach((member) => {
-      var _a2, _b2, _c2, _d2, _e2;
-      (_b2 = (_a2 = member.options).onExitComplete) == null ? void 0 : _b2.call(_a2);
+      var _a3, _b3, _c2, _d2, _e2;
+      (_b3 = (_a3 = member.options).onExitComplete) == null ? void 0 : _b3.call(_a3);
       (_e2 = (_c2 = member.resumingFrom) == null ? void 0 : (_d2 = _c2.options).onExitComplete) == null ? void 0 : _e2.call(_d2);
     });
   }
@@ -33139,8 +41753,8 @@ class NodeStack {
     this.members.forEach((member) => member.instance && member.scheduleRender(false));
   }
   removeLeadSnapshot() {
-    var _a2;
-    if ((_a2 = this.lead) == null ? void 0 : _a2.snapshot)
+    var _a3;
+    if ((_a3 = this.lead) == null ? void 0 : _a3.snapshot)
       this.lead.snapshot = void 0;
   }
 }
@@ -33548,12 +42162,12 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
       };
     }
     measurePageBox() {
-      var _a2;
+      var _a3;
       const { visualElement } = this.options;
       if (!visualElement)
         return createBox();
       const box = visualElement.measureViewportBox();
-      const wasInScrollRoot = ((_a2 = this.scroll) == null ? void 0 : _a2.wasRoot) || this.path.some(checkNodeWasScrollRoot);
+      const wasInScrollRoot = ((_a3 = this.scroll) == null ? void 0 : _a3.wasRoot) || this.path.some(checkNodeWasScrollRoot);
       if (!wasInScrollRoot) {
         const { scroll } = this.root;
         if (scroll) {
@@ -33564,10 +42178,10 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
       return box;
     }
     removeElementScroll(box) {
-      var _a2;
+      var _a3;
       const boxWithoutScroll = createBox();
       copyBoxInto(boxWithoutScroll, box);
-      if ((_a2 = this.scroll) == null ? void 0 : _a2.wasRoot) {
+      if ((_a3 = this.scroll) == null ? void 0 : _a3.wasRoot) {
         return boxWithoutScroll;
       }
       for (let i = 0; i < this.path.length; i++) {
@@ -33584,7 +42198,7 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
       return boxWithoutScroll;
     }
     applyTransform(box, transformOnly = false, output) {
-      var _a2, _b2;
+      var _a3, _b3;
       const withTransforms = output || createBox();
       copyBoxInto(withTransforms, box);
       for (let i = 0; i < this.path.length; i++) {
@@ -33595,15 +42209,15 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
         }
         if (!hasTransform(node.latestValues))
           continue;
-        transformBox(withTransforms, node.latestValues, (_a2 = node.layout) == null ? void 0 : _a2.layoutBox);
+        transformBox(withTransforms, node.latestValues, (_a3 = node.layout) == null ? void 0 : _a3.layoutBox);
       }
       if (hasTransform(this.latestValues)) {
-        transformBox(withTransforms, this.latestValues, (_b2 = this.layout) == null ? void 0 : _b2.layoutBox);
+        transformBox(withTransforms, this.latestValues, (_b3 = this.layout) == null ? void 0 : _b3.layoutBox);
       }
       return withTransforms;
     }
     removeTransform(box) {
-      var _a2;
+      var _a3;
       const boxWithoutTransform = createBox();
       copyBoxInto(boxWithoutTransform, box);
       for (let i = 0; i < this.path.length; i++) {
@@ -33616,7 +42230,7 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
           sourceBox = createBox();
           copyBoxInto(sourceBox, node.measurePageBox());
         }
-        removeBoxTransforms(boxWithoutTransform, node.latestValues, (_a2 = node.snapshot) == null ? void 0 : _a2.layoutBox, sourceBox);
+        removeBoxTransforms(boxWithoutTransform, node.latestValues, (_a3 = node.snapshot) == null ? void 0 : _a3.layoutBox, sourceBox);
       }
       if (hasTransform(this.latestValues)) {
         removeBoxTransforms(boxWithoutTransform, this.latestValues);
@@ -33652,13 +42266,13 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
       }
     }
     resolveTargetDelta(forceRecalculation = false) {
-      var _a2;
+      var _a3;
       const lead = this.getLead();
       this.isProjectionDirty || (this.isProjectionDirty = lead.isProjectionDirty);
       this.isTransformDirty || (this.isTransformDirty = lead.isTransformDirty);
       this.isSharedProjectionDirty || (this.isSharedProjectionDirty = lead.isSharedProjectionDirty);
       const isShared = Boolean(this.resumingFrom) || this !== lead;
-      const canSkip = !(forceRecalculation || isShared && this.isSharedProjectionDirty || this.isProjectionDirty || ((_a2 = this.parent) == null ? void 0 : _a2.isProjectionDirty) || this.attemptToResolveRelativeTarget || this.root.updateBlockedByResize);
+      const canSkip = !(forceRecalculation || isShared && this.isSharedProjectionDirty || this.isProjectionDirty || ((_a3 = this.parent) == null ? void 0 : _a3.isProjectionDirty) || this.attemptToResolveRelativeTarget || this.root.updateBlockedByResize);
       if (canSkip)
         return;
       const { layout: layout2, layoutId } = this.options;
@@ -33730,11 +42344,11 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
       this.relativeParent = this.relativeTarget = void 0;
     }
     calcProjection() {
-      var _a2;
+      var _a3;
       const lead = this.getLead();
       const isShared = Boolean(this.resumingFrom) || this !== lead;
       let canSkip = true;
-      if (this.isProjectionDirty || ((_a2 = this.parent) == null ? void 0 : _a2.isProjectionDirty)) {
+      if (this.isProjectionDirty || ((_a3 = this.parent) == null ? void 0 : _a3.isProjectionDirty)) {
         canSkip = false;
       }
       if (isShared && (this.isSharedProjectionDirty || this.isTransformDirty)) {
@@ -33788,8 +42402,8 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
       this.isVisible = true;
     }
     scheduleRender(notifyAll2 = true) {
-      var _a2;
-      (_a2 = this.options.visualElement) == null ? void 0 : _a2.scheduleRender();
+      var _a3;
+      (_a3 = this.options.visualElement) == null ? void 0 : _a3.scheduleRender();
       if (notifyAll2) {
         const stack = this.getStack();
         stack && stack.scheduleRender();
@@ -33847,10 +42461,10 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
       this.mixTargetDelta(this.options.layoutRoot ? 1e3 : 0);
     }
     startAnimation(options) {
-      var _a2, _b2, _c2;
+      var _a3, _b3, _c2;
       this.notifyListeners("animationStart");
-      (_a2 = this.currentAnimation) == null ? void 0 : _a2.stop();
-      (_c2 = (_b2 = this.resumingFrom) == null ? void 0 : _b2.currentAnimation) == null ? void 0 : _c2.stop();
+      (_a3 = this.currentAnimation) == null ? void 0 : _a3.stop();
+      (_c2 = (_b3 = this.resumingFrom) == null ? void 0 : _b3.currentAnimation) == null ? void 0 : _c2.stop();
       if (this.pendingAnimation) {
         cancelFrame(this.pendingAnimation);
         this.pendingAnimation = void 0;
@@ -33932,14 +42546,14 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
       return stack ? stack.lead === this : true;
     }
     getLead() {
-      var _a2;
+      var _a3;
       const { layoutId } = this.options;
-      return layoutId ? ((_a2 = this.getStack()) == null ? void 0 : _a2.lead) || this : this;
+      return layoutId ? ((_a3 = this.getStack()) == null ? void 0 : _a3.lead) || this : this;
     }
     getPrevLead() {
-      var _a2;
+      var _a3;
       const { layoutId } = this.options;
-      return layoutId ? (_a2 = this.getStack()) == null ? void 0 : _a2.prevLead : void 0;
+      return layoutId ? (_a3 = this.getStack()) == null ? void 0 : _a3.prevLead : void 0;
     }
     getStack() {
       const { layoutId } = this.options;
@@ -34029,8 +42643,8 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
         transform = transformTemplate(valuesToRender, transform);
       }
       targetStyle.transform = transform;
-      const { x, y } = this.projectionDelta;
-      targetStyle.transformOrigin = `${x.origin * 100}% ${y.origin * 100}% 0`;
+      const { x: x2, y: y2 } = this.projectionDelta;
+      targetStyle.transformOrigin = `${x2.origin * 100}% ${y2.origin * 100}% 0`;
       if (lead.animationValues) {
         targetStyle.opacity = lead === this ? valuesToRender.opacity ?? this.latestValues.opacity ?? 1 : this.preserveOpacity ? this.latestValues.opacity : valuesToRender.opacityExit;
       } else {
@@ -34064,8 +42678,8 @@ function createProjectionNode$1({ attachResizeListener, defaultParent, measureSc
     // Only run on root
     resetTree() {
       this.root.nodes.forEach((node) => {
-        var _a2;
-        return (_a2 = node.currentAnimation) == null ? void 0 : _a2.stop();
+        var _a3;
+        return (_a3 = node.currentAnimation) == null ? void 0 : _a3.stop();
       });
       this.root.nodes.forEach(clearMeasurements);
       this.root.sharedNodes.clear();
@@ -34076,8 +42690,8 @@ function updateLayout(node) {
   node.updateLayout();
 }
 function notifyLayoutUpdate(node) {
-  var _a2;
-  const snapshot = ((_a2 = node.resumeFrom) == null ? void 0 : _a2.snapshot) || node.snapshot;
+  var _a3;
+  const snapshot = ((_a3 = node.resumeFrom) == null ? void 0 : _a3.snapshot) || node.snapshot;
   if (node.isLead() && node.layout && snapshot && node.hasListeners("didUpdate")) {
     const { layoutBox: layout2, measuredBox: measuredLayout } = node.layout;
     const { animationType } = node.options;
@@ -34203,19 +42817,19 @@ function resetSkewAndRotation(node) {
 function removeLeadSnapshots(stack) {
   stack.removeLeadSnapshot();
 }
-function mixAxisDelta(output, delta, p) {
-  output.translate = mixNumber$1(delta.translate, 0, p);
-  output.scale = mixNumber$1(delta.scale, 1, p);
+function mixAxisDelta(output, delta, p2) {
+  output.translate = mixNumber$1(delta.translate, 0, p2);
+  output.scale = mixNumber$1(delta.scale, 1, p2);
   output.origin = delta.origin;
   output.originPoint = delta.originPoint;
 }
-function mixAxis(output, from, to, p) {
-  output.min = mixNumber$1(from.min, to.min, p);
-  output.max = mixNumber$1(from.max, to.max, p);
+function mixAxis(output, from, to, p2) {
+  output.min = mixNumber$1(from.min, to.min, p2);
+  output.max = mixNumber$1(from.max, to.max, p2);
 }
-function mixBox(output, from, to, p) {
-  mixAxis(output.x, from.x, to.x, p);
-  mixAxis(output.y, from.y, to.y, p);
+function mixBox(output, from, to, p2) {
+  mixAxis(output.x, from.x, to.x, p2);
+  mixAxis(output.y, from.y, to.y, p2);
 }
 function hasOpacityCrossfade(node) {
   return node.animationValues && node.animationValues.opacityExit !== void 0;
@@ -34238,16 +42852,16 @@ function shouldAnimatePositionOnly(animationType, snapshot, layout2) {
   return animationType === "position" || animationType === "preserve-aspect" && !isNear(aspectRatio(snapshot), aspectRatio(layout2), 0.2);
 }
 function checkNodeWasScrollRoot(node) {
-  var _a2;
-  return node !== node.root && ((_a2 = node.scroll) == null ? void 0 : _a2.wasRoot);
+  var _a3;
+  return node !== node.root && ((_a3 = node.scroll) == null ? void 0 : _a3.wasRoot);
 }
 const DocumentProjectionNode = createProjectionNode$1({
   attachResizeListener: (ref, notify) => addDomEvent(ref, "resize", notify),
   measureScroll: () => {
-    var _a2, _b2;
+    var _a3, _b3;
     return {
-      x: document.documentElement.scrollLeft || ((_a2 = document.body) == null ? void 0 : _a2.scrollLeft) || 0,
-      y: document.documentElement.scrollTop || ((_b2 = document.body) == null ? void 0 : _b2.scrollTop) || 0
+      x: document.documentElement.scrollLeft || ((_a3 = document.body) == null ? void 0 : _a3.scrollLeft) || 0,
+      y: document.documentElement.scrollTop || ((_b3 = document.body) == null ? void 0 : _b3.scrollTop) || 0
     };
   },
   checkIsScrollRoot: () => true
@@ -34275,7 +42889,7 @@ const HTMLProjectionNode = createProjectionNode$1({
   checkIsScrollRoot: (instance) => Boolean(window.getComputedStyle(instance).position === "fixed")
 });
 const MotionConfigContext = reactExports.createContext({
-  transformPagePoint: (p) => p,
+  transformPagePoint: (p2) => p2,
   isStatic: false,
   reducedMotion: "never"
 });
@@ -34341,7 +42955,7 @@ class PopChildMeasure extends reactExports.Component {
   }
 }
 function PopChild({ children, isPresent, anchorX, anchorY, root: root2, pop: pop2 }) {
-  var _a2;
+  var _a3;
   const id2 = reactExports.useId();
   const ref = reactExports.useRef(null);
   const size2 = reactExports.useRef({
@@ -34353,14 +42967,14 @@ function PopChild({ children, isPresent, anchorX, anchorY, root: root2, pop: pop
     bottom: 0
   });
   const { nonce } = reactExports.useContext(MotionConfigContext);
-  const childRef = ((_a2 = children.props) == null ? void 0 : _a2.ref) ?? (children == null ? void 0 : children.ref);
+  const childRef = ((_a3 = children.props) == null ? void 0 : _a3.ref) ?? (children == null ? void 0 : children.ref);
   const composedRef = useComposedRefs(ref, childRef);
   reactExports.useInsertionEffect(() => {
     const { width, height, top, left, right, bottom } = size2.current;
     if (isPresent || pop2 === false || !ref.current || !width || !height)
       return;
-    const x = anchorX === "left" ? `left: ${left}` : `right: ${right}`;
-    const y = anchorY === "bottom" ? `bottom: ${bottom}` : `top: ${top}`;
+    const x2 = anchorX === "left" ? `left: ${left}` : `right: ${right}`;
+    const y2 = anchorY === "bottom" ? `bottom: ${bottom}` : `top: ${top}`;
     ref.current.dataset.motionPopId = id2;
     const style2 = document.createElement("style");
     if (nonce)
@@ -34373,14 +42987,14 @@ function PopChild({ children, isPresent, anchorX, anchorY, root: root2, pop: pop
             position: absolute !important;
             width: ${width}px !important;
             height: ${height}px !important;
-            ${x}px !important;
-            ${y}px !important;
+            ${x2}px !important;
+            ${y2}px !important;
           }
         `);
     }
     return () => {
-      var _a3;
-      (_a3 = ref.current) == null ? void 0 : _a3.removeAttribute("data-motion-pop-id");
+      var _a4;
+      (_a4 = ref.current) == null ? void 0 : _a4.removeAttribute("data-motion-pop-id");
       if (parent.contains(style2)) {
         parent.removeChild(style2);
       }
@@ -34417,7 +43031,7 @@ const PresenceChild = ({ children, initial, isPresent, onExitComplete, custom, p
     context = { ...context };
   }
   reactExports.useMemo(() => {
-    presenceChildren.forEach((_, key) => presenceChildren.set(key, false));
+    presenceChildren.forEach((_2, key) => presenceChildren.set(key, false));
   }, [isPresent]);
   reactExports.useEffect(() => {
     !isPresent && !presenceChildren.size && onExitComplete && onExitComplete();
@@ -34561,12 +43175,12 @@ function getInitializedFeatureDefinitions() {
   initFeatureDefinitions();
   return getFeatureDefinitions();
 }
-function loadFeatures(features) {
+function loadFeatures(features2) {
   const featureDefinitions2 = getInitializedFeatureDefinitions();
-  for (const key in features) {
+  for (const key in features2) {
     featureDefinitions2[key] = {
       ...featureDefinitions2[key],
-      ...features[key]
+      ...features2[key]
     };
   }
   setFeatureDefinitions(featureDefinitions2);
@@ -34846,9 +43460,9 @@ function useMotionRef(visualState, visualElement, externalRef) {
   });
   const refCleanup = reactExports.useRef(null);
   return reactExports.useCallback((instance) => {
-    var _a2;
+    var _a3;
     if (instance) {
-      (_a2 = visualState.onMount) == null ? void 0 : _a2.call(visualState, instance);
+      (_a3 = visualState.onMount) == null ? void 0 : _a3.call(visualState, instance);
     }
     const ref = externalRefContainer.current;
     if (typeof ref === "function") {
@@ -34876,7 +43490,7 @@ function isRefObject(ref) {
   return ref && typeof ref === "object" && Object.prototype.hasOwnProperty.call(ref, "current");
 }
 function useVisualElement(Component2, visualState, props, createVisualElement, ProjectionNodeConstructor, isSVG) {
-  var _a2, _b2;
+  var _a3, _b3;
   const { visualElement: parent } = reactExports.useContext(MotionContext);
   const lazyContext = reactExports.useContext(LazyContext);
   const presenceContext = reactExports.useContext(PresenceContext);
@@ -34913,7 +43527,7 @@ function useVisualElement(Component2, visualState, props, createVisualElement, P
     }
   });
   const optimisedAppearId = props[optimizedAppearDataAttribute];
-  const wantsHandoff = reactExports.useRef(Boolean(optimisedAppearId) && typeof window !== "undefined" && !((_a2 = window.MotionHandoffIsComplete) == null ? void 0 : _a2.call(window, optimisedAppearId)) && ((_b2 = window.MotionHasOptimisedAnimation) == null ? void 0 : _b2.call(window, optimisedAppearId)));
+  const wantsHandoff = reactExports.useRef(Boolean(optimisedAppearId) && typeof window !== "undefined" && !((_a3 = window.MotionHandoffIsComplete) == null ? void 0 : _a3.call(window, optimisedAppearId)) && ((_b3 = window.MotionHasOptimisedAnimation) == null ? void 0 : _b3.call(window, optimisedAppearId)));
   useIsomorphicLayoutEffect$2(() => {
     hasMountedOnce.current = true;
     if (!visualElement)
@@ -34934,8 +43548,8 @@ function useVisualElement(Component2, visualState, props, createVisualElement, P
     }
     if (wantsHandoff.current) {
       queueMicrotask(() => {
-        var _a3;
-        (_a3 = window.MotionHandoffMarkAsComplete) == null ? void 0 : _a3.call(window, optimisedAppearId);
+        var _a4;
+        (_a4 = window.MotionHandoffMarkAsComplete) == null ? void 0 : _a4.call(window, optimisedAppearId);
       });
       wantsHandoff.current = false;
     }
@@ -35079,9 +43693,9 @@ class AnimationFeature extends Feature {
     }
   }
   unmount() {
-    var _a2;
+    var _a3;
     this.node.animationState.reset();
-    (_a2 = this.unmountControls) == null ? void 0 : _a2.call(this);
+    (_a3 = this.unmountControls) == null ? void 0 : _a3.call(this);
   }
 }
 let id = 0;
@@ -35092,7 +43706,7 @@ class ExitAnimationFeature extends Feature {
     this.isExitComplete = false;
   }
   update() {
-    var _a2;
+    var _a3;
     if (!this.node.presenceContext)
       return;
     const { isPresent, onExitComplete } = this.node.presenceContext;
@@ -35108,7 +43722,7 @@ class ExitAnimationFeature extends Feature {
           if (resolved) {
             const { transition, transitionEnd, ...target } = resolved;
             for (const key in target) {
-              (_a2 = this.node.getValue(key)) == null ? void 0 : _a2.jump(target[key]);
+              (_a3 = this.node.getValue(key)) == null ? void 0 : _a3.jump(target[key]);
             }
           }
         }
@@ -35163,10 +43777,10 @@ function addPointerEvent(target, eventName, handler, options) {
 const getContextWindow = ({ current }) => {
   return current ? current.ownerDocument.defaultView : null;
 };
-const distance = (a, b) => Math.abs(a - b);
-function distance2D(a, b) {
-  const xDelta = distance(a.x, b.x);
-  const yDelta = distance(a.y, b.y);
+const distance = (a2, b2) => Math.abs(a2 - b2);
+function distance2D(a2, b2) {
+  const xDelta = distance(a2.x, b2.x);
+  const yDelta = distance(a2.y, b2.y);
   return Math.sqrt(xDelta ** 2 + yDelta ** 2);
 }
 const overflowStyles = /* @__PURE__ */ new Set(["auto", "scroll"]);
@@ -35321,8 +43935,8 @@ class PanSession {
 function transformPoint(info, transformPagePoint) {
   return transformPagePoint ? { point: transformPagePoint(info.point) } : info;
 }
-function subtractPoint(a, b) {
-  return { x: a.x - b.x, y: a.y - b.y };
+function subtractPoint(a2, b2) {
+  return { x: a2.x - b2.x, y: a2.y - b2.y };
 }
 function getPanInfo({ point }, history) {
   return {
@@ -35618,9 +44232,9 @@ class VisualElementDragControls {
     axisValue.set(next);
   }
   resolveConstraints() {
-    var _a2;
+    var _a3;
     const { dragConstraints, dragElastic } = this.getProps();
-    const layout2 = this.visualElement.projection && !this.visualElement.projection.layout ? this.visualElement.projection.measure(false) : (_a2 = this.visualElement.projection) == null ? void 0 : _a2.layout;
+    const layout2 = this.visualElement.projection && !this.visualElement.projection.layout ? this.visualElement.projection.measure(false) : (_a3 = this.visualElement.projection) == null ? void 0 : _a3.layout;
     const prevConstraints = this.constraints;
     if (dragConstraints && isRefObject(dragConstraints)) {
       if (!this.constraints) {
@@ -36161,10 +44775,10 @@ class InViewFeature extends Feature {
     this.isInView = false;
   }
   startObserver() {
-    var _a2;
-    (_a2 = this.stopObserver) == null ? void 0 : _a2.call(this);
+    var _a3;
+    (_a3 = this.stopObserver) == null ? void 0 : _a3.call(this);
     const { viewport = {} } = this.node.getProps();
-    const { root: root2, margin: rootMargin, amount = "some", once } = viewport;
+    const { root: root2, margin: rootMargin, amount = "some", once: once2 } = viewport;
     const options = {
       root: root2 ? root2.current : void 0,
       rootMargin,
@@ -36175,7 +44789,7 @@ class InViewFeature extends Feature {
       if (this.isInView === isIntersecting)
         return;
       this.isInView = isIntersecting;
-      if (once && !isIntersecting && this.hasEnteredView) {
+      if (once2 && !isIntersecting && this.hasEnteredView) {
         return;
       } else if (isIntersecting) {
         this.hasEnteredView = true;
@@ -36202,8 +44816,8 @@ class InViewFeature extends Feature {
     }
   }
   unmount() {
-    var _a2;
-    (_a2 = this.stopObserver) == null ? void 0 : _a2.call(this);
+    var _a3;
+    (_a3 = this.stopObserver) == null ? void 0 : _a3.call(this);
     this.hasEnteredView = false;
     this.isInView = false;
   }
@@ -36442,16 +45056,16 @@ function AboutPage() {
                   { label: "Industries", value: "18+" },
                   { label: "Monthly Drives", value: "40+" },
                   { label: "Avg. Time to Hire", value: "7 days" }
-                ].map((m) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                ].map((m2) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
                   "div",
                   {
                     className: "bg-background rounded-lg p-3 text-center border border-border",
                     children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xl font-display font-bold text-primary", children: m.value }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs text-muted-foreground mt-0.5", children: m.label })
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xl font-display font-bold text-primary", children: m2.value }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs text-muted-foreground mt-0.5", children: m2.label })
                     ]
                   },
-                  m.label
+                  m2.label
                 )) })
               ] })
             }
@@ -36587,10 +45201,10 @@ var Label$1 = reactExports.forwardRef((props, forwardedRef) => {
       ...props,
       ref: forwardedRef,
       onMouseDown: (event) => {
-        var _a2;
+        var _a3;
         const target = event.target;
         if (target.closest("button, input, select, textarea")) return;
-        (_a2 = props.onMouseDown) == null ? void 0 : _a2.call(props, event);
+        (_a3 = props.onMouseDown) == null ? void 0 : _a3.call(props, event);
         if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
       }
     }
@@ -36632,16 +45246,16 @@ function createContextScope(scopeName, createContextScopeDeps = []) {
     const index2 = defaultContexts.length;
     defaultContexts = [...defaultContexts, defaultContext];
     const Provider = (props) => {
-      var _a2;
+      var _a3;
       const { scope, children, ...context } = props;
-      const Context = ((_a2 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a2[index2]) || BaseContext;
+      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
       const value = reactExports.useMemo(() => context, Object.values(context));
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Context.Provider, { value, children });
     };
     Provider.displayName = rootComponentName + "Provider";
     function useContext2(consumerName, scope) {
-      var _a2;
-      const Context = ((_a2 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a2[index2]) || BaseContext;
+      var _a3;
+      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
       const context = reactExports.useContext(Context);
       if (context) return context;
       if (defaultContext !== void 0) return defaultContext;
@@ -36754,13 +45368,13 @@ function mergeProps(slotProps, childProps) {
   return { ...slotProps, ...overrideProps };
 }
 function getElementRef(element) {
-  var _a2, _b2;
-  let getter = (_a2 = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a2.get;
+  var _a3, _b3;
+  let getter = (_a3 = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a3.get;
   let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
   if (mayWarn) {
     return element.ref;
   }
-  getter = (_b2 = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b2.get;
+  getter = (_b3 = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b3.get;
   mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
   if (mayWarn) {
     return element.props.ref;
@@ -36817,7 +45431,7 @@ function createCollection(name) {
       const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`));
       const items = Array.from(context.itemMap.values());
       const orderedItems = items.sort(
-        (a, b) => orderedNodes.indexOf(a.ref.current) - orderedNodes.indexOf(b.ref.current)
+        (a2, b2) => orderedNodes.indexOf(a2.ref.current) - orderedNodes.indexOf(b2.ref.current)
       );
       return orderedItems;
     }, [context.collectionRef, context.itemMap]);
@@ -36875,8 +45489,8 @@ function useCallbackRef$1(callback) {
     callbackRef.current = callback;
   });
   return reactExports.useMemo(() => (...args) => {
-    var _a2;
-    return (_a2 = callbackRef.current) == null ? void 0 : _a2.call(callbackRef, ...args);
+    var _a3;
+    return (_a3 = callbackRef.current) == null ? void 0 : _a3.call(callbackRef, ...args);
   }, []);
 }
 function useEscapeKeydown(onEscapeKeyDownProp, ownerDocument = globalThis == null ? void 0 : globalThis.document) {
@@ -37300,9 +45914,9 @@ function createFocusScopesStack() {
       stack.unshift(focusScope);
     },
     remove(focusScope) {
-      var _a2;
+      var _a3;
       stack = arrayRemove(stack, focusScope);
-      (_a2 = stack[0]) == null ? void 0 : _a2.resume();
+      (_a3 = stack[0]) == null ? void 0 : _a3.resume();
     }
   };
 }
@@ -37333,9 +45947,9 @@ const min = Math.min;
 const max = Math.max;
 const round = Math.round;
 const floor = Math.floor;
-const createCoords = (v) => ({
-  x: v,
-  y: v
+const createCoords = (v2) => ({
+  x: v2,
+  y: v2
 });
 const oppositeSideMap = {
   left: "right",
@@ -37439,20 +46053,20 @@ function getPaddingObject(padding) {
 }
 function rectToClientRect(rect) {
   const {
-    x,
-    y,
+    x: x2,
+    y: y2,
     width,
     height
   } = rect;
   return {
     width,
     height,
-    top: y,
-    left: x,
-    right: x + width,
-    bottom: y + height,
-    x,
-    y
+    top: y2,
+    left: x2,
+    right: x2 + width,
+    bottom: y2 + height,
+    x: x2,
+    y: y2
   };
 }
 function computeCoordsFromPlacement(_ref, placement, rtl) {
@@ -37516,8 +46130,8 @@ async function detectOverflow(state, options) {
     options = {};
   }
   const {
-    x,
-    y,
+    x: x2,
+    y: y2,
     platform: platform2,
     rects,
     elements,
@@ -37540,8 +46154,8 @@ async function detectOverflow(state, options) {
     strategy
   }));
   const rect = elementContext === "floating" ? {
-    x,
-    y,
+    x: x2,
+    y: y2,
     width: rects.floating.width,
     height: rects.floating.height
   } : rects.reference;
@@ -37585,8 +46199,8 @@ const computePosition$1 = async (reference, floating, config) => {
     strategy
   });
   let {
-    x,
-    y
+    x: x2,
+    y: y2
   } = computeCoordsFromPlacement(rects, placement, rtl);
   let statefulPlacement = placement;
   let resetCount = 0;
@@ -37606,8 +46220,8 @@ const computePosition$1 = async (reference, floating, config) => {
       data,
       reset
     } = await fn({
-      x,
-      y,
+      x: x2,
+      y: y2,
       initialPlacement: placement,
       placement: statefulPlacement,
       strategy,
@@ -37619,8 +46233,8 @@ const computePosition$1 = async (reference, floating, config) => {
         floating
       }
     });
-    x = nextX != null ? nextX : x;
-    y = nextY != null ? nextY : y;
+    x2 = nextX != null ? nextX : x2;
+    y2 = nextY != null ? nextY : y2;
     middlewareData[name] = {
       ...middlewareData[name],
       ...data
@@ -37639,16 +46253,16 @@ const computePosition$1 = async (reference, floating, config) => {
           }) : reset.rects;
         }
         ({
-          x,
-          y
+          x: x2,
+          y: y2
         } = computeCoordsFromPlacement(rects, statefulPlacement, rtl));
       }
       i = -1;
     }
   }
   return {
-    x,
-    y,
+    x: x2,
+    y: y2,
     placement: statefulPlacement,
     strategy,
     middlewareData
@@ -37659,8 +46273,8 @@ const arrow$3 = (options) => ({
   options,
   async fn(state) {
     const {
-      x,
-      y,
+      x: x2,
+      y: y2,
       placement,
       rects,
       platform: platform2,
@@ -37676,8 +46290,8 @@ const arrow$3 = (options) => ({
     }
     const paddingObject = getPaddingObject(padding);
     const coords = {
-      x,
-      y
+      x: x2,
+      y: y2
     };
     const axis = getAlignmentAxis(placement);
     const length = getAxisLength(axis);
@@ -37777,7 +46391,7 @@ const flip$2 = function(options) {
           const ignoreCrossAxisOverflow = checkCrossAxis === "alignment" ? initialSideAxis !== getSideAxis(nextPlacement) : false;
           if (!ignoreCrossAxisOverflow || // We leave the current main axis only if every placement on that axis
           // overflows the main axis.
-          overflowsData.every((d) => getSideAxis(d.placement) === initialSideAxis ? d.overflows[0] > 0 : true)) {
+          overflowsData.every((d2) => getSideAxis(d2.placement) === initialSideAxis ? d2.overflows[0] > 0 : true)) {
             return {
               data: {
                 index: nextIndex,
@@ -37789,20 +46403,20 @@ const flip$2 = function(options) {
             };
           }
         }
-        let resetPlacement = (_overflowsData$filter = overflowsData.filter((d) => d.overflows[0] <= 0).sort((a, b) => a.overflows[1] - b.overflows[1])[0]) == null ? void 0 : _overflowsData$filter.placement;
+        let resetPlacement = (_overflowsData$filter = overflowsData.filter((d2) => d2.overflows[0] <= 0).sort((a2, b2) => a2.overflows[1] - b2.overflows[1])[0]) == null ? void 0 : _overflowsData$filter.placement;
         if (!resetPlacement) {
           switch (fallbackStrategy) {
             case "bestFit": {
               var _overflowsData$filter2;
-              const placement2 = (_overflowsData$filter2 = overflowsData.filter((d) => {
+              const placement2 = (_overflowsData$filter2 = overflowsData.filter((d2) => {
                 if (hasFallbackAxisSideDirection) {
-                  const currentSideAxis = getSideAxis(d.placement);
+                  const currentSideAxis = getSideAxis(d2.placement);
                   return currentSideAxis === initialSideAxis || // Create a bias to the `y` side axis due to horizontal
                   // reading directions favoring greater width.
                   currentSideAxis === "y";
                 }
                 return true;
-              }).map((d) => [d.placement, d.overflows.filter((overflow2) => overflow2 > 0).reduce((acc, overflow2) => acc + overflow2, 0)]).sort((a, b) => a[1] - b[1])[0]) == null ? void 0 : _overflowsData$filter2[0];
+              }).map((d2) => [d2.placement, d2.overflows.filter((overflow2) => overflow2 > 0).reduce((acc, overflow2) => acc + overflow2, 0)]).sort((a2, b2) => a2[1] - b2[1])[0]) == null ? void 0 : _overflowsData$filter2[0];
               if (placement2) {
                 resetPlacement = placement2;
               }
@@ -37934,8 +46548,8 @@ const offset$2 = function(options) {
     async fn(state) {
       var _middlewareData$offse, _middlewareData$arrow;
       const {
-        x,
-        y,
+        x: x2,
+        y: y2,
         placement,
         middlewareData
       } = state;
@@ -37944,8 +46558,8 @@ const offset$2 = function(options) {
         return {};
       }
       return {
-        x: x + diffCoords.x,
-        y: y + diffCoords.y,
+        x: x2 + diffCoords.x,
+        y: y2 + diffCoords.y,
         data: {
           ...diffCoords,
           placement
@@ -37963,8 +46577,8 @@ const shift$2 = function(options) {
     options,
     async fn(state) {
       const {
-        x,
-        y,
+        x: x2,
+        y: y2,
         placement,
         platform: platform2
       } = state;
@@ -37974,20 +46588,20 @@ const shift$2 = function(options) {
         limiter = {
           fn: (_ref) => {
             let {
-              x: x2,
-              y: y2
+              x: x3,
+              y: y3
             } = _ref;
             return {
-              x: x2,
-              y: y2
+              x: x3,
+              y: y3
             };
           }
         },
         ...detectOverflowOptions
       } = evaluate(options, state);
       const coords = {
-        x,
-        y
+        x: x2,
+        y: y2
       };
       const overflow = await platform2.detectOverflow(state, detectOverflowOptions);
       const crossAxis = getSideAxis(getSide(placement));
@@ -38016,8 +46630,8 @@ const shift$2 = function(options) {
       return {
         ...limitedCoords,
         data: {
-          x: limitedCoords.x - x,
-          y: limitedCoords.y - y,
+          x: limitedCoords.x - x2,
+          y: limitedCoords.y - y2,
           enabled: {
             [mainAxis]: checkMainAxis,
             [crossAxis]: checkCrossAxis
@@ -38035,8 +46649,8 @@ const limitShift$2 = function(options) {
     options,
     fn(state) {
       const {
-        x,
-        y,
+        x: x2,
+        y: y2,
         placement,
         rects,
         middlewareData
@@ -38047,8 +46661,8 @@ const limitShift$2 = function(options) {
         crossAxis: checkCrossAxis = true
       } = evaluate(options, state);
       const coords = {
-        x,
-        y
+        x: x2,
+        y: y2
       };
       const crossAxis = getSideAxis(placement);
       const mainAxis = getOppositeAxis(crossAxis);
@@ -38354,19 +46968,19 @@ function getScale(element) {
   const {
     width,
     height,
-    $
+    $: $2
   } = getCssDimensions(domElement);
-  let x = ($ ? round(rect.width) : rect.width) / width;
-  let y = ($ ? round(rect.height) : rect.height) / height;
-  if (!x || !Number.isFinite(x)) {
-    x = 1;
+  let x2 = ($2 ? round(rect.width) : rect.width) / width;
+  let y2 = ($2 ? round(rect.height) : rect.height) / height;
+  if (!x2 || !Number.isFinite(x2)) {
+    x2 = 1;
   }
-  if (!y || !Number.isFinite(y)) {
-    y = 1;
+  if (!y2 || !Number.isFinite(y2)) {
+    y2 = 1;
   }
   return {
-    x,
-    y
+    x: x2,
+    y: y2
   };
 }
 const noOffsets = /* @__PURE__ */ createCoords(0);
@@ -38409,8 +47023,8 @@ function getBoundingClientRect(element, includeScale, isFixedStrategy, offsetPar
     }
   }
   const visualOffsets = shouldAddVisualOffsets(domElement, isFixedStrategy, offsetParent) ? getVisualOffsets(domElement) : createCoords(0);
-  let x = (clientRect.left + visualOffsets.x) / scale2.x;
-  let y = (clientRect.top + visualOffsets.y) / scale2.y;
+  let x2 = (clientRect.left + visualOffsets.x) / scale2.x;
+  let y2 = (clientRect.top + visualOffsets.y) / scale2.y;
   let width = clientRect.width / scale2.x;
   let height = clientRect.height / scale2.y;
   if (domElement) {
@@ -38424,12 +47038,12 @@ function getBoundingClientRect(element, includeScale, isFixedStrategy, offsetPar
       const css = getComputedStyle$1(currentIFrame);
       const left = iframeRect.left + (currentIFrame.clientLeft + parseFloat(css.paddingLeft)) * iframeScale.x;
       const top = iframeRect.top + (currentIFrame.clientTop + parseFloat(css.paddingTop)) * iframeScale.y;
-      x *= iframeScale.x;
-      y *= iframeScale.y;
+      x2 *= iframeScale.x;
+      y2 *= iframeScale.y;
       width *= iframeScale.x;
       height *= iframeScale.y;
-      x += left;
-      y += top;
+      x2 += left;
+      y2 += top;
       currentWin = getWindow(currentIFrame);
       currentIFrame = getFrameElement(currentWin);
     }
@@ -38437,8 +47051,8 @@ function getBoundingClientRect(element, includeScale, isFixedStrategy, offsetPar
   return rectToClientRect({
     width,
     height,
-    x,
-    y
+    x: x2,
+    y: y2
   });
 }
 function getWindowScrollBarX(element, rect) {
@@ -38450,11 +47064,11 @@ function getWindowScrollBarX(element, rect) {
 }
 function getHTMLOffset(documentElement, scroll) {
   const htmlRect = documentElement.getBoundingClientRect();
-  const x = htmlRect.left + scroll.scrollLeft - getWindowScrollBarX(documentElement, htmlRect);
-  const y = htmlRect.top + scroll.scrollTop;
+  const x2 = htmlRect.left + scroll.scrollLeft - getWindowScrollBarX(documentElement, htmlRect);
+  const y2 = htmlRect.top + scroll.scrollTop;
   return {
-    x,
-    y
+    x: x2,
+    y: y2
   };
 }
 function convertOffsetParentRelativeRectToViewportRelativeRect(_ref) {
@@ -38505,16 +47119,16 @@ function getDocumentRect(element) {
   const body = element.ownerDocument.body;
   const width = max(html.scrollWidth, html.clientWidth, body.scrollWidth, body.clientWidth);
   const height = max(html.scrollHeight, html.clientHeight, body.scrollHeight, body.clientHeight);
-  let x = -scroll.scrollLeft + getWindowScrollBarX(element);
-  const y = -scroll.scrollTop;
+  let x2 = -scroll.scrollLeft + getWindowScrollBarX(element);
+  const y2 = -scroll.scrollTop;
   if (getComputedStyle$1(body).direction === "rtl") {
-    x += max(html.clientWidth, body.clientWidth) - width;
+    x2 += max(html.clientWidth, body.clientWidth) - width;
   }
   return {
     width,
     height,
-    x,
-    y
+    x: x2,
+    y: y2
   };
 }
 const SCROLLBAR_MAX = 25;
@@ -38524,15 +47138,15 @@ function getViewportRect(element, strategy) {
   const visualViewport = win.visualViewport;
   let width = html.clientWidth;
   let height = html.clientHeight;
-  let x = 0;
-  let y = 0;
+  let x2 = 0;
+  let y2 = 0;
   if (visualViewport) {
     width = visualViewport.width;
     height = visualViewport.height;
     const visualViewportBased = isWebKit();
     if (!visualViewportBased || visualViewportBased && strategy === "fixed") {
-      x = visualViewport.offsetLeft;
-      y = visualViewport.offsetTop;
+      x2 = visualViewport.offsetLeft;
+      y2 = visualViewport.offsetTop;
     }
   }
   const windowScrollbarX = getWindowScrollBarX(html);
@@ -38551,8 +47165,8 @@ function getViewportRect(element, strategy) {
   return {
     width,
     height,
-    x,
-    y
+    x: x2,
+    y: y2
   };
 }
 function getInnerBoundingClientRect(element, strategy) {
@@ -38562,13 +47176,13 @@ function getInnerBoundingClientRect(element, strategy) {
   const scale2 = isHTMLElement$1(element) ? getScale(element) : createCoords(1);
   const width = element.clientWidth * scale2.x;
   const height = element.clientHeight * scale2.y;
-  const x = left * scale2.x;
-  const y = top * scale2.y;
+  const x2 = left * scale2.x;
+  const y2 = top * scale2.y;
   return {
     width,
     height,
-    x,
-    y
+    x: x2,
+    y: y2
   };
 }
 function getClientRectFromClippingAncestor(element, clippingAncestor, strategy) {
@@ -38690,11 +47304,11 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
     setLeftRTLScrollbarOffset();
   }
   const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll) : createCoords(0);
-  const x = rect.left + scroll.scrollLeft - offsets.x - htmlOffset.x;
-  const y = rect.top + scroll.scrollTop - offsets.y - htmlOffset.y;
+  const x2 = rect.left + scroll.scrollLeft - offsets.x - htmlOffset.x;
+  const y2 = rect.top + scroll.scrollTop - offsets.y - htmlOffset.y;
   return {
-    x,
-    y,
+    x: x2,
+    y: y2,
     width: rect.width,
     height: rect.height
   };
@@ -38768,8 +47382,8 @@ const platform = {
   isElement,
   isRTL
 };
-function rectsAreEqual(a, b) {
-  return a.x === b.x && a.y === b.y && a.width === b.width && a.height === b.height;
+function rectsAreEqual(a2, b2) {
+  return a2.x === b2.x && a2.y === b2.y && a2.width === b2.width && a2.height === b2.height;
 }
 function observeMove(element, onMove) {
   let io = null;
@@ -38941,52 +47555,52 @@ var isClient = typeof document !== "undefined";
 var noop = function noop2() {
 };
 var index = isClient ? reactExports.useLayoutEffect : noop;
-function deepEqual$1(a, b) {
-  if (a === b) {
+function deepEqual$1(a2, b2) {
+  if (a2 === b2) {
     return true;
   }
-  if (typeof a !== typeof b) {
+  if (typeof a2 !== typeof b2) {
     return false;
   }
-  if (typeof a === "function" && a.toString() === b.toString()) {
+  if (typeof a2 === "function" && a2.toString() === b2.toString()) {
     return true;
   }
   let length;
   let i;
   let keys;
-  if (a && b && typeof a === "object") {
-    if (Array.isArray(a)) {
-      length = a.length;
-      if (length !== b.length) return false;
+  if (a2 && b2 && typeof a2 === "object") {
+    if (Array.isArray(a2)) {
+      length = a2.length;
+      if (length !== b2.length) return false;
       for (i = length; i-- !== 0; ) {
-        if (!deepEqual$1(a[i], b[i])) {
+        if (!deepEqual$1(a2[i], b2[i])) {
           return false;
         }
       }
       return true;
     }
-    keys = Object.keys(a);
+    keys = Object.keys(a2);
     length = keys.length;
-    if (length !== Object.keys(b).length) {
+    if (length !== Object.keys(b2).length) {
       return false;
     }
     for (i = length; i-- !== 0; ) {
-      if (!{}.hasOwnProperty.call(b, keys[i])) {
+      if (!{}.hasOwnProperty.call(b2, keys[i])) {
         return false;
       }
     }
     for (i = length; i-- !== 0; ) {
       const key = keys[i];
-      if (key === "_owner" && a.$$typeof) {
+      if (key === "_owner" && a2.$$typeof) {
         continue;
       }
-      if (!deepEqual$1(a[key], b[key])) {
+      if (!deepEqual$1(a2[key], b2[key])) {
         return false;
       }
     }
     return true;
   }
-  return a !== a && b !== b;
+  return a2 !== a2 && b2 !== b2;
 }
 function getDPR(element) {
   if (typeof window === "undefined") {
@@ -39132,12 +47746,12 @@ function useFloating(options) {
     if (!elements.floating) {
       return initialStyles;
     }
-    const x = roundByDPR(elements.floating, data.x);
-    const y = roundByDPR(elements.floating, data.y);
+    const x2 = roundByDPR(elements.floating, data.x);
+    const y2 = roundByDPR(elements.floating, data.y);
     if (transform) {
       return {
         ...initialStyles,
-        transform: "translate(" + x + "px, " + y + "px)",
+        transform: "translate(" + x2 + "px, " + y2 + "px)",
         ...getDPR(elements.floating) >= 1.5 && {
           willChange: "transform"
         }
@@ -39145,8 +47759,8 @@ function useFloating(options) {
     }
     return {
       position: strategy,
-      left: x,
-      top: y
+      left: x2,
+      top: y2
     };
   }, [strategy, transform, elements.floating, data.x, data.y]);
   return reactExports.useMemo(() => ({
@@ -39327,7 +47941,7 @@ var CONTENT_NAME$1 = "PopperContent";
 var [PopperContentProvider, useContentContext] = createPopperContext(CONTENT_NAME$1);
 var PopperContent = reactExports.forwardRef(
   (props, forwardedRef) => {
-    var _a2, _b2, _c2, _d2, _e2, _f2;
+    var _a3, _b3, _c2, _d2, _e2, _f2;
     const {
       __scopePopper,
       side = "bottom",
@@ -39406,8 +48020,8 @@ var PopperContent = reactExports.forwardRef(
         handlePlaced == null ? void 0 : handlePlaced();
       }
     }, [isPositioned, handlePlaced]);
-    const arrowX = (_a2 = middlewareData.arrow) == null ? void 0 : _a2.x;
-    const arrowY = (_b2 = middlewareData.arrow) == null ? void 0 : _b2.y;
+    const arrowX = (_a3 = middlewareData.arrow) == null ? void 0 : _a3.x;
+    const arrowY = (_b3 = middlewareData.arrow) == null ? void 0 : _b3.y;
     const cannotCenterArrow = ((_c2 = middlewareData.arrow) == null ? void 0 : _c2.centerOffset) !== 0;
     const [contentZIndex, setContentZIndex] = reactExports.useState();
     useLayoutEffect2(() => {
@@ -39530,32 +48144,32 @@ var transformOrigin = (options) => ({
   name: "transformOrigin",
   options,
   fn(data) {
-    var _a2, _b2, _c2;
+    var _a3, _b3, _c2;
     const { placement, rects, middlewareData } = data;
-    const cannotCenterArrow = ((_a2 = middlewareData.arrow) == null ? void 0 : _a2.centerOffset) !== 0;
+    const cannotCenterArrow = ((_a3 = middlewareData.arrow) == null ? void 0 : _a3.centerOffset) !== 0;
     const isArrowHidden = cannotCenterArrow;
     const arrowWidth = isArrowHidden ? 0 : options.arrowWidth;
     const arrowHeight = isArrowHidden ? 0 : options.arrowHeight;
     const [placedSide, placedAlign] = getSideAndAlignFromPlacement(placement);
     const noArrowAlign = { start: "0%", center: "50%", end: "100%" }[placedAlign];
-    const arrowXCenter = (((_b2 = middlewareData.arrow) == null ? void 0 : _b2.x) ?? 0) + arrowWidth / 2;
+    const arrowXCenter = (((_b3 = middlewareData.arrow) == null ? void 0 : _b3.x) ?? 0) + arrowWidth / 2;
     const arrowYCenter = (((_c2 = middlewareData.arrow) == null ? void 0 : _c2.y) ?? 0) + arrowHeight / 2;
-    let x = "";
-    let y = "";
+    let x2 = "";
+    let y2 = "";
     if (placedSide === "bottom") {
-      x = isArrowHidden ? noArrowAlign : `${arrowXCenter}px`;
-      y = `${-arrowHeight}px`;
+      x2 = isArrowHidden ? noArrowAlign : `${arrowXCenter}px`;
+      y2 = `${-arrowHeight}px`;
     } else if (placedSide === "top") {
-      x = isArrowHidden ? noArrowAlign : `${arrowXCenter}px`;
-      y = `${rects.floating.height + arrowHeight}px`;
+      x2 = isArrowHidden ? noArrowAlign : `${arrowXCenter}px`;
+      y2 = `${rects.floating.height + arrowHeight}px`;
     } else if (placedSide === "right") {
-      x = `${-arrowHeight}px`;
-      y = isArrowHidden ? noArrowAlign : `${arrowYCenter}px`;
+      x2 = `${-arrowHeight}px`;
+      y2 = isArrowHidden ? noArrowAlign : `${arrowYCenter}px`;
     } else if (placedSide === "left") {
-      x = `${rects.floating.width + arrowHeight}px`;
-      y = isArrowHidden ? noArrowAlign : `${arrowYCenter}px`;
+      x2 = `${rects.floating.width + arrowHeight}px`;
+      y2 = isArrowHidden ? noArrowAlign : `${arrowYCenter}px`;
     }
-    return { data: { x, y } };
+    return { data: { x: x2, y: y2 } };
   }
 });
 function getSideAndAlignFromPlacement(placement) {
@@ -39568,11 +48182,11 @@ var Content = PopperContent;
 var Arrow = PopperArrow;
 var PORTAL_NAME$1 = "Portal";
 var Portal$1 = reactExports.forwardRef((props, forwardedRef) => {
-  var _a2;
+  var _a3;
   const { container: containerProp, ...portalProps } = props;
   const [mounted, setMounted] = reactExports.useState(false);
   useLayoutEffect2(() => setMounted(true), []);
-  const container = containerProp || mounted && ((_a2 = globalThis == null ? void 0 : globalThis.document) == null ? void 0 : _a2.body);
+  const container = containerProp || mounted && ((_a3 = globalThis == null ? void 0 : globalThis.document) == null ? void 0 : _a3.body);
   return container ? ReactDOM$2.createPortal(/* @__PURE__ */ jsxRuntimeExports.jsx(Primitive.div, { ...portalProps, ref: forwardedRef }), container) : null;
 });
 Portal$1.displayName = PORTAL_NAME$1;
@@ -39606,11 +48220,11 @@ function useControllableState({
   }
   const setValue = reactExports.useCallback(
     (nextValue) => {
-      var _a2;
+      var _a3;
       if (isControlled) {
         const value2 = isFunction$1(nextValue) ? nextValue(prop) : nextValue;
         if (value2 !== prop) {
-          (_a2 = onChangeRef.current) == null ? void 0 : _a2.call(onChangeRef, value2);
+          (_a3 = onChangeRef.current) == null ? void 0 : _a3.call(onChangeRef, value2);
         }
       } else {
         setUncontrolledProp(nextValue);
@@ -39631,9 +48245,9 @@ function useUncontrolledState({
     onChangeRef.current = onChange;
   }, [onChange]);
   reactExports.useEffect(() => {
-    var _a2;
+    var _a3;
     if (prevValueRef.current !== value) {
-      (_a2 = onChangeRef.current) == null ? void 0 : _a2.call(onChangeRef, value);
+      (_a3 = onChangeRef.current) == null ? void 0 : _a3.call(onChangeRef, value);
       prevValueRef.current = value;
     }
   }, [value, prevValueRef]);
@@ -39704,8 +48318,8 @@ var correctTargets = function(parent, targets) {
     }
     console.error("aria-hidden", target, "in not contained inside", parent, ". Doing nothing");
     return null;
-  }).filter(function(x) {
-    return Boolean(x);
+  }).filter(function(x2) {
+    return Boolean(x2);
   });
 };
 var applyAttributeToOthers = function(originalTarget, parentNode, markerName, controlAttribute) {
@@ -39800,22 +48414,22 @@ var hideOthers = function(originalTarget, parentNode, markerName) {
 };
 var __assign = function() {
   __assign = Object.assign || function __assign2(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    for (var s2, i = 1, n = arguments.length; i < n; i++) {
+      s2 = arguments[i];
+      for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2)) t[p2] = s2[p2];
     }
     return t;
   };
   return __assign.apply(this, arguments);
 };
-function __rest(s, e) {
+function __rest(s2, e) {
   var t = {};
-  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-    t[p] = s[p];
-  if (s != null && typeof Object.getOwnPropertySymbols === "function")
-    for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-      if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-        t[p[i]] = s[p[i]];
+  for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2) && e.indexOf(p2) < 0)
+    t[p2] = s2[p2];
+  if (s2 != null && typeof Object.getOwnPropertySymbols === "function")
+    for (var i = 0, p2 = Object.getOwnPropertySymbols(s2); i < p2.length; i++) {
+      if (e.indexOf(p2[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s2, p2[i]))
+        t[p2[i]] = s2[p2[i]];
     }
   return t;
 }
@@ -39898,8 +48512,8 @@ function useMergeRefs(refs, defaultValue) {
   }, [refs]);
   return callbackRef;
 }
-function ItoI(a) {
-  return a;
+function ItoI(a2) {
+  return a2;
 }
 function innerCreateMedium(defaults, middleware) {
   if (middleware === void 0) {
@@ -39921,8 +48535,8 @@ function innerCreateMedium(defaults, middleware) {
       var item = middleware(data, assigned);
       buffer.push(item);
       return function() {
-        buffer = buffer.filter(function(x) {
-          return x !== item;
+        buffer = buffer.filter(function(x2) {
+          return x2 !== item;
         });
       };
     },
@@ -39934,8 +48548,8 @@ function innerCreateMedium(defaults, middleware) {
         cbs.forEach(cb);
       }
       buffer = {
-        push: function(x) {
-          return cb(x);
+        push: function(x2) {
+          return cb(x2);
         },
         filter: function() {
           return buffer;
@@ -39961,8 +48575,8 @@ function innerCreateMedium(defaults, middleware) {
       };
       cycle();
       buffer = {
-        push: function(x) {
-          pendingQueue.push(x);
+        push: function(x2) {
+          pendingQueue.push(x2);
           cycle();
         },
         filter: function(filter2) {
@@ -39982,8 +48596,8 @@ function createSidecarMedium(options) {
   medium.options = __assign({ async: true, ssr: false }, options);
   return medium;
 }
-var SideCar$1 = function(_a2) {
-  var sideCar = _a2.sideCar, rest = __rest(_a2, ["sideCar"]);
+var SideCar$1 = function(_a3) {
+  var sideCar = _a3.sideCar, rest = __rest(_a3, ["sideCar"]);
   if (!sideCar) {
     throw new Error("Sidecar: please provide `sideCar` property to import the right car");
   }
@@ -40004,12 +48618,12 @@ var nothing = function() {
 };
 var RemoveScroll = reactExports.forwardRef(function(props, parentRef) {
   var ref = reactExports.useRef(null);
-  var _a2 = reactExports.useState({
+  var _a3 = reactExports.useState({
     onScrollCapture: nothing,
     onWheelCapture: nothing,
     onTouchMoveCapture: nothing
-  }), callbacks = _a2[0], setCallbacks = _a2[1];
-  var forwardProps = props.forwardProps, children = props.children, className = props.className, removeScrollBar = props.removeScrollBar, enabled = props.enabled, shards = props.shards, sideCar = props.sideCar, noRelative = props.noRelative, noIsolation = props.noIsolation, inert = props.inert, allowPinchZoom = props.allowPinchZoom, _b2 = props.as, Container = _b2 === void 0 ? "div" : _b2, gapMode = props.gapMode, rest = __rest(props, ["forwardProps", "children", "className", "removeScrollBar", "enabled", "shards", "sideCar", "noRelative", "noIsolation", "inert", "allowPinchZoom", "as", "gapMode"]);
+  }), callbacks = _a3[0], setCallbacks = _a3[1];
+  var forwardProps = props.forwardProps, children = props.children, className = props.className, removeScrollBar = props.removeScrollBar, enabled = props.enabled, shards = props.shards, sideCar = props.sideCar, noRelative = props.noRelative, noIsolation = props.noIsolation, inert = props.inert, allowPinchZoom = props.allowPinchZoom, _b3 = props.as, Container = _b3 === void 0 ? "div" : _b3, gapMode = props.gapMode, rest = __rest(props, ["forwardProps", "children", "className", "removeScrollBar", "enabled", "shards", "sideCar", "noRelative", "noIsolation", "inert", "allowPinchZoom", "as", "gapMode"]);
   var SideCar2 = sideCar;
   var containerRef = useMergeRefs([ref, parentRef]);
   var containerProps = __assign(__assign({}, rest), callbacks);
@@ -40092,8 +48706,8 @@ var styleHookSingleton = function() {
 };
 var styleSingleton = function() {
   var useStyle2 = styleHookSingleton();
-  var Sheet = function(_a2) {
-    var styles = _a2.styles, dynamic = _a2.dynamic;
+  var Sheet = function(_a3) {
+    var styles = _a3.styles, dynamic = _a3.dynamic;
     useStyle2(styles, dynamic);
     return null;
   };
@@ -40105,8 +48719,8 @@ var zeroGap = {
   right: 0,
   gap: 0
 };
-var parse = function(x) {
-  return parseInt(x || "", 10) || 0;
+var parse = function(x2) {
+  return parseInt(x2 || "", 10) || 0;
 };
 var getOffset = function(gapMode) {
   var cs = window.getComputedStyle(document.body);
@@ -40134,8 +48748,8 @@ var getGapWidth = function(gapMode) {
 };
 var Style = styleSingleton();
 var lockAttribute = "data-scroll-locked";
-var getStyles = function(_a2, allowRelative, gapMode, important) {
-  var left = _a2.left, top = _a2.top, right = _a2.right, gap = _a2.gap;
+var getStyles = function(_a3, allowRelative, gapMode, important) {
+  var left = _a3.left, top = _a3.top, right = _a3.right, gap = _a3.gap;
   if (gapMode === void 0) {
     gapMode = "margin";
   }
@@ -40162,8 +48776,8 @@ var useLockAttribute = function() {
     };
   }, []);
 };
-var RemoveScrollBar = function(_a2) {
-  var noRelative = _a2.noRelative, noImportant = _a2.noImportant, _b2 = _a2.gapMode, gapMode = _b2 === void 0 ? "margin" : _b2;
+var RemoveScrollBar = function(_a3) {
+  var noRelative = _a3.noRelative, noImportant = _a3.noImportant, _b3 = _a3.gapMode, gapMode = _b3 === void 0 ? "margin" : _b3;
   useLockAttribute();
   var gap = reactExports.useMemo(function() {
     return getGapWidth(gapMode);
@@ -40215,7 +48829,7 @@ var locationCouldBeScrolled = function(axis, node) {
     }
     var isScrollable = elementCouldBeScrolled(axis, current);
     if (isScrollable) {
-      var _a2 = getScrollVariables(axis, current), scrollHeight = _a2[1], clientHeight = _a2[2];
+      var _a3 = getScrollVariables(axis, current), scrollHeight = _a3[1], clientHeight = _a3[2];
       if (scrollHeight > clientHeight) {
         return true;
       }
@@ -40224,16 +48838,16 @@ var locationCouldBeScrolled = function(axis, node) {
   } while (current && current !== ownerDocument.body);
   return false;
 };
-var getVScrollVariables = function(_a2) {
-  var scrollTop = _a2.scrollTop, scrollHeight = _a2.scrollHeight, clientHeight = _a2.clientHeight;
+var getVScrollVariables = function(_a3) {
+  var scrollTop = _a3.scrollTop, scrollHeight = _a3.scrollHeight, clientHeight = _a3.clientHeight;
   return [
     scrollTop,
     scrollHeight,
     clientHeight
   ];
 };
-var getHScrollVariables = function(_a2) {
-  var scrollLeft = _a2.scrollLeft, scrollWidth = _a2.scrollWidth, clientWidth = _a2.clientWidth;
+var getHScrollVariables = function(_a3) {
+  var scrollLeft = _a3.scrollLeft, scrollWidth = _a3.scrollWidth, clientWidth = _a3.clientWidth;
   return [
     scrollLeft,
     scrollWidth,
@@ -40262,7 +48876,7 @@ var handleScroll = function(axis, endTarget, event, sourceDelta, noOverscroll) {
     if (!target) {
       break;
     }
-    var _a2 = getScrollVariables(axis, target), position = _a2[0], scroll_1 = _a2[1], capacity = _a2[2];
+    var _a3 = getScrollVariables(axis, target), position = _a3[0], scroll_1 = _a3[1], capacity = _a3[2];
     var elementScroll = scroll_1 - capacity - directionFactor * position;
     if (position || elementScroll) {
       if (elementCouldBeScrolled(axis, target)) {
@@ -40293,8 +48907,8 @@ var getDeltaXY = function(event) {
 var extractRef = function(ref) {
   return ref && "current" in ref ? ref.current : ref;
 };
-var deltaCompare = function(x, y) {
-  return x[0] === y[0] && x[1] === y[1];
+var deltaCompare = function(x2, y2) {
+  return x2[0] === y2[0] && x2[1] === y2[1];
 };
 var generateStyle = function(id2) {
   return "\n  .block-interactivity-".concat(id2, " {pointer-events: none;}\n  .allow-interactivity-").concat(id2, " {pointer-events: all;}\n");
@@ -40773,10 +49387,10 @@ var SelectContentImpl = reactExports.forwardRef(
       if (content) {
         let pointerMoveDelta = { x: 0, y: 0 };
         const handlePointerMove = (event) => {
-          var _a2, _b2;
+          var _a3, _b3;
           pointerMoveDelta = {
-            x: Math.abs(Math.round(event.pageX) - (((_a2 = triggerPointerDownPosRef.current) == null ? void 0 : _a2.x) ?? 0)),
-            y: Math.abs(Math.round(event.pageY) - (((_b2 = triggerPointerDownPosRef.current) == null ? void 0 : _b2.y) ?? 0))
+            x: Math.abs(Math.round(event.pageX) - (((_a3 = triggerPointerDownPosRef.current) == null ? void 0 : _a3.x) ?? 0)),
+            y: Math.abs(Math.round(event.pageY) - (((_b3 = triggerPointerDownPosRef.current) == null ? void 0 : _b3.y) ?? 0))
           };
         };
         const handlePointerUp = (event) => {
@@ -40877,8 +49491,8 @@ var SelectContentImpl = reactExports.forwardRef(
               event.preventDefault();
             },
             onUnmountAutoFocus: composeEventHandlers(onCloseAutoFocus, (event) => {
-              var _a2;
-              (_a2 = context.trigger) == null ? void 0 : _a2.focus({ preventScroll: true });
+              var _a3;
+              (_a3 = context.trigger) == null ? void 0 : _a3.focus({ preventScroll: true });
               event.preventDefault();
             }),
             children: /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -41245,8 +49859,8 @@ var SelectItem$1 = reactExports.forwardRef(
     const composedRefs = useComposedRefs$1(
       forwardedRef,
       (node) => {
-        var _a2;
-        return (_a2 = contentContext.itemRefCallback) == null ? void 0 : _a2.call(contentContext, node, value, disabled);
+        var _a3;
+        return (_a3 = contentContext.itemRefCallback) == null ? void 0 : _a3.call(contentContext, node, value, disabled);
       }
     );
     const textId = useId();
@@ -41305,23 +49919,23 @@ var SelectItem$1 = reactExports.forwardRef(
                   pointerTypeRef.current = event.pointerType;
                 }),
                 onPointerMove: composeEventHandlers(itemProps.onPointerMove, (event) => {
-                  var _a2;
+                  var _a3;
                   pointerTypeRef.current = event.pointerType;
                   if (disabled) {
-                    (_a2 = contentContext.onItemLeave) == null ? void 0 : _a2.call(contentContext);
+                    (_a3 = contentContext.onItemLeave) == null ? void 0 : _a3.call(contentContext);
                   } else if (pointerTypeRef.current === "mouse") {
                     event.currentTarget.focus({ preventScroll: true });
                   }
                 }),
                 onPointerLeave: composeEventHandlers(itemProps.onPointerLeave, (event) => {
-                  var _a2;
+                  var _a3;
                   if (event.currentTarget === document.activeElement) {
-                    (_a2 = contentContext.onItemLeave) == null ? void 0 : _a2.call(contentContext);
+                    (_a3 = contentContext.onItemLeave) == null ? void 0 : _a3.call(contentContext);
                   }
                 }),
                 onKeyDown: composeEventHandlers(itemProps.onKeyDown, (event) => {
-                  var _a2;
-                  const isTypingAhead = ((_a2 = contentContext.searchRef) == null ? void 0 : _a2.current) !== "";
+                  var _a3;
+                  const isTypingAhead = ((_a3 = contentContext.searchRef) == null ? void 0 : _a3.current) !== "";
                   if (isTypingAhead && event.key === " ") return;
                   if (SELECTION_KEYS.includes(event.key)) handleSelect();
                   if (event.key === " ") event.preventDefault();
@@ -41349,8 +49963,8 @@ var SelectItemText = reactExports.forwardRef(
       (node) => setItemTextNode(node),
       itemContext.onItemTextChange,
       (node) => {
-        var _a2;
-        return (_a2 = contentContext.itemTextRefCallback) == null ? void 0 : _a2.call(contentContext, node, itemContext.value, itemContext.disabled);
+        var _a3;
+        return (_a3 = contentContext.itemTextRefCallback) == null ? void 0 : _a3.call(contentContext, node, itemContext.value, itemContext.disabled);
       }
     );
     const textContent = itemTextNode == null ? void 0 : itemTextNode.textContent;
@@ -41461,9 +50075,9 @@ var SelectScrollButtonImpl = reactExports.forwardRef((props, forwardedRef) => {
     return () => clearAutoScrollTimer();
   }, [clearAutoScrollTimer]);
   useLayoutEffect2(() => {
-    var _a2;
+    var _a3;
     const activeItem = getItems().find((item) => item.ref.current === document.activeElement);
-    (_a2 = activeItem == null ? void 0 : activeItem.ref.current) == null ? void 0 : _a2.scrollIntoView({ block: "nearest" });
+    (_a3 = activeItem == null ? void 0 : activeItem.ref.current) == null ? void 0 : _a3.scrollIntoView({ block: "nearest" });
   }, [getItems]);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     Primitive.div,
@@ -41478,8 +50092,8 @@ var SelectScrollButtonImpl = reactExports.forwardRef((props, forwardedRef) => {
         }
       }),
       onPointerMove: composeEventHandlers(scrollIndicatorProps.onPointerMove, () => {
-        var _a2;
-        (_a2 = contentContext.onItemLeave) == null ? void 0 : _a2.call(contentContext);
+        var _a3;
+        (_a3 = contentContext.onItemLeave) == null ? void 0 : _a3.call(contentContext);
         if (autoScrollTimerRef.current === null) {
           autoScrollTimerRef.current = window.setInterval(onAutoScroll, 50);
         }
@@ -41576,14 +50190,14 @@ function findNextItem(items, search, currentItem) {
   const currentItemIndex = currentItem ? items.indexOf(currentItem) : -1;
   let wrappedItems = wrapArray(items, Math.max(currentItemIndex, 0));
   const excludeCurrentItem = normalizedSearch.length === 1;
-  if (excludeCurrentItem) wrappedItems = wrappedItems.filter((v) => v !== currentItem);
+  if (excludeCurrentItem) wrappedItems = wrappedItems.filter((v2) => v2 !== currentItem);
   const nextItem = wrappedItems.find(
     (item) => item.textValue.toLowerCase().startsWith(normalizedSearch.toLowerCase())
   );
   return nextItem !== currentItem ? nextItem : void 0;
 }
 function wrapArray(array, startIndex) {
-  return array.map((_, index2) => array[(startIndex + index2) % array.length]);
+  return array.map((_2, index2) => array[(startIndex + index2) % array.length]);
 }
 var Root2 = Select$1;
 var Trigger = SelectTrigger$1;
@@ -41907,7 +50521,7 @@ var createSubject = () => {
     _observers2.push(observer2);
     return {
       unsubscribe: () => {
-        _observers2 = _observers2.filter((o) => o !== observer2);
+        _observers2 = _observers2.filter((o2) => o2 !== observer2);
       }
     };
   };
@@ -42190,7 +50804,7 @@ var getValueAndMessage = (validationData) => isObject(validationData) && !isRege
   value: validationData,
   message: ""
 };
-var validateField = async (field, disabledFieldNames, formValues, validateAllFieldCriteria, shouldUseNativeValidation, isFieldArray) => {
+var validateField$1 = async (field, disabledFieldNames, formValues, validateAllFieldCriteria, shouldUseNativeValidation, isFieldArray) => {
   const { ref, refs, required, maxLength, minLength, min: min2, max: max2, pattern, validate, name, valueAsNumber, mount } = field._f;
   const inputValue = get(formValues, name);
   if (!mount || disabledFieldNames.has(name)) {
@@ -42627,7 +51241,7 @@ function createFormControl(props = {}) {
           if (isPromiseFunction && _proxyFormState.validatingFields) {
             _updateIsValidating([_f2.name], true);
           }
-          const fieldError = await validateField(field, _names.disabled, _formValues, shouldDisplayAllAssociatedErrors, _options2.shouldUseNativeValidation && !onlyCheckValid, isFieldArrayRoot);
+          const fieldError = await validateField$1(field, _names.disabled, _formValues, shouldDisplayAllAssociatedErrors, _options2.shouldUseNativeValidation && !onlyCheckValid, isFieldArrayRoot);
           if (isPromiseFunction && _proxyFormState.validatingFields) {
             _updateIsValidating([_f2.name]);
           }
@@ -42815,7 +51429,7 @@ function createFormControl(props = {}) {
         }
       } else {
         _updateIsValidating([name], true);
-        error = (await validateField(field, _names.disabled, _formValues, shouldDisplayAllAssociatedErrors, _options2.shouldUseNativeValidation))[name];
+        error = (await validateField$1(field, _names.disabled, _formValues, shouldDisplayAllAssociatedErrors, _options2.shouldUseNativeValidation))[name];
         _updateIsValidating([name]);
         _updateIsFieldValueUpdated(fieldValue);
         if (isFieldValueUpdated) {
@@ -43417,13 +52031,13 @@ function useForm(props = {}) {
     }
   }, [control, formState.isDirty]);
   React$4.useEffect(() => {
-    var _a2;
+    var _a3;
     if (props.values && !deepEqual(props.values, _values.current)) {
       control._reset(props.values, {
         keepFieldsRef: true,
         ...control._options.resetOptions
       });
-      if (!((_a2 = control._options.resetOptions) === null || _a2 === void 0 ? void 0 : _a2.keepIsValid)) {
+      if (!((_a3 = control._options.resetOptions) === null || _a3 === void 0 ? void 0 : _a3.keepIsValid)) {
         control._setValid();
       }
       _values.current = props.values;
@@ -43690,14 +52304,18 @@ function ApplyPage() {
                               {
                                 id: "phone",
                                 type: "tel",
-                                placeholder: "+91 98765 43210",
+                                placeholder: "10-digit mobile number",
+                                maxLength: 10,
                                 "data-ocid": "apply-input-phone",
+                                onKeyPress: (e) => {
+                                  if (!/\d/.test(e.key)) e.preventDefault();
+                                },
                                 className: errors.phone ? "border-destructive focus-visible:ring-destructive/30" : "",
                                 ...register("phone", {
                                   required: "Phone number is required",
                                   pattern: {
-                                    value: /^[+]?[\d\s\-().]{7,15}$/,
-                                    message: "Enter a valid phone number"
+                                    value: /^\d{10}$/,
+                                    message: "Phone number must be exactly 10 digits"
                                   }
                                 })
                               }
@@ -43731,7 +52349,7 @@ function ApplyPage() {
                                     children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Select your qualification" })
                                   }
                                 ),
-                                /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: QUALIFICATIONS$1.map((q) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: q.value, children: q.label }, q.value)) })
+                                /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: QUALIFICATIONS$1.map((q2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: q2.value, children: q2.label }, q2.value)) })
                               ]
                             }
                           ),
@@ -44870,6 +53488,160 @@ const SAMPLE_INTERVIEWS = [
     description: "Walk-in for manual testing roles. Basic knowledge of SDLC, test cases, and bug reporting required.",
     isActive: true,
     createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(7),
+    jobRole: "Software Engineer",
+    company: "Infosys",
+    date: "2026-04-26",
+    time: "9:00 AM – 4:00 PM",
+    location: "Infosys Campus, Electronics City Phase 1, Bangalore",
+    description: "Infosys is a global leader in technology services and consulting with over 300,000 employees worldwide. Walk-in drive for B.E./B.Tech/MCA freshers for software development roles. Carry 2 copies of resume, ID proof, and all mark sheets.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(8),
+    jobRole: "Associate Software Engineer",
+    company: "Wipro",
+    date: "2026-04-28",
+    time: "10:00 AM – 3:00 PM",
+    location: "Wipro Technologies, Gachibowli, Hyderabad",
+    description: "Wipro Limited is a leading global IT, consulting and business process services company. Walk-in for freshers and candidates with up to 1 year of experience. Strong programming fundamentals required.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(9),
+    jobRole: "IT Analyst",
+    company: "TCS (Tata Consultancy Services)",
+    date: "2026-04-30",
+    time: "9:00 AM – 5:00 PM",
+    location: "TCS Office, Rajiv Gandhi Infotech Park, Pune",
+    description: "TCS is one of India's largest IT companies and a global leader in digital services. Walk-in for 2024–2026 graduates across CS, IT, and electronics disciplines. Aptitude test + technical interview on the spot.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(10),
+    jobRole: "Graduate Engineer Trainee",
+    company: "HCL Technologies",
+    date: "2026-05-03",
+    time: "10:00 AM – 4:00 PM",
+    location: "HCL Technologies, Sector 136, Noida",
+    description: "HCL Technologies is a next-generation global technology company with revenue of $13.4 billion. Walk-in for engineering graduates. Roles in software development, support, and infrastructure services.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(11),
+    jobRole: "Associate",
+    company: "Accenture India",
+    date: "2026-05-05",
+    time: "9:30 AM – 3:30 PM",
+    location: "Accenture, Eco Space Business Park, Bangalore",
+    description: "Accenture is a global professional services company offering strategy, consulting, digital, technology, and operations services. Walk-in for freshers across multiple technology and BPO roles. Communication skills and aptitude are key selection criteria.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(12),
+    jobRole: "Process Executive",
+    company: "Cognizant",
+    date: "2026-05-07",
+    time: "10:00 AM – 2:00 PM",
+    location: "Cognizant Technology Solutions, OMR, Chennai",
+    description: "Cognizant is one of the world's leading professional services companies, transforming clients' business, operating, and technology models. Walk-in for BPS and IT roles. Freshers and experienced candidates up to 2 years welcome.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(13),
+    jobRole: "Software Developer",
+    company: "Tech Mahindra",
+    date: "2026-05-09",
+    time: "9:00 AM – 3:00 PM",
+    location: "Tech Mahindra, Hinjewadi IT Park, Pune",
+    description: "Tech Mahindra is a leading provider of digital transformation, consulting and business reengineering services. Walk-in for Java and Python developers. Minimum 6 months experience preferred, freshers with strong coding skills may apply.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(14),
+    jobRole: "Technical Consultant",
+    company: "Capgemini India",
+    date: "2026-05-12",
+    time: "10:00 AM – 4:00 PM",
+    location: "Capgemini, DLF Cyber City, Gurugram",
+    description: "Capgemini is a global leader in partnering with companies to transform and manage their business by harnessing the power of technology. Walk-in for graduates in IT and engineering disciplines. SAP knowledge is an added advantage.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(15),
+    jobRole: "Technical Support Engineer",
+    company: "IBM India",
+    date: "2026-05-14",
+    time: "9:30 AM – 2:30 PM",
+    location: "IBM India, ITPL Whitefield, Bangalore",
+    description: "IBM is a leading global hybrid cloud and AI, and consulting services company. Walk-in for technical support and infrastructure roles. Candidates should have basic knowledge of networking, cloud concepts, and operating systems.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(16),
+    jobRole: "Operations Executive",
+    company: "Amazon India",
+    date: "2026-05-16",
+    time: "9:00 AM – 4:00 PM",
+    location: "Amazon Fulfillment Center, Bhiwandi, Mumbai",
+    description: "Amazon is the world's largest e-commerce and cloud computing company. Walk-in for warehouse operations, logistics coordination, and customer operations roles. Graduate freshers and experienced candidates welcome.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(17),
+    jobRole: "Business Development Associate",
+    company: "Google India",
+    date: "2026-05-19",
+    time: "10:00 AM – 3:00 PM",
+    location: "Google India, BanerghattaMain Road, Bangalore",
+    description: "Google is a global technology leader focused on improving the ways people connect with information. Walk-in for sales, business development, and customer solutions roles. Strong analytical and communication skills required.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(18),
+    jobRole: "Category Specialist",
+    company: "Flipkart",
+    date: "2026-05-21",
+    time: "10:00 AM – 4:00 PM",
+    location: "Flipkart Office, Embassy Tech Village, Bangalore",
+    description: "Flipkart is India's leading e-commerce marketplace with over 350 million registered users. Walk-in for supply chain, operations, and category management roles. Freshers with strong analytical skills and MBA background preferred.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(19),
+    jobRole: "Software Development Engineer",
+    company: "Microsoft India",
+    date: "2026-05-23",
+    time: "9:00 AM – 5:00 PM",
+    location: "Microsoft India, Hiranandani Estate, Hyderabad",
+    description: "Microsoft is a leading global technology company enabling digital transformation for the era of an intelligent cloud. Walk-in for software engineering and product support roles. Strong problem-solving and coding skills in C++, Java, or Python required.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
+  },
+  {
+    id: BigInt(20),
+    jobRole: "Product Support Engineer",
+    company: "Zoho Corporation",
+    date: "2026-05-26",
+    time: "9:30 AM – 3:30 PM",
+    location: "Zoho Corporation, Estancia IT Park, Chennai",
+    description: "Zoho Corporation is an Indian multinational technology company providing business software and SaaS products used by over 80 million users globally. Walk-in for product support, technical writing, and QA roles. Candidates with knowledge of databases and APIs preferred.",
+    isActive: true,
+    createdAt: BigInt(Date.now())
   }
 ];
 function useInterviews() {
@@ -45011,10 +53783,10 @@ function InterviewsPage() {
   const [searchQuery, setSearchQuery] = reactExports.useState("");
   const filtered = reactExports.useMemo(() => {
     const source = (interviews ?? []).filter((i) => i.isActive);
-    const q = searchQuery.toLowerCase().trim();
-    if (!q) return source;
+    const q2 = searchQuery.toLowerCase().trim();
+    if (!q2) return source;
     return source.filter(
-      (i) => i.jobRole.toLowerCase().includes(q) || i.company.toLowerCase().includes(q)
+      (i) => i.jobRole.toLowerCase().includes(q2) || i.company.toLowerCase().includes(q2)
     );
   }, [interviews, searchQuery]);
   const hasResults = filtered.length > 0;
@@ -45116,7 +53888,7 @@ function InterviewsPage() {
               ] }) })
             ] })
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden", children: isLoading ? Array.from({ length: 4 }, (_, i) => `sk-${i}`).map((k) => /* @__PURE__ */ jsxRuntimeExports.jsx(CardSkeleton$1, {}, k)) : filtered.map((iv, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden", children: isLoading ? Array.from({ length: 4 }, (_2, i) => `sk-${i}`).map((k2) => /* @__PURE__ */ jsxRuntimeExports.jsx(CardSkeleton$1, {}, k2)) : filtered.map((iv, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
             InterviewCard,
             {
               interview: iv,
@@ -45133,7 +53905,7 @@ function InterviewsPage() {
               /* @__PURE__ */ jsxRuntimeExports.jsx(TableHead, { className: "font-display font-semibold text-foreground", children: "Location" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(TableHead, { className: "font-display font-semibold text-foreground w-32 text-right", children: "Action" })
             ] }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(TableBody, { children: isLoading ? Array.from({ length: 5 }, (_, i) => `skr-${i}`).map((k) => /* @__PURE__ */ jsxRuntimeExports.jsx(RowSkeleton$1, {}, k)) : filtered.map((iv, i) => {
+            /* @__PURE__ */ jsxRuntimeExports.jsx(TableBody, { children: isLoading ? Array.from({ length: 5 }, (_2, i) => `skr-${i}`).map((k2) => /* @__PURE__ */ jsxRuntimeExports.jsx(RowSkeleton$1, {}, k2)) : filtered.map((iv, i) => {
               const formattedDate = new Date(
                 iv.date
               ).toLocaleDateString("en-IN", {
@@ -45734,14 +54506,18 @@ function JobApplyPage() {
                                 {
                                   id: "ja-phone",
                                   type: "tel",
-                                  placeholder: "+91 98765 43210",
+                                  placeholder: "10-digit mobile number",
+                                  maxLength: 10,
                                   "data-ocid": "job-apply-input-phone",
+                                  onKeyPress: (e) => {
+                                    if (!/\d/.test(e.key)) e.preventDefault();
+                                  },
                                   className: errors.phone ? "border-destructive focus-visible:ring-destructive/30" : "",
                                   ...register("phone", {
                                     required: "Phone number is required",
                                     pattern: {
-                                      value: /^[+]?[\d\s\-().]{7,15}$/,
-                                      message: "Enter a valid phone number"
+                                      value: /^\d{10}$/,
+                                      message: "Phone number must be exactly 10 digits"
                                     }
                                   })
                                 }
@@ -45775,7 +54551,7 @@ function JobApplyPage() {
                                       children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Select your qualification" })
                                     }
                                   ),
-                                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: QUALIFICATIONS.map((q) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: q.value, children: q.label }, q.value)) })
+                                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: QUALIFICATIONS.map((q2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: q2.value, children: q2.label }, q2.value)) })
                                 ]
                               }
                             ),
@@ -45879,6 +54655,345 @@ function JobApplyPage() {
     )
   ] });
 }
+const features = [
+  {
+    icon: Briefcase,
+    title: "Browse Job Openings",
+    desc: "Full-time positions from top verified companies across India"
+  },
+  {
+    icon: GraduationCap,
+    title: "Find Internship Opportunities",
+    desc: "Paid and skill-building internships with stipends up to ₹25,000/month"
+  },
+  {
+    icon: MapPin,
+    title: "Walk-in Interviews — No Online Rounds",
+    desc: "Meet employers face-to-face. No video calls, no written tests, no ghosting"
+  },
+  {
+    icon: Clock,
+    title: "Flexible Shift-Based Job Listings",
+    desc: "Morning, afternoon, and night shifts for candidates who prefer specific hours"
+  },
+  {
+    icon: Users,
+    title: "Built for Fresh Graduates",
+    desc: "Designed specifically for degree-completed students and first-time job seekers"
+  },
+  {
+    icon: Building2,
+    title: "Trusted by Top Companies",
+    desc: "Listings from Infosys, TCS, Wipro, Amazon, Flipkart, and 100+ more"
+  }
+];
+function LoginPage() {
+  const { login, isLoggingIn, isLoginError, loginError } = useAuthContext();
+  const [errorMsg, setErrorMsg] = reactExports.useState(null);
+  reactExports.useEffect(() => {
+    var _a3, _b3;
+    if (isLoginError && loginError) {
+      setErrorMsg(
+        ((_a3 = loginError.message) == null ? void 0 : _a3.includes("popup")) ? "Login popup was blocked. Please allow popups and try again." : ((_b3 = loginError.message) == null ? void 0 : _b3.includes("cancel")) ? "Login was cancelled. Please try again." : "Login failed. Please try again."
+      );
+    } else {
+      setErrorMsg(null);
+    }
+  }, [isLoginError, loginError]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[calc(100vh-8rem)] flex items-start justify-center bg-background px-4 py-12", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-full max-w-5xl", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", "data-ocid": "login.intro.section", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-10 h-10 rounded-lg bg-primary flex items-center justify-center shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary-foreground font-display font-bold text-lg leading-none", children: "C" }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "font-display font-bold text-3xl text-foreground tracking-tight", children: "CONNECT" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-display font-semibold text-primary text-xl leading-snug", children: "Your gateway to real opportunities" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-base leading-relaxed", children: "CONNECT helps degree-completed students, fresh graduates, and job seekers find their next opportunity — exclusively through walk-in interviews, so you meet employers face to face. No online screening, no ghosting, no delays." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-primary/8 border border-primary/20 rounded-lg px-4 py-3 flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(MapPin, { className: "w-4 h-4 text-primary shrink-0" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-display font-semibold text-primary", children: "Walk-in Only — No Online Interviews, Ever" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "space-y-3", children: features.map(({ icon: Icon2, title, desc }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "flex items-start gap-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "mt-0.5 w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, { className: "w-4 h-4 text-primary" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-display font-semibold text-foreground text-sm", children: title }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-xs leading-relaxed", children: desc })
+        ] })
+      ] }, title)) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "lg:hidden border-t border-border pt-2" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center mb-8", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "font-display font-bold text-2xl text-foreground mb-1", children: "Welcome back" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-sm", children: "Sign in to your CONNECT account" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: "bg-card border border-border rounded-lg p-8 shadow-elevated card-hover",
+          "data-ocid": "login.dialog",
+          children: [
+            errorMsg && /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                className: "mb-5 px-4 py-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm",
+                "data-ocid": "login.error_state",
+                children: errorMsg
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-5", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center space-y-3", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Shield, { className: "w-8 h-8 text-primary" }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-sm", children: "Secure login powered by Internet Identity" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Button,
+                {
+                  type: "button",
+                  disabled: isLoggingIn,
+                  onClick: () => login(),
+                  className: "w-full btn-primary rounded-md h-11",
+                  "data-ocid": "login.submit_button",
+                  children: isLoggingIn ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-2", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-4 h-4 border-2 border-primary-foreground/40 border-t-primary-foreground rounded-full animate-spin" }),
+                    "Connecting…"
+                  ] }) : "Sign In with Internet Identity"
+                }
+              )
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-center text-sm text-muted-foreground mt-6", children: [
+        "Don't have an account?",
+        " ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Link,
+          {
+            to: "/signup",
+            className: "text-primary font-semibold hover:underline transition-colors duration-200",
+            "data-ocid": "login.signup_link",
+            children: "Create one"
+          }
+        )
+      ] })
+    ] })
+  ] }) }) });
+}
+function getActor() {
+  const noop3 = async () => new Uint8Array();
+  const noopDown = async () => ({
+    directURL: "",
+    getBytes: noop3,
+    getDirectURL: () => "",
+    withUploadProgress: () => ({
+      directURL: "",
+      getBytes: noop3,
+      getDirectURL: () => "",
+      withUploadProgress: () => null,
+      _blob: void 0,
+      onProgress: void 0
+    })
+  });
+  return createActor(
+    window.__CANISTER_ID_BACKEND__ ?? "",
+    noop3,
+    noopDown,
+    {}
+  );
+}
+function useSaveCallerUserProfile() {
+  const queryClient2 = useQueryClient();
+  return useMutation({
+    mutationFn: async (profile) => {
+      const actor = getActor();
+      const result = await actor.saveCallerUserProfile(profile);
+      if (result.__kind__ === "ok") {
+        return result.ok;
+      }
+      throw new Error(result.err);
+    },
+    onSuccess: () => {
+      queryClient2.invalidateQueries({ queryKey: ["callerUserProfile"] });
+    }
+  });
+}
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+function ProfileSetupPage() {
+  const navigate = useNavigate();
+  const saveProfile = useSaveCallerUserProfile();
+  const [fullName, setFullName] = reactExports.useState("");
+  const [email, setEmail] = reactExports.useState("");
+  const [errors, setErrors] = reactExports.useState({});
+  const [isSubmitting, setIsSubmitting] = reactExports.useState(false);
+  function validate() {
+    const errs = {};
+    if (!fullName.trim()) errs.fullName = "Full name is required.";
+    if (!email.trim()) errs.email = "Email is required.";
+    else if (!validateEmail(email))
+      errs.email = "Please enter a valid email address.";
+    return errs;
+  }
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const errs = validate();
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      return;
+    }
+    setErrors({});
+    setIsSubmitting(true);
+    try {
+      await saveProfile.mutateAsync({
+        fullName: fullName.trim(),
+        email: email.trim()
+      });
+      await navigate({ to: "/" });
+    } catch (err) {
+      setErrors({
+        form: err instanceof Error ? err.message : "Failed to create profile. Please try again."
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[calc(100vh-8rem)] flex items-center justify-center bg-background px-4 py-12", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full max-w-md", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center mb-8", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "font-display font-bold text-3xl text-foreground mb-2", children: "Complete Your Profile" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-sm", children: "Tell us a bit about yourself to get started with CONNECT" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "div",
+      {
+        className: "bg-card border border-border rounded-lg p-8 shadow-elevated card-hover",
+        "data-ocid": "profile_setup.dialog",
+        children: [
+          errors.form && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "div",
+            {
+              className: "mb-5 px-4 py-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm",
+              "data-ocid": "profile_setup.error_state",
+              children: errors.form
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { onSubmit: handleSubmit, noValidate: true, className: "space-y-5", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1.5", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Label,
+                {
+                  htmlFor: "profile-name",
+                  className: "font-display font-medium text-foreground",
+                  children: "Full Name"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(User, { className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Input,
+                  {
+                    id: "profile-name",
+                    type: "text",
+                    autoComplete: "name",
+                    placeholder: "Your full name",
+                    value: fullName,
+                    onChange: (e) => setFullName(e.target.value),
+                    onBlur: () => {
+                      if (!fullName.trim())
+                        setErrors((p2) => ({
+                          ...p2,
+                          fullName: "Full name is required."
+                        }));
+                      else setErrors((p2) => ({ ...p2, fullName: void 0 }));
+                    },
+                    className: `pl-10 rounded-md border-input focus-visible:ring-primary ${errors.fullName ? "border-destructive" : ""}`,
+                    "data-ocid": "profile_setup.full_name.input",
+                    "aria-describedby": errors.fullName ? "profile-name-error" : void 0,
+                    "aria-invalid": !!errors.fullName
+                  }
+                )
+              ] }),
+              errors.fullName && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "p",
+                {
+                  id: "profile-name-error",
+                  className: "text-destructive text-xs mt-1",
+                  "data-ocid": "profile_setup.full_name.field_error",
+                  children: errors.fullName
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1.5", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Label,
+                {
+                  htmlFor: "profile-email",
+                  className: "font-display font-medium text-foreground",
+                  children: "Email Address"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Mail, { className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Input,
+                  {
+                    id: "profile-email",
+                    type: "email",
+                    autoComplete: "email",
+                    placeholder: "you@example.com",
+                    value: email,
+                    onChange: (e) => setEmail(e.target.value),
+                    onBlur: () => {
+                      if (!email.trim())
+                        setErrors((p2) => ({
+                          ...p2,
+                          email: "Email is required."
+                        }));
+                      else if (!validateEmail(email))
+                        setErrors((p2) => ({
+                          ...p2,
+                          email: "Please enter a valid email address."
+                        }));
+                      else setErrors((p2) => ({ ...p2, email: void 0 }));
+                    },
+                    className: `pl-10 rounded-md border-input focus-visible:ring-primary ${errors.email ? "border-destructive" : ""}`,
+                    "data-ocid": "profile_setup.email.input",
+                    "aria-describedby": errors.email ? "profile-email-error" : void 0,
+                    "aria-invalid": !!errors.email
+                  }
+                )
+              ] }),
+              errors.email && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "p",
+                {
+                  id: "profile-email-error",
+                  className: "text-destructive text-xs mt-1",
+                  "data-ocid": "profile_setup.email.field_error",
+                  children: errors.email
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Button,
+              {
+                type: "submit",
+                disabled: isSubmitting,
+                className: "w-full btn-primary rounded-md h-11",
+                "data-ocid": "profile_setup.submit_button",
+                children: isSubmitting ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-4 h-4 border-2 border-primary-foreground/40 border-t-primary-foreground rounded-full animate-spin" }),
+                  "Saving…"
+                ] }) : "Continue to CONNECT"
+              }
+            )
+          ] })
+        ]
+      }
+    )
+  ] }) });
+}
 const BRANCH_OPTIONS = [
   "Computer Science",
   "Information Technology",
@@ -45908,17 +55023,51 @@ const EMPTY_FORM = {
   githubLink: "",
   linkedinLink: ""
 };
+const PHONE_REGEX = /^\d{10}$/;
+const GITHUB_REGEX = /^https?:\/\/(www\.)?github\.com\/.+/;
+const LINKEDIN_REGEX = /^https?:\/\/(www\.)?linkedin\.com\/.+/;
+function validateField(field, value) {
+  if (field === "phone") {
+    if (!PHONE_REGEX.test(value))
+      return "Phone number must be exactly 10 digits";
+  }
+  if (field === "githubLink") {
+    if (value && !GITHUB_REGEX.test(value))
+      return "Please enter a valid GitHub URL (must be from github.com)";
+  }
+  if (field === "linkedinLink") {
+    if (value && !LINKEDIN_REGEX.test(value))
+      return "Please enter a valid LinkedIn profile URL (must be from linkedin.com)";
+  }
+  return void 0;
+}
 function InternshipApplicationForm({
   internshipTitle,
   onClose
 }) {
   const [form, setForm] = reactExports.useState(EMPTY_FORM);
   const [submitted, setSubmitted] = reactExports.useState(false);
+  const [errors, setErrors] = reactExports.useState({});
   function handleChange(field, value) {
     setForm((prev) => ({ ...prev, [field]: value }));
+    if (field in errors) {
+      setErrors((prev) => ({ ...prev, [field]: void 0 }));
+    }
+  }
+  function handleBlur(field, value) {
+    const err = validateField(field, value);
+    setErrors((prev) => ({ ...prev, [field]: err }));
   }
   function handleSubmit(e) {
     e.preventDefault();
+    const newErrors = {
+      phone: validateField("phone", form.phone),
+      githubLink: validateField("githubLink", form.githubLink),
+      linkedinLink: validateField("linkedinLink", form.linkedinLink)
+    };
+    setErrors(newErrors);
+    if (newErrors.phone || newErrors.githubLink || newErrors.linkedinLink)
+      return;
     setSubmitted(true);
   }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -46038,15 +55187,21 @@ function InternshipApplicationForm({
                 Input,
                 {
                   id: "intern-phone",
-                  type: "number",
+                  type: "tel",
                   placeholder: "10-digit mobile number",
                   value: form.phone,
+                  maxLength: 10,
                   onChange: (e) => handleChange("phone", e.target.value),
+                  onBlur: (e) => handleBlur("phone", e.target.value),
+                  onKeyPress: (e) => {
+                    if (!/\d/.test(e.key)) e.preventDefault();
+                  },
                   required: true,
                   "data-ocid": "intern-input-phone",
-                  className: "bg-background border-input focus:border-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className: `bg-background border-input focus:border-primary ${errors.phone ? "border-destructive focus:border-destructive" : ""}`
                 }
-              )
+              ),
+              errors.phone && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-red-500", children: errors.phone })
             ] })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1.5", children: [
@@ -46062,7 +55217,7 @@ function InternshipApplicationForm({
               Select,
               {
                 value: form.branch,
-                onValueChange: (v) => handleChange("branch", v),
+                onValueChange: (v2) => handleChange("branch", v2),
                 required: true,
                 children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -46115,7 +55270,7 @@ function InternshipApplicationForm({
               Select,
               {
                 value: form.govtId,
-                onValueChange: (v) => handleChange("govtId", v),
+                onValueChange: (v2) => handleChange("govtId", v2),
                 required: true,
                 children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -46150,11 +55305,13 @@ function InternshipApplicationForm({
                   placeholder: "https://github.com/your-username/project",
                   value: form.githubLink,
                   onChange: (e) => handleChange("githubLink", e.target.value),
+                  onBlur: (e) => handleBlur("githubLink", e.target.value),
                   required: true,
                   "data-ocid": "intern-input-github",
-                  className: "bg-background border-input focus:border-primary"
+                  className: `bg-background border-input focus:border-primary ${errors.githubLink ? "border-destructive focus:border-destructive" : ""}`
                 }
-              )
+              ),
+              errors.githubLink && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-red-500", children: errors.githubLink })
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1.5", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -46173,11 +55330,13 @@ function InternshipApplicationForm({
                   placeholder: "https://linkedin.com/in/your-profile",
                   value: form.linkedinLink,
                   onChange: (e) => handleChange("linkedinLink", e.target.value),
+                  onBlur: (e) => handleBlur("linkedinLink", e.target.value),
                   required: true,
                   "data-ocid": "intern-input-linkedin",
-                  className: "bg-background border-input focus:border-primary"
+                  className: `bg-background border-input focus:border-primary ${errors.linkedinLink ? "border-destructive focus:border-destructive" : ""}`
                 }
-              )
+              ),
+              errors.linkedinLink && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-red-500", children: errors.linkedinLink })
             ] })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 pt-2 border-t border-border", children: [
@@ -46306,6 +55465,235 @@ const HOW_IT_WORKS = [
     description: "Show up at the scheduled venue, meet employers directly, and take the first step toward your new career."
   }
 ];
+const PAID_INTERNSHIPS = [
+  {
+    id: 1,
+    company: "Google India",
+    role: "Software Engineering Intern",
+    stipend: "₹25,000/month",
+    isPaid: true,
+    duration: "3 months",
+    location: "Bangalore",
+    description: "Google is a global technology leader focused on improving the ways people connect with information. Interns work on real product features alongside senior engineers, gaining hands-on experience with cutting-edge technology."
+  },
+  {
+    id: 2,
+    company: "Microsoft India",
+    role: "Product Development Intern",
+    stipend: "₹22,000/month",
+    isPaid: true,
+    duration: "6 months",
+    location: "Hyderabad",
+    description: "Microsoft is a leading global technology company enabling digital transformation for the era of an intelligent cloud. Interns contribute to Azure, Microsoft 365, and other enterprise products with mentorship from industry experts."
+  },
+  {
+    id: 3,
+    company: "Amazon India",
+    role: "Software Development Intern",
+    stipend: "₹20,000/month",
+    isPaid: true,
+    duration: "3 months",
+    location: "Bangalore / Hyderabad",
+    description: "Amazon is the world's largest e-commerce and cloud computing company. Interns work on AWS cloud projects and consumer technology, receiving world-class mentorship and the possibility of a full-time return offer."
+  },
+  {
+    id: 4,
+    company: "Razorpay",
+    role: "Backend Engineering Intern",
+    stipend: "₹20,000/month",
+    isPaid: true,
+    duration: "6 months",
+    location: "Bangalore",
+    description: "Razorpay is India's leading full-stack financial solutions company, trusted by over 8 million businesses. Interns build scalable payment infrastructure and financial APIs in a high-growth fintech environment."
+  },
+  {
+    id: 5,
+    company: "PhonePe",
+    role: "Data Analyst Intern",
+    stipend: "₹18,000/month",
+    isPaid: true,
+    duration: "6 months",
+    location: "Bangalore",
+    description: "PhonePe is India's leading digital payments platform with over 500 million registered users. Interns work with large-scale transaction datasets, building dashboards and driving product analytics insights."
+  },
+  {
+    id: 6,
+    company: "Flipkart",
+    role: "Product Management Intern",
+    stipend: "₹18,000/month",
+    isPaid: true,
+    duration: "3 months",
+    location: "Bangalore",
+    description: "Flipkart is India's leading e-commerce marketplace with over 350 million registered users. Interns collaborate with product, design, and engineering teams to shape the future of online commerce in India."
+  },
+  {
+    id: 7,
+    company: "Swiggy",
+    role: "Operations & Logistics Intern",
+    stipend: "₹15,000/month",
+    isPaid: true,
+    duration: "3 months",
+    location: "Bangalore / Mumbai",
+    description: "Swiggy is India's leading on-demand delivery platform, delivering food and groceries to millions of customers daily. Interns gain hands-on exposure to hyperlocal logistics, supply chain, and growth operations."
+  },
+  {
+    id: 8,
+    company: "Zomato",
+    role: "Marketing & Growth Intern",
+    stipend: "₹15,000/month",
+    isPaid: true,
+    duration: "3 months",
+    location: "Gurugram",
+    description: "Zomato is India's most popular food delivery and restaurant discovery platform with a presence in 1,000+ cities. Interns work on user acquisition, content strategy, and brand marketing campaigns."
+  }
+];
+const FREE_INTERNSHIPS = [
+  {
+    id: 9,
+    company: "Infosys",
+    role: "Technology Intern",
+    stipend: "Unpaid",
+    isPaid: false,
+    duration: "3 months",
+    location: "Bangalore / Pune",
+    description: "Infosys is a global leader in technology services and consulting with over 300,000 employees worldwide. Interns get structured training, mentorship, and a certificate of completion from one of India's most respected IT brands."
+  },
+  {
+    id: 10,
+    company: "Wipro",
+    role: "IT & Business Intern",
+    stipend: "Unpaid",
+    isPaid: false,
+    duration: "3 months",
+    location: "Hyderabad / Chennai",
+    description: "Wipro Limited is a leading global IT, consulting and business process services company. The internship programme focuses on skill development in software engineering, quality assurance, and business consulting."
+  },
+  {
+    id: 11,
+    company: "TCS (Tata Consultancy Services)",
+    role: "Digital Technology Intern",
+    stipend: "Unpaid",
+    isPaid: false,
+    duration: "6 months",
+    location: "Mumbai / Chennai / Pune",
+    description: "TCS is one of India's largest IT companies with a 50-year legacy of innovation. Interns are exposed to enterprise digital transformation projects, gaining experience in cloud, AI, and agile methodologies."
+  },
+  {
+    id: 12,
+    company: "BYJU's",
+    role: "Content & Curriculum Intern",
+    stipend: "Unpaid",
+    isPaid: false,
+    duration: "3 months",
+    location: "Bangalore",
+    description: "BYJU's is India's largest ed-tech company and one of the world's most valuable education startups. Interns contribute to developing learning content, teaching aids, and digital curriculum materials for millions of students."
+  },
+  {
+    id: 13,
+    company: "Ola",
+    role: "Operations & Strategy Intern",
+    stipend: "Unpaid",
+    isPaid: false,
+    duration: "3 months",
+    location: "Bangalore",
+    description: "Ola is India's leading mobility platform offering ride-hailing, EVs, and financial services. Interns get exposure to urban mobility operations, driver partner management, and city-level growth strategy."
+  },
+  {
+    id: 14,
+    company: "Paytm",
+    role: "Fintech Business Intern",
+    stipend: "Unpaid",
+    isPaid: false,
+    duration: "3 months",
+    location: "Noida",
+    description: "Paytm is India's leading digital financial services platform offering payments, banking, insurance, and wealth management. Interns learn about digital payment ecosystems, merchant solutions, and financial product development."
+  },
+  {
+    id: 15,
+    company: "Myntra",
+    role: "Fashion & E-commerce Intern",
+    stipend: "Unpaid",
+    isPaid: false,
+    duration: "3 months",
+    location: "Bangalore",
+    description: "Myntra is India's leading fashion and lifestyle e-commerce platform under the Flipkart Group. Interns work across category management, visual merchandising, and customer experience teams in a fast-moving retail environment."
+  },
+  {
+    id: 16,
+    company: "Meesho",
+    role: "Social Commerce Intern",
+    stipend: "Unpaid",
+    isPaid: false,
+    duration: "3 months",
+    location: "Bangalore",
+    description: "Meesho is India's fastest-growing social commerce platform empowering millions of small businesses and entrepreneurs. Interns work on seller growth, social media strategy, and community-driven e-commerce initiatives."
+  }
+];
+function InternshipCard({
+  listing,
+  onApply
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    motion.div,
+    {
+      initial: { opacity: 0, y: 20 },
+      whileInView: { opacity: 1, y: 0 },
+      viewport: { once: true },
+      transition: { duration: 0.4 },
+      children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Card,
+        {
+          className: "border-border h-full hover:shadow-elevated transition-smooth",
+          "data-ocid": `internship-listing-${listing.id}`,
+          children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "p-5 flex flex-col h-full space-y-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start justify-between gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-w-0", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "font-display font-bold text-base text-foreground leading-tight truncate", children: listing.company }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-primary font-medium mt-0.5 truncate", children: listing.role })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Badge,
+                {
+                  variant: listing.isPaid ? "default" : "secondary",
+                  className: "shrink-0 text-xs",
+                  children: listing.isPaid ? "Paid" : "Unpaid"
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 gap-1.5 text-sm text-muted-foreground", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(DollarSign, { className: "w-3.5 h-3.5 shrink-0 text-primary" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-medium text-foreground", children: listing.stipend })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { className: "w-3.5 h-3.5 shrink-0 text-primary" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: listing.duration })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(MapPin, { className: "w-3.5 h-3.5 shrink-0 text-primary" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "truncate", children: listing.location })
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground leading-relaxed line-clamp-3 flex-1", children: listing.description }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              Button,
+              {
+                size: "sm",
+                className: "w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold gap-2 mt-auto",
+                onClick: () => onApply(`${listing.role} at ${listing.company}`),
+                "data-ocid": `internship-apply-${listing.id}`,
+                children: [
+                  "Apply Now",
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { className: "w-3.5 h-3.5" })
+                ]
+              }
+            )
+          ] })
+        }
+      )
+    }
+  );
+}
 function ServicesPage() {
   const [activeForm, setActiveForm] = reactExports.useState(null);
   function openForm(title) {
@@ -46464,6 +55852,133 @@ function ServicesPage() {
               service.title
             );
           })
+        ] })
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "section",
+      {
+        className: "bg-muted/30 py-16 lg:py-20",
+        "data-ocid": "paid-internships-section",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            motion.div,
+            {
+              initial: { opacity: 0, y: 16 },
+              whileInView: { opacity: 1, y: 0 },
+              viewport: { once: true },
+              transition: { duration: 0.4 },
+              className: "mb-10",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-sm text-primary font-medium mb-3", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-6 h-0.5 bg-primary inline-block" }),
+                  "Currently Open"
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "font-display font-bold text-3xl sm:text-4xl text-foreground", children: "Paid Internships" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground mt-2 max-w-xl", children: "Earn a monthly stipend while gaining real industry experience at India's top companies." })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(Badge, { className: "w-fit h-fit text-sm px-3 py-1.5 bg-primary text-primary-foreground shrink-0", children: [
+                    PAID_INTERNSHIPS.length,
+                    " Openings"
+                  ] })
+                ] })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5", children: PAID_INTERNSHIPS.map((listing) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            InternshipCard,
+            {
+              listing,
+              onApply: openForm
+            },
+            listing.id
+          )) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: activeForm && !SERVICES.some((s2) => s2.title === activeForm) && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.div,
+            {
+              initial: { opacity: 0, y: -8 },
+              animate: { opacity: 1, y: 0 },
+              exit: { opacity: 0, y: -8 },
+              transition: { duration: 0.35 },
+              className: "mt-8",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                InternshipApplicationForm,
+                {
+                  internshipTitle: activeForm,
+                  onClose: closeForm
+                }
+              )
+            }
+          ) })
+        ] })
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "section",
+      {
+        className: "bg-background py-16 lg:py-20",
+        "data-ocid": "free-internships-section",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            motion.div,
+            {
+              initial: { opacity: 0, y: 16 },
+              whileInView: { opacity: 1, y: 0 },
+              viewport: { once: true },
+              transition: { duration: 0.4 },
+              className: "mb-10",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-sm text-primary font-medium mb-3", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-6 h-0.5 bg-primary inline-block" }),
+                  "Skill Building"
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "font-display font-bold text-3xl sm:text-4xl text-foreground", children: "Free Internships" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground mt-2 max-w-xl", children: "Build your skills and resume at top Indian companies. Get a certificate, mentorship, and a strong career foundation." })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    Badge,
+                    {
+                      variant: "secondary",
+                      className: "w-fit h-fit text-sm px-3 py-1.5 shrink-0",
+                      children: [
+                        FREE_INTERNSHIPS.length,
+                        " Openings"
+                      ]
+                    }
+                  )
+                ] })
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5", children: FREE_INTERNSHIPS.map((listing) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            InternshipCard,
+            {
+              listing,
+              onApply: openForm
+            },
+            listing.id
+          )) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: activeForm && !SERVICES.some((s2) => s2.title === activeForm) && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.div,
+            {
+              initial: { opacity: 0, y: -8 },
+              animate: { opacity: 1, y: 0 },
+              exit: { opacity: 0, y: -8 },
+              transition: { duration: 0.35 },
+              className: "mt-8",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                InternshipApplicationForm,
+                {
+                  internshipTitle: activeForm,
+                  onClose: closeForm
+                }
+              )
+            }
+          ) })
         ] })
       }
     ),
@@ -46787,9 +56302,9 @@ function ShiftsPage() {
   const { data: jobs, isLoading } = useShiftJobs();
   const [activeFilter, setActiveFilter] = reactExports.useState("All");
   const filtered = reactExports.useMemo(() => {
-    const source = (jobs ?? []).filter((j) => j.isActive);
+    const source = (jobs ?? []).filter((j2) => j2.isActive);
     if (activeFilter === "All") return source;
-    return source.filter((j) => j.shiftType === activeFilter);
+    return source.filter((j2) => j2.shiftType === activeFilter);
   }, [jobs, activeFilter]);
   const hasResults = filtered.length > 0;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
@@ -46894,7 +56409,7 @@ function ShiftsPage() {
               ] }) })
             ] })
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden", children: isLoading ? Array.from({ length: 4 }, (_, i) => `sk-${i}`).map((k) => /* @__PURE__ */ jsxRuntimeExports.jsx(CardSkeleton, {}, k)) : filtered.map((job, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(ShiftJobCard, { job, index: i }, job.id.toString())) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden", children: isLoading ? Array.from({ length: 4 }, (_2, i) => `sk-${i}`).map((k2) => /* @__PURE__ */ jsxRuntimeExports.jsx(CardSkeleton, {}, k2)) : filtered.map((job, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(ShiftJobCard, { job, index: i }, job.id.toString())) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "hidden lg:block rounded-xl border border-border overflow-hidden shadow-subtle", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Table, { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(TableHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(TableRow, { className: "bg-muted/40 hover:bg-muted/40", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(TableHead, { className: "font-display font-semibold text-foreground w-52", children: "Job Role" }),
@@ -46905,7 +56420,7 @@ function ShiftsPage() {
               /* @__PURE__ */ jsxRuntimeExports.jsx(TableHead, { className: "font-display font-semibold text-foreground", children: "Location" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(TableHead, { className: "font-display font-semibold text-foreground w-32 text-right", children: "Action" })
             ] }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(TableBody, { children: isLoading ? Array.from({ length: 5 }, (_, i) => `skr-${i}`).map((k) => /* @__PURE__ */ jsxRuntimeExports.jsx(RowSkeleton, {}, k)) : filtered.map((job, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            /* @__PURE__ */ jsxRuntimeExports.jsx(TableBody, { children: isLoading ? Array.from({ length: 5 }, (_2, i) => `skr-${i}`).map((k2) => /* @__PURE__ */ jsxRuntimeExports.jsx(RowSkeleton, {}, k2)) : filtered.map((job, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
               motion.tr,
               {
                 initial: { opacity: 0 },
@@ -47088,11 +56603,87 @@ function ShiftsPage() {
     ] }) })
   ] });
 }
+function SignUpPage() {
+  const { register, isLoggingIn, isLoginError, loginError } = useAuthContext();
+  const [errorMsg, setErrorMsg] = reactExports.useState(null);
+  reactExports.useEffect(() => {
+    var _a3, _b3;
+    if (isLoginError && loginError) {
+      setErrorMsg(
+        ((_a3 = loginError.message) == null ? void 0 : _a3.includes("popup")) ? "Login popup was blocked. Please allow popups and try again." : ((_b3 = loginError.message) == null ? void 0 : _b3.includes("cancel")) ? "Login was cancelled. Please try again." : "Registration failed. Please try again."
+      );
+    } else {
+      setErrorMsg(null);
+    }
+  }, [isLoginError, loginError]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[calc(100vh-8rem)] flex items-center justify-center bg-background px-4 py-12", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full max-w-md", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center mb-8", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "font-display font-bold text-3xl text-foreground mb-2", children: "Create your account" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-sm", children: "Join CONNECT and discover your next opportunity" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "div",
+      {
+        className: "bg-card border border-border rounded-lg p-8 shadow-elevated card-hover",
+        "data-ocid": "signup.dialog",
+        children: [
+          errorMsg && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "div",
+            {
+              className: "mb-5 px-4 py-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm",
+              "data-ocid": "signup.error_state",
+              children: errorMsg
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-5", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center space-y-3", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsx(UserPlus, { className: "w-8 h-8 text-primary" }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-sm", children: "Secure registration powered by Internet Identity" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "After authentication, you will be able to set up your profile" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Button,
+              {
+                type: "button",
+                disabled: isLoggingIn,
+                onClick: () => register(),
+                className: "w-full btn-primary rounded-md h-11",
+                "data-ocid": "signup.submit_button",
+                children: isLoggingIn ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-4 h-4 border-2 border-primary-foreground/40 border-t-primary-foreground rounded-full animate-spin" }),
+                  "Connecting…"
+                ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Shield, { className: "w-4 h-4" }),
+                  "Sign Up with Internet Identity"
+                ] })
+              }
+            )
+          ] })
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-center text-sm text-muted-foreground mt-6", children: [
+      "Already have an account?",
+      " ",
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Link,
+        {
+          to: "/login",
+          className: "text-primary font-semibold hover:underline transition-colors duration-200",
+          "data-ocid": "signup.login_link",
+          children: "Sign in"
+        }
+      )
+    ] })
+  ] }) });
+}
 const rootRoute = createRootRoute({ component: Layout });
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  component: HomePage
+  component: HomePage,
+  beforeLoad: () => {
+  }
 });
 const aboutRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -47129,6 +56720,21 @@ const jobApplyRoute = createRoute({
   path: "/job-apply",
   component: JobApplyPage
 });
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/login",
+  component: LoginPage
+});
+const signupRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/signup",
+  component: SignUpPage
+});
+const profileSetupRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/profile-setup",
+  component: ProfileSetupPage
+});
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -47137,11 +56743,14 @@ const routeTree = rootRoute.addChildren([
   shiftsRoute,
   applyRoute,
   contactRoute,
-  jobApplyRoute
+  jobApplyRoute,
+  loginRoute,
+  signupRoute,
+  profileSetupRoute
 ]);
 const router = createRouter({ routeTree });
 function App() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(RouterProvider, { router });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(AuthProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(RouterProvider, { router }) });
 }
 BigInt.prototype.toJSON = function() {
   return this.toString();

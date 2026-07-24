@@ -8,6 +8,28 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
+export const Error = IDL.Variant({
+  'FrontendOriginsNotConfigured' : IDL.Null,
+  'MixedSsoSources' : IDL.Record({
+    'otherKeys' : IDL.Vec(IDL.Text),
+    'ssoKeys' : IDL.Vec(IDL.Text),
+  }),
+  'Stale' : IDL.Record({ 'ageNs' : IDL.Nat }),
+  'MalformedCandid' : IDL.Null,
+  'AmbiguousAttribute' : IDL.Record({
+    'field' : IDL.Text,
+    'sources' : IDL.Vec(IDL.Text),
+  }),
+  'NoAttributes' : IDL.Null,
+  'UnknownNonce' : IDL.Null,
+  'UntrustedSsoSource' : IDL.Record({ 'domain' : IDL.Text }),
+  'MissingField' : IDL.Text,
+  'FrontendOriginMismatch' : IDL.Record({
+    'got' : IDL.Text,
+    'expected' : IDL.Vec(IDL.Text),
+  }),
+});
+export const Result = IDL.Variant({ 'ok' : IDL.Null, 'err' : Error });
 export const NewShiftJob = IDL.Record({
   'jobRole' : IDL.Text,
   'description' : IDL.Text,
@@ -29,6 +51,11 @@ export const ShiftJob = IDL.Record({
   'shiftEnd' : IDL.Text,
   'shiftType' : IDL.Text,
   'location' : IDL.Text,
+});
+export const UserRole = IDL.Variant({
+  'admin' : IDL.Null,
+  'user' : IDL.Null,
+  'guest' : IDL.Null,
 });
 export const InterviewId = IDL.Nat;
 export const Timestamp = IDL.Int;
@@ -55,6 +82,17 @@ export const Application = IDL.Record({
   'skills' : IDL.Text,
   'qualification' : IDL.Text,
 });
+export const UserId = IDL.Principal;
+export const UserProfile = IDL.Record({
+  'id' : UserId,
+  'createdAt' : Timestamp,
+  'fullName' : IDL.Text,
+  'email' : IDL.Text,
+});
+export const UserProfileInput = IDL.Record({
+  'fullName' : IDL.Text,
+  'email' : IDL.Text,
+});
 export const ApplicationInput = IDL.Record({
   'interviewId' : IDL.Opt(InterviewId),
   'name' : IDL.Text,
@@ -66,11 +104,28 @@ export const ApplicationInput = IDL.Record({
 });
 
 export const idlService = IDL.Service({
+  '_initialize_access_control' : IDL.Func([], [], []),
+  '_internet_identity_sign_in_finish' : IDL.Func([], [Result], []),
+  '_internet_identity_sign_in_start' : IDL.Func([], [IDL.Vec(IDL.Nat8)], []),
   'addShiftJob' : IDL.Func([NewShiftJob], [ShiftJob], []),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'getActiveInterviews' : IDL.Func([], [IDL.Vec(Interview)], ['query']),
   'getAllApplications' : IDL.Func([], [IDL.Vec(Application)], ['query']),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getInterview' : IDL.Func([InterviewId], [IDL.Opt(Interview)], ['query']),
   'getShiftJobs' : IDL.Func([], [IDL.Vec(ShiftJob)], ['query']),
+  'getUserProfile' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(UserProfile)],
+      ['query'],
+    ),
+  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'saveCallerUserProfile' : IDL.Func(
+      [UserProfileInput],
+      [IDL.Variant({ 'ok' : UserProfile, 'err' : IDL.Text })],
+      [],
+    ),
   'submitApplication' : IDL.Func(
       [ApplicationInput],
       [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
@@ -81,6 +136,28 @@ export const idlService = IDL.Service({
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
+  const Error = IDL.Variant({
+    'FrontendOriginsNotConfigured' : IDL.Null,
+    'MixedSsoSources' : IDL.Record({
+      'otherKeys' : IDL.Vec(IDL.Text),
+      'ssoKeys' : IDL.Vec(IDL.Text),
+    }),
+    'Stale' : IDL.Record({ 'ageNs' : IDL.Nat }),
+    'MalformedCandid' : IDL.Null,
+    'AmbiguousAttribute' : IDL.Record({
+      'field' : IDL.Text,
+      'sources' : IDL.Vec(IDL.Text),
+    }),
+    'NoAttributes' : IDL.Null,
+    'UnknownNonce' : IDL.Null,
+    'UntrustedSsoSource' : IDL.Record({ 'domain' : IDL.Text }),
+    'MissingField' : IDL.Text,
+    'FrontendOriginMismatch' : IDL.Record({
+      'got' : IDL.Text,
+      'expected' : IDL.Vec(IDL.Text),
+    }),
+  });
+  const Result = IDL.Variant({ 'ok' : IDL.Null, 'err' : Error });
   const NewShiftJob = IDL.Record({
     'jobRole' : IDL.Text,
     'description' : IDL.Text,
@@ -102,6 +179,11 @@ export const idlFactory = ({ IDL }) => {
     'shiftEnd' : IDL.Text,
     'shiftType' : IDL.Text,
     'location' : IDL.Text,
+  });
+  const UserRole = IDL.Variant({
+    'admin' : IDL.Null,
+    'user' : IDL.Null,
+    'guest' : IDL.Null,
   });
   const InterviewId = IDL.Nat;
   const Timestamp = IDL.Int;
@@ -128,6 +210,17 @@ export const idlFactory = ({ IDL }) => {
     'skills' : IDL.Text,
     'qualification' : IDL.Text,
   });
+  const UserId = IDL.Principal;
+  const UserProfile = IDL.Record({
+    'id' : UserId,
+    'createdAt' : Timestamp,
+    'fullName' : IDL.Text,
+    'email' : IDL.Text,
+  });
+  const UserProfileInput = IDL.Record({
+    'fullName' : IDL.Text,
+    'email' : IDL.Text,
+  });
   const ApplicationInput = IDL.Record({
     'interviewId' : IDL.Opt(InterviewId),
     'name' : IDL.Text,
@@ -139,11 +232,28 @@ export const idlFactory = ({ IDL }) => {
   });
   
   return IDL.Service({
+    '_initialize_access_control' : IDL.Func([], [], []),
+    '_internet_identity_sign_in_finish' : IDL.Func([], [Result], []),
+    '_internet_identity_sign_in_start' : IDL.Func([], [IDL.Vec(IDL.Nat8)], []),
     'addShiftJob' : IDL.Func([NewShiftJob], [ShiftJob], []),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'getActiveInterviews' : IDL.Func([], [IDL.Vec(Interview)], ['query']),
     'getAllApplications' : IDL.Func([], [IDL.Vec(Application)], ['query']),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getInterview' : IDL.Func([InterviewId], [IDL.Opt(Interview)], ['query']),
     'getShiftJobs' : IDL.Func([], [IDL.Vec(ShiftJob)], ['query']),
+    'getUserProfile' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(UserProfile)],
+        ['query'],
+      ),
+    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'saveCallerUserProfile' : IDL.Func(
+        [UserProfileInput],
+        [IDL.Variant({ 'ok' : UserProfile, 'err' : IDL.Text })],
+        [],
+      ),
     'submitApplication' : IDL.Func(
         [ApplicationInput],
         [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],

@@ -570,8 +570,12 @@ export function JobApplyPage() {
                             <Input
                               id="ja-phone"
                               type="tel"
-                              placeholder="+91 98765 43210"
+                              placeholder="10-digit mobile number"
+                              maxLength={10}
                               data-ocid="job-apply-input-phone"
+                              onKeyPress={(e) => {
+                                if (!/\d/.test(e.key)) e.preventDefault();
+                              }}
                               className={
                                 errors.phone
                                   ? "border-destructive focus-visible:ring-destructive/30"
@@ -580,8 +584,9 @@ export function JobApplyPage() {
                               {...register("phone", {
                                 required: "Phone number is required",
                                 pattern: {
-                                  value: /^[+]?[\d\s\-().]{7,15}$/,
-                                  message: "Enter a valid phone number",
+                                  value: /^\d{10}$/,
+                                  message:
+                                    "Phone number must be exactly 10 digits",
                                 },
                               })}
                             />

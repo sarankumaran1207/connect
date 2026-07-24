@@ -3,16 +3,21 @@ import {
   createRootRoute,
   createRoute,
   createRouter,
+  redirect,
 } from "@tanstack/react-router";
 import { Layout } from "./components/Layout";
+import { AuthProvider, useAuthContext } from "./context/AuthContext";
 import { AboutPage } from "./pages/AboutPage";
 import { ApplyPage } from "./pages/ApplyPage";
 import { ContactPage } from "./pages/ContactPage";
 import { HomePage } from "./pages/HomePage";
 import { InterviewsPage } from "./pages/InterviewsPage";
 import { JobApplyPage } from "./pages/JobApplyPage";
+import { LoginPage } from "./pages/LoginPage";
+import { ProfileSetupPage } from "./pages/ProfileSetupPage";
 import { ServicesPage } from "./pages/ServicesPage";
 import { ShiftsPage } from "./pages/ShiftsPage";
+import { SignUpPage } from "./pages/SignUpPage";
 
 const rootRoute = createRootRoute({ component: Layout });
 
@@ -20,6 +25,9 @@ const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
   component: HomePage,
+  beforeLoad: () => {
+    // RouteGuard handles auth check at runtime
+  },
 });
 const aboutRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -56,6 +64,21 @@ const jobApplyRoute = createRoute({
   path: "/job-apply",
   component: JobApplyPage,
 });
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/login",
+  component: LoginPage,
+});
+const signupRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/signup",
+  component: SignUpPage,
+});
+const profileSetupRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/profile-setup",
+  component: ProfileSetupPage,
+});
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
@@ -66,6 +89,9 @@ const routeTree = rootRoute.addChildren([
   applyRoute,
   contactRoute,
   jobApplyRoute,
+  loginRoute,
+  signupRoute,
+  profileSetupRoute,
 ]);
 
 const router = createRouter({ routeTree });
@@ -77,5 +103,9 @@ declare module "@tanstack/react-router" {
 }
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
